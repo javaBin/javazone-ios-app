@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Session" representedClassName=".Session" syncable="YES">
+        <attribute name="abstract" optional="YES" attributeType="String"/>
+        <attribute name="audience" optional="YES" attributeType="String"/>
+        <attribute name="endUtc" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="favourite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="format" optional="YES" attributeType="String"/>
+        <attribute name="length" optional="YES" attributeType="String"/>
+        <attribute name="room" optional="YES" attributeType="String"/>
+        <attribute name="sessionId" attributeType="String"/>
+        <attribute name="startUtc" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="speaker" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Speaker" inverseName="session" inverseEntity="Speaker"/>
+    </entity>
+    <entity name="Speaker" representedClassName=".Speaker" syncable="YES">
+        <attribute name="bio" optional="YES" attributeType="String"/>
+        <attribute name="image" optional="YES" attributeType="URI"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="twitter" optional="YES" attributeType="String"/>
+        <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="speaker" inverseEntity="Session"/>
+    </entity>
+    <elements>
+        <element name="Session" positionX="-63" positionY="-18" width="128" height="208"/>
+        <element name="Speaker" positionX="-54" positionY="-9" width="128" height="118"/>
+    </elements>
 </model>

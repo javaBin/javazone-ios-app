@@ -19,6 +19,8 @@
 		83C8D17723F53646008322DA /* RemoteSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17423F53646008322DA /* RemoteSession.swift */; };
 		83C8D17923F53646008322DA /* RemoteSpeaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17623F53646008322DA /* RemoteSpeaker.swift */; };
 		83C8D17B23F5367E008322DA /* RemoteSessionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17A23F5367E008322DA /* RemoteSessionList.swift */; };
+		83C8D17E23F54636008322DA /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17D23F54636008322DA /* Session.swift */; };
+		83C8D18023F5463F008322DA /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17F23F5463F008322DA /* Speaker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		83C8D17423F53646008322DA /* RemoteSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSession.swift; sourceTree = "<group>"; };
 		83C8D17623F53646008322DA /* RemoteSpeaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSpeaker.swift; sourceTree = "<group>"; };
 		83C8D17A23F5367E008322DA /* RemoteSessionList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSessionList.swift; sourceTree = "<group>"; };
+		83C8D17D23F54636008322DA /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		83C8D17F23F5463F008322DA /* Speaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,7 @@
 		8350E64223F5222B0085C1F3 /* JavaZone */ = {
 			isa = PBXGroup;
 			children = (
+				83C8D17C23F54619008322DA /* Sessions */,
 				831B781F23F5269800A45C70 /* Remote */,
 				8350E64323F5222B0085C1F3 /* AppDelegate.swift */,
 				8350E64523F5222B0085C1F3 /* SceneDelegate.swift */,
@@ -120,6 +125,15 @@
 				8350E64F23F5222D0085C1F3 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		83C8D17C23F54619008322DA /* Sessions */ = {
+			isa = PBXGroup;
+			children = (
+				83C8D17D23F54636008322DA /* Session.swift */,
+				83C8D17F23F5463F008322DA /* Speaker.swift */,
+			);
+			path = Sessions;
 			sourceTree = "<group>";
 		};
 		8CAB5F97111D377D74332B16 /* Frameworks */ = {
@@ -252,7 +266,9 @@
 				8350E64423F5222B0085C1F3 /* AppDelegate.swift in Sources */,
 				8350E64B23F5222B0085C1F3 /* ContentView.swift in Sources */,
 				83C8D17B23F5367E008322DA /* RemoteSessionList.swift in Sources */,
+				83C8D18023F5463F008322DA /* Speaker.swift in Sources */,
 				8350E64623F5222B0085C1F3 /* SceneDelegate.swift in Sources */,
+				83C8D17E23F54636008322DA /* Session.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
