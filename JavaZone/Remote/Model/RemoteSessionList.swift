@@ -1,7 +1,7 @@
 import Foundation
 
-struct SessionList: Decodable {
-    let sessions: [Session]
+struct RemoteSessionList: Decodable {
+    let sessions: [RemoteSession]
     
     enum CodingKeys: String, CodingKey {
       case sessions

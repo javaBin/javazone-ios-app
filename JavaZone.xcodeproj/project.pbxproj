@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		300C446B54C45415A50E6255 /* Pods_JavaZone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AFEAF756DDB4BAC91A7D6E /* Pods_JavaZone.framework */; };
 		831B782123F526BF00A45C70 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B782023F526BF00A45C70 /* SessionService.swift */; };
-		831B782423F528CC00A45C70 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B782323F528CC00A45C70 /* Session.swift */; };
-		831B782623F5296E00A45C70 /* SessionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B782523F5296E00A45C70 /* SessionList.swift */; };
 		8350E64423F5222B0085C1F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8350E64323F5222B0085C1F3 /* AppDelegate.swift */; };
 		8350E64623F5222B0085C1F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8350E64523F5222B0085C1F3 /* SceneDelegate.swift */; };
 		8350E64923F5222B0085C1F3 /* JavaZone.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8350E64723F5222B0085C1F3 /* JavaZone.xcdatamodeld */; };
@@ -18,6 +16,9 @@
 		8350E64D23F5222D0085C1F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8350E64C23F5222D0085C1F3 /* Assets.xcassets */; };
 		8350E65023F5222D0085C1F3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8350E64F23F5222D0085C1F3 /* Preview Assets.xcassets */; };
 		8350E65323F5222D0085C1F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8350E65123F5222D0085C1F3 /* LaunchScreen.storyboard */; };
+		83C8D17723F53646008322DA /* RemoteSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17423F53646008322DA /* RemoteSession.swift */; };
+		83C8D17923F53646008322DA /* RemoteSpeaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17623F53646008322DA /* RemoteSpeaker.swift */; };
+		83C8D17B23F5367E008322DA /* RemoteSessionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17A23F5367E008322DA /* RemoteSessionList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,8 +26,6 @@
 		30AFEAF756DDB4BAC91A7D6E /* Pods_JavaZone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JavaZone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5237C9E9139F8C2BBA94A592 /* Pods-JavaZone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JavaZone.debug.xcconfig"; path = "Target Support Files/Pods-JavaZone/Pods-JavaZone.debug.xcconfig"; sourceTree = "<group>"; };
 		831B782023F526BF00A45C70 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
-		831B782323F528CC00A45C70 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
-		831B782523F5296E00A45C70 /* SessionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionList.swift; sourceTree = "<group>"; };
 		8350E64023F5222B0085C1F3 /* JavaZone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JavaZone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8350E64323F5222B0085C1F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8350E64523F5222B0085C1F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +35,9 @@
 		8350E64F23F5222D0085C1F3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8350E65223F5222D0085C1F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8350E65423F5222D0085C1F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83C8D17423F53646008322DA /* RemoteSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSession.swift; sourceTree = "<group>"; };
+		83C8D17623F53646008322DA /* RemoteSpeaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSpeaker.swift; sourceTree = "<group>"; };
+		83C8D17A23F5367E008322DA /* RemoteSessionList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSessionList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 		831B781F23F5269800A45C70 /* Remote */ = {
 			isa = PBXGroup;
 			children = (
+				831B782223F528BB00A45C70 /* Model */,
 				831B782023F526BF00A45C70 /* SessionService.swift */,
 			);
 			path = Remote;
@@ -70,8 +73,9 @@
 		831B782223F528BB00A45C70 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				831B782323F528CC00A45C70 /* Session.swift */,
-				831B782523F5296E00A45C70 /* SessionList.swift */,
+				83C8D17A23F5367E008322DA /* RemoteSessionList.swift */,
+				83C8D17423F53646008322DA /* RemoteSession.swift */,
+				83C8D17623F53646008322DA /* RemoteSpeaker.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -97,7 +101,6 @@
 		8350E64223F5222B0085C1F3 /* JavaZone */ = {
 			isa = PBXGroup;
 			children = (
-				831B782223F528BB00A45C70 /* Model */,
 				831B781F23F5269800A45C70 /* Remote */,
 				8350E64323F5222B0085C1F3 /* AppDelegate.swift */,
 				8350E64523F5222B0085C1F3 /* SceneDelegate.swift */,
@@ -242,12 +245,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83C8D17723F53646008322DA /* RemoteSession.swift in Sources */,
 				8350E64923F5222B0085C1F3 /* JavaZone.xcdatamodeld in Sources */,
 				831B782123F526BF00A45C70 /* SessionService.swift in Sources */,
-				831B782423F528CC00A45C70 /* Session.swift in Sources */,
+				83C8D17923F53646008322DA /* RemoteSpeaker.swift in Sources */,
 				8350E64423F5222B0085C1F3 /* AppDelegate.swift in Sources */,
 				8350E64B23F5222B0085C1F3 /* ContentView.swift in Sources */,
-				831B782623F5296E00A45C70 /* SessionList.swift in Sources */,
+				83C8D17B23F5367E008322DA /* RemoteSessionList.swift in Sources */,
 				8350E64623F5222B0085C1F3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
