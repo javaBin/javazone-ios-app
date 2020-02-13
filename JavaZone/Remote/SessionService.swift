@@ -5,9 +5,12 @@ class SessionService {
     func getAll() {
         let request = AF.request("https://sleepingpill.javazone.no/public/allSessions/javazone_2019")
         
-        request.responseJSON { (data) in
-          print(data)
+        request.responseDecodable(of: SessionList.self) { (response) in
+            guard let sessions = response.value else { return }
+            
+            sessions.sessions.forEach {
+                print("\($0.title!)")
+            }
         }
-        
     }
 }
