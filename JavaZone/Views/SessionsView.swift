@@ -1,16 +1,17 @@
-//
-
 import SwiftUI
 
 struct SessionsView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(fetchRequest: Session.getAll()) var sessions:FetchedResults<Session>
-
+    
     var body: some View {
-        List {
-            ForEach(self.sessions) { session in
-                SessionItemView(session: session)
-            }
+        NavigationView {
+            List {
+                ForEach(self.sessions) { session in
+                    NavigationLink(destination: Text(session.title!)) {
+                        SessionItemView(session: session)
+                    }
+                }
+            }.navigationBarTitle("Sessions")
         }
     }
 }

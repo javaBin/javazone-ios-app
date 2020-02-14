@@ -1,24 +1,35 @@
-//
-
 import SwiftUI
 
 struct SessionItemView: View {
-    var session: Session
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
+    @ObservedObject var session: Session
     
     var body: some View {
         HStack {
-            VStack(alignment: .leading) {
+            VStack {
                 Text(formatDateAsTime(date: session.startUtc))
+                    .font(.caption)
                 Text(formatDateAsTime(date: session.endUtc))
+                    .font(.caption)
+                if (session.isLightning()) {
+                    Image(systemName: "bolt")
+                }
             }
             VStack(alignment: .leading) {
-                Text(session.title!)
-                Text(session.room!)
+                Text(session.title!).font(.body)
+                Text(session.room!).font(.caption)
             }
             Spacer()
-            Image(systemName: session.favourite == true ? "heart.fill" : "heart")
-            Text(">").onAppear {
-                print(self.session)
+            Image(systemName: session.favourite == true ? "heart.fill" : "heart").resizable()
+                .frame(width: 32.0, height: 32.0).onTapGesture {
+                        self.session.favourite = !self.session.favourite
+                    
+                    do {
+                        try self.managedObjectContext.save()
+                    } catch {
+                        print("Unable to toggle fav for \(self.session.sessionId)")
+                    }
             }
         }
     }
