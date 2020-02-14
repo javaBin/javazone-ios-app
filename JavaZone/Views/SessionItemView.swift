@@ -57,11 +57,3 @@ struct SessionItemView: View {
         }
     }
 }
-
-struct SessionItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        SessionItemView(session: Session())
-    }
-}
-
-

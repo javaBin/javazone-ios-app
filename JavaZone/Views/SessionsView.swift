@@ -15,9 +15,3 @@ struct SessionsView: View {
         }
     }
 }
-
-struct SessionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SessionsView()
-    }
-}

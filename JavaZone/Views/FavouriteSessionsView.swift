@@ -19,9 +19,3 @@ struct FavouriteSessionsView: View {
         }
     }
 }
-
-struct FavouriteSessionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        FavouriteSessionsView()
-    }
-}

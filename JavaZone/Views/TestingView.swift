@@ -16,9 +16,3 @@ struct TestingView: View {
         }
     }
 }
-
-struct TestingView_Previews: PreviewProvider {
-    static var previews: some View {
-        TestingView()
-    }
-}
