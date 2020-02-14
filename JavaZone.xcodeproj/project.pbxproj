@@ -22,6 +22,9 @@
 		83C8D17E23F54636008322DA /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17D23F54636008322DA /* Session.swift */; };
 		83C8D18023F5463F008322DA /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17F23F5463F008322DA /* Speaker.swift */; };
 		83C8D18223F5AFAE008322DA /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D18123F5AFAE008322DA /* TestingView.swift */; };
+		83DBDAD923F6B70400767916 /* SessionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAD823F6B70400767916 /* SessionsView.swift */; };
+		83DBDADC23F6B79800767916 /* SessionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDADB23F6B79800767916 /* SessionItemView.swift */; };
+		83DBDADE23F6BAB300767916 /* FavouriteSessionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDADD23F6BAB300767916 /* FavouriteSessionsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +47,9 @@
 		83C8D17D23F54636008322DA /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		83C8D17F23F5463F008322DA /* Speaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
 		83C8D18123F5AFAE008322DA /* TestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingView.swift; sourceTree = "<group>"; };
+		83DBDAD823F6B70400767916 /* SessionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsView.swift; sourceTree = "<group>"; };
+		83DBDADB23F6B79800767916 /* SessionItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionItemView.swift; sourceTree = "<group>"; };
+		83DBDADD23F6BAB300767916 /* FavouriteSessionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteSessionsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,18 +104,17 @@
 		8350E64223F5222B0085C1F3 /* JavaZone */ = {
 			isa = PBXGroup;
 			children = (
+				83DBDADA23F6B74C00767916 /* Views */,
 				83C8D17C23F54619008322DA /* Sessions */,
 				831B781F23F5269800A45C70 /* Remote */,
 				8350E64323F5222B0085C1F3 /* AppDelegate.swift */,
 				8350E64523F5222B0085C1F3 /* SceneDelegate.swift */,
 				831B782023F526BF00A45C70 /* SessionService.swift */,
-				8350E64A23F5222B0085C1F3 /* ContentView.swift */,
 				8350E64C23F5222D0085C1F3 /* Assets.xcassets */,
 				8350E65123F5222D0085C1F3 /* LaunchScreen.storyboard */,
 				8350E65423F5222D0085C1F3 /* Info.plist */,
 				8350E64723F5222B0085C1F3 /* JavaZone.xcdatamodeld */,
 				8350E64E23F5222D0085C1F3 /* Preview Content */,
-				83C8D18123F5AFAE008322DA /* TestingView.swift */,
 			);
 			path = JavaZone;
 			sourceTree = "<group>";
@@ -129,6 +134,18 @@
 				83C8D17F23F5463F008322DA /* Speaker.swift */,
 			);
 			path = Sessions;
+			sourceTree = "<group>";
+		};
+		83DBDADA23F6B74C00767916 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8350E64A23F5222B0085C1F3 /* ContentView.swift */,
+				83C8D18123F5AFAE008322DA /* TestingView.swift */,
+				83DBDAD823F6B70400767916 /* SessionsView.swift */,
+				83DBDADB23F6B79800767916 /* SessionItemView.swift */,
+				83DBDADD23F6BAB300767916 /* FavouriteSessionsView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		8CAB5F97111D377D74332B16 /* Frameworks */ = {
@@ -261,7 +278,10 @@
 				83C8D17923F53646008322DA /* RemoteSpeaker.swift in Sources */,
 				8350E64423F5222B0085C1F3 /* AppDelegate.swift in Sources */,
 				8350E64B23F5222B0085C1F3 /* ContentView.swift in Sources */,
+				83DBDAD923F6B70400767916 /* SessionsView.swift in Sources */,
 				83C8D17B23F5367E008322DA /* RemoteSessionList.swift in Sources */,
+				83DBDADE23F6BAB300767916 /* FavouriteSessionsView.swift in Sources */,
+				83DBDADC23F6B79800767916 /* SessionItemView.swift in Sources */,
 				83C8D18023F5463F008322DA /* Speaker.swift in Sources */,
 				8350E64623F5222B0085C1F3 /* SceneDelegate.swift in Sources */,
 				83C8D17E23F54636008322DA /* Session.swift in Sources */,

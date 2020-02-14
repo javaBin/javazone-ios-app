@@ -11,25 +11,41 @@ public class Session:NSManagedObject, Identifiable {
     @NSManaged public var startUtc:Date?
     @NSManaged public var endUtc:Date?
     @NSManaged public var favourite:Bool
-    @NSManaged public var sessionId:String?
+    @NSManaged public var sessionId:String
     @NSManaged public var speakers:NSSet?
 }
 
 extension Session {
-    static func getAll() -> NSFetchRequest<Session> {
+    private static let favouritePredicate = NSPredicate(format: "favourite == true")
+    private static let formatPredicate = NSPredicate(format: "format == %@ OR format == %@", "lightning-talk", "presentation")
+    public override var description: String {
+        return self.sessionId
+    }
+    
+    private static func getSessions() -> NSFetchRequest<Session> {
         let request:NSFetchRequest<Session> = Session.fetchRequest() as! NSFetchRequest<Session>
         
-        let sortDescriptor = NSSortDescriptor(key: "startUtc", ascending: true)
+        request.sortDescriptors = [
+            NSSortDescriptor(key: "startUtc", ascending: true),
+            NSSortDescriptor(key: "format", ascending: false),
+            NSSortDescriptor(key: "room", ascending: true)
+        ]
+
+        return request
+    }
+    
+    static func getAll() -> NSFetchRequest<Session> {
+        let request = getSessions()
         
-        request.sortDescriptors = [sortDescriptor]
+        request.predicate = formatPredicate
         
         return request
     }
     
     static func getFavourites() -> NSFetchRequest<Session> {
-        let request:NSFetchRequest<Session> = Session.fetchRequest() as! NSFetchRequest<Session>
+        let request = getSessions()
 
-        request.predicate = NSPredicate(format: "favourite == true")
+        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [favouritePredicate, formatPredicate])
         
         return request
     }

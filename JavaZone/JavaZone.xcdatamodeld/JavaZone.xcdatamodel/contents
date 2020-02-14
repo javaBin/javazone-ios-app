@@ -16,7 +16,7 @@
     <entity name="Speaker" representedClassName=".Speaker" syncable="YES">
         <attribute name="bio" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="URI"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
         <attribute name="twitter" optional="YES" attributeType="String"/>
         <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="speaker" inverseEntity="Session"/>
     </entity>

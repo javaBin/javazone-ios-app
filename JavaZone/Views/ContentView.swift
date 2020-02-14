@@ -5,24 +5,31 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selection){
+            SessionsView()
+                .tabItem {
+                    VStack {
+                        Image(systemName: "clock")
+                        Text("Sessions")
+                    }
+                }
+                .tag(0)
+            FavouriteSessionsView()
+                .tabItem {
+                    VStack {
+                        Image(systemName: "heart.fill")
+                        Text("My Schedule")
+                    }
+                }
+                .tag(1)
             TestingView()
                 .font(.title)
                 .tabItem {
                     VStack {
-                        Image("first")
-                        Text("First")
+                        Image(systemName: "gear")
+                        Text("Debug")
                     }
                 }
-                .tag(0)
-            Text("Second View")
-                .font(.title)
-                .tabItem {
-                    VStack {
-                        Image("second")
-                        Text("Second")
-                    }
-                }
-                .tag(1)
+                .tag(2)
         }
     }
 }

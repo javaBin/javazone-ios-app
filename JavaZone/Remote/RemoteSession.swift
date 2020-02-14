@@ -20,8 +20,8 @@ struct RemoteSession: Decodable {
         case format
         case length
         case room
-        case startUtc
-        case endUtc
+        case startUtc = "startTimeZulu"
+        case endUtc = "endTimeZulu"
         case speakers
     }
 }

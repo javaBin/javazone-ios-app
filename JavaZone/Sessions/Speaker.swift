@@ -10,6 +10,10 @@ public class Speaker:NSManagedObject, Identifiable {
 }
 
 extension Speaker {
+    public override var description: String {
+        return self.name
+    }
+    
     static func getAll() -> NSFetchRequest<Speaker> {
         let request:NSFetchRequest<Speaker> = Speaker.fetchRequest() as! NSFetchRequest<Speaker>
         

@@ -9,12 +9,41 @@ enum SessionError : Error {
 }
 
 class SessionService {
+    private static func getContext() -> NSManagedObjectContext {
+        return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    }
+    
+    private static func save(context: NSManagedObjectContext) {
+        do {
+            try context.save()
+        } catch {
+            print("Could not save: \(error).")
+        }
+    }
+    
+    static func clear() {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+        do {
+            try context.execute(Session.clear())
+        } catch {
+            print("Could not clear: \(error).")
+            
+            return
+        }
+        
+        save(context: context)
+    }
+    
     static func refresh() {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
         let request = AF.request("https://sleepingpill.javazone.no/public/allSessions/javazone_2019")
         
-        request.responseDecodable(of: RemoteSessionList.self) { (response) in
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        
+        request.responseDecodable(of: RemoteSessionList.self, decoder: decoder) { (response) in
             if let error = response.error {
                 print(error.localizedDescription)
             }
@@ -33,6 +62,8 @@ class SessionService {
                 return
             }
             
+            print("Favourites: \(favouriteSessions)")
+            
             let favourites = favouriteSessions
                 .compactMap { (session) -> String? in
                     return session.sessionId
@@ -48,6 +79,8 @@ class SessionService {
             
             fetchedSessions.forEach { (remoteSession) in
                 if let id = remoteSession.sessionId {
+                    print("Creating: \(id)")
+
                     let session = Session(context: context)
                     
                     session.sessionId = id
@@ -61,15 +94,12 @@ class SessionService {
                     session.endUtc = remoteSession.endUtc
                     
                     session.favourite = favourites.contains(id)
+                    
+                    print("Favourite flag for \(id) was \(session.favourite)")
                 }
             }
             
-            do {
-                try context.save()
-            } catch {
-                print("Could not save: \(error).")
-                
-            }
+            save(context: context)
         }
     }
 }

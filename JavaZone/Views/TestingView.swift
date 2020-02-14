@@ -1,11 +1,6 @@
 import SwiftUI
 
 struct TestingView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(fetchRequest: Session.getAll()) var sessions:FetchedResults<Session>
-
-    @State private var count = 0
-
     var body: some View {
         VStack {
             Button(action: {
@@ -13,10 +8,10 @@ struct TestingView: View {
             }){
                 Text("Refresh")
             }
-            List {
-                ForEach(self.sessions) { session in
-                    Text(session.title!)
-                }
+            Button(action: {
+                SessionService.clear()
+            }){
+                Text("Clear")
             }
         }
     }
