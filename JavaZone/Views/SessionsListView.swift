@@ -13,7 +13,7 @@ struct SessionsListView: View {
             if let start = session.startUtc?.asDate() {
                 return start == Config.dates[selectorIndex]
             } else {
-                return false
+                return false    
             }
         }
     }
