@@ -28,6 +28,7 @@
 		83DBDAE023F7282200767916 /* SessionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDADF23F7282200767916 /* SessionDetailView.swift */; };
 		83DBDAE323F729A200767916 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAE223F729A200767916 /* Date+Utils.swift */; };
 		83DBDAE823F733B800767916 /* RemoteImage in Frameworks */ = {isa = PBXBuildFile; productRef = 83DBDAE723F733B800767916 /* RemoteImage */; };
+		83DBDAEA23F741E800767916 /* FavouriteToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAE923F741E800767916 /* FavouriteToggleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		83DBDADD23F6BAB300767916 /* FavouriteSessionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteSessionsView.swift; sourceTree = "<group>"; };
 		83DBDADF23F7282200767916 /* SessionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailView.swift; sourceTree = "<group>"; };
 		83DBDAE223F729A200767916 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
+		83DBDAE923F741E800767916 /* FavouriteToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteToggleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 				83DBDADB23F6B79800767916 /* SessionItemView.swift */,
 				83DBDADD23F6BAB300767916 /* FavouriteSessionsView.swift */,
 				83DBDADF23F7282200767916 /* SessionDetailView.swift */,
+				83DBDAE923F741E800767916 /* FavouriteToggleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 			files = (
 				83C8D17723F53646008322DA /* RemoteSession.swift in Sources */,
 				83DBDAE023F7282200767916 /* SessionDetailView.swift in Sources */,
+				83DBDAEA23F741E800767916 /* FavouriteToggleView.swift in Sources */,
 				8350E64923F5222B0085C1F3 /* JavaZone.xcdatamodeld in Sources */,
 				831B782123F526BF00A45C70 /* SessionService.swift in Sources */,
 				83C8D18223F5AFAE008322DA /* TestingView.swift in Sources */,

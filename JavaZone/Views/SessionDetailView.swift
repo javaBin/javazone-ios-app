@@ -29,7 +29,10 @@ struct SessionDetailView: View {
     var body: some View {
         ScrollView {
             VStack {
-                Text(session.title ?? "").font(.headline).padding(.leading).padding(.trailing)
+                HStack{
+                    FavouriteToggleView(session: session)
+                    Text(session.title ?? "").font(.headline).padding(.leading).padding(.trailing)
+                }
                 VStack(alignment: .leading) {
                     Text("Abstract").font(.title).padding(.bottom, 15)
                     if (session.abstract != nil) {
