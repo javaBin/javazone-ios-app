@@ -8,7 +8,7 @@ struct ContentView: View {
             SessionsView()
                 .tabItem {
                     VStack {
-                        Image(systemName: "clock")
+                        Image(systemName: "calendar")
                         Text("Sessions")
                     }
                 }
@@ -21,6 +21,14 @@ struct ContentView: View {
                     }
                 }
                 .tag(1)
+            InfoView()
+                .tabItem {
+                    VStack {
+                        Image(systemName: "info.circle.fill")
+                        Text("Info")
+                    }
+                }
+                .tag(2)
             TestingView()
                 .font(.title)
                 .tabItem {
@@ -29,7 +37,7 @@ struct ContentView: View {
                         Text("Debug")
                     }
                 }
-                .tag(2)
+                .tag(3)
         }
     }
 }

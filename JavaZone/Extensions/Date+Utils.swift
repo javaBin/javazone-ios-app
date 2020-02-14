@@ -10,6 +10,11 @@ extension Date {
 
         return dateFormatter.string(from: self)
     }
+    
+    func asDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        
+        return dateFormatter.string(from: self)
+    }
 }
-
-

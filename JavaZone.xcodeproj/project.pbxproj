@@ -29,6 +29,9 @@
 		83DBDAE323F729A200767916 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAE223F729A200767916 /* Date+Utils.swift */; };
 		83DBDAE823F733B800767916 /* RemoteImage in Frameworks */ = {isa = PBXBuildFile; productRef = 83DBDAE723F733B800767916 /* RemoteImage */; };
 		83DBDAEA23F741E800767916 /* FavouriteToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAE923F741E800767916 /* FavouriteToggleView.swift */; };
+		83DBDAEC23F7429B00767916 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAEB23F7429B00767916 /* InfoView.swift */; };
+		83DBDAF023F7451E00767916 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAEF23F7451E00767916 /* Config.swift */; };
+		83DBDAF223F74A4400767916 /* SessionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAF123F74A4400767916 /* SessionsListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +60,9 @@
 		83DBDADF23F7282200767916 /* SessionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailView.swift; sourceTree = "<group>"; };
 		83DBDAE223F729A200767916 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
 		83DBDAE923F741E800767916 /* FavouriteToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteToggleView.swift; sourceTree = "<group>"; };
+		83DBDAEB23F7429B00767916 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		83DBDAEF23F7451E00767916 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		83DBDAF123F74A4400767916 /* SessionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +125,7 @@
 				8350E64323F5222B0085C1F3 /* AppDelegate.swift */,
 				8350E64523F5222B0085C1F3 /* SceneDelegate.swift */,
 				831B782023F526BF00A45C70 /* SessionService.swift */,
+				83DBDAEF23F7451E00767916 /* Config.swift */,
 				8350E64C23F5222D0085C1F3 /* Assets.xcassets */,
 				8350E65123F5222D0085C1F3 /* LaunchScreen.storyboard */,
 				8350E65423F5222D0085C1F3 /* Info.plist */,
@@ -155,6 +162,8 @@
 				83DBDADD23F6BAB300767916 /* FavouriteSessionsView.swift */,
 				83DBDADF23F7282200767916 /* SessionDetailView.swift */,
 				83DBDAE923F741E800767916 /* FavouriteToggleView.swift */,
+				83DBDAEB23F7429B00767916 /* InfoView.swift */,
+				83DBDAF123F74A4400767916 /* SessionsListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -303,6 +312,7 @@
 				831B782123F526BF00A45C70 /* SessionService.swift in Sources */,
 				83C8D18223F5AFAE008322DA /* TestingView.swift in Sources */,
 				83DBDAE323F729A200767916 /* Date+Utils.swift in Sources */,
+				83DBDAF223F74A4400767916 /* SessionsListView.swift in Sources */,
 				83C8D17923F53646008322DA /* RemoteSpeaker.swift in Sources */,
 				8350E64423F5222B0085C1F3 /* AppDelegate.swift in Sources */,
 				8350E64B23F5222B0085C1F3 /* ContentView.swift in Sources */,
@@ -312,6 +322,8 @@
 				83DBDADC23F6B79800767916 /* SessionItemView.swift in Sources */,
 				83C8D18023F5463F008322DA /* Speaker.swift in Sources */,
 				8350E64623F5222B0085C1F3 /* SceneDelegate.swift in Sources */,
+				83DBDAEC23F7429B00767916 /* InfoView.swift in Sources */,
+				83DBDAF023F7451E00767916 /* Config.swift in Sources */,
 				83C8D17E23F54636008322DA /* Session.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

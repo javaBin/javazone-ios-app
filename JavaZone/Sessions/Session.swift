@@ -64,20 +64,4 @@ extension Session {
     static func clear() -> NSBatchDeleteRequest {
         return NSBatchDeleteRequest(fetchRequest: Session.fetchRequest())
     }
-    
-    /*
-
-    @objc(addSpeakersObject:)
-    @NSManaged public func addSpeaker(_ value: Speaker)
-
-    @objc(removeSpeakersObject:)
-    @NSManaged public func removeSpeaker(_ value: Speaker)
-
-    @objc(addSpeakers:)
-    @NSManaged public func addSpeakers(_ values: NSSet)
-
-    @objc(removeSpeakers:)
-    @NSManaged public func removeSpeakers(_ values: NSSet)
- */
-
 }
