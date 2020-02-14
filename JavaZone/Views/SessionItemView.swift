@@ -5,21 +5,41 @@ struct SessionItemView: View {
     
     @ObservedObject var session: Session
     
+    var fromTime: String {
+        if let date = session.startUtc {
+            return date.asTime()
+        }
+        
+        return "??"
+    }
+
+    var toTime: String {
+        if let date = session.endUtc {
+            return date.asTime()
+        }
+        
+        return "??"
+    }
+
     var body: some View {
         HStack {
             VStack {
-                Text(formatDateAsTime(date: session.startUtc))
+                Text(fromTime)
                     .font(.caption)
-                Text(formatDateAsTime(date: session.endUtc))
+                Text(toTime)
                     .font(.caption)
                 if (session.isLightning()) {
                     Image(systemName: "bolt")
                 }
             }
             VStack(alignment: .leading) {
-                Text(session.title!).font(.body)
+                if (session.title != nil) {
+                    Text(session.title!).font(.body)
+                }
                 HStack {
-                    Text(session.room!).font(.caption)
+                    if (session.room != nil) {
+                        Text(session.room!).font(.caption)
+                    }
                     Text(session.speakerNames()).font(.caption)
                 }
             }
@@ -44,14 +64,4 @@ struct SessionItemView_Previews: PreviewProvider {
     }
 }
 
-func formatDateAsTime(date: Date?) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "HH:mm"
-    
-    if let date = date {
-        return dateFormatter.string(from: date)
-    }
-    
-    return "??"
-}
 

@@ -11,7 +11,7 @@ struct FavouriteSessionsView: View {
         NavigationView {
             List {
                 ForEach(self.sessions) { session in
-                    NavigationLink(destination: Text(session.title!)) {
+                    NavigationLink(destination: SessionDetailView(session: session)) {
                         SessionItemView(session: session)
                     }
                 }

@@ -100,13 +100,8 @@ class SessionService {
                         
                         if let name = remoteSpeaker.name {
                             speaker.name = name
-
                             speaker.bio = remoteSpeaker.bio
-                            
-                            if let url = remoteSpeaker.avatar {
-                                speaker.avatar = url
-                            }
-                            
+                            speaker.avatar = remoteSpeaker.avatar
                             speaker.twitter = remoteSpeaker.twitter
                         
                             session.speakers.insert(speaker)

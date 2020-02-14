@@ -16,7 +16,7 @@ struct RemoteSession: Decodable {
         case sessionId
         case title
         case abstract
-        case audience
+        case audience = "intendedAudience"
         case format
         case length
         case room

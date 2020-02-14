@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,6 +25,9 @@
 		83DBDAD923F6B70400767916 /* SessionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAD823F6B70400767916 /* SessionsView.swift */; };
 		83DBDADC23F6B79800767916 /* SessionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDADB23F6B79800767916 /* SessionItemView.swift */; };
 		83DBDADE23F6BAB300767916 /* FavouriteSessionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDADD23F6BAB300767916 /* FavouriteSessionsView.swift */; };
+		83DBDAE023F7282200767916 /* SessionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDADF23F7282200767916 /* SessionDetailView.swift */; };
+		83DBDAE323F729A200767916 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAE223F729A200767916 /* Date+Utils.swift */; };
+		83DBDAE823F733B800767916 /* RemoteImage in Frameworks */ = {isa = PBXBuildFile; productRef = 83DBDAE723F733B800767916 /* RemoteImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +53,8 @@
 		83DBDAD823F6B70400767916 /* SessionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsView.swift; sourceTree = "<group>"; };
 		83DBDADB23F6B79800767916 /* SessionItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionItemView.swift; sourceTree = "<group>"; };
 		83DBDADD23F6BAB300767916 /* FavouriteSessionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteSessionsView.swift; sourceTree = "<group>"; };
+		83DBDADF23F7282200767916 /* SessionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailView.swift; sourceTree = "<group>"; };
+		83DBDAE223F729A200767916 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83DBDAE823F733B800767916 /* RemoteImage in Frameworks */,
 				300C446B54C45415A50E6255 /* Pods_JavaZone.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -104,6 +110,7 @@
 		8350E64223F5222B0085C1F3 /* JavaZone */ = {
 			isa = PBXGroup;
 			children = (
+				83DBDAE123F7296A00767916 /* Extensions */,
 				83DBDADA23F6B74C00767916 /* Views */,
 				83C8D17C23F54619008322DA /* Sessions */,
 				831B781F23F5269800A45C70 /* Remote */,
@@ -144,8 +151,17 @@
 				83DBDAD823F6B70400767916 /* SessionsView.swift */,
 				83DBDADB23F6B79800767916 /* SessionItemView.swift */,
 				83DBDADD23F6BAB300767916 /* FavouriteSessionsView.swift */,
+				83DBDADF23F7282200767916 /* SessionDetailView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		83DBDAE123F7296A00767916 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				83DBDAE223F729A200767916 /* Date+Utils.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		8CAB5F97111D377D74332B16 /* Frameworks */ = {
@@ -174,6 +190,9 @@
 			dependencies = (
 			);
 			name = JavaZone;
+			packageProductDependencies = (
+				83DBDAE723F733B800767916 /* RemoteImage */,
+			);
 			productName = JavaZone;
 			productReference = 8350E64023F5222B0085C1F3 /* JavaZone.app */;
 			productType = "com.apple.product-type.application";
@@ -202,6 +221,9 @@
 				Base,
 			);
 			mainGroup = 8350E63723F5222B0085C1F3;
+			packageReferences = (
+				83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */,
+			);
 			productRefGroup = 8350E64123F5222B0085C1F3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -272,9 +294,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				83C8D17723F53646008322DA /* RemoteSession.swift in Sources */,
+				83DBDAE023F7282200767916 /* SessionDetailView.swift in Sources */,
 				8350E64923F5222B0085C1F3 /* JavaZone.xcdatamodeld in Sources */,
 				831B782123F526BF00A45C70 /* SessionService.swift in Sources */,
 				83C8D18223F5AFAE008322DA /* TestingView.swift in Sources */,
+				83DBDAE323F729A200767916 /* Date+Utils.swift in Sources */,
 				83C8D17923F53646008322DA /* RemoteSpeaker.swift in Sources */,
 				8350E64423F5222B0085C1F3 /* AppDelegate.swift in Sources */,
 				8350E64B23F5222B0085C1F3 /* ContentView.swift in Sources */,
@@ -480,6 +504,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/crelies/RemoteImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		83DBDAE723F733B800767916 /* RemoteImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */;
+			productName = RemoteImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		8350E64723F5222B0085C1F3 /* JavaZone.xcdatamodeld */ = {

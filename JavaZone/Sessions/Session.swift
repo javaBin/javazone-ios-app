@@ -19,10 +19,6 @@ extension Session {
     private static let favouritePredicate = NSPredicate(format: "favourite == true")
     private static let formatPredicate = NSPredicate(format: "format == %@ OR format == %@", "lightning-talk", "presentation")
     
-    public override var description: String {
-        return self.sessionId
-    }
-    
     public func isLightning() -> Bool {
         if let fmt = self.format {
             return fmt == "lightning-talk"

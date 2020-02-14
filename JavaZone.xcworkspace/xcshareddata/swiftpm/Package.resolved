@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "RemoteImage",
+        "repositoryURL": "https://github.com/crelies/RemoteImage.git",
+        "state": {
+          "branch": null,
+          "revision": "c6991c2257afe41d20cc351590117e604de7c0be",
+          "version": "2.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
