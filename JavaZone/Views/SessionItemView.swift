@@ -18,7 +18,10 @@ struct SessionItemView: View {
             }
             VStack(alignment: .leading) {
                 Text(session.title!).font(.body)
-                Text(session.room!).font(.caption)
+                HStack {
+                    Text(session.room!).font(.caption)
+                    Text(session.speakerNames()).font(.caption)
+                }
             }
             Spacer()
             Image(systemName: session.favourite == true ? "heart.fill" : "heart").resizable()

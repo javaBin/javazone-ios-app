@@ -12,7 +12,7 @@ public class Session:NSManagedObject, Identifiable {
     @NSManaged public var endUtc:Date?
     @NSManaged public var favourite:Bool
     @NSManaged public var sessionId:String
-    @NSManaged public var speakers:NSSet?
+    @NSManaged public var speakers:Set<Speaker>
 }
 
 extension Session {
@@ -29,6 +29,12 @@ extension Session {
         }
         
         return false
+    }
+    
+    public func speakerNames() -> String {
+        self.speakers.map { (speaker) -> String in
+            return speaker.name
+        }.joined(separator: ", ")
     }
     
     private static func getSessions() -> NSFetchRequest<Session> {
@@ -62,6 +68,8 @@ extension Session {
     static func clear() -> NSBatchDeleteRequest {
         return NSBatchDeleteRequest(fetchRequest: Session.fetchRequest())
     }
+    
+    /*
 
     @objc(addSpeakersObject:)
     @NSManaged public func addSpeaker(_ value: Speaker)
@@ -74,5 +82,6 @@ extension Session {
 
     @objc(removeSpeakers:)
     @NSManaged public func removeSpeakers(_ values: NSSet)
+ */
 
 }

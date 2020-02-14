@@ -95,6 +95,24 @@ class SessionService {
                     
                     session.favourite = favourites.contains(id)
                     
+                    remoteSession.speakers?.forEach { (remoteSpeaker) in
+                        let speaker = Speaker(context: context)
+                        
+                        if let name = remoteSpeaker.name {
+                            speaker.name = name
+
+                            speaker.bio = remoteSpeaker.bio
+                            
+                            if let url = remoteSpeaker.avatar {
+                                speaker.avatar = url
+                            }
+                            
+                            speaker.twitter = remoteSpeaker.twitter
+                        
+                            session.speakers.insert(speaker)
+                        }
+                    }
+                    
                     print("Favourite flag for \(id) was \(session.favourite)")
                 }
             }
