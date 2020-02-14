@@ -26,6 +26,18 @@ extension Session {
         return request
     }
     
+    static func getFavourites() -> NSFetchRequest<Session> {
+        let request:NSFetchRequest<Session> = Session.fetchRequest() as! NSFetchRequest<Session>
+
+        request.predicate = NSPredicate(format: "favourite == true")
+        
+        return request
+    }
+    
+    static func clear() -> NSBatchDeleteRequest {
+        return NSBatchDeleteRequest(fetchRequest: Session.fetchRequest())
+    }
+
     @objc(addSpeakersObject:)
     @NSManaged public func addSpeaker(_ value: Speaker)
 

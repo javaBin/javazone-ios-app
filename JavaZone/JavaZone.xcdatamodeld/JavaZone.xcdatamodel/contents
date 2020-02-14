@@ -11,7 +11,7 @@
         <attribute name="sessionId" attributeType="String"/>
         <attribute name="startUtc" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="speaker" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Speaker" inverseName="session" inverseEntity="Speaker"/>
+        <relationship name="speaker" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Speaker" inverseName="session" inverseEntity="Speaker"/>
     </entity>
     <entity name="Speaker" representedClassName=".Speaker" syncable="YES">
         <attribute name="bio" optional="YES" attributeType="String"/>
