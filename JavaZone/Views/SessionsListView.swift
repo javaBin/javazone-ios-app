@@ -2,6 +2,14 @@
 
 import SwiftUI
 
+class SectionTitle : Identifiable {
+    var title : String
+    
+    init(title: String) {
+        self.title = title
+    }
+}
+
 struct SessionsListView: View {
     var sessions:FetchedResults<Session>
     var title:String
@@ -18,6 +26,14 @@ struct SessionsListView: View {
         }
     }
     
+    var sessionsOnDateByHour : [String: [Session]] {
+        return Dictionary(grouping: sessionsOnDate, by: { $0.startUtc?.asHour() ?? "00:00" })
+    }
+    
+    var sections : [SectionTitle] {
+        return Array(sessionsOnDateByHour.keys).sorted(by: <).map {SectionTitle(title: $0) }
+    }
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -27,9 +43,13 @@ struct SessionsListView: View {
                     }.pickerStyle(SegmentedPickerStyle()).padding()
                 Text("Search bar")
                 List {
-                    ForEach(self.sessionsOnDate) { session in
-                        NavigationLink(destination: SessionDetailView(session: session)) {
-                            SessionItemView(session: session)
+                    ForEach(self.sections) { section in
+                        Section(header: Text(section.title)) {
+                            ForEach(self.sessionsOnDateByHour[section.title] ?? []) { session in
+                                NavigationLink(destination: SessionDetailView(session: session)) {
+                                    SessionItemView(session: session)
+                                }
+                            }
                         }
                     }
                 }
