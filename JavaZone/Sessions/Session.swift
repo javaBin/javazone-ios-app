@@ -33,6 +33,13 @@ extension Session {
         }.joined(separator: ", ")
     }
     
+    public func matches(search: String) -> Bool {
+        let titleMatch = self.title?.range(of: search, options: .caseInsensitive)
+        let authorMatch = self.speakerNames().range(of: search, options: .caseInsensitive)
+
+        return titleMatch != nil || authorMatch != nil
+    }
+    
     private static func getSessions() -> NSFetchRequest<Session> {
         let request:NSFetchRequest<Session> = Session.fetchRequest() as! NSFetchRequest<Session>
         
