@@ -27,7 +27,7 @@ struct SessionDetailView: View {
     }
     
     var body: some View {
-        ScrollView {
+        ScrollView(.vertical) {
             VStack {
                 HStack{
                     FavouriteToggleView(session: session)
@@ -68,7 +68,8 @@ struct SessionDetailView: View {
                 }.padding()
                 
                 Spacer()
-            }.navigationBarTitle(title)
+            }
         }
+        .navigationBarTitle(Text(title), displayMode: .inline)
     }
 }
