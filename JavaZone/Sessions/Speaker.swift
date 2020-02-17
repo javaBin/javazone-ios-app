@@ -7,6 +7,10 @@ public class Speaker:NSManagedObject, Identifiable {
     @NSManaged public var avatar:String?
     @NSManaged public var twitter:String?
     @NSManaged public var session:Session?
+    
+    public var id : String {
+        return "\(name)-\(session?.id ?? UUID().uuidString)"
+    }
 }
 
 extension Speaker {

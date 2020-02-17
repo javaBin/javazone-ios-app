@@ -10,3 +10,9 @@ struct FavouriteToggleView: View {
         }
     }
 }
+
+struct FavouriteToggleView_Previews: PreviewProvider {
+    static var previews: some View {
+        FavouriteToggleView(favourite: .constant(false))
+    }
+}

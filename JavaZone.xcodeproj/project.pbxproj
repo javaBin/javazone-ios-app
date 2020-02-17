@@ -16,6 +16,7 @@
 		8350E64D23F5222D0085C1F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8350E64C23F5222D0085C1F3 /* Assets.xcassets */; };
 		8350E65023F5222D0085C1F3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8350E64F23F5222D0085C1F3 /* Preview Assets.xcassets */; };
 		8350E65323F5222D0085C1F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8350E65123F5222D0085C1F3 /* LaunchScreen.storyboard */; };
+		83B3332123FA8E9400F3FCB4 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332023FA8E9400F3FCB4 /* RatingView.swift */; };
 		83C8D17723F53646008322DA /* RemoteSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17423F53646008322DA /* RemoteSession.swift */; };
 		83C8D17923F53646008322DA /* RemoteSpeaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17623F53646008322DA /* RemoteSpeaker.swift */; };
 		83C8D17B23F5367E008322DA /* RemoteSessionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17A23F5367E008322DA /* RemoteSessionList.swift */; };
@@ -48,6 +49,7 @@
 		8350E64F23F5222D0085C1F3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8350E65223F5222D0085C1F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8350E65423F5222D0085C1F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83B3332023FA8E9400F3FCB4 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		83C8D17423F53646008322DA /* RemoteSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSession.swift; sourceTree = "<group>"; };
 		83C8D17623F53646008322DA /* RemoteSpeaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSpeaker.swift; sourceTree = "<group>"; };
 		83C8D17A23F5367E008322DA /* RemoteSessionList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSessionList.swift; sourceTree = "<group>"; };
@@ -145,6 +147,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		83B3331F23FA8E7C00F3FCB4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				83DBDAE923F741E800767916 /* FavouriteToggleView.swift */,
+				83B3332023FA8E9400F3FCB4 /* RatingView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		83C8D17C23F54619008322DA /* Sessions */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,13 +168,13 @@
 		83DBDADA23F6B74C00767916 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				83B3331F23FA8E7C00F3FCB4 /* Components */,
 				8350E64A23F5222B0085C1F3 /* ContentView.swift */,
 				83C8D18123F5AFAE008322DA /* TestingView.swift */,
 				83DBDAD823F6B70400767916 /* SessionsView.swift */,
 				83DBDADB23F6B79800767916 /* SessionItemView.swift */,
 				83DBDADD23F6BAB300767916 /* FavouriteSessionsView.swift */,
 				83DBDADF23F7282200767916 /* SessionDetailView.swift */,
-				83DBDAE923F741E800767916 /* FavouriteToggleView.swift */,
 				83DBDAEB23F7429B00767916 /* InfoView.swift */,
 				83DBDAF123F74A4400767916 /* SessionsListView.swift */,
 			);
@@ -313,6 +324,7 @@
 				8350E64923F5222B0085C1F3 /* JavaZone.xcdatamodeld in Sources */,
 				831B782123F526BF00A45C70 /* SessionService.swift in Sources */,
 				83C8D18223F5AFAE008322DA /* TestingView.swift in Sources */,
+				83B3332123FA8E9400F3FCB4 /* RatingView.swift in Sources */,
 				83DBDAE323F729A200767916 /* Date+Utils.swift in Sources */,
 				83DBDAF223F74A4400767916 /* SessionsListView.swift in Sources */,
 				83C8D17923F53646008322DA /* RemoteSpeaker.swift in Sources */,

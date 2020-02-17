@@ -13,11 +13,16 @@ public class Session:NSManagedObject, Identifiable {
     @NSManaged public var favourite:Bool
     @NSManaged public var sessionId:String
     @NSManaged public var speakers:Set<Speaker>
+
+    public var id : String {
+        return sessionId
+    }
 }
 
 extension Session {
     private static let favouritePredicate = NSPredicate(format: "favourite == true")
     private static let formatPredicate = NSPredicate(format: "format == %@ OR format == %@", "lightning-talk", "presentation")
+
     
     public func isLightning() -> Bool {
         if let fmt = self.format {
