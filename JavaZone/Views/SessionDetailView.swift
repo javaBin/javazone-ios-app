@@ -1,5 +1,6 @@
 import SwiftUI
 import RemoteImage
+import CoreData
 
 struct SessionDetailView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -71,5 +72,34 @@ struct SessionDetailView: View {
             }
         }
         .navigationBarTitle(Text(title), displayMode: .inline)
+    }
+}
+
+
+struct SessionDetailView_Previews: PreviewProvider {
+    static let moc = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+    
+    static var previews: some View {
+        let session = Session(context: moc)
+        
+        session.title = "Test Title"
+        session.abstract = "Test Abstract"
+        session.favourite = false
+        session.audience = "Test Audience"
+        session.startUtc = Date()
+        session.endUtc = Date()
+        session.room = "Room 1"
+        
+        let speaker = Speaker(context: moc)
+        
+        speaker.name = "Test speaker"
+        speaker.bio = "Test Bio"
+        speaker.twitter = "@TestTwitter"
+        
+        session.speakers = [speaker]
+        
+        return NavigationView {
+            SessionDetailView(session: session)
+        }
     }
 }

@@ -5,3 +5,9 @@ struct InfoView: View {
         Text("Info")
     }
 }
+
+struct InfoView_Previews: PreviewProvider {
+    static var previews: some View {
+        InfoView()
+    }
+}
