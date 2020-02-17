@@ -45,7 +45,10 @@ struct SessionsListView: View {
     
     @State private var selectorIndex = 0
     @State private var searchText = ""
-    @State private var showCancelButton: Bool = false
+    
+    private var showCancelButton: Bool {
+        searchText != ""
+    }
     
     var sessions : [Session] {
         do {
@@ -86,11 +89,7 @@ struct SessionsListView: View {
                     HStack {
                         Image(systemName: "magnifyingglass")
 
-                        TextField("Search", text: $searchText, onEditingChanged: { isEditing in
-                            self.showCancelButton = true
-                        }, onCommit: {
-                            print("onCommit")
-                        }).foregroundColor(.primary).autocapitalization(.none)
+                        TextField("Search", text: $searchText).foregroundColor(.primary).autocapitalization(.none)
 
                         Button(action: {
                             self.searchText = ""
@@ -107,7 +106,6 @@ struct SessionsListView: View {
                         Button("Cancel") {
                                 UIApplication.shared.endEditing(true)
                                 self.searchText = ""
-                                self.showCancelButton = false
                         }
                         .foregroundColor(Color(.systemBlue))
                     }
