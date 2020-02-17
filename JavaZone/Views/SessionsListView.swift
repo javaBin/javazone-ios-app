@@ -1,6 +1,5 @@
-// Search code based on https://stackoverflow.com/a/58473985/896214
-
 import SwiftUI
+import CoreData
 
 class SectionTitle : Identifiable {
     var title : String
@@ -10,33 +9,6 @@ class SectionTitle : Identifiable {
     }
 }
 
-extension UIApplication {
-    func endEditing(_ force: Bool) {
-        self.windows
-            .filter{$0.isKeyWindow}
-            .first?
-            .endEditing(force)
-    }
-}
-
-struct ResignKeyboardOnDragGesture: ViewModifier {
-    var gesture = DragGesture().onChanged{_ in
-        UIApplication.shared.endEditing(true)
-    }
-    func body(content: Content) -> some View {
-        content.gesture(gesture)
-    }
-}
-
-extension View {
-    func resignKeyboardOnDragGesture() -> some View {
-        return modifier(ResignKeyboardOnDragGesture())
-    }
-}
-
-
-
-
 struct SessionsListView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
@@ -45,10 +17,6 @@ struct SessionsListView: View {
     
     @State private var selectorIndex = 0
     @State private var searchText = ""
-    
-    private var showCancelButton: Bool {
-        searchText != ""
-    }
     
     var sessions : [Session] {
         do {
@@ -85,33 +53,7 @@ struct SessionsListView: View {
                     Text(Config.dates[1]).tag(1)
                     }.pickerStyle(SegmentedPickerStyle()).padding()
                 
-                HStack {
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-
-                        TextField("Search", text: $searchText).foregroundColor(.primary).autocapitalization(.none)
-
-                        Button(action: {
-                            self.searchText = ""
-                        }) {
-                            Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
-                        }
-                    }
-                    .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
-                    .foregroundColor(.secondary)
-                    .background(Color(.secondarySystemBackground))
-                    .cornerRadius(10.0)
-
-                    if showCancelButton  {
-                        Button("Cancel") {
-                                UIApplication.shared.endEditing(true)
-                                self.searchText = ""
-                        }
-                        .foregroundColor(Color(.systemBlue))
-                    }
-                }
-                .padding(.horizontal)
-                .navigationBarHidden(showCancelButton)
+                SearchView(searchText: $searchText)
 
                 List {
                     ForEach(self.sections) { section in
@@ -126,5 +68,37 @@ struct SessionsListView: View {
                 }.resignKeyboardOnDragGesture()
             }.navigationBarTitle(title)
         }
+    }
+}
+
+struct SessionListView_Previews: PreviewProvider {
+    static var previews: some View {
+        let moc = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        
+        var sessions: [Session] = []
+        
+        for number in 1...3 {
+            let session = Session(context: moc)
+            
+            session.title = "Test Title \(number)"
+            session.abstract = "This is a test abstract about the talk. I need a longer string to test the preview better"
+            session.favourite = false
+            session.audience = "Test Audience - suitable for nerds"
+            session.startUtc = Date()
+            session.endUtc = Date()
+            session.room = "Room 1"
+            
+            let speaker = Speaker(context: moc)
+            
+            speaker.name = "Test speaker \(number)"
+            speaker.bio = "Test Bio - lots of uninteresting factoids"
+            speaker.twitter = "@TestTwitter\(number)"
+            
+            session.speakers = [speaker]
+            
+            sessions.append(session)
+        }
+
+        return SessionsListView(favouritesOnly: false, title: "Sessions").environment(\.managedObjectContext, moc)
     }
 }
