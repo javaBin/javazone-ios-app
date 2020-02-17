@@ -15,7 +15,9 @@ class SessionService {
     
     private static func save(context: NSManagedObjectContext) {
         do {
-            try context.save()
+            if (context.hasChanges) {
+                try context.save()
+            }
         } catch {
             print("Could not save: \(error).")
         }
@@ -48,14 +50,20 @@ class SessionService {
                 print(error.localizedDescription)
             }
             
-            guard let sessions = response.value else { return }
-            
-            let fetchedSessions = sessions.sessions
+            guard let sessions = response.value?.sessions else {
+                print("Unable to fetch sessions")
+                return
+            }
             
             var favouriteSessions: [Session] = []
             
             do {
-                favouriteSessions = try context.fetch(Session.getFavourites())
+                let request:NSFetchRequest<Session> = Session.fetchRequest() as! NSFetchRequest<Session>
+
+                request.sortDescriptors = []
+                request.predicate = Session.favouritePredicate
+                
+                favouriteSessions = try context.fetch(request)
             } catch {
                 print("Could not get favourites: \(error).")
                 
@@ -77,7 +85,7 @@ class SessionService {
                 return
             }
             
-            fetchedSessions.forEach { (remoteSession) in
+            sessions.forEach { (remoteSession) in
                 if let id = remoteSession.sessionId {
                     print("Creating: \(id)")
 
@@ -103,8 +111,8 @@ class SessionService {
                             speaker.bio = remoteSpeaker.bio
                             speaker.avatar = remoteSpeaker.avatar
                             speaker.twitter = remoteSpeaker.twitter
-                        
-                            session.speakers.insert(speaker)
+                            
+                            speaker.session = session
                         }
                     }
                     

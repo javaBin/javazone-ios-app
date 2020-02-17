@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
-public class Session:NSManagedObject, Identifiable {
+public class Session:NSManagedObject {
     @NSManaged public var title:String?
     @NSManaged public var abstract:String?
     @NSManaged public var audience:String?
@@ -11,20 +11,34 @@ public class Session:NSManagedObject, Identifiable {
     @NSManaged public var startUtc:Date?
     @NSManaged public var endUtc:Date?
     @NSManaged public var favourite:Bool
-    @NSManaged public var sessionId:String
-    @NSManaged public var speakers:Set<Speaker>
-
-    public var id : String {
-        return sessionId
-    }
-}
-
-extension Session {
-    private static let favouritePredicate = NSPredicate(format: "favourite == true")
-    private static let formatPredicate = NSPredicate(format: "format == %@ OR format == %@", "lightning-talk", "presentation")
-
+    @NSManaged public var sessionId:String?
+    @NSManaged public var speakers:NSSet
     
-    public func isLightning() -> Bool {
+    public var wrappedTitle : String {
+        return self.title ?? ""
+    }
+    
+    public var wrappedAudience : String {
+        return self.audience ?? ""
+    }
+    
+    public var wrappedAbstract : String {
+        return self.abstract ?? ""
+    }
+
+    public var wrappedRoom : String {
+        return self.room ?? ""
+    }
+    
+    public var speakerArray : [Speaker] {
+        let set = speakers as? Set<Speaker> ?? []
+        
+        return set.sorted {
+            $0.wrappedName < $1.wrappedName
+        }
+    }
+
+    public var lightningTalk : Bool {
         if let fmt = self.format {
             return fmt == "lightning-talk"
         }
@@ -32,48 +46,71 @@ extension Session {
         return false
     }
     
-    public func speakerNames() -> String {
-        self.speakers.map { (speaker) -> String in
-            return speaker.name
+    public var speakerNames : String {
+        self.speakerArray.map { (speaker) -> String in
+            return speaker.wrappedName
         }.joined(separator: ", ")
     }
     
-    public func matches(search: String) -> Bool {
-        let titleMatch = self.title?.range(of: search, options: .caseInsensitive)
-        let authorMatch = self.speakerNames().range(of: search, options: .caseInsensitive)
+    public static let formatPredicate = NSPredicate(format: "format == %@ OR format == %@", "lightning-talk", "presentation")
+    public static let favouritePredicate = NSPredicate(format: "favourite == true")
+}
 
-        return titleMatch != nil || authorMatch != nil
+extension Session {
+    static func searchPredicate(search: String) -> NSPredicate {
+        return NSPredicate(format: "title CONTAINS[cd] %@", search)
     }
     
-    private static func getSessions() -> NSFetchRequest<Session> {
-        let request:NSFetchRequest<Session> = Session.fetchRequest() as! NSFetchRequest<Session>
+    static func clear() -> NSBatchDeleteRequest {
+        return NSBatchDeleteRequest(fetchRequest: Session.fetchRequest())
+    }
+}
+
+extension Session {
+    private func asTime(_ date: Date?) -> String {
+        if let date = date {
+            return date.asTime()
+        }
         
+        return "??"
+    }
+    
+    func fromTime() -> String {
+        return asTime(startUtc)
+    }
+
+    func toTime() -> String {
+        return asTime(endUtc)
+    }
+}
+
+extension Session {
+    public static func getSessions(favouritesOnly: Bool, searchText: String) -> NSFetchRequest<Session> {
+        let request:NSFetchRequest<Session> = Session.fetchRequest() as! NSFetchRequest<Session>
+
         request.sortDescriptors = [
             NSSortDescriptor(key: "startUtc", ascending: true),
             NSSortDescriptor(key: "format", ascending: false),
             NSSortDescriptor(key: "room", ascending: true)
         ]
 
-        return request
-    }
-    
-    static func getAll() -> NSFetchRequest<Session> {
-        let request = getSessions()
+        var predicates = [
+            Session.formatPredicate
+        ]
         
-        request.predicate = formatPredicate
+        if (favouritesOnly) {
+            predicates.append(Session.favouritePredicate)
+        }
+        
+        if (searchText != "") {
+            let searchPredicate = Session.searchPredicate(search: searchText)
+            predicates.append(searchPredicate)
+        }
+        
+        let predicate = predicates.count == 1 ? predicates[0] : NSCompoundPredicate(type: .and, subpredicates: predicates)
+        
+        request.predicate = predicate
         
         return request
-    }
-    
-    static func getFavourites() -> NSFetchRequest<Session> {
-        let request = getSessions()
-
-        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [favouritePredicate, formatPredicate])
-        
-        return request
-    }
-    
-    static func clear() -> NSBatchDeleteRequest {
-        return NSBatchDeleteRequest(fetchRequest: Session.fetchRequest())
     }
 }

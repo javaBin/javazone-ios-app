@@ -33,20 +33,27 @@ extension View {
         return modifier(ResignKeyboardOnDragGesture())
     }
 }
+
+
+
+
 struct SessionsListView: View {
-    var sessions:FetchedResults<Session>
-    var title:String
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
+    var favouritesOnly: Bool
+    var title: String
     
     @State private var selectorIndex = 0
     @State private var searchText = ""
     @State private var showCancelButton: Bool = false
     
-    var matchingSessions : [Session] {
-        if (searchText == "") {
-            return sessionsOnDate
-        } else {
-            return sessionsOnDate.filter { $0.matches(search: searchText) }
+    var sessions : [Session] {
+        do {
+            return try self.managedObjectContext.fetch(Session.getSessions(favouritesOnly: favouritesOnly, searchText: searchText))
+        } catch {
+            print("Could not fetch")
         }
+        return []
     }
     
     var sessionsOnDate : [Session] {
@@ -60,7 +67,7 @@ struct SessionsListView: View {
     }
     
     var sessionsOnDateByHour : [String: [Session]] {
-        return Dictionary(grouping: matchingSessions, by: { $0.startUtc?.asHour() ?? "00:00" })
+        return Dictionary(grouping: sessions, by: { $0.startUtc?.asHour() ?? "00:00" })
     }
     
     var sections : [SectionTitle] {
@@ -111,7 +118,7 @@ struct SessionsListView: View {
                 List {
                     ForEach(self.sections) { section in
                         Section(header: Text(section.title)) {
-                            ForEach(self.sessionsOnDateByHour[section.title] ?? []) { session in
+                            ForEach(self.sessionsOnDateByHour[section.title] ?? [], id: \.self) { session in
                                 NavigationLink(destination: SessionDetailView(session: session)) {
                                     SessionItemView(session: session)
                                 }
@@ -121,5 +128,5 @@ struct SessionsListView: View {
                 }.resignKeyboardOnDragGesture()
             }.navigationBarTitle(title)
         }
-    }}
-
+    }
+}

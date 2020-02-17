@@ -7,24 +7,8 @@ struct SessionDetailView: View {
     
     @ObservedObject var session: Session
     
-    var fromTime: String {
-        if let date = session.startUtc {
-            return date.asTime()
-        }
-        
-        return "??"
-    }
-    
-    var toTime: String {
-        if let date = session.endUtc {
-            return date.asTime()
-        }
-        
-        return "??"
-    }
-    
     var title: String {
-        return "\(session.room ?? "") - \(fromTime) - \(toTime)"
+        return "\(session.room ?? "") - \(session.fromTime()) - \(session.toTime())"
     }
     
     var body: some View {
@@ -32,19 +16,20 @@ struct SessionDetailView: View {
             VStack {
                 HStack{
                     FavouriteToggleView(favourite: $session.favourite)
-                    Text(session.title ?? "").font(.headline).padding(.horizontal)
+                    Text(session.wrappedTitle).font(.headline).padding(.horizontal)
                 }
                 VStack(alignment: .leading) {
                     Text("Abstract").font(.title).padding(.bottom, 15)
                     if (session.abstract != nil) {
-                        Text(session.abstract!).font(.body).padding(.bottom, 20)
+                        Text(session.wrappedAbstract).font(.body).padding(.bottom, 20)
                     }
                     Text("Intended Audience").font(.title).padding(.bottom, 15)
                     if (session.audience != nil) {
-                        Text(session.audience!).font(.body).padding(.bottom, 20)
+                        Text(session.wrappedAudience).font(.body).padding(.bottom, 20)
                     }
                     Text("Speakers").font(.title).padding(.bottom, 15)
-                    ForEach(Array(session.speakers) ) { speaker in
+                    /*
+                    ForEach(Array(session.speakers, id: \.self) ) { speaker in
                         VStack(alignment: .leading) {
                             HStack {
                                 if (speaker.avatar != nil) {
@@ -66,6 +51,7 @@ struct SessionDetailView: View {
                             }
                         }
                     }
+                     */
                 }.padding()
                 
                 Spacer()
