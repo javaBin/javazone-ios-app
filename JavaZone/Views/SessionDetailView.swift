@@ -28,12 +28,11 @@ struct SessionDetailView: View {
                         Text(session.wrappedAudience).font(.body).padding(.bottom, 20)
                     }
                     Text("Speakers").font(.title).padding(.bottom, 15)
-                    /*
-                    ForEach(Array(session.speakers, id: \.self) ) { speaker in
+                    ForEach(session.speakerArray, id: \.self) { speaker in
                         VStack(alignment: .leading) {
                             HStack {
-                                if (speaker.avatar != nil) {
-                                    RemoteImage(type: .url(speaker.getAvatarUrl()!), errorView: { error in
+                                if (speaker.wrappedAvatar != nil) {
+                                    RemoteImage(type: .url(speaker.wrappedAvatar!), errorView: { error in
                                         Image(systemName: "person")
                                     }, imageView: { image in
                                         image
@@ -44,17 +43,14 @@ struct SessionDetailView: View {
                                         Image(systemName: "person")
                                     })
                                 }
-                                Text(speaker.name).font(.headline).padding(.bottom, 15)
+                                Text(speaker.wrappedName).font(.headline).padding(.bottom, 15)
                             }
                             if (speaker.bio != nil) {
-                                Text(speaker.bio!).font(.body).padding(.bottom, 15)
+                                Text(speaker.wrappedBio).font(.body).padding(.bottom, 15)
                             }
                         }
                     }
-                     */
                 }.padding()
-                
-                Spacer()
             }
         }
         .navigationBarTitle(Text(title), displayMode: .inline)

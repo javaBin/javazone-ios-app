@@ -20,9 +20,7 @@ struct SessionItemView: View {
                     if (session.room != nil) {
                         Text(session.wrappedRoom).font(.caption)
                     }
-                    /*
-                    Text(session.speakerNames()).font(.caption)
-                    */
+                    Text(session.speakerNames).font(.caption)
                 }
             }
             Spacer()

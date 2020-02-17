@@ -19,4 +19,12 @@ public class Speaker:NSManagedObject {
         
         return nil;
     }
+    
+    public var wrappedBio : String {
+        bio ?? ""
+    }
+    
+    public var wrappedTwitter : String {
+        twitter ?? ""
+    }
 }
