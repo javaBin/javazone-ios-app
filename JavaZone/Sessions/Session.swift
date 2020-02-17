@@ -32,7 +32,7 @@ public class Session:NSManagedObject {
     
     public var speakerArray : [Speaker] {
         let set = speakers as? Set<Speaker> ?? []
-        
+
         return set.sorted {
             $0.wrappedName < $1.wrappedName
         }
@@ -47,7 +47,7 @@ public class Session:NSManagedObject {
     }
     
     public var speakerNames : String {
-        self.speakerArray.map { (speaker) -> String in
+        return self.speakerArray.map { (speaker) -> String in
             return speaker.wrappedName
         }.joined(separator: ", ")
     }
@@ -58,7 +58,10 @@ public class Session:NSManagedObject {
 
 extension Session {
     static func searchPredicate(search: String) -> NSPredicate {
-        return NSPredicate(format: "title CONTAINS[cd] %@", search)
+        return NSCompoundPredicate(orPredicateWithSubpredicates: [
+            NSPredicate(format: "title CONTAINS[cd] %@", search),
+            NSPredicate(format: "ANY speakers.name CONTAINS[cd] %@", search)
+        ])
     }
     
     static func clear() -> NSBatchDeleteRequest {
