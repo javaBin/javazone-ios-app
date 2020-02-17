@@ -30,7 +30,7 @@ struct SessionDetailView: View {
         ScrollView(.vertical) {
             VStack {
                 HStack{
-                    FavouriteToggleView(session: session)
+                    FavouriteToggleView(favourite: $session.favourite)
                     Text(session.title ?? "").font(.headline).padding(.leading).padding(.trailing)
                 }
                 VStack(alignment: .leading) {

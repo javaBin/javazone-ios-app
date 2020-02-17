@@ -44,7 +44,7 @@ struct SessionItemView: View {
                 }
             }
             Spacer()
-            FavouriteToggleView(session: session)
+            FavouriteToggleView(favourite: $session.favourite)
         }
     }
 }
