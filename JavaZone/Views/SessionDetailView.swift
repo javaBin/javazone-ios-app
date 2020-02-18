@@ -25,7 +25,14 @@ struct SessionDetailView: View {
                     Text(session.wrappedTitle).font(.headline).padding(.horizontal)
                 }.padding(.top)
                 VStack(alignment: .leading) {
-                    Text("Abstract").font(.title).padding(.bottom, 15)
+                    HStack {
+                        Text("Abstract").font(.title)
+                        
+                        if (session.lightningTalk) {
+                            Spacer()
+                            Image(systemName: "bolt")
+                        }
+                    }.padding(.bottom, 15)
                     if (session.abstract != nil) {
                         Text(session.wrappedAbstract).font(.body).padding(.bottom, 20)
                     }
