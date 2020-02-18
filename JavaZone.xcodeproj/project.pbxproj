@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		300C446B54C45415A50E6255 /* Pods_JavaZone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AFEAF756DDB4BAC91A7D6E /* Pods_JavaZone.framework */; };
 		831B782123F526BF00A45C70 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B782023F526BF00A45C70 /* SessionService.swift */; };
 		8350E64423F5222B0085C1F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8350E64323F5222B0085C1F3 /* AppDelegate.swift */; };
 		8350E64623F5222B0085C1F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8350E64523F5222B0085C1F3 /* SceneDelegate.swift */; };
@@ -16,7 +15,7 @@
 		8350E64D23F5222D0085C1F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8350E64C23F5222D0085C1F3 /* Assets.xcassets */; };
 		8350E65023F5222D0085C1F3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8350E64F23F5222D0085C1F3 /* Preview Assets.xcassets */; };
 		8350E65323F5222D0085C1F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8350E65123F5222D0085C1F3 /* LaunchScreen.storyboard */; };
-		83590B0B23FBDFD80058B036 /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 83590B0A23FBDFD80058B036 /* SwiftUIRefresh */; };
+		83590B0B23FBDFD80058B036 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 83590B0A23FBDFD80058B036 /* SwiftPackageProductDependency */; };
 		83B3332123FA8E9400F3FCB4 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332023FA8E9400F3FCB4 /* RatingView.swift */; };
 		83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332223FAF74200F3FCB4 /* SearchView.swift */; };
 		83B3332523FAF8A900F3FCB4 /* Search+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */; };
@@ -31,7 +30,7 @@
 		83DBDADE23F6BAB300767916 /* FavouriteSessionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDADD23F6BAB300767916 /* FavouriteSessionsView.swift */; };
 		83DBDAE023F7282200767916 /* SessionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDADF23F7282200767916 /* SessionDetailView.swift */; };
 		83DBDAE323F729A200767916 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAE223F729A200767916 /* Date+Utils.swift */; };
-		83DBDAE823F733B800767916 /* RemoteImage in Frameworks */ = {isa = PBXBuildFile; productRef = 83DBDAE723F733B800767916 /* RemoteImage */; };
+		83DBDAE823F733B800767916 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 83DBDAE723F733B800767916 /* SwiftPackageProductDependency */; };
 		83DBDAEA23F741E800767916 /* FavouriteToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAE923F741E800767916 /* FavouriteToggleView.swift */; };
 		83DBDAEC23F7429B00767916 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAEB23F7429B00767916 /* InfoView.swift */; };
 		83DBDAF023F7451E00767916 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAEF23F7451E00767916 /* Config.swift */; };
@@ -39,9 +38,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		27C90B515AB304290A25A950 /* Pods-JavaZone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JavaZone.release.xcconfig"; path = "Target Support Files/Pods-JavaZone/Pods-JavaZone.release.xcconfig"; sourceTree = "<group>"; };
-		30AFEAF756DDB4BAC91A7D6E /* Pods_JavaZone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JavaZone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5237C9E9139F8C2BBA94A592 /* Pods-JavaZone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JavaZone.debug.xcconfig"; path = "Target Support Files/Pods-JavaZone/Pods-JavaZone.debug.xcconfig"; sourceTree = "<group>"; };
 		831B782023F526BF00A45C70 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		8350E64023F5222B0085C1F3 /* JavaZone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JavaZone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8350E64323F5222B0085C1F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,9 +74,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83590B0B23FBDFD80058B036 /* SwiftUIRefresh in Frameworks */,
-				83DBDAE823F733B800767916 /* RemoteImage in Frameworks */,
-				300C446B54C45415A50E6255 /* Pods_JavaZone.framework in Frameworks */,
+				83590B0B23FBDFD80058B036 /* BuildFile in Frameworks */,
+				83DBDAE823F733B800767916 /* BuildFile in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,8 +85,6 @@
 		817585E5854E70183F0A13B3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5237C9E9139F8C2BBA94A592 /* Pods-JavaZone.debug.xcconfig */,
-				27C90B515AB304290A25A950 /* Pods-JavaZone.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -112,7 +105,6 @@
 				8350E64223F5222B0085C1F3 /* JavaZone */,
 				8350E64123F5222B0085C1F3 /* Products */,
 				817585E5854E70183F0A13B3 /* Pods */,
-				8CAB5F97111D377D74332B16 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -197,14 +189,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		8CAB5F97111D377D74332B16 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				30AFEAF756DDB4BAC91A7D6E /* Pods_JavaZone.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -212,11 +196,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8350E65723F5222D0085C1F3 /* Build configuration list for PBXNativeTarget "JavaZone" */;
 			buildPhases = (
-				4E533589F73923BB01B19D59 /* [CP] Check Pods Manifest.lock */,
 				8350E63C23F5222B0085C1F3 /* Sources */,
 				8350E63D23F5222B0085C1F3 /* Frameworks */,
 				8350E63E23F5222B0085C1F3 /* Resources */,
-				361DFC61B613BBA82BA81750 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -224,8 +206,8 @@
 			);
 			name = JavaZone;
 			packageProductDependencies = (
-				83DBDAE723F733B800767916 /* RemoteImage */,
-				83590B0A23FBDFD80058B036 /* SwiftUIRefresh */,
+				83DBDAE723F733B800767916 /* SwiftPackageProductDependency */,
+				83590B0A23FBDFD80058B036 /* SwiftPackageProductDependency */,
 			);
 			productName = JavaZone;
 			productReference = 8350E64023F5222B0085C1F3 /* JavaZone.app */;
@@ -256,8 +238,8 @@
 			);
 			mainGroup = 8350E63723F5222B0085C1F3;
 			packageReferences = (
-				83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */,
-				83590B0923FBDFD80058B036 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
+				83DBDAE623F733B800767916 /* RemoteSwiftPackageReference */,
+				83590B0923FBDFD80058B036 /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = 8350E64123F5222B0085C1F3 /* Products */;
 			projectDirPath = "";
@@ -280,48 +262,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		361DFC61B613BBA82BA81750 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JavaZone/Pods-JavaZone-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JavaZone/Pods-JavaZone-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JavaZone/Pods-JavaZone-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4E533589F73923BB01B19D59 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-JavaZone-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8350E63C23F5222B0085C1F3 /* Sources */ = {
@@ -484,7 +424,6 @@
 		};
 		8350E65823F5222D0085C1F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5237C9E9139F8C2BBA94A592 /* Pods-JavaZone.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = JavaZone/JavaZone.entitlements;
@@ -509,7 +448,6 @@
 		};
 		8350E65923F5222D0085C1F3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 27C90B515AB304290A25A950 /* Pods-JavaZone.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = JavaZone/JavaZone.entitlements;
@@ -556,7 +494,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		83590B0923FBDFD80058B036 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */ = {
+		83590B0923FBDFD80058B036 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/timbersoftware/SwiftUIRefresh.git";
 			requirement = {
@@ -564,7 +502,7 @@
 				minimumVersion = 0.0.2;
 			};
 		};
-		83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */ = {
+		83DBDAE623F733B800767916 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/crelies/RemoteImage.git";
 			requirement = {
@@ -575,14 +513,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		83590B0A23FBDFD80058B036 /* SwiftUIRefresh */ = {
+		83590B0A23FBDFD80058B036 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 83590B0923FBDFD80058B036 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */;
+			package = 83590B0923FBDFD80058B036 /* RemoteSwiftPackageReference */;
 			productName = SwiftUIRefresh;
 		};
-		83DBDAE723F733B800767916 /* RemoteImage */ = {
+		83DBDAE723F733B800767916 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */;
+			package = 83DBDAE623F733B800767916 /* RemoteSwiftPackageReference */;
 			productName = RemoteImage;
 		};
 /* End XCSwiftPackageProductDependency section */
