@@ -4,7 +4,7 @@ struct TestingView: View {
     var body: some View {
         VStack {
             Button(action: {
-                SessionService.refresh()
+                SessionService.refresh() {}
             }){
                 Text("Refresh")
             }

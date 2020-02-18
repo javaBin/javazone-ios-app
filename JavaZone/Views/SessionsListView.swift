@@ -70,11 +70,16 @@ struct SessionsListView: View {
                 }
                 .resignKeyboardOnDragGesture()
                 .pullToRefresh(isShowing: $isShowing) {
-                    SessionService.refresh() // TODO - add callback to clear
+                    SessionService.refresh() {
+                         self.isShowing = false
+                    }
+                    
+                    /*
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         // After a timeout - clear if still present? Error if nothing fetched?
                         self.isShowing = false
                     }
+ */
                 }
             }.navigationBarTitle(title)
         }

@@ -37,7 +37,7 @@ class SessionService {
         save(context: context)
     }
     
-    static func refresh() {
+    static func refresh(onComplete : @escaping () -> Void) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
         let request = AF.request("https://sleepingpill.javazone.no/public/allSessions/javazone_2019")
@@ -121,6 +121,8 @@ class SessionService {
             }
             
             save(context: context)
+            
+            onComplete()
         }
     }
 }
