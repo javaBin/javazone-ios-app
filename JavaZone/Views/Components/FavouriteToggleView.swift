@@ -4,8 +4,9 @@ struct FavouriteToggleView: View {
     @Binding var favourite: Bool
     
     var body: some View {
-        Image(systemName: favourite == true ? "heart.fill" : "heart").resizable()
-            .frame(width: 32.0, height: 32.0).onTapGesture {
+        Image(systemName: favourite == true ? "person.crop.circle.fill.badge.checkmark" : "person.crop.circle.badge.plus").resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 30.0, height: 30.0).onTapGesture {
                     self.favourite.toggle()
         }
     }

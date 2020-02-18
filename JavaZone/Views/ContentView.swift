@@ -16,7 +16,7 @@ struct ContentView: View {
             FavouriteSessionsView()
                 .tabItem {
                     VStack {
-                        Image(systemName: "heart.fill")
+                        Image(systemName: "person.crop.circle")
                         Text("My Schedule")
                     }
                 }
