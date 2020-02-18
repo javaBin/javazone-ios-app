@@ -71,7 +71,7 @@ struct SessionsListView: View {
                 .resignKeyboardOnDragGesture()
                 .pullToRefresh(isShowing: $isShowing) {
                     SessionService.refresh() {
-                         self.isShowing = false
+                        self.isShowing = false
                     }
                     
                     /*
