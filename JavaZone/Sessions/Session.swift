@@ -51,11 +51,10 @@ public class Session:NSManagedObject {
             return speaker.wrappedName
         }.joined(separator: ", ")
     }
-}
 
-extension Session {
-    static func clear() -> NSBatchDeleteRequest {
-        return NSBatchDeleteRequest(fetchRequest: Session.fetchRequest())
+    public var feedbackOpen : Bool {
+        // TODO https://github.com/javaBin/javazone-ios-app/issues/8
+        return Bool.random();
     }
 }
 
@@ -91,5 +90,9 @@ extension Session {
         request.predicate = NSPredicate(format: "format == %@ OR format == %@", "lightning-talk", "presentation")
         
         return request
+    }
+    
+    static func clear() -> NSBatchDeleteRequest {
+        return NSBatchDeleteRequest(fetchRequest: Session.fetchRequest())
     }
 }

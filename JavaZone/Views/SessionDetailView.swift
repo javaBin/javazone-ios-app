@@ -7,8 +7,14 @@ struct SessionDetailView: View {
     
     @ObservedObject var session: Session
     
+    @State private var showFeedback = false
+    
     var title: String {
         return "\(session.room ?? "") - \(session.fromTime()) - \(session.toTime())"
+    }
+    
+    var feedbackOpen: Bool {
+        return session.feedbackOpen
     }
     
     var body: some View {
@@ -53,7 +59,18 @@ struct SessionDetailView: View {
                 }.padding()
             }
         }
+        .sheet(isPresented: $showFeedback) {
+            ItemRatingView(session: self.session)
+        }
         .navigationBarTitle(Text(title), displayMode: .inline)
+        .navigationBarItems(trailing:
+            Button(action: {
+                self.showFeedback = true
+            }) {
+                Image(systemName: feedbackOpen == true ? "hand.thumbsup.fill" : "hand.thumbsup")
+                    .font(Font.system(.title))
+            }.disabled(feedbackOpen == false)
+        )
     }
 }
 

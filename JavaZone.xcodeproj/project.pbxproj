@@ -37,6 +37,7 @@
 		83DBDAF023F7451E00767916 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAEF23F7451E00767916 /* Config.swift */; };
 		83DBDAF223F74A4400767916 /* SessionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAF123F74A4400767916 /* SessionsListView.swift */; };
 		83DF4C5F23FBFF70003FE5F1 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF4C5E23FBFF70003FE5F1 /* String+Utils.swift */; };
+		83DF4C6123FC39A4003FE5F1 /* ItemRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF4C6023FC39A4003FE5F1 /* ItemRatingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		83DBDAF123F74A4400767916 /* SessionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListView.swift; sourceTree = "<group>"; };
 		83DBDAF323F74C3A00767916 /* JavaZone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JavaZone.entitlements; sourceTree = "<group>"; };
 		83DF4C5E23FBFF70003FE5F1 /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
+		83DF4C6023FC39A4003FE5F1 /* ItemRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRatingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 				83DBDADF23F7282200767916 /* SessionDetailView.swift */,
 				83DBDAEB23F7429B00767916 /* InfoView.swift */,
 				83DBDAF123F74A4400767916 /* SessionsListView.swift */,
+				83DF4C6023FC39A4003FE5F1 /* ItemRatingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */,
 				8350E64423F5222B0085C1F3 /* AppDelegate.swift in Sources */,
 				8350E64B23F5222B0085C1F3 /* ContentView.swift in Sources */,
+				83DF4C6123FC39A4003FE5F1 /* ItemRatingView.swift in Sources */,
 				83DBDAD923F6B70400767916 /* SessionsView.swift in Sources */,
 				83C8D17B23F5367E008322DA /* RemoteSessionList.swift in Sources */,
 				83B3332523FAF8A900F3FCB4 /* Search+Keyboard.swift in Sources */,
