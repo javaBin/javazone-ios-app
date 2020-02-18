@@ -61,7 +61,7 @@ class SessionService {
                 let request:NSFetchRequest<Session> = Session.fetchRequest() as! NSFetchRequest<Session>
 
                 request.sortDescriptors = []
-                request.predicate = Session.favouritePredicate
+                request.predicate = NSPredicate(format: "favourite == true")
                 
                 favouriteSessions = try context.fetch(request)
             } catch {

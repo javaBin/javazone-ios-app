@@ -36,6 +36,7 @@
 		83DBDAEC23F7429B00767916 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAEB23F7429B00767916 /* InfoView.swift */; };
 		83DBDAF023F7451E00767916 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAEF23F7451E00767916 /* Config.swift */; };
 		83DBDAF223F74A4400767916 /* SessionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAF123F74A4400767916 /* SessionsListView.swift */; };
+		83DF4C5F23FBFF70003FE5F1 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF4C5E23FBFF70003FE5F1 /* String+Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		83DBDAEF23F7451E00767916 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		83DBDAF123F74A4400767916 /* SessionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListView.swift; sourceTree = "<group>"; };
 		83DBDAF323F74C3A00767916 /* JavaZone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JavaZone.entitlements; sourceTree = "<group>"; };
+		83DF4C5E23FBFF70003FE5F1 /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +189,7 @@
 			children = (
 				83DBDAE223F729A200767916 /* Date+Utils.swift */,
 				83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */,
+				83DF4C5E23FBFF70003FE5F1 /* String+Utils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				83C8D18223F5AFAE008322DA /* TestingView.swift in Sources */,
 				83B3332123FA8E9400F3FCB4 /* RatingView.swift in Sources */,
 				83DBDAE323F729A200767916 /* Date+Utils.swift in Sources */,
+				83DF4C5F23FBFF70003FE5F1 /* String+Utils.swift in Sources */,
 				83DBDAF223F74A4400767916 /* SessionsListView.swift in Sources */,
 				83C8D17923F53646008322DA /* RemoteSpeaker.swift in Sources */,
 				83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */,

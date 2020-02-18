@@ -2,16 +2,15 @@ import SwiftUI
 import SwiftUIRefresh
 import CoreData
 
-class SectionTitle : Identifiable {
-    var title : String
-    
-    init(title: String) {
-        self.title = title
-    }
+struct RelevantSessions {
+    var sessions: [Session]
+    var sections: [String]
+    var grouped: [String: [Session]]
 }
 
 struct SessionsListView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(fetchRequest: Session.getSessions()) var allSessions: FetchedResults<Session>
     
     var favouritesOnly: Bool
     var title: String
@@ -19,32 +18,28 @@ struct SessionsListView: View {
     @State private var selectorIndex = 0
     @State private var searchText = ""
     @State private var isShowing = false
-    
-    var sessions : [Session] {
-        do {
-            return try self.managedObjectContext.fetch(Session.getSessions(favouritesOnly: favouritesOnly, searchText: searchText))
-        } catch {
-            print("Could not fetch")
+
+    var sessions : RelevantSessions {
+        let sessions = self.allSessions
+            .filter { (session) -> Bool in
+                session.startUtc?.asDate() ?? "" == Config.dates[selectorIndex]
         }
-        return []
-    }
-    
-    var sessionsOnDate : [Session] {
-        self.sessions.filter { (session) -> Bool in
-            if let start = session.startUtc?.asDate() {
-                return start == Config.dates[selectorIndex]
-            } else {
-                return false    
+        .filter { (session) -> Bool in
+            session.favourite == true || self.favouritesOnly == false
+        }
+        .filter { (session) -> Bool in
+            if (self.searchText == "") {
+                return true
             }
+            
+            return session.wrappedTitle.contains(self.searchText) || session.speakerNames.contains(self.searchText)
         }
-    }
-    
-    var sessionsOnDateByHour : [String: [Session]] {
-        return Dictionary(grouping: sessions, by: { $0.startUtc?.asHour() ?? "00:00" })
-    }
-    
-    var sections : [SectionTitle] {
-        return Array(sessionsOnDateByHour.keys).sorted(by: <).map {SectionTitle(title: $0) }
+        
+        let grouped = Dictionary(grouping: sessions, by: { $0.startUtc?.asHour() ?? "00:00" })
+        
+        let sections = Array(grouped.keys).sorted(by: <)
+        
+        return RelevantSessions(sessions: sessions, sections: sections, grouped: grouped)
     }
     
     var body: some View {
@@ -58,9 +53,9 @@ struct SessionsListView: View {
                 SearchView(searchText: $searchText)
 
                 List {
-                    ForEach(self.sections) { section in
-                        Section(header: Text(section.title)) {
-                            ForEach(self.sessionsOnDateByHour[section.title] ?? [], id: \.self) { session in
+                    ForEach(self.sessions.sections, id: \.self) { section in
+                        Section(header: Text(section)) {
+                            ForEach(self.sessions.grouped[section] ?? [], id: \.self) { session in
                                 NavigationLink(destination: SessionDetailView(session: session)) {
                                     SessionItemView(session: session)
                                 }
@@ -73,13 +68,6 @@ struct SessionsListView: View {
                     SessionService.refresh() {
                         self.isShowing = false
                     }
-                    
-                    /*
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        // After a timeout - clear if still present? Error if nothing fetched?
-                        self.isShowing = false
-                    }
- */
                 }
             }.navigationBarTitle(title)
         }

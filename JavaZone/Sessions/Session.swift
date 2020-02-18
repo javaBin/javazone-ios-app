@@ -51,19 +51,9 @@ public class Session:NSManagedObject {
             return speaker.wrappedName
         }.joined(separator: ", ")
     }
-    
-    public static let formatPredicate = NSPredicate(format: "format == %@ OR format == %@", "lightning-talk", "presentation")
-    public static let favouritePredicate = NSPredicate(format: "favourite == true")
 }
 
 extension Session {
-    static func searchPredicate(search: String) -> NSPredicate {
-        return NSCompoundPredicate(orPredicateWithSubpredicates: [
-            NSPredicate(format: "title CONTAINS[cd] %@", search),
-            NSPredicate(format: "ANY speakers.name CONTAINS[cd] %@", search)
-        ])
-    }
-    
     static func clear() -> NSBatchDeleteRequest {
         return NSBatchDeleteRequest(fetchRequest: Session.fetchRequest())
     }
@@ -88,7 +78,8 @@ extension Session {
 }
 
 extension Session {
-    public static func getSessions(favouritesOnly: Bool, searchText: String) -> NSFetchRequest<Session> {
+    public static func getSessions() -> NSFetchRequest<Session> {
+
         let request:NSFetchRequest<Session> = Session.fetchRequest() as! NSFetchRequest<Session>
 
         request.sortDescriptors = [
@@ -97,22 +88,7 @@ extension Session {
             NSSortDescriptor(key: "room", ascending: true)
         ]
 
-        var predicates = [
-            Session.formatPredicate
-        ]
-        
-        if (favouritesOnly) {
-            predicates.append(Session.favouritePredicate)
-        }
-        
-        if (searchText != "") {
-            let searchPredicate = Session.searchPredicate(search: searchText)
-            predicates.append(searchPredicate)
-        }
-        
-        let predicate = predicates.count == 1 ? predicates[0] : NSCompoundPredicate(type: .and, subpredicates: predicates)
-        
-        request.predicate = predicate
+        request.predicate = NSPredicate(format: "format == %@ OR format == %@", "lightning-talk", "presentation")
         
         return request
     }
