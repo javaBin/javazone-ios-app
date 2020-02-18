@@ -17,7 +17,7 @@ struct SessionDetailView: View {
                 HStack{
                     FavouriteToggleView(favourite: $session.favourite)
                     Text(session.wrappedTitle).font(.headline).padding(.horizontal)
-                }
+                }.padding(.top)
                 VStack(alignment: .leading) {
                     Text("Abstract").font(.title).padding(.bottom, 15)
                     if (session.abstract != nil) {
