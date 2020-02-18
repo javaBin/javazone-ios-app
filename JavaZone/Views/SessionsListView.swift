@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftUIRefresh
 import CoreData
 
 class SectionTitle : Identifiable {
@@ -17,6 +18,7 @@ struct SessionsListView: View {
     
     @State private var selectorIndex = 0
     @State private var searchText = ""
+    @State private var isShowing = false
     
     var sessions : [Session] {
         do {
@@ -65,7 +67,15 @@ struct SessionsListView: View {
                             }
                         }
                     }
-                }.resignKeyboardOnDragGesture()
+                }
+                .resignKeyboardOnDragGesture()
+                .pullToRefresh(isShowing: $isShowing) {
+                    SessionService.refresh() // TODO - add callback to clear
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        // After a timeout - clear if still present? Error if nothing fetched?
+                        self.isShowing = false
+                    }
+                }
             }.navigationBarTitle(title)
         }
     }

@@ -16,6 +16,7 @@
 		8350E64D23F5222D0085C1F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8350E64C23F5222D0085C1F3 /* Assets.xcassets */; };
 		8350E65023F5222D0085C1F3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8350E64F23F5222D0085C1F3 /* Preview Assets.xcassets */; };
 		8350E65323F5222D0085C1F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8350E65123F5222D0085C1F3 /* LaunchScreen.storyboard */; };
+		83590B0B23FBDFD80058B036 /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 83590B0A23FBDFD80058B036 /* SwiftUIRefresh */; };
 		83B3332123FA8E9400F3FCB4 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332023FA8E9400F3FCB4 /* RatingView.swift */; };
 		83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332223FAF74200F3FCB4 /* SearchView.swift */; };
 		83B3332523FAF8A900F3FCB4 /* Search+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */; };
@@ -77,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83590B0B23FBDFD80058B036 /* SwiftUIRefresh in Frameworks */,
 				83DBDAE823F733B800767916 /* RemoteImage in Frameworks */,
 				300C446B54C45415A50E6255 /* Pods_JavaZone.framework in Frameworks */,
 			);
@@ -223,6 +225,7 @@
 			name = JavaZone;
 			packageProductDependencies = (
 				83DBDAE723F733B800767916 /* RemoteImage */,
+				83590B0A23FBDFD80058B036 /* SwiftUIRefresh */,
 			);
 			productName = JavaZone;
 			productReference = 8350E64023F5222B0085C1F3 /* JavaZone.app */;
@@ -254,6 +257,7 @@
 			mainGroup = 8350E63723F5222B0085C1F3;
 			packageReferences = (
 				83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */,
+				83590B0923FBDFD80058B036 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
 			);
 			productRefGroup = 8350E64123F5222B0085C1F3 /* Products */;
 			projectDirPath = "";
@@ -552,6 +556,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		83590B0923FBDFD80058B036 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/timbersoftware/SwiftUIRefresh.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.2;
+			};
+		};
 		83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/crelies/RemoteImage.git";
@@ -563,6 +575,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		83590B0A23FBDFD80058B036 /* SwiftUIRefresh */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83590B0923FBDFD80058B036 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */;
+			productName = SwiftUIRefresh;
+		};
 		83DBDAE723F733B800767916 /* RemoteImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */;
