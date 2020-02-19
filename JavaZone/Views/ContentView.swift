@@ -46,7 +46,7 @@ struct ContentView: View {
                         Text("Partners")
                     }
                 }
-                .tag(3)
+                .tag(4)
         }
     }
 }
