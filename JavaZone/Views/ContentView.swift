@@ -29,12 +29,21 @@ struct ContentView: View {
                     }
                 }
                 .tag(2)
-            TestingView()
+            TicketView()
                 .font(.title)
                 .tabItem {
                     VStack {
-                        Image(systemName: "gear")
-                        Text("Debug")
+                        Image(systemName: "qrcode")
+                        Text("Ticket")
+                    }
+                }
+                .tag(3)
+            PartnersView()
+                .font(.title)
+                .tabItem {
+                    VStack {
+                        Image(systemName: "person.2.square.stack")
+                        Text("Partners")
                     }
                 }
                 .tag(3)

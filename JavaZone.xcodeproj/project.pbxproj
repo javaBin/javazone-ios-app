@@ -18,6 +18,8 @@
 		8350E65323F5222D0085C1F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8350E65123F5222D0085C1F3 /* LaunchScreen.storyboard */; };
 		83590B0B23FBDFD80058B036 /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 83590B0A23FBDFD80058B036 /* SwiftUIRefresh */; };
 		8397433923FD23110024E80B /* ExternalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397433823FD23110024E80B /* ExternalLink.swift */; };
+		8397433B23FD2ABE0024E80B /* TicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397433A23FD2ABE0024E80B /* TicketView.swift */; };
+		8397433D23FD2ACC0024E80B /* PartnersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397433C23FD2ACC0024E80B /* PartnersView.swift */; };
 		83B3332123FA8E9400F3FCB4 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332023FA8E9400F3FCB4 /* RatingView.swift */; };
 		83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332223FAF74200F3FCB4 /* SearchView.swift */; };
 		83B3332523FAF8A900F3FCB4 /* Search+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */; };
@@ -26,7 +28,6 @@
 		83C8D17B23F5367E008322DA /* RemoteSessionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17A23F5367E008322DA /* RemoteSessionList.swift */; };
 		83C8D17E23F54636008322DA /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17D23F54636008322DA /* Session.swift */; };
 		83C8D18023F5463F008322DA /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17F23F5463F008322DA /* Speaker.swift */; };
-		83C8D18223F5AFAE008322DA /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D18123F5AFAE008322DA /* TestingView.swift */; };
 		83DBDAD923F6B70400767916 /* SessionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAD823F6B70400767916 /* SessionsView.swift */; };
 		83DBDADC23F6B79800767916 /* SessionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDADB23F6B79800767916 /* SessionItemView.swift */; };
 		83DBDADE23F6BAB300767916 /* FavouriteSessionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDADD23F6BAB300767916 /* FavouriteSessionsView.swift */; };
@@ -53,6 +54,8 @@
 		8350E65223F5222D0085C1F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8350E65423F5222D0085C1F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8397433823FD23110024E80B /* ExternalLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLink.swift; sourceTree = "<group>"; };
+		8397433A23FD2ABE0024E80B /* TicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketView.swift; sourceTree = "<group>"; };
+		8397433C23FD2ACC0024E80B /* PartnersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnersView.swift; sourceTree = "<group>"; };
 		83B3332023FA8E9400F3FCB4 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		83B3332223FAF74200F3FCB4 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search+Keyboard.swift"; sourceTree = "<group>"; };
@@ -61,7 +64,6 @@
 		83C8D17A23F5367E008322DA /* RemoteSessionList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSessionList.swift; sourceTree = "<group>"; };
 		83C8D17D23F54636008322DA /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		83C8D17F23F5463F008322DA /* Speaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
-		83C8D18123F5AFAE008322DA /* TestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingView.swift; sourceTree = "<group>"; };
 		83DBDAD823F6B70400767916 /* SessionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsView.swift; sourceTree = "<group>"; };
 		83DBDADB23F6B79800767916 /* SessionItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionItemView.swift; sourceTree = "<group>"; };
 		83DBDADD23F6BAB300767916 /* FavouriteSessionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteSessionsView.swift; sourceTree = "<group>"; };
@@ -178,7 +180,6 @@
 			children = (
 				83B3331F23FA8E7C00F3FCB4 /* Components */,
 				8350E64A23F5222B0085C1F3 /* ContentView.swift */,
-				83C8D18123F5AFAE008322DA /* TestingView.swift */,
 				83DBDAD823F6B70400767916 /* SessionsView.swift */,
 				83DBDADB23F6B79800767916 /* SessionItemView.swift */,
 				83DBDADD23F6BAB300767916 /* FavouriteSessionsView.swift */,
@@ -186,6 +187,8 @@
 				83DBDAEB23F7429B00767916 /* InfoView.swift */,
 				83DBDAF123F74A4400767916 /* SessionsListView.swift */,
 				83DF4C6023FC39A4003FE5F1 /* ItemRatingView.swift */,
+				8397433A23FD2ABE0024E80B /* TicketView.swift */,
+				8397433C23FD2ACC0024E80B /* PartnersView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -286,16 +289,17 @@
 				83DBDAEA23F741E800767916 /* FavouriteToggleView.swift in Sources */,
 				8350E64923F5222B0085C1F3 /* JavaZone.xcdatamodeld in Sources */,
 				831B782123F526BF00A45C70 /* SessionService.swift in Sources */,
-				83C8D18223F5AFAE008322DA /* TestingView.swift in Sources */,
 				83B3332123FA8E9400F3FCB4 /* RatingView.swift in Sources */,
 				83DBDAE323F729A200767916 /* Date+Utils.swift in Sources */,
 				83DF4C5F23FBFF70003FE5F1 /* String+Utils.swift in Sources */,
 				83DBDAF223F74A4400767916 /* SessionsListView.swift in Sources */,
 				83C8D17923F53646008322DA /* RemoteSpeaker.swift in Sources */,
+				8397433D23FD2ACC0024E80B /* PartnersView.swift in Sources */,
 				83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */,
 				8350E64423F5222B0085C1F3 /* AppDelegate.swift in Sources */,
 				8350E64B23F5222B0085C1F3 /* ContentView.swift in Sources */,
 				83DF4C6123FC39A4003FE5F1 /* ItemRatingView.swift in Sources */,
+				8397433B23FD2ABE0024E80B /* TicketView.swift in Sources */,
 				83DBDAD923F6B70400767916 /* SessionsView.swift in Sources */,
 				8397433923FD23110024E80B /* ExternalLink.swift in Sources */,
 				83C8D17B23F5367E008322DA /* RemoteSessionList.swift in Sources */,
