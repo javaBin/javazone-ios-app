@@ -65,7 +65,20 @@ struct SessionsListView: View {
                 }
                 .resignKeyboardOnDragGesture()
                 .pullToRefresh(isShowing: $isShowing) {
-                    SessionService.refresh() {
+                    SessionService.refresh() { (status, message, logMessage) in
+                        if (status == .Fail) {
+                            // Show an alert
+                            print(message)
+                        }
+                        
+                        if (status == .Fatal) {
+                            // Show an alert
+                            print(message)
+                            
+                            // and on OK throw this
+                            fatalError(logMessage)
+                        }
+                        
                         self.isShowing = false
                     }
                 }

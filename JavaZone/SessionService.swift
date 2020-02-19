@@ -14,36 +14,24 @@ struct SessionSection : Hashable {
     var duration: Int
 }
 
+enum UpdateStatus {
+    case OK
+    case Fail
+    case Fatal
+}
+
 class SessionService {
     private static func getContext() -> NSManagedObjectContext {
         return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     }
     
-    private static func save(context: NSManagedObjectContext) {
-        do {
-            if (context.hasChanges) {
-                try context.save()
-            }
-        } catch {
-            print("Could not save: \(error).")
+    private static func save(context: NSManagedObjectContext) throws {
+        if (context.hasChanges) {
+            try context.save()
         }
     }
     
-    static func clear() {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
-        do {
-            try context.execute(Session.clear())
-        } catch {
-            print("Could not clear: \(error).")
-            
-            return
-        }
-        
-        save(context: context)
-    }
-    
-    static func refresh(onComplete : @escaping () -> Void) {
+    static func refresh(onComplete : @escaping (_ status: UpdateStatus, _ msg: String, _ logMsg: String) -> Void) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
         let request = AF.request("https://sleepingpill.javazone.no/public/allSessions/javazone_2019")
@@ -54,10 +42,17 @@ class SessionService {
         request.responseDecodable(of: RemoteSessionList.self, decoder: decoder) { (response) in
             if let error = response.error {
                 print(error.localizedDescription)
+                
+                onComplete(.Fail, "Could not download sessions, please try again", "")
+                
+                return
             }
             
             guard let sessions = response.value?.sessions else {
                 print("Unable to fetch sessions")
+
+                onComplete(.Fail, "Could not download sessions, please try again", "")
+                
                 return
             }
             
@@ -73,7 +68,7 @@ class SessionService {
             } catch {
                 print("Could not get favourites: \(error).")
                 
-                return
+                // Go forward - we will lose favourites - but may complete
             }
             
             let favourites = favouriteSessions
@@ -91,6 +86,8 @@ class SessionService {
                 NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
             } catch {
                 print("Could not clear: \(error).")
+                
+                onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to clear data \(error)")
                 
                 return
             }
@@ -133,9 +130,15 @@ class SessionService {
             
             updateSections(newSessions)
             
-            save(context: context)
+            do {
+                try save(context: context)
+            } catch {
+                onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to save data \(error)")
+
+                return
+            }
             
-            onComplete()
+            onComplete(.OK, "", "")
         }
     }
     
