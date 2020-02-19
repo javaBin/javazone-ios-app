@@ -70,17 +70,21 @@ class SessionService {
                 return
             }
             
-            print("Favourites: \(favouriteSessions)")
-            
             let favourites = favouriteSessions
                 .compactMap { (session) -> String? in
                     return session.sessionId
             }
             
             do {
-                try context.execute(Session.clear())
+                let result = try context.execute(Session.clear()) as! NSBatchDeleteResult
+
+                let changes: [AnyHashable: Any] = [
+                    NSDeletedObjectsKey: result.result as! [NSManagedObjectID]
+                ]
+                
+                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
             } catch {
-                 print("Could not clear: \(error).")
+                print("Could not clear: \(error).")
                 
                 return
             }

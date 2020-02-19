@@ -98,6 +98,8 @@ extension Session {
     }
     
     static func clear() -> NSBatchDeleteRequest {
-        return NSBatchDeleteRequest(fetchRequest: Session.fetchRequest())
+        let request = NSBatchDeleteRequest(fetchRequest: Session.fetchRequest())
+        request.resultType = .resultTypeObjectIDs
+        return request
     }
 }
