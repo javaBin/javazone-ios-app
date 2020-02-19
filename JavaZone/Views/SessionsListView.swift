@@ -18,6 +18,11 @@ struct SessionsListView: View {
     @State private var selectorIndex = 0
     @State private var searchText = ""
     @State private var isShowing = false
+    @State private var isShowingRefreshAlert = false
+    @State private var refreshAlertTitle = ""
+    @State private var refreshAlertMessage = ""
+    @State private var refreshFatal = false
+    @State private var refreshFatalMessage = ""
 
     var sessions : RelevantSessions {
         let sessions = self.allSessions
@@ -67,20 +72,40 @@ struct SessionsListView: View {
                 .pullToRefresh(isShowing: $isShowing) {
                     SessionService.refresh() { (status, message, logMessage) in
                         if (status == .Fail) {
-                            // Show an alert
-                            print(message)
+                            self.refreshFatal = false
+                            self.refreshAlertTitle = "Refresh failed"
+                            self.refreshAlertMessage = message
+                            self.refreshFatalMessage = ""
+                            self.isShowingRefreshAlert = true
                         }
                         
                         if (status == .Fatal) {
-                            // Show an alert
-                            print(message)
-                            
-                            // and on OK throw this
-                            fatalError(logMessage)
+                            self.refreshFatal = true
+                            self.refreshAlertTitle = "Refresh failed"
+                            self.refreshAlertMessage = message
+                            self.refreshFatalMessage = logMessage
+                            self.isShowingRefreshAlert = true
                         }
                         
                         self.isShowing = false
                     }
+                }
+                .alert(isPresented: $isShowingRefreshAlert) {
+                    Alert(title: Text(self.refreshAlertTitle),
+                          message: Text(self.refreshAlertMessage),
+                          dismissButton: Alert.Button.default(
+                            Text("OK"), action: {
+                                if (self.refreshFatal) {
+                                    fatalError(self.refreshFatalMessage)
+                                }
+                                
+                                self.refreshAlertMessage = ""
+                                self.refreshAlertTitle = ""
+                                self.refreshFatalMessage = ""
+                                self.refreshFatal = false
+                          }
+                        )
+                    )
                 }
             }.navigationBarTitle(title)
         }
