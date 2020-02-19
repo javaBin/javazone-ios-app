@@ -46,7 +46,29 @@ struct SessionsListView: View {
         
         return RelevantSessions(sessions: sessions, sections: sections, grouped: grouped)
     }
-    
+
+    func refreshSessions() {
+        SessionService.refresh() { (status, message, logMessage) in
+            if (status == .Fail) {
+                self.refreshFatal = false
+                self.refreshAlertTitle = "Refresh failed"
+                self.refreshAlertMessage = message
+                self.refreshFatalMessage = ""
+                self.isShowingRefreshAlert = true
+            }
+            
+            if (status == .Fatal) {
+                self.refreshFatal = true
+                self.refreshAlertTitle = "Refresh failed"
+                self.refreshAlertMessage = message
+                self.refreshFatalMessage = logMessage
+                self.isShowingRefreshAlert = true
+            }
+            
+            self.isShowing = false
+        }
+    }
+
     var body: some View {
         NavigationView {
             VStack {
@@ -68,27 +90,14 @@ struct SessionsListView: View {
                         }
                     }
                 }
+                .onAppear(perform: {
+                    if (self.sessions.sessions.count == 0 && self.favouritesOnly == false && self.searchText == "") {
+                        self.refreshSessions()
+                    }
+                })
                 .resignKeyboardOnDragGesture()
                 .pullToRefresh(isShowing: $isShowing) {
-                    SessionService.refresh() { (status, message, logMessage) in
-                        if (status == .Fail) {
-                            self.refreshFatal = false
-                            self.refreshAlertTitle = "Refresh failed"
-                            self.refreshAlertMessage = message
-                            self.refreshFatalMessage = ""
-                            self.isShowingRefreshAlert = true
-                        }
-                        
-                        if (status == .Fatal) {
-                            self.refreshFatal = true
-                            self.refreshAlertTitle = "Refresh failed"
-                            self.refreshAlertMessage = message
-                            self.refreshFatalMessage = logMessage
-                            self.isShowingRefreshAlert = true
-                        }
-                        
-                        self.isShowing = false
-                    }
+                    self.refreshSessions()
                 }
                 .alert(isPresented: $isShowingRefreshAlert) {
                     Alert(title: Text(self.refreshAlertTitle),
