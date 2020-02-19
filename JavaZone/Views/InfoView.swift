@@ -15,6 +15,7 @@ struct InfoView: View {
                 })
                 Section(header: Text("javaBin"), content: {
                     ExternalLink(title: "javaBin", url: URL(string: "https://www.java.no/")!)
+                    ExternalLink(title: "Terms and Conditions", url: URL(string: "https://www.java.no/policy.html")!)                    
                 })
             }
             .navigationBarTitle("Info")
