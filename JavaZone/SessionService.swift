@@ -8,6 +8,12 @@ enum SessionError : Error {
     case storageError
 }
 
+struct SessionSection : Hashable {
+    var startUtc: Date
+    var endUtc: Date
+    var duration: Int
+}
+
 class SessionService {
     private static func getContext() -> NSManagedObjectContext {
         return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -89,10 +95,10 @@ class SessionService {
                 return
             }
             
+            var newSessions : [Session] = []
+            
             sessions.forEach { (remoteSession) in
                 if let id = remoteSession.sessionId {
-                    print("Creating: \(id)")
-
                     let session = Session(context: context)
                     
                     session.sessionId = id
@@ -121,13 +127,45 @@ class SessionService {
                         }
                     }
                     
-                    print("Favourite flag for \(id) was \(session.favourite)")
+                    newSessions.append(session)
                 }
             }
+            
+            updateSections(newSessions)
             
             save(context: context)
             
             onComplete()
+        }
+    }
+    
+    private static func updateSections(_ sessions: [Session]) {
+        let allowedSections = Set(sessions.filter { (session) -> Bool in
+            session.format == "presentation"
+        }.filter { (session) -> Bool in
+            session.startUtc != nil
+        }.filter { (session) -> Bool in
+            session.endUtc != nil
+        }.filter { (session) -> Bool in
+            session.length != nil && Int(session.length!) != nil
+        }.map { (session) -> SessionSection in
+            SessionSection(startUtc: session.startUtc!, endUtc: session.endUtc!, duration: Int(session.length!) ?? 0)
+        })
+        
+        sessions.forEach { (session) in
+            let sections = allowedSections.filter { (sessionSection) -> Bool in
+                if (session.startUtc == nil || session.endUtc == nil) {
+                    return false
+                }
+
+                return session.startUtc! >= sessionSection.startUtc && session.endUtc! <= sessionSection.endUtc
+            }.sorted { (first, second) -> Bool in
+                first.duration > second.duration
+            }
+            
+            if let section = sections.first {
+                session.section = "\(section.startUtc.asTime()) - \(section.endUtc.asTime())"
+            }
         }
     }
 }
