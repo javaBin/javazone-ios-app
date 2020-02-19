@@ -35,8 +35,8 @@ struct SessionsListView: View {
             return session.wrappedTitle.contains(self.searchText) || session.speakerNames.contains(self.searchText)
         }
         
-        let grouped = Dictionary(grouping: sessions, by: { $0.startUtc?.asHour() ?? "00:00" })
-        
+        let grouped = Dictionary(grouping: sessions, by: { $0.wrappedSection })
+                
         let sections = Array(grouped.keys).sorted(by: <)
         
         return RelevantSessions(sessions: sessions, sections: sections, grouped: grouped)

@@ -8,6 +8,7 @@
         <attribute name="format" optional="YES" attributeType="String"/>
         <attribute name="length" optional="YES" attributeType="String"/>
         <attribute name="room" optional="YES" attributeType="String"/>
+        <attribute name="section" optional="YES" attributeType="String"/>
         <attribute name="sessionId" attributeType="String"/>
         <attribute name="startUtc" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
@@ -21,7 +22,7 @@
         <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="speakers" inverseEntity="Session"/>
     </entity>
     <elements>
-        <element name="Session" positionX="-63" positionY="-18" width="128" height="208"/>
+        <element name="Session" positionX="-63" positionY="-18" width="128" height="223"/>
         <element name="Speaker" positionX="-54" positionY="-9" width="128" height="118"/>
     </elements>
 </model>

@@ -12,6 +12,7 @@ public class Session:NSManagedObject {
     @NSManaged public var endUtc:Date?
     @NSManaged public var favourite:Bool
     @NSManaged public var sessionId:String?
+    @NSManaged public var section:String?
     @NSManaged public var speakers:NSSet
     
     public var wrappedTitle : String {
@@ -28,6 +29,10 @@ public class Session:NSManagedObject {
 
     public var wrappedRoom : String {
         return self.room ?? ""
+    }
+    
+    public var wrappedSection : String {
+        return self.section ?? "??"
     }
     
     public var speakerArray : [Speaker] {

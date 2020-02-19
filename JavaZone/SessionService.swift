@@ -100,6 +100,7 @@ class SessionService {
                     session.room = remoteSession.room
                     session.startUtc = remoteSession.startUtc
                     session.endUtc = remoteSession.endUtc
+                    session.section = session.startUtc?.asHour() ?? "00:00"
                     
                     session.favourite = favourites.contains(id)
                     
