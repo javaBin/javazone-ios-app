@@ -34,7 +34,7 @@ class SessionService {
     static func refresh(onComplete : @escaping (_ status: UpdateStatus, _ msg: String, _ logMsg: String) -> Void) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
-        let request = AF.request("https://sleepingpill.javazone.no/public/allSessions/javazone_2019")
+        let request = AF.request(Config.conferenceUrl)
         
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
