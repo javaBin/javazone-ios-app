@@ -47,38 +47,7 @@ struct SessionDetailView: View {
                     }
                     Text("Speakers").font(.title).padding(.bottom, 15)
                     ForEach(session.speakerArray, id: \.self) { speaker in
-                        VStack(alignment: .leading) {
-                            HStack(alignment: .center) {
-                                if (speaker.wrappedAvatar != nil) {
-                                    RemoteImage(type: .url(speaker.wrappedAvatar!), errorView: { error in
-                                        Image(systemName: "person")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: 32.0, height: 32.0)
-                                    }, imageView: { image in
-                                        image
-                                            .resizable()
-                                            .clipShape(Capsule())
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: 32.0, height: 32.0)
-                                    }, loadingView: {
-                                        Image(systemName: "person")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: 32.0, height: 32.0)
-                                    })
-                                }
-                                VStack(alignment: .leading) {
-                                    Text(speaker.wrappedName).font(.headline)
-                                    if (speaker.twitter != nil) {
-                                        ExternalLink(title: "@\(speaker.wrappedTwitter)", url: URL(string: "https://twitter.com/\(speaker.wrappedTwitter)")!, image: false)
-                                    }
-                                }
-                            }
-                            if (speaker.bio != nil) {
-                                Text(speaker.wrappedBio).font(.body).padding(.bottom, 15)
-                            }
-                        }
+                        SpeakerItemView(speaker: speaker)
                     }
                 }.padding()
             }

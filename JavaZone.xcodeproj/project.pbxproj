@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		831B782123F526BF00A45C70 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B782023F526BF00A45C70 /* SessionService.swift */; };
 		831FC33B23FBE2B100BB12A3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 831FC33A23FBE2B100BB12A3 /* Alamofire */; };
+		834FF18B23FF331700432129 /* SpeakerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF18A23FF331700432129 /* SpeakerItemView.swift */; };
 		8350E64423F5222B0085C1F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8350E64323F5222B0085C1F3 /* AppDelegate.swift */; };
 		8350E64623F5222B0085C1F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8350E64523F5222B0085C1F3 /* SceneDelegate.swift */; };
 		8350E64923F5222B0085C1F3 /* JavaZone.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8350E64723F5222B0085C1F3 /* JavaZone.xcdatamodeld */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		831B782023F526BF00A45C70 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
+		834FF18A23FF331700432129 /* SpeakerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerItemView.swift; sourceTree = "<group>"; };
 		8350E64023F5222B0085C1F3 /* JavaZone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JavaZone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8350E64323F5222B0085C1F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8350E64523F5222B0085C1F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -181,12 +183,13 @@
 				83B3331F23FA8E7C00F3FCB4 /* Components */,
 				8350E64A23F5222B0085C1F3 /* ContentView.swift */,
 				83DBDAD823F6B70400767916 /* SessionsView.swift */,
-				83DBDADB23F6B79800767916 /* SessionItemView.swift */,
 				83DBDADD23F6BAB300767916 /* FavouriteSessionsView.swift */,
-				83DBDADF23F7282200767916 /* SessionDetailView.swift */,
-				83DBDAEB23F7429B00767916 /* InfoView.swift */,
+				83DBDADB23F6B79800767916 /* SessionItemView.swift */,
 				83DBDAF123F74A4400767916 /* SessionsListView.swift */,
+				83DBDADF23F7282200767916 /* SessionDetailView.swift */,
+				834FF18A23FF331700432129 /* SpeakerItemView.swift */,
 				83DF4C6023FC39A4003FE5F1 /* ItemRatingView.swift */,
+				83DBDAEB23F7429B00767916 /* InfoView.swift */,
 				8397433A23FD2ABE0024E80B /* TicketView.swift */,
 				8397433C23FD2ACC0024E80B /* PartnersView.swift */,
 			);
@@ -289,6 +292,7 @@
 				83DBDAEA23F741E800767916 /* FavouriteToggleView.swift in Sources */,
 				8350E64923F5222B0085C1F3 /* JavaZone.xcdatamodeld in Sources */,
 				831B782123F526BF00A45C70 /* SessionService.swift in Sources */,
+				834FF18B23FF331700432129 /* SpeakerItemView.swift in Sources */,
 				83B3332123FA8E9400F3FCB4 /* RatingView.swift in Sources */,
 				83DBDAE323F729A200767916 /* Date+Utils.swift in Sources */,
 				83DF4C5F23FBFF70003FE5F1 /* String+Utils.swift in Sources */,
