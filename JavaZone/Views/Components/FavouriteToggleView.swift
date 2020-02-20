@@ -35,11 +35,9 @@ struct FavouriteToggleView: View {
                         content.title = self.notificationTitle
                         content.subtitle = "Your next session starts in \(self.notificationLocation) at \(date.asTime())"
                         content.sound = UNNotificationSound.default
-                        
-                        // Replace with cal
+
                         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
                         
-                        // choose a random identifier - use session.sessionID
                         let request = UNNotificationRequest(identifier: self.notificationId, content: content, trigger: trigger)
                         
                         UNUserNotificationCenter.current().add(request)

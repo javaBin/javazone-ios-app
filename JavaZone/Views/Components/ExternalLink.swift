@@ -4,12 +4,16 @@ struct ExternalLink: View {
     var title : String
     var url : URL
     
+    var image : Bool = true
+    
     var body: some View {
         Button(action: {
             UIApplication.shared.open(self.url)
         }) {
             HStack {
-                Image(systemName: "link")
+                if (image) {
+                    Image(systemName: "flag")
+                }
                 Text(title)
             }
         }
