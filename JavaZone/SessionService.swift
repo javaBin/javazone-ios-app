@@ -119,8 +119,13 @@ class SessionService {
                             speaker.name = name
                             speaker.bio = remoteSpeaker.bio
                             speaker.avatar = remoteSpeaker.avatar
-                            speaker.twitter = remoteSpeaker.twitter
                             
+                            if let twitter = remoteSpeaker.twitter {
+                                if (!twitter.isEmpty) {
+                                    speaker.twitter = twitter.deletePrefix("@")
+                                }
+                            }
+
                             speaker.session = session
                         }
                     }
