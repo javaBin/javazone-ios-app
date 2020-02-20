@@ -25,6 +25,11 @@ struct SessionDetailView: View {
                     Text(session.wrappedTitle).font(.headline).padding(.horizontal)
                 }.padding(.top)
                 VStack(alignment: .leading) {
+                    if (session.wrappedFormat == "workshop" && session.wrappedRegisterLoc != nil) {
+                        Text("Workshop").font(.title)
+                        
+                        ExternalLink(title: "Open registration page", url: session.wrappedRegisterLoc!)
+                    }
                     HStack {
                         Text("Abstract").font(.title)
                         
@@ -47,7 +52,6 @@ struct SessionDetailView: View {
                                 if (speaker.wrappedAvatar != nil) {
                                     RemoteImage(type: .url(speaker.wrappedAvatar!), errorView: { error in
                                         Image(systemName: "person")
-                                        .clipShape(Capsule())
                                     }, imageView: { image in
                                         image
                                             .resizable()
@@ -56,7 +60,6 @@ struct SessionDetailView: View {
                                             .frame(width: 32.0, height: 32.0)
                                     }, loadingView: {
                                         Image(systemName: "person")
-                                        .clipShape(Capsule())
                                     })
                                 }
                                 Text(speaker.wrappedName).font(.headline).padding(.bottom, 15)

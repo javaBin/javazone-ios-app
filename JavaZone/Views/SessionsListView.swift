@@ -75,6 +75,7 @@ struct SessionsListView: View {
                 Picker("", selection: $selectorIndex) {
                     Text(Config.dates[0]).tag(0)
                     Text(Config.dates[1]).tag(1)
+                    Text("Workshops").tag(2)
                 }.pickerStyle(SegmentedPickerStyle()).padding(.horizontal)
                 
                 SearchView(searchText: $searchText)

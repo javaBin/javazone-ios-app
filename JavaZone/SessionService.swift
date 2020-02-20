@@ -108,6 +108,7 @@ class SessionService {
                     session.startUtc = remoteSession.startUtc
                     session.endUtc = remoteSession.endUtc
                     session.section = session.startUtc?.asHour() ?? "00:00"
+                    session.registerLoc = remoteSession.registerLoc
                     
                     session.favourite = favourites.contains(id)
                     
@@ -156,18 +157,22 @@ class SessionService {
         })
         
         sessions.forEach { (session) in
-            let sections = allowedSections.filter { (sessionSection) -> Bool in
-                if (session.startUtc == nil || session.endUtc == nil) {
-                    return false
-                }
+            if (session.format == "workshop") {
+                session.section = session.startUtc?.asDateTime() ?? "00:00"
+            } else {
+                let sections = allowedSections.filter { (sessionSection) -> Bool in
+                    if (session.startUtc == nil || session.endUtc == nil) {
+                        return false
+                    }
 
-                return session.startUtc! >= sessionSection.startUtc && session.endUtc! <= sessionSection.endUtc
-            }.sorted { (first, second) -> Bool in
-                first.duration > second.duration
-            }
-            
-            if let section = sections.first {
-                session.section = "\(section.startUtc.asTime()) - \(section.endUtc.asTime())"
+                    return session.startUtc! >= sessionSection.startUtc && session.endUtc! <= sessionSection.endUtc
+                }.sorted { (first, second) -> Bool in
+                    first.duration > second.duration
+                }
+                
+                if let section = sections.first {
+                    session.section = "\(section.startUtc.asTime()) - \(section.endUtc.asTime())"
+                }
             }
         }
     }
