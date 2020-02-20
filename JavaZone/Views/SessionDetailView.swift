@@ -21,7 +21,7 @@ struct SessionDetailView: View {
         ScrollView(.vertical) {
             VStack {
                 HStack{
-                    FavouriteToggleView(favourite: $session.favourite)
+                    FavouriteToggleView(favourite: $session.favourite, notificationId: session.sessionId ?? UUID().uuidString, notificationTitle: session.wrappedTitle, notificationLocation: session.wrappedRoom, notificationTrigger: session.startUtc)
                     Text(session.wrappedTitle).font(.headline).padding(.horizontal)
                 }.padding(.top)
                 VStack(alignment: .leading) {

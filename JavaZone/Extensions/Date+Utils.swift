@@ -4,6 +4,15 @@ import Foundation
 
 
 extension Date {
+    func forNotification() -> Date? {
+        // When debug build - set a notification for 15s in future
+        #if DEBUG
+        return Calendar.current.date(byAdding: .second, value: 15, to: Date())
+        #else
+        return Calendar.current.date(byAdding: .minute, value: -7, to: self)
+        #endif
+    }
+
     func asTime() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"

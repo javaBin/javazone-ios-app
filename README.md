@@ -25,6 +25,8 @@ SwiftUI was released in 2019 as a new way to build the user interface in iOS app
 
 That being said - there are some things that are not yet available in SwiftUI. They either require a workaround (sometimes large) or are simply not possible yet. It is expected that at WWDC 2020 more of these functions will be added.
 
+The biggest issue is no real support for setting a scroll point - so - opening at "now" or opening at "nearest to time of received notification" is currently not available.
+
 For now - issues in the application due to this are [tagged SwiftUI](https://github.com/javaBin/javazone-ios-app/issues?q=is%3Aissue+is%3Aopen+label%3ASwiftIUI).
 
 ### Fastlane issues

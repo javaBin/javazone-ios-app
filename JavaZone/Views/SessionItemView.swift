@@ -25,7 +25,7 @@ struct SessionItemView: View {
                 }
             }
             Spacer()
-            FavouriteToggleView(favourite: $session.favourite)
+            FavouriteToggleView(favourite: $session.favourite, notificationId: session.sessionId ?? UUID().uuidString, notificationTitle: session.wrappedTitle, notificationLocation: session.wrappedRoom, notificationTrigger: session.startUtc)
         }
     }
 }
