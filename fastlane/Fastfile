@@ -1,7 +1,7 @@
 lane :beta do
     ensure_git_status_clean
     increment_build_number
-    commit_version_bump
+    commit_version_bump(xcodeproj: "JavaZone.xcodeproj")
     add_git_tag
     push_to_git_remote
     get_certificates
