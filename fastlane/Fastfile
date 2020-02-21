@@ -1,0 +1,12 @@
+lane :beta do
+    ensure_git_status_clean
+    increment_build_number
+    commit_version_bump
+    add_git_tag
+    push_to_git_remote
+    get_certificates
+    get_provisioning_profile
+    build_app(scheme: "JavaZone")
+    #upload_to_testflight
+    slack(message: "Beta build uploaded")
+end

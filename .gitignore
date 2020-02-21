@@ -83,3 +83,10 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+
+*.cer
+*.certSigningRequest
+*.p12
+*.mobileprovision
+fastlane/.env
+
