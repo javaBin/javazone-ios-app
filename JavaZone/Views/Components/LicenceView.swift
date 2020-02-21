@@ -12,7 +12,7 @@ struct LicenceView: View {
                 if (link != nil) {
                     ExternalLink(title: "\(title)'s website", url: link!)
                 }
-                Text(text)
+                Text(text).padding(.horizontal)
             }.navigationBarTitle(title)
         }
     }
