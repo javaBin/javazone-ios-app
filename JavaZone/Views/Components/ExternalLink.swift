@@ -12,7 +12,7 @@ struct ExternalLink: View {
         }) {
             HStack {
                 if (image) {
-                    Image(systemName: "flag")
+                    Image(systemName: "link")
                 }
                 Text(title)
             }
