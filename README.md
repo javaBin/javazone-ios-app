@@ -7,9 +7,11 @@ This is the iOS application for JavaZone.
 Changes from the previous version:
 
 * Re-write using SwiftUI
-* Targetting iPhone, iPad and Mac via catalyst
+* Targetting iPhone, iPad
 
 Current state - see [issues list](https://github.com/javaBin/javazone-ios-app/issues)
+
+Catalyst support to run on mac was something we wanted to add - but - until the libraries we are using also support it - the functionality would be severely restricted - so for now - we'v had to remove it.
 
 --- 
 
@@ -39,7 +41,7 @@ Fastlane screenshot support requires a working UITest - which doesn't seem to wo
 
 * Why another re-write?
   * Because I want to learn SwiftUI - it really is as simple as that
-* Why iOS 13 and Mac OSX 10.15 only?
+* Why iOS 13 only?
   * Because that is the minimum requirement for SwiftUI apps: 
     * iOS 13, 
     * macOS 10.15, 
