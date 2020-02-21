@@ -11,7 +11,9 @@ struct LibrariesAndLicenses: View {
             NavigationLink(destination: LicenceView(title: "CodeScanner", link: URL(string: "https://github.com/twostraws/CodeScanner"), text: LicenceTexts.codescanner)) {
                 Text("CodeScanner")
             }
-            ExternalLink(title: "RemoteImage", url: URL(string: "https://github.com/crelies/RemoteImage")!)
+            NavigationLink(destination: LicenceView(title: "RemoteImage", link: URL(string: "https://github.com/crelies/RemoteImage"), text: LicenceTexts.remoteimage)) {
+                Text("RemoteImage")
+            }
             NavigationLink(destination: LicenceView(title: "SwiftUIRefresh", link: URL(string: "https://github.com/siteline/SwiftUIRefresh"), text: LicenceTexts.swiftuirefresh)) {
                 Text("SwiftUIRefresh")
             }
