@@ -22,7 +22,12 @@ struct SessionDetailView: View {
             VStack {
                 HStack{
                     FavouriteToggleView(favourite: $session.favourite, notificationId: session.sessionId ?? UUID().uuidString, notificationTitle: session.wrappedTitle, notificationLocation: session.wrappedRoom, notificationTrigger: session.startUtc)
-                    Text(session.wrappedTitle).font(.headline).padding(.horizontal)
+                    VStack(alignment: .leading) {
+                        Text(session.wrappedTitle).font(.headline)
+                        if (session.videoId != nil) {
+                            ExternalLink(title: "View session video", url: session.wrappedVideo!, image: "video")
+                        }
+                    }.padding(.horizontal)
                 }.padding(.top)
                 VStack(alignment: .leading) {
                     if (session.wrappedFormat == "workshop" && session.wrappedRegisterLoc != nil) {

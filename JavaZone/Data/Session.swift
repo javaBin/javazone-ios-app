@@ -12,6 +12,7 @@ public class Session:NSManagedObject {
     @NSManaged public var endUtc:Date?
     @NSManaged public var favourite:Bool
     @NSManaged public var sessionId:String?
+    @NSManaged public var videoId:String?
     @NSManaged public var section:String?
     @NSManaged public var registerLoc:String?
     @NSManaged public var speakers:NSSet
@@ -38,6 +39,14 @@ public class Session:NSManagedObject {
     
     public var wrappedFormat : String {
         return self.format ?? ""
+    }
+    
+    public var wrappedVideo : URL? {
+        if let video = self.videoId {
+            return URL(string:"https://vimeo.com/\(video)")
+        }
+        
+        return nil
     }
     
     public var wrappedRegisterLoc : URL? {

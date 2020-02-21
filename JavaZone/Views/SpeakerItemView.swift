@@ -30,7 +30,7 @@ struct SpeakerItemView: View {
                 VStack(alignment: .leading) {
                     Text(speaker.wrappedName).font(.headline)
                     if (speaker.twitter != nil) {
-                        ExternalLink(title: "@\(speaker.wrappedTwitter)", url: URL(string: "https://twitter.com/\(speaker.wrappedTwitter)")!, image: false)
+                        ExternalLink(title: "@\(speaker.wrappedTwitter)", url: URL(string: "https://twitter.com/\(speaker.wrappedTwitter)")!, image: "")
                     }
                 }
             }

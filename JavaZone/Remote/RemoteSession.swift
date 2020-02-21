@@ -8,6 +8,7 @@ struct RemoteSession: Decodable {
     let format: String?
     let length: String?
     let room: String?
+    let videoId: String?
     let startUtc: Date?
     let endUtc: Date?
     let registerLoc: String?
@@ -25,5 +26,6 @@ struct RemoteSession: Decodable {
         case endUtc = "endTimeZulu"
         case speakers
         case registerLoc
+        case videoId = "video"
     }
 }

@@ -12,7 +12,6 @@
 		834FF18B23FF331700432129 /* SpeakerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF18A23FF331700432129 /* SpeakerItemView.swift */; };
 		834FF1B123FFBFA800432129 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 834FF1B023FFBFA800432129 /* CodeScanner */; };
 		834FF1B323FFC3A600432129 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1B223FFC3A600432129 /* ScannerView.swift */; };
-		834FF1B523FFC6FA00432129 /* HtmlEmbedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1B423FFC6FA00432129 /* HtmlEmbedView.swift */; };
 		834FF1B723FFC7FB00432129 /* LibrariesAndLicenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1B623FFC7FB00432129 /* LibrariesAndLicenses.swift */; };
 		834FF1BB23FFCB1400432129 /* LicenceTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1BA23FFCB1400432129 /* LicenceTexts.swift */; };
 		834FF1BD23FFCBFE00432129 /* LicenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1BC23FFCBFE00432129 /* LicenceView.swift */; };
@@ -53,7 +52,6 @@
 		831B782023F526BF00A45C70 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		834FF18A23FF331700432129 /* SpeakerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerItemView.swift; sourceTree = "<group>"; };
 		834FF1B223FFC3A600432129 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
-		834FF1B423FFC6FA00432129 /* HtmlEmbedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlEmbedView.swift; sourceTree = "<group>"; };
 		834FF1B623FFC7FB00432129 /* LibrariesAndLicenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrariesAndLicenses.swift; sourceTree = "<group>"; };
 		834FF1BA23FFCB1400432129 /* LicenceTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenceTexts.swift; sourceTree = "<group>"; };
 		834FF1BC23FFCBFE00432129 /* LicenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenceView.swift; sourceTree = "<group>"; };
@@ -146,7 +144,7 @@
 				83DBDAF323F74C3A00767916 /* JavaZone.entitlements */,
 				83DBDAE123F7296A00767916 /* Extensions */,
 				83DBDADA23F6B74C00767916 /* Views */,
-				83C8D17C23F54619008322DA /* Sessions */,
+				83C8D17C23F54619008322DA /* Data */,
 				831B781F23F5269800A45C70 /* Remote */,
 				8350E64323F5222B0085C1F3 /* AppDelegate.swift */,
 				8350E64523F5222B0085C1F3 /* SceneDelegate.swift */,
@@ -155,7 +153,6 @@
 				8350E64C23F5222D0085C1F3 /* Assets.xcassets */,
 				8350E65123F5222D0085C1F3 /* LaunchScreen.storyboard */,
 				8350E65423F5222D0085C1F3 /* Info.plist */,
-				8350E64723F5222B0085C1F3 /* JavaZone.xcdatamodeld */,
 				8350E64E23F5222D0085C1F3 /* Preview Content */,
 			);
 			path = JavaZone;
@@ -177,19 +174,19 @@
 				83B3332223FAF74200F3FCB4 /* SearchView.swift */,
 				8397433823FD23110024E80B /* ExternalLink.swift */,
 				834FF1B223FFC3A600432129 /* ScannerView.swift */,
-				834FF1B423FFC6FA00432129 /* HtmlEmbedView.swift */,
 				834FF1BC23FFCBFE00432129 /* LicenceView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
 		};
-		83C8D17C23F54619008322DA /* Sessions */ = {
+		83C8D17C23F54619008322DA /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				8350E64723F5222B0085C1F3 /* JavaZone.xcdatamodeld */,
 				83C8D17D23F54636008322DA /* Session.swift */,
 				83C8D17F23F5463F008322DA /* Speaker.swift */,
 			);
-			path = Sessions;
+			path = Data;
 			sourceTree = "<group>";
 		};
 		83DBDADA23F6B74C00767916 /* Views */ = {
@@ -319,7 +316,6 @@
 				83C8D17923F53646008322DA /* RemoteSpeaker.swift in Sources */,
 				8397433D23FD2ACC0024E80B /* PartnersView.swift in Sources */,
 				83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */,
-				834FF1B523FFC6FA00432129 /* HtmlEmbedView.swift in Sources */,
 				8350E64423F5222B0085C1F3 /* AppDelegate.swift in Sources */,
 				8350E64B23F5222B0085C1F3 /* ContentView.swift in Sources */,
 				83DF4C6123FC39A4003FE5F1 /* ItemRatingView.swift in Sources */,

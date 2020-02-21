@@ -13,6 +13,7 @@
         <attribute name="sessionId" attributeType="String"/>
         <attribute name="startUtc" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="videoId" optional="YES" attributeType="String"/>
         <relationship name="speakers" toMany="YES" deletionRule="Cascade" destinationEntity="Speaker" inverseName="session" inverseEntity="Speaker"/>
     </entity>
     <entity name="Speaker" representedClassName=".Speaker" syncable="YES">
@@ -23,7 +24,7 @@
         <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="speakers" inverseEntity="Session"/>
     </entity>
     <elements>
-        <element name="Session" positionX="-63" positionY="-18" width="128" height="238"/>
+        <element name="Session" positionX="-63" positionY="-18" width="128" height="253"/>
         <element name="Speaker" positionX="-54" positionY="-9" width="128" height="118"/>
     </elements>
 </model>

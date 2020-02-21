@@ -109,6 +109,7 @@ class SessionService {
                     session.endUtc = remoteSession.endUtc
                     session.section = session.startUtc?.asHour() ?? "00:00"
                     session.registerLoc = remoteSession.registerLoc
+                    session.videoId = remoteSession.videoId
                     
                     session.favourite = favourites.contains(id)
                     
