@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "CodeScanner",
+        "repositoryURL": "https://github.com/twostraws/CodeScanner",
+        "state": {
+          "branch": null,
+          "revision": "0519543ae943db85b360a96962242887daeca2b5",
+          "version": "1.0.3"
+        }
+      },
+      {
         "package": "RemoteImage",
         "repositoryURL": "https://github.com/crelies/RemoteImage.git",
         "state": {

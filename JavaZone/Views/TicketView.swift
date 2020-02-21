@@ -1,10 +1,20 @@
-//
-
 import SwiftUI
+import CodeScanner
 
 struct TicketView: View {
+    @State private var scannedData = ""
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            VStack {
+                Text("Ticket View")
+                Text(scannedData)
+    
+                NavigationLink(destination: ScannerView(data: $scannedData)) {
+                    Text("Scan")
+                }
+            }
+        }
     }
 }
 
