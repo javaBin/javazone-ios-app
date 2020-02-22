@@ -10,7 +10,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Override point for customization after application launch.
         UNUserNotificationCenter.current().delegate = self
         
-            return true
+        return true
     }
 
     // MARK: UISceneSession Lifecycle

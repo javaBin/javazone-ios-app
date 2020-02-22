@@ -25,7 +25,7 @@ struct SessionsListView: View {
     @State private var refreshFatalMessage = ""
 
     var config : Config {
-        Config.getConfig()
+        Config.sharedConfig
     }
     
     var sessions : RelevantSessions {

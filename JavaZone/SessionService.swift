@@ -1,6 +1,7 @@
 import SwiftUI
 import Alamofire
 import CoreData
+import os
 
 enum SessionError : Error {
     case remoteError
@@ -27,6 +28,7 @@ class SessionService {
     
     private static func save(context: NSManagedObjectContext) throws {
         if (context.hasChanges) {
+            os_log("Saving changed MOC", log: .coreData, type: .info)
             try context.save()
         }
     }
@@ -35,7 +37,7 @@ class SessionService {
         refreshConfig() {
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             
-            let config = Config.getConfig()
+            let config = Config.sharedConfig
             
             let request = AF.request(config.url)
             
@@ -44,15 +46,15 @@ class SessionService {
             
             request.responseDecodable(of: RemoteSessionList.self, decoder: decoder) { (response) in
                 if let error = response.error {
-                    print(error.localizedDescription)
-                    
+                    os_log("Unable to fetch sessions %{public}@", log: .network, type: .error, error.localizedDescription)
+
                     onComplete(.Fail, "Could not download sessions, please try again", "")
                     
                     return
                 }
                 
                 guard let sessions = response.value?.sessions else {
-                    print("Unable to fetch sessions")
+                    os_log("Unable to read sessions", log: .network, type: .error)
 
                     onComplete(.Fail, "Could not download sessions, please try again", "")
                     
@@ -69,8 +71,7 @@ class SessionService {
                     
                     favouriteSessions = try context.fetch(request)
                 } catch {
-                    print("Could not get favourites: \(error).")
-                    
+                    os_log("Could not get favourites %{public}", log: .coreData, type: .error, error.localizedDescription)
                     // Go forward - we will lose favourites - but may complete
                 }
                 
@@ -88,7 +89,7 @@ class SessionService {
                     
                     NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
                 } catch {
-                    print("Could not clear: \(error).")
+                    os_log("Could not clear %{public}", log: .coreData, type: .error, error.localizedDescription)
                     
                     onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to clear data \(error)")
                     
@@ -143,6 +144,8 @@ class SessionService {
                 do {
                     try save(context: context)
                 } catch {
+                    os_log("Could not save %{public}", log: .coreData, type: .error, error.localizedDescription)
+
                     onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to save data \(error)")
 
                     return
@@ -188,6 +191,8 @@ class SessionService {
     }
     
     static func refreshConfig(onComplete: @escaping () -> Void) {
+        os_log("Refreshing config", log: .network, type: .info)
+
         let request = AF.request("https://sleepingpill.javazone.no/public/config")
                
         let decoder = JSONDecoder()
@@ -195,7 +200,7 @@ class SessionService {
                
         request.responseDecodable(of: RemoteConfig.self, decoder: decoder) { (response) in
             if let error = response.error {
-                print(error.localizedDescription)
+                os_log("Unable to refresh config %{public}@", log: .network, type: .error, error.localizedDescription)
                        
                 onComplete()
                        
@@ -203,7 +208,7 @@ class SessionService {
            }
 
             guard let config = response.value else {
-                print("Unable to fetch config")
+                os_log("Unable to fetch config", log: .network, type: .error)
 
                 onComplete()
             
@@ -220,6 +225,8 @@ class SessionService {
                     newConfig.dates = [confDates[0], confDates[1], workDate]
                 }
             }
+            
+            os_log("Saving config %{public}@", log: .network, type: .info, newConfig.description )
             
             newConfig.saveConfig()
             

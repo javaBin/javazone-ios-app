@@ -1,5 +1,6 @@
 import SwiftUI
 import UserNotifications
+import os
 
 struct FavouriteToggleView: View {
     @Binding var favourite: Bool
@@ -23,6 +24,8 @@ struct FavouriteToggleView: View {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             if success {
                 // We can do notification stuff
+                os_log("Notification OK", log: .notification, type: .info)
+
                 
                 if (self.favourite == true) {
                     if let date = self.notificationTrigger {
@@ -46,7 +49,7 @@ struct FavouriteToggleView: View {
                     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.notificationId])
                 }
             } else if let error = error {
-                print(error.localizedDescription)
+                os_log("Notification auth error %{public}@", log: .notification, type: .error, error.localizedDescription)
             }
         }
     }

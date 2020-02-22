@@ -1,7 +1,4 @@
-//
-
 import Foundation
-
 
 extension Date {
     func forNotification() -> Date? {
