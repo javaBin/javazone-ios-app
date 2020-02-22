@@ -32,120 +32,124 @@ class SessionService {
     }
     
     static func refresh(onComplete : @escaping (_ status: UpdateStatus, _ msg: String, _ logMsg: String) -> Void) {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
-        let request = AF.request(Config.conferenceUrl)
-        
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-        
-        request.responseDecodable(of: RemoteSessionList.self, decoder: decoder) { (response) in
-            if let error = response.error {
-                print(error.localizedDescription)
-                
-                onComplete(.Fail, "Could not download sessions, please try again", "")
-                
-                return
-            }
+        refreshConfig() {
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             
-            guard let sessions = response.value?.sessions else {
-                print("Unable to fetch sessions")
-
-                onComplete(.Fail, "Could not download sessions, please try again", "")
-                
-                return
-            }
+            let config = Config.getConfig()
             
-            var favouriteSessions: [Session] = []
+            let request = AF.request(config.url)
             
-            do {
-                let request:NSFetchRequest<Session> = Session.fetchRequest() as! NSFetchRequest<Session>
-
-                request.sortDescriptors = []
-                request.predicate = NSPredicate(format: "favourite == true")
-                
-                favouriteSessions = try context.fetch(request)
-            } catch {
-                print("Could not get favourites: \(error).")
-                
-                // Go forward - we will lose favourites - but may complete
-            }
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
             
-            let favourites = favouriteSessions
-                .compactMap { (session) -> String? in
-                    return session.sessionId
-            }
-            
-            do {
-                let result = try context.execute(Session.clear()) as! NSBatchDeleteResult
-
-                let changes: [AnyHashable: Any] = [
-                    NSDeletedObjectsKey: result.result as! [NSManagedObjectID]
-                ]
-                
-                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
-            } catch {
-                print("Could not clear: \(error).")
-                
-                onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to clear data \(error)")
-                
-                return
-            }
-            
-            var newSessions : [Session] = []
-            
-            sessions.forEach { (remoteSession) in
-                if let id = remoteSession.sessionId {
-                    let session = Session(context: context)
+            request.responseDecodable(of: RemoteSessionList.self, decoder: decoder) { (response) in
+                if let error = response.error {
+                    print(error.localizedDescription)
                     
-                    session.sessionId = id
-                    session.abstract = remoteSession.abstract
-                    session.audience = remoteSession.audience
-                    session.format = remoteSession.format
-                    session.title = remoteSession.title
-                    session.length = remoteSession.length
-                    session.room = remoteSession.room
-                    session.startUtc = remoteSession.startUtc
-                    session.endUtc = remoteSession.endUtc
-                    session.section = session.startUtc?.asHour() ?? "00:00"
-                    session.registerLoc = remoteSession.registerLoc
-                    session.videoId = remoteSession.videoId
+                    onComplete(.Fail, "Could not download sessions, please try again", "")
                     
-                    session.favourite = favourites.contains(id)
-                    
-                    remoteSession.speakers?.forEach { (remoteSpeaker) in
-                        let speaker = Speaker(context: context)
-                        
-                        if let name = remoteSpeaker.name {
-                            speaker.name = name
-                            speaker.bio = remoteSpeaker.bio
-                            speaker.avatar = remoteSpeaker.avatar
-                            
-                            if let twitter = remoteSpeaker.twitter {
-                                if (!twitter.isEmpty) {
-                                    speaker.twitter = twitter.deletePrefix("@")
-                                }
-                            }
-
-                            speaker.session = session
-                        }
-                    }
-                    
-                    newSessions.append(session)
+                    return
                 }
-            }
-            
-            updateSections(newSessions)
-            
-            do {
-                try save(context: context)
-            } catch {
-                onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to save data \(error)")
+                
+                guard let sessions = response.value?.sessions else {
+                    print("Unable to fetch sessions")
 
-                return
+                    onComplete(.Fail, "Could not download sessions, please try again", "")
+                    
+                    return
+                }
+                
+                var favouriteSessions: [Session] = []
+                
+                do {
+                    let request:NSFetchRequest<Session> = Session.fetchRequest() as! NSFetchRequest<Session>
+
+                    request.sortDescriptors = []
+                    request.predicate = NSPredicate(format: "favourite == true")
+                    
+                    favouriteSessions = try context.fetch(request)
+                } catch {
+                    print("Could not get favourites: \(error).")
+                    
+                    // Go forward - we will lose favourites - but may complete
+                }
+                
+                let favourites = favouriteSessions
+                    .compactMap { (session) -> String? in
+                        return session.sessionId
+                }
+                
+                do {
+                    let result = try context.execute(Session.clear()) as! NSBatchDeleteResult
+
+                    let changes: [AnyHashable: Any] = [
+                        NSDeletedObjectsKey: result.result as! [NSManagedObjectID]
+                    ]
+                    
+                    NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
+                } catch {
+                    print("Could not clear: \(error).")
+                    
+                    onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to clear data \(error)")
+                    
+                    return
+                }
+                
+                var newSessions : [Session] = []
+                
+                sessions.forEach { (remoteSession) in
+                    if let id = remoteSession.sessionId {
+                        let session = Session(context: context)
+                        
+                        session.sessionId = id
+                        session.abstract = remoteSession.abstract
+                        session.audience = remoteSession.audience
+                        session.format = remoteSession.format
+                        session.title = remoteSession.title
+                        session.length = remoteSession.length
+                        session.room = remoteSession.room
+                        session.startUtc = remoteSession.startUtc
+                        session.endUtc = remoteSession.endUtc
+                        session.section = session.startUtc?.asHour() ?? "00:00"
+                        session.registerLoc = remoteSession.registerLoc
+                        session.videoId = remoteSession.videoId
+                        
+                        session.favourite = favourites.contains(id)
+                        
+                        remoteSession.speakers?.forEach { (remoteSpeaker) in
+                            let speaker = Speaker(context: context)
+                            
+                            if let name = remoteSpeaker.name {
+                                speaker.name = name
+                                speaker.bio = remoteSpeaker.bio
+                                speaker.avatar = remoteSpeaker.avatar
+                                
+                                if let twitter = remoteSpeaker.twitter {
+                                    if (!twitter.isEmpty) {
+                                        speaker.twitter = twitter.deletePrefix("@")
+                                    }
+                                }
+
+                                speaker.session = session
+                            }
+                        }
+                        
+                        newSessions.append(session)
+                    }
+                }
+                
+                updateSections(newSessions)
+                
+                do {
+                    try save(context: context)
+                } catch {
+                    onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to save data \(error)")
+
+                    return
+                }
+                
+                onComplete(.OK, "", "")
             }
-            
-            onComplete(.OK, "", "")
         }
     }
     
@@ -180,6 +184,46 @@ class SessionService {
                     session.section = "\(section.startUtc.asTime()) - \(section.endUtc.asTime())"
                 }
             }
+        }
+    }
+    
+    static func refreshConfig(onComplete: @escaping () -> Void) {
+        let request = AF.request("https://sleepingpill.javazone.no/public/config")
+               
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+               
+        request.responseDecodable(of: RemoteConfig.self, decoder: decoder) { (response) in
+            if let error = response.error {
+                print(error.localizedDescription)
+                       
+                onComplete()
+                       
+                return
+           }
+
+            guard let config = response.value else {
+                print("Unable to fetch config")
+
+                onComplete()
+            
+                return
+            }
+        
+            let newConfig = Config()
+            newConfig.title = config.conferenceName ?? Config.defaultTitle
+            newConfig.url = config.conferenceUrl ?? Config.defaultUrl
+            newConfig.dates = Config.defaultDates
+            
+            if let confDates = config.conferenceDates, let workDate = config.workshopDate {
+                if (confDates.count == 2) {
+                    newConfig.dates = [confDates[0], confDates[1], workDate]
+                }
+            }
+            
+            newConfig.saveConfig()
+            
+            onComplete()
         }
     }
 }

@@ -15,6 +15,8 @@
 		834FF1B723FFC7FB00432129 /* LibrariesAndLicenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1B623FFC7FB00432129 /* LibrariesAndLicenses.swift */; };
 		834FF1BB23FFCB1400432129 /* LicenceTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1BA23FFCB1400432129 /* LicenceTexts.swift */; };
 		834FF1BD23FFCBFE00432129 /* LicenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1BC23FFCBFE00432129 /* LicenceView.swift */; };
+		834FF1E524017FEB00432129 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1E424017FEB00432129 /* Config.swift */; };
+		834FF1E7240183E300432129 /* RemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1E6240183E300432129 /* RemoteConfig.swift */; };
 		8350E64423F5222B0085C1F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8350E64323F5222B0085C1F3 /* AppDelegate.swift */; };
 		8350E64623F5222B0085C1F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8350E64523F5222B0085C1F3 /* SceneDelegate.swift */; };
 		8350E64923F5222B0085C1F3 /* JavaZone.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8350E64723F5222B0085C1F3 /* JavaZone.xcdatamodeld */; };
@@ -42,7 +44,6 @@
 		83DBDAE823F733B800767916 /* RemoteImage in Frameworks */ = {isa = PBXBuildFile; productRef = 83DBDAE723F733B800767916 /* RemoteImage */; };
 		83DBDAEA23F741E800767916 /* FavouriteToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAE923F741E800767916 /* FavouriteToggleView.swift */; };
 		83DBDAEC23F7429B00767916 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAEB23F7429B00767916 /* InfoView.swift */; };
-		83DBDAF023F7451E00767916 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAEF23F7451E00767916 /* Config.swift */; };
 		83DBDAF223F74A4400767916 /* SessionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAF123F74A4400767916 /* SessionsListView.swift */; };
 		83DF4C5F23FBFF70003FE5F1 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF4C5E23FBFF70003FE5F1 /* String+Utils.swift */; };
 		83DF4C6123FC39A4003FE5F1 /* ItemRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF4C6023FC39A4003FE5F1 /* ItemRatingView.swift */; };
@@ -55,6 +56,8 @@
 		834FF1B623FFC7FB00432129 /* LibrariesAndLicenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrariesAndLicenses.swift; sourceTree = "<group>"; };
 		834FF1BA23FFCB1400432129 /* LicenceTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenceTexts.swift; sourceTree = "<group>"; };
 		834FF1BC23FFCBFE00432129 /* LicenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenceView.swift; sourceTree = "<group>"; };
+		834FF1E424017FEB00432129 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		834FF1E6240183E300432129 /* RemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfig.swift; sourceTree = "<group>"; };
 		8350E64023F5222B0085C1F3 /* JavaZone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JavaZone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8350E64323F5222B0085C1F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8350E64523F5222B0085C1F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,7 +85,6 @@
 		83DBDAE223F729A200767916 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
 		83DBDAE923F741E800767916 /* FavouriteToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteToggleView.swift; sourceTree = "<group>"; };
 		83DBDAEB23F7429B00767916 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
-		83DBDAEF23F7451E00767916 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		83DBDAF123F74A4400767916 /* SessionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsListView.swift; sourceTree = "<group>"; };
 		83DBDAF323F74C3A00767916 /* JavaZone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JavaZone.entitlements; sourceTree = "<group>"; };
 		83DF4C5E23FBFF70003FE5F1 /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				83C8D17A23F5367E008322DA /* RemoteSessionList.swift */,
 				83C8D17423F53646008322DA /* RemoteSession.swift */,
 				83C8D17623F53646008322DA /* RemoteSpeaker.swift */,
+				834FF1E6240183E300432129 /* RemoteConfig.swift */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
@@ -149,7 +152,6 @@
 				8350E64323F5222B0085C1F3 /* AppDelegate.swift */,
 				8350E64523F5222B0085C1F3 /* SceneDelegate.swift */,
 				831B782023F526BF00A45C70 /* SessionService.swift */,
-				83DBDAEF23F7451E00767916 /* Config.swift */,
 				8350E64C23F5222D0085C1F3 /* Assets.xcassets */,
 				8350E65123F5222D0085C1F3 /* LaunchScreen.storyboard */,
 				8350E65423F5222D0085C1F3 /* Info.plist */,
@@ -185,6 +187,7 @@
 				8350E64723F5222B0085C1F3 /* JavaZone.xcdatamodeld */,
 				83C8D17D23F54636008322DA /* Session.swift */,
 				83C8D17F23F5463F008322DA /* Speaker.swift */,
+				834FF1E424017FEB00432129 /* Config.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				8397433B23FD2ABE0024E80B /* TicketView.swift in Sources */,
 				83DBDAD923F6B70400767916 /* SessionsView.swift in Sources */,
 				8397433923FD23110024E80B /* ExternalLink.swift in Sources */,
+				834FF1E7240183E300432129 /* RemoteConfig.swift in Sources */,
 				83C8D17B23F5367E008322DA /* RemoteSessionList.swift in Sources */,
 				83B3332523FAF8A900F3FCB4 /* Search+Keyboard.swift in Sources */,
 				83DBDADE23F6BAB300767916 /* FavouriteSessionsView.swift in Sources */,
@@ -329,10 +333,10 @@
 				834FF1BB23FFCB1400432129 /* LicenceTexts.swift in Sources */,
 				83C8D18023F5463F008322DA /* Speaker.swift in Sources */,
 				8350E64623F5222B0085C1F3 /* SceneDelegate.swift in Sources */,
+				834FF1E524017FEB00432129 /* Config.swift in Sources */,
 				834FF1BD23FFCBFE00432129 /* LicenceView.swift in Sources */,
 				834FF1B323FFC3A600432129 /* ScannerView.swift in Sources */,
 				83DBDAEC23F7429B00767916 /* InfoView.swift in Sources */,
-				83DBDAF023F7451E00767916 /* Config.swift in Sources */,
 				83C8D17E23F54636008322DA /* Session.swift in Sources */,
 				834FF1B723FFC7FB00432129 /* LibrariesAndLicenses.swift in Sources */,
 			);

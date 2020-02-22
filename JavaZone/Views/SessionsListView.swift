@@ -24,10 +24,14 @@ struct SessionsListView: View {
     @State private var refreshFatal = false
     @State private var refreshFatalMessage = ""
 
+    var config : Config {
+        Config.getConfig()
+    }
+    
     var sessions : RelevantSessions {
         let sessions = self.allSessions
             .filter { (session) -> Bool in
-                session.startUtc?.asDate() ?? "" == Config.dates[selectorIndex]
+                session.startUtc?.asDate() ?? "" == config.dates[selectorIndex]
         }
         .filter { (session) -> Bool in
             session.favourite == true || self.favouritesOnly == false
@@ -73,8 +77,8 @@ struct SessionsListView: View {
         NavigationView {
             VStack {
                 Picker("", selection: $selectorIndex) {
-                    Text(Config.dates[0]).tag(0)
-                    Text(Config.dates[1]).tag(1)
+                    Text(config.dates[0]).tag(0)
+                    Text(config.dates[1]).tag(1)
                     Text("Workshops").tag(2)
                 }.pickerStyle(SegmentedPickerStyle()).padding(.horizontal)
                 
