@@ -1,5 +1,6 @@
 import SwiftUI
 import CodeScanner
+import os
 
 struct ScannerView: View {
     @Environment(\.presentationMode) var presentation
@@ -13,6 +14,7 @@ struct ScannerView: View {
                 self.data = "\(code)"
                 self.presentation.wrappedValue.dismiss()
             case .failure(let error):
+                os_log("Failed to scan %{public}@", log: .scanner, error.localizedDescription)
                 self.data = "\(error.localizedDescription)"
                 self.presentation.wrappedValue.dismiss()
             }

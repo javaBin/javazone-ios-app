@@ -2,6 +2,33 @@ import SwiftUI
 import RemoteImage
 import CoreData
 
+struct DefaultSpeakerImage: View {
+    var body: some View {
+        Image(systemName: "person")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 32.0, height: 32.0)
+    }
+}
+
+struct SpeakerImage: View {
+    var avatarUrl : URL
+    
+    var body: some View {
+        RemoteImage(type: .url(avatarUrl), errorView: { error in
+            DefaultSpeakerImage()
+        }, imageView: { image in
+            image
+                .resizable()
+                .clipShape(Capsule())
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 32.0, height: 32.0)
+        }, loadingView: {
+            DefaultSpeakerImage()
+        })
+    }
+}
+
 struct SpeakerItemView: View {
     var speaker: Speaker
     
@@ -9,23 +36,9 @@ struct SpeakerItemView: View {
         VStack(alignment: .leading) {
             HStack(alignment: .center) {
                 if (speaker.wrappedAvatar != nil) {
-                    RemoteImage(type: .url(speaker.wrappedAvatar!), errorView: { error in
-                        Image(systemName: "person")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 32.0, height: 32.0)
-                    }, imageView: { image in
-                        image
-                            .resizable()
-                            .clipShape(Capsule())
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 32.0, height: 32.0)
-                    }, loadingView: {
-                        Image(systemName: "person")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 32.0, height: 32.0)
-                    })
+                    SpeakerImage(avatarUrl: speaker.wrappedAvatar!)
+                } else {
+                    DefaultSpeakerImage()
                 }
                 VStack(alignment: .leading) {
                     Text(speaker.wrappedName).font(.headline)
