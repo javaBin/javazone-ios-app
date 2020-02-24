@@ -7,7 +7,7 @@ lane :beta do
     get_certificates
     get_provisioning_profile
     build_app(scheme: "JavaZone")
-    #upload_to_testflight
+    upload_to_testflight
     slack(message: "Beta build uploaded")
 end
 
