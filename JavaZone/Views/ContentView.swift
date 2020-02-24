@@ -29,6 +29,7 @@ struct ContentView: View {
                     }
                 }
                 .tag(2)
+            #if DEBUG
             TicketView()
                 .font(.title)
                 .tabItem {
@@ -47,6 +48,7 @@ struct ContentView: View {
                     }
                 }
                 .tag(4)
+            #endif
         }
     }
 }

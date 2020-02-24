@@ -5,7 +5,9 @@ struct InfoView: View {
         NavigationView {
             List {
                 Section(header: Text("JavaZone"), content: {
+                    #if DEBUG
                     Text("Conference stuff")
+                    #endif
                     ExternalLink(title: "Code of conduct", url: URL(string: "https://www.java.no/principles.html")!)
                 })
                 Section(header: Text("JavaZone App"), content: {
