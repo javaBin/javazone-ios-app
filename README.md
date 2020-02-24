@@ -33,7 +33,7 @@ For now - issues in the application due to this are [tagged SwiftUI](https://git
 
 ### Fastlane issues
 
-Fastlane screenshot support requires a working UITest - which doesn't seem to work well with SwiftUI just yet. Things like the back button on NavigationView are ignored by the UITest system. Will revisit fastlane when support is better (might use it for build and upload of beta and release - not sure).
+Fastlane screenshot support requires a working UITest - which doesn't seem to work well with SwiftUI just yet. Things like the back button on NavigationView are ignored by the UITest system. So we will not be using fastlane for screenshots until this is better supported.
 
 --- 
 
