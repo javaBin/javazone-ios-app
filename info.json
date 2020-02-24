@@ -6,11 +6,11 @@
   {
     "title": "Test Info",
     "body": "Section 2 - test info",
-    "type": "info"
+    "infoType": "info"
   },
   {
     "title": "Test Urgent",
     "body": "Section 3 - test urgent",
-    "type": "urgent"
+    "infoType": "urgent"
   }
 ]
