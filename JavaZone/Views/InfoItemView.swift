@@ -3,13 +3,18 @@
 import SwiftUI
 
 struct InfoItemView: View {
-    var title: String
-    var text: String
+    var item : InfoItem
     
     var body: some View {
         VStack {
-            Text(text)
-                .navigationBarTitle(title)
+            if (item.isUrgent) {
+                HStack {
+                    Image(systemName: "exclamationmark.octagon.fill")
+                    Text("Urgent")
+                }.foregroundColor(Color.yellow)
+            }
+            Text(item.body)
+                .navigationBarTitle(item.title)
             Spacer()
         }
     }
@@ -17,6 +22,6 @@ struct InfoItemView: View {
 
 struct InfoItemView_Previews: PreviewProvider {
     static var previews: some View {
-        InfoItemView(title: "Test", text: "Test")
+        InfoItemView(item: InfoItem(title: "Test", body: "Test", infoType: "urgent"))
     }
 }

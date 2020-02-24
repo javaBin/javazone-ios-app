@@ -4,6 +4,11 @@ import os
 public struct InfoItem : Hashable {
     var title: String
     var body: String
+    var infoType: String?
+    
+    var isUrgent: Bool {
+        return (infoType ?? "") == "urgent"
+    }
 }
 
 public class Info : ObservableObject {
@@ -31,7 +36,7 @@ public class Info : ObservableObject {
                 var newItems : [InfoItem] = []
                 
                 remoteInfo.forEach { (remoteInfoItem) in
-                    newItems.append(InfoItem(title: remoteInfoItem.title, body: remoteInfoItem.body))
+                    newItems.append(InfoItem(title: remoteInfoItem.title, body: remoteInfoItem.body, infoType: remoteInfoItem.infoType))
                 }
                 
                 self.infoItems = newItems

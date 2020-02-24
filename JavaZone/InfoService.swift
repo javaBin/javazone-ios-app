@@ -7,7 +7,8 @@ class InfoService {
     static func refreshConfig(onComplete: @escaping ([RemoteInfo]) -> Void) {
         os_log("Refreshing info", log: .network, type: .info)
 
-        let request = AF.request("https://raw.githubusercontent.com/javaBin/javazone-ios-app/master/info.json")
+        // TODO - fix URL
+        let request = AF.request("https://api.myjson.com/bins/11uwk0")
                
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
