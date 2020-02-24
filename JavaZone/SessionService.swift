@@ -44,6 +44,8 @@ class SessionService {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
             
+            os_log("Fetching sessions", log: .network, type: .debug)
+            
             request.responseDecodable(of: RemoteSessionList.self, decoder: decoder) { (response) in
                 if let error = response.error {
                     os_log("Unable to fetch sessions %{public}@", log: .network, type: .error, error.localizedDescription)
@@ -63,6 +65,8 @@ class SessionService {
                 
                 var favouriteSessions: [Session] = []
                 
+                os_log("Getting favourites", log: .coreData, type: .debug)
+
                 do {
                     let request:NSFetchRequest<Session> = Session.fetchRequest() as! NSFetchRequest<Session>
 
@@ -80,7 +84,11 @@ class SessionService {
                         return session.sessionId
                 }
                 
+                os_log("Got %{public}d favourites", log: .coreData, type: .debug, favourites.count)
+
                 do {
+                    os_log("Clearing old sessions", log: .coreData, type: .debug)
+
                     let result = try context.execute(Session.clear()) as! NSBatchDeleteResult
 
                     let changes: [AnyHashable: Any] = [
@@ -139,6 +147,8 @@ class SessionService {
                     }
                 }
                 
+                os_log("Saw %{public}d new sessions", log: .network, type: .debug, newSessions.count)
+
                 updateSections(newSessions)
                 
                 do {
@@ -197,7 +207,9 @@ class SessionService {
                
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
-               
+
+        os_log("Fetching config", log: .network, type: .debug)
+
         request.responseDecodable(of: RemoteConfig.self, decoder: decoder) { (response) in
             if let error = response.error {
                 os_log("Unable to refresh config %{public}@", log: .network, type: .error, error.localizedDescription)
@@ -226,7 +238,7 @@ class SessionService {
                 }
             }
             
-            os_log("Saving config %{public}@", log: .network, type: .info, newConfig.description )
+            os_log("Saving config %{public}@", log: .network, type: .info, newConfig.description)
             
             newConfig.saveConfig()
             
