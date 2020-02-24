@@ -14,7 +14,7 @@ struct InfoItemView: View {
                 }.foregroundColor(Color.yellow)
             }
             Text(item.wrappedBody)
-                .padding()
+                .padding()      
                 .navigationBarTitle(item.title)
             Spacer()
         }

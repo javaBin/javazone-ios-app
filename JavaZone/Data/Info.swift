@@ -27,7 +27,7 @@ public class Info : ObservableObject {
 
     private init() {
         self.lastUpdated = Date(timeIntervalSince1970: 0)
-        self.infoItems = []
+        self.infoItems = [InfoItem(title: "Wi-Fi - SSID: JavaZone", body: nil, infoType: nil)]
     }
     
     private func difference(start: Date, end: Date) -> Int {
