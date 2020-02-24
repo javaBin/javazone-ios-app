@@ -4,11 +4,13 @@
     "body": "SSID: ???"
   },
   {
-    "title": "Title 2",
-    "body": "Section 2"
+    "title": "Test Info",
+    "body": "Section 2 - test info",
+    "type": "info"
   },
   {
-    "title": "Title 3",
-    "body": "Section 3"
+    "title": "Test Urgent",
+    "body": "Section 3 - test urgent",
+    "type": "urgent"
   }
 ]
