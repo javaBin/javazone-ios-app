@@ -3,11 +3,26 @@ import SwiftUI
 struct InfoView: View {
     @ObservedObject var info = Info.shared
     
+    var shortItems : [InfoItem] {
+        return info.infoItems.filter { (item) -> Bool in
+            item.isShort
+        }
+    }
+    
+    var longItems : [InfoItem] {
+        return info.infoItems.filter { (item) -> Bool in
+            !item.isShort
+        }
+    }
+    
     var body: some View {
         NavigationView {
             List {
                 Section(header: Text("JavaZone"), content: {
-                    ForEach(info.infoItems, id: \.self) { infoItem in
+                    ForEach(shortItems, id: \.self) { infoItem in
+                        InfoItemListView(item: infoItem)
+                    }
+                    ForEach(longItems, id: \.self) { infoItem in
                         NavigationLink(destination: InfoItemView(item: infoItem)) {
                             InfoItemListView(item: infoItem)
                         }

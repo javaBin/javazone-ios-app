@@ -13,12 +13,14 @@ struct InfoItemView: View {
                     Text("Urgent")
                 }.foregroundColor(Color.yellow)
             }
-            Text(item.body)
+            Text(item.wrappedBody)
+                .padding()
                 .navigationBarTitle(item.title)
             Spacer()
         }
     }
 }
+
 
 struct InfoItemView_Previews: PreviewProvider {
     static var previews: some View {

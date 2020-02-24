@@ -3,8 +3,16 @@ import os
 
 public struct InfoItem : Hashable {
     var title: String
-    var body: String
+    var body: String?
     var infoType: String?
+    
+    var isShort: Bool {
+        return body == nil
+    }
+    
+    var wrappedBody : String {
+        return body ?? ""
+    }
     
     var isUrgent: Bool {
         return (infoType ?? "") == "urgent"
