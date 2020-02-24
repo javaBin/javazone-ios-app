@@ -1,16 +1,15 @@
 [
   {
-    "title": "Wi-Fi",
-    "body": "SSID: ???"
+    "title": "Wi-Fi - SSID: JavaZone"
   },
   {
     "title": "Test Info",
-    "body": "Section 2 - test info",
+    "body": "This is a test info post. It has info in it.\n\nIt might even have some line breaks",
     "infoType": "info"
   },
   {
     "title": "Test Urgent",
-    "body": "Section 3 - test urgent",
+    "body": "This is a test urgent message. The talk in Room 3 at 10:00 has been moved to 15:00",
     "infoType": "urgent"
   }
 ]
