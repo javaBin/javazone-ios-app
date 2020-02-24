@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Wi-Fi",
+    "body": "SSID: ???"
+  },
+  {
+    "title": "Test Info",
+    "body": "Section 2 - test info",
+    "infoType": "info"
+  },
+  {
+    "title": "Test Urgent",
+    "body": "Section 3 - test urgent",
+    "infoType": "urgent"
+  }
+]
