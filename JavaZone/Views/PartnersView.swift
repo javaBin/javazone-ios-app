@@ -1,48 +1,28 @@
-//
-
 import SwiftUI
 
 struct PartnersView: View {
-    @State private var scannedData = "Scanned data will go here"
-    @State private var image : Image = Image(systemName: "qrcode")
-
+    @State private var selectorIndex = 0
     var body: some View {
         NavigationView {
             VStack {
-                Text("Scanned data")
-                
-                Text(scannedData)
-                    .font(.headline)
-    
-                Spacer()
+                Picker("", selection: $selectorIndex) {
+                    Text("Your Badge").tag(0)
+                    Text("Partners").tag(1)
+                    Text("Rules").tag(2)
+                }.pickerStyle(SegmentedPickerStyle()).padding(.horizontal)
 
-                NavigationLink(destination: ScannerView(data: $scannedData)) {
-                    Text("Scan")
+                if (selectorIndex == 0) {
+                    PartnerBadgeView()
                 }
-                
-                
-                
-                Spacer()
-
-                Text("Test QR Generator")
-
-                Text("QR Code generated from the scanned data text")
-                    .font(.headline)
-                
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 203, height: 203) // H quality QR is 29x29 - we are scaling by 7x
-                    .background(Color.black)
-                
-                Spacer()
-            }
-            .navigationBarTitle(Text("Partners"), displayMode: .inline)
-            .onAppear {
-                if let qrImage = self.scannedData.generateQRCode() {
-                    self.image = Image(uiImage: qrImage)
+                if (selectorIndex == 1) {
+                    PartnerListView()
                 }
-            }
+                if (selectorIndex == 2) {
+                    PartnerRuleView()
+                }
+
+                Spacer()
+            }.navigationBarTitle("Partners")
         }
     }
 }

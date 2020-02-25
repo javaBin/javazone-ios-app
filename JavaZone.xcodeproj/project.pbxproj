@@ -27,6 +27,9 @@
 		8350E65023F5222D0085C1F3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8350E64F23F5222D0085C1F3 /* Preview Assets.xcassets */; };
 		8350E65323F5222D0085C1F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8350E65123F5222D0085C1F3 /* LaunchScreen.storyboard */; };
 		83590B0B23FBDFD80058B036 /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 83590B0A23FBDFD80058B036 /* SwiftUIRefresh */; };
+		836DED6924056DD000EB111B /* PartnerBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DED6824056DD000EB111B /* PartnerBadgeView.swift */; };
+		836DED6B2405701A00EB111B /* PartnerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DED6A2405701A00EB111B /* PartnerListView.swift */; };
+		836DED6D2405704200EB111B /* PartnerRuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DED6C2405704200EB111B /* PartnerRuleView.swift */; };
 		8397433923FD23110024E80B /* ExternalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397433823FD23110024E80B /* ExternalLink.swift */; };
 		8397433D23FD2ACC0024E80B /* PartnersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397433C23FD2ACC0024E80B /* PartnersView.swift */; };
 		83B3332123FA8E9400F3FCB4 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332023FA8E9400F3FCB4 /* RatingView.swift */; };
@@ -74,6 +77,9 @@
 		8350E64F23F5222D0085C1F3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8350E65223F5222D0085C1F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8350E65423F5222D0085C1F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		836DED6824056DD000EB111B /* PartnerBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerBadgeView.swift; sourceTree = "<group>"; };
+		836DED6A2405701A00EB111B /* PartnerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerListView.swift; sourceTree = "<group>"; };
+		836DED6C2405704200EB111B /* PartnerRuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerRuleView.swift; sourceTree = "<group>"; };
 		8397433823FD23110024E80B /* ExternalLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLink.swift; sourceTree = "<group>"; };
 		8397433C23FD2ACC0024E80B /* PartnersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnersView.swift; sourceTree = "<group>"; };
 		83B3332023FA8E9400F3FCB4 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
@@ -222,6 +228,9 @@
 				83E322B124040E0C0044094C /* InfoItemView.swift */,
 				834FF1B623FFC7FB00432129 /* LibrariesAndLicenses.swift */,
 				8397433C23FD2ACC0024E80B /* PartnersView.swift */,
+				836DED6824056DD000EB111B /* PartnerBadgeView.swift */,
+				836DED6A2405701A00EB111B /* PartnerListView.swift */,
+				836DED6C2405704200EB111B /* PartnerRuleView.swift */,
 				834FF1BA23FFCB1400432129 /* LicenceTexts.swift */,
 			);
 			path = Views;
@@ -328,6 +337,7 @@
 				831B782123F526BF00A45C70 /* SessionService.swift in Sources */,
 				834FF18B23FF331700432129 /* SpeakerItemView.swift in Sources */,
 				83B3332123FA8E9400F3FCB4 /* RatingView.swift in Sources */,
+				836DED6924056DD000EB111B /* PartnerBadgeView.swift in Sources */,
 				83DBDAE323F729A200767916 /* Date+Utils.swift in Sources */,
 				83DF4C5F23FBFF70003FE5F1 /* String+Utils.swift in Sources */,
 				83DBDAF223F74A4400767916 /* SessionsListView.swift in Sources */,
@@ -355,6 +365,8 @@
 				83E322AA2403F5730044094C /* InfoService.swift in Sources */,
 				834FF1BD23FFCBFE00432129 /* LicenceView.swift in Sources */,
 				834FF1B323FFC3A600432129 /* ScannerView.swift in Sources */,
+				836DED6D2405704200EB111B /* PartnerRuleView.swift in Sources */,
+				836DED6B2405701A00EB111B /* PartnerListView.swift in Sources */,
 				833505C724041BA100B277C0 /* InfoItemListView.swift in Sources */,
 				83DBDAEC23F7429B00767916 /* InfoView.swift in Sources */,
 				83C8D17E23F54636008322DA /* Session.swift in Sources */,
