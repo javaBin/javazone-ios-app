@@ -3,8 +3,13 @@
     "title": "Wi-Fi - SSID: JavaZone"
   },
   {
-    "title": "Test Info",
-    "body": "This is a test info post. It has info in it.\n\nIt might even have some line breaks",
+    "title": "JavaZone 2020 CFS",
+    "body": "JavaZone 2020 Call For Speakers is open. Head over to talks.javazone.no to submit a session!",
+    "infoType": "info"
+  },
+  {
+    "title": "JavaZone 2020 Sessions",
+    "body": "JavaZone 2020 sessions are not available until after the call for papers closes and the programme committee has had time to go through them.\n\nOnce they are available we will switch the app over to 2020 and they will replace the 2019 sessions in the app.",
     "infoType": "info"
   },
   {
