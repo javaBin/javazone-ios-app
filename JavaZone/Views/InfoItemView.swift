@@ -11,7 +11,7 @@ struct InfoItemView: View {
                 HStack {
                     Image(systemName: "exclamationmark.octagon.fill")
                     Text("Urgent")
-                }.foregroundColor(Color.yellow)
+                    }.foregroundColor(Color.yellow).padding()
             }
             Text(item.wrappedBody)
                 .padding()      
