@@ -38,6 +38,7 @@
 		837E9BBA24058D1000B74714 /* InfoItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BAB24058D1000B74714 /* InfoItemListView.swift */; };
 		837E9BBB24058D1000B74714 /* LicenceTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BAC24058D1000B74714 /* LicenceTexts.swift */; };
 		837E9BBC24058D1000B74714 /* LibrariesAndLicenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BAD24058D1000B74714 /* LibrariesAndLicenses.swift */; };
+		837E9BBF2405BF1000B74714 /* WaterfallGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 837E9BBE2405BF1000B74714 /* WaterfallGrid */; };
 		8397433923FD23110024E80B /* ExternalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397433823FD23110024E80B /* ExternalLink.swift */; };
 		83B3332123FA8E9400F3FCB4 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332023FA8E9400F3FCB4 /* RatingView.swift */; };
 		83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332223FAF74200F3FCB4 /* SearchView.swift */; };
@@ -115,6 +116,7 @@
 				834FF1B123FFBFA800432129 /* CodeScanner in Frameworks */,
 				831FC33B23FBE2B100BB12A3 /* Alamofire in Frameworks */,
 				83590B0B23FBDFD80058B036 /* SwiftUIRefresh in Frameworks */,
+				837E9BBF2405BF1000B74714 /* WaterfallGrid in Frameworks */,
 				83DBDAE823F733B800767916 /* RemoteImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,6 +294,7 @@
 				83590B0A23FBDFD80058B036 /* SwiftUIRefresh */,
 				831FC33A23FBE2B100BB12A3 /* Alamofire */,
 				834FF1B023FFBFA800432129 /* CodeScanner */,
+				837E9BBE2405BF1000B74714 /* WaterfallGrid */,
 			);
 			productName = JavaZone;
 			productReference = 8350E64023F5222B0085C1F3 /* JavaZone.app */;
@@ -326,6 +329,7 @@
 				83590B0923FBDFD80058B036 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
 				831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				834FF1AF23FFBFA800432129 /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				837E9BBD2405BF1000B74714 /* XCRemoteSwiftPackageReference "WaterfallGrid" */,
 			);
 			productRefGroup = 8350E64123F5222B0085C1F3 /* Products */;
 			projectDirPath = "";
@@ -626,6 +630,14 @@
 				minimumVersion = 0.0.2;
 			};
 		};
+		837E9BBD2405BF1000B74714 /* XCRemoteSwiftPackageReference "WaterfallGrid" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/paololeonardi/WaterfallGrid";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
+			};
+		};
 		83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/crelies/RemoteImage.git";
@@ -651,6 +663,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 83590B0923FBDFD80058B036 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */;
 			productName = SwiftUIRefresh;
+		};
+		837E9BBE2405BF1000B74714 /* WaterfallGrid */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 837E9BBD2405BF1000B74714 /* XCRemoteSwiftPackageReference "WaterfallGrid" */;
+			productName = WaterfallGrid;
 		};
 		83DBDAE723F733B800767916 /* RemoteImage */ = {
 			isa = XCSwiftPackageProductDependency;
