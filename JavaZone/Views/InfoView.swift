@@ -2,6 +2,7 @@ import SwiftUI
 
 struct InfoView: View {
     @ObservedObject var info = Info.shared
+    @State private var isRefreshing = false
     
     var shortItems : [InfoItem] {
         return info.infoItems.filter { (item) -> Bool in
@@ -42,10 +43,17 @@ struct InfoView: View {
                 })
             }
             .navigationBarTitle("Info")
+            .pullToRefresh(isShowing: $isRefreshing) {
+                Info.shared.update(force: true, callback: self.refreshDone)
+            }
             .onAppear {
-                Info.shared.update()
+                Info.shared.update(force: false, callback: nil)
             }
         }
+    }
+    
+    func refreshDone() {
+        self.isRefreshing = false
     }
 }
 

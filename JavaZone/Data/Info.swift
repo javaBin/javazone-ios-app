@@ -5,6 +5,8 @@ public struct InfoItem : Hashable {
     var title: String
     var body: String?
     var infoType: String?
+    var urlTitle: String?
+    var url: String?
     
     var isShort: Bool {
         return body == nil
@@ -12,6 +14,18 @@ public struct InfoItem : Hashable {
     
     var wrappedBody : String {
         return body ?? ""
+    }
+    
+    var wrappedLinkTitle : String {
+        return urlTitle ?? ""
+    }
+
+    var wrappedLink : URL? {
+        if let url = self.url {
+            return URL(string:url)
+        }
+        
+        return nil
     }
     
     var isUrgent: Bool {
@@ -30,10 +44,10 @@ public class Info : ObservableObject {
         self.infoItems = [InfoItem(title: "Wi-Fi - SSID: JavaZone", body: nil, infoType: nil)]
     }
     
-    public func update() {
+    public func update(force: Bool, callback: (() -> Void)?) {
         os_log("Update called", log: .info, type: .debug)
 
-        if (abs(self.lastUpdated.diffInSeconds(date: Date())) > 5 * 60) {
+        if (force || abs(self.lastUpdated.diffInSeconds(date: Date())) > 5 * 60) {
             os_log("Cache old - update", log: .info, type: .debug)
 
             InfoService.refreshConfig { (remoteInfo) in
@@ -42,7 +56,7 @@ public class Info : ObservableObject {
                 var newItems : [InfoItem] = []
                 
                 remoteInfo.forEach { (remoteInfoItem) in
-                    newItems.append(InfoItem(title: remoteInfoItem.title, body: remoteInfoItem.body, infoType: remoteInfoItem.infoType))
+                    newItems.append(InfoItem(title: remoteInfoItem.title, body: remoteInfoItem.body, infoType: remoteInfoItem.infoType, urlTitle: remoteInfoItem.url?.title, url: remoteInfoItem.url?.url))
                 }
                 
                 self.infoItems = newItems
@@ -53,6 +67,9 @@ public class Info : ObservableObject {
                 
                 os_log("Setting cache flag to %{public}@", log: .info, type: .debug, self.lastUpdated as NSDate)
 
+                if let callback = callback {
+                    callback()
+                }
             }
         }
     }

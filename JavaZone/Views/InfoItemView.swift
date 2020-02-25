@@ -15,7 +15,10 @@ struct InfoItemView: View {
             }
             Text(item.wrappedBody)
                 .padding()      
-                .navigationBarTitle(item.title)
+                .navigationBarTitle(Text(item.title), displayMode: .inline)
+            if (item.wrappedLink != nil) {
+                ExternalLink(title: item.wrappedLinkTitle, url: item.wrappedLink!)
+            }
             Spacer()
         }
     }
