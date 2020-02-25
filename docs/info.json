@@ -4,8 +4,12 @@
   },
   {
     "title": "JavaZone 2020 CFS",
-    "body": "JavaZone 2020 Call For Speakers is open. Head over to talks.javazone.no to submit a session!",
-    "infoType": "info"
+    "body": "JavaZone 2020 Call For Speakers is open.",
+    "infoType": "info",
+    "url": {
+      "title": "Submit your talk!",
+      "url": "https://talks.javazone.no"
+    }
   },
   {
     "title": "JavaZone 2020 Sessions",
