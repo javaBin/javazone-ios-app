@@ -30,24 +30,15 @@ struct ContentView: View {
                 }
                 .tag(2)
             #if DEBUG
-            TicketView()
-                .font(.title)
-                .tabItem {
-                    VStack {
-                        Image(systemName: "qrcode")
-                        Text("Ticket")
-                    }
-                }
-                .tag(3)
             PartnersView()
                 .font(.title)
                 .tabItem {
                     VStack {
-                        Image(systemName: "person.2.square.stack")
+                        Image(systemName: "qrcode")
                         Text("Partners")
                     }
                 }
-                .tag(4)
+                .tag(3)
             #endif
         }
     }
