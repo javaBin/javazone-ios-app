@@ -25,7 +25,12 @@ struct SessionItemView: View {
                 }
             }
             Spacer()
-            FavouriteToggleView(favourite: $session.favourite, notificationId: session.sessionId ?? UUID().uuidString, notificationTitle: session.wrappedTitle, notificationLocation: session.wrappedRoom, notificationTrigger: session.startUtc)
+            if (session.notYetStarted()) {
+                FavouriteToggleView(favourite: $session.favourite, notificationId: session.sessionId ?? UUID().uuidString, notificationTitle: session.wrappedTitle, notificationLocation: session.wrappedRoom, notificationTrigger: session.startUtc)
+            }
+            if (session.videoId != nil) {
+                Image(systemName: "video")
+            }
         }
     }
 }

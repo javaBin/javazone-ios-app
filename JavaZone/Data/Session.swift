@@ -107,6 +107,10 @@ extension Session {
     func toTime() -> String {
         return asTime(endUtc)
     }
+    
+    func notYetStarted() -> Bool {
+        return (startUtc?.diffInSeconds(date: Date()) ?? 0) < 0
+    }
 }
 
 extension Session {

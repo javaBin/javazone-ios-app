@@ -30,20 +30,10 @@ public class Info : ObservableObject {
         self.infoItems = [InfoItem(title: "Wi-Fi - SSID: JavaZone", body: nil, infoType: nil)]
     }
     
-    private func difference(start: Date, end: Date) -> Int {
-        os_log("Checking date difference between %{public}@ and %{public}@", log: .info, type: .debug, start as NSDate, end as NSDate)
-
-        let calendar = Calendar.current
-        let dateComponents = calendar.dateComponents([Calendar.Component.second], from: start, to: end)
-
-        return abs(dateComponents.second ?? 0)
-    }
-
-    
     public func update() {
         os_log("Update called", log: .info, type: .debug)
 
-        if (difference(start: self.lastUpdated, end: Date()) > 5 * 60) {
+        if (abs(self.lastUpdated.diffInSeconds(date: Date())) > 5 * 60) {
             os_log("Cache old - update", log: .info, type: .debug)
 
             InfoService.refreshConfig { (remoteInfo) in

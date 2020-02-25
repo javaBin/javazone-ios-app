@@ -37,4 +37,11 @@ extension Date {
         
         return "\(dateFormatter.string(from: self)):00"
     }
+    
+    func diffInSeconds(date: Date) -> Int {
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([Calendar.Component.second], from: self, to: date)
+
+        return dateComponents.second ?? 0
+    }
 }
