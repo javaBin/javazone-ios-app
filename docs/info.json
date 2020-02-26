@@ -17,8 +17,8 @@
     "infoType": "info"
   },
   {
-    "title": "Test Urgent",
-    "body": "This is a test urgent message. The talk in Room 3 at 10:00 has been moved to 15:00",
+    "title": "Current Testing",
+    "body": "We are currently testing the session lists, session details and info view.",
     "infoType": "urgent"
   }
 ]
