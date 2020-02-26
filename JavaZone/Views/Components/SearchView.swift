@@ -4,7 +4,7 @@ import SwiftUI
 
 struct SearchView: View {
     @Binding var searchText : String
-
+    
     private var showCancelButton: Bool {
         searchText != ""
     }
@@ -36,7 +36,6 @@ struct SearchView: View {
             }
         }
         .padding(.horizontal)
-        .navigationBarHidden(showCancelButton)
     }
 }
 
