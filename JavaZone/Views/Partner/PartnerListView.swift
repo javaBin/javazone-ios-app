@@ -5,7 +5,6 @@ struct PartnerListView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(fetchRequest: Partner.getPartners()) var partners: FetchedResults<Partner>
 
-    @State private var isRefreshing = false
     @State private var isShowingRefreshAlert = false
     @State private var refreshAlertTitle = ""
     @State private var refreshAlertMessage = ""
@@ -54,7 +53,8 @@ struct PartnerListView: View {
     
     func refreshPartners() {
          PartnerService.refresh { (status, message, logMessage) in
-            if (status == .Fail) {
+            // If we fail to fetch but have partners _ this list changes so rarely that we ignore and continue.
+            if (status == .Fail && self.partners.count == 0) {
                 self.refreshFatal = false
                 self.refreshAlertTitle = "Refresh failed"
                 self.refreshAlertMessage = message
@@ -69,8 +69,6 @@ struct PartnerListView: View {
                 self.refreshFatalMessage = logMessage
                 self.isShowingRefreshAlert = true
             }
-            
-            self.isRefreshing = false
         }
     }
 }

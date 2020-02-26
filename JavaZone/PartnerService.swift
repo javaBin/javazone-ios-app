@@ -4,6 +4,8 @@ import CoreData
 import os
 
 class PartnerService {
+    static var lastUpdated = Date(timeIntervalSince1970: 0)
+    
     private static func getContext() -> NSManagedObjectContext {
         return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     }
@@ -12,10 +14,17 @@ class PartnerService {
         if (context.hasChanges) {
             os_log("Saving changed MOC - Partners", log: .coreData, type: .info)
             try context.save()
+            
+            lastUpdated = Date()
         }
     }
     
     static func refresh(onComplete : @escaping (_ status: UpdateStatus, _ msg: String, _ logMsg: String) -> Void) {
+        if (abs(self.lastUpdated.diffInSeconds(date: Date())) < 60 * 60) {
+            onComplete(.OK, "", "")
+            return
+        }
+
         // TODO - add a "last refresh" check
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
