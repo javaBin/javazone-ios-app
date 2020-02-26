@@ -33,7 +33,7 @@ struct PartnerBadgeView: View {
             image
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 203, height: 203) // H quality QR is 29x29 - we are scaling by 7x
+                .frame(width: 203, height: 203)
                 .background(Color.black)
             
             Spacer()

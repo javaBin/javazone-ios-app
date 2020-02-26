@@ -6,7 +6,7 @@ struct PartnersView: View {
             VStack {
                 Text("Partners").font(.headline)
                 Picker("", selection: $selectorIndex) {
-                    Text("Your Badge").tag(0)
+                    Text("My Pass").tag(0)
                     Text("Partners").tag(1)
                     Text("Rules").tag(2)
                 }.pickerStyle(SegmentedPickerStyle()).padding(.horizontal)
