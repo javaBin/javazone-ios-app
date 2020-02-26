@@ -81,14 +81,12 @@ public class Session:NSManagedObject {
         }.joined(separator: ", ")
     }
 
+    /*
     public var feedbackOpen : Bool {
-        #if DEBUG
         // TODO https://github.com/javaBin/javazone-ios-app/issues/8
-        return Bool.random();
-        #else
         return false
-        #endif
     }
+    */
 }
 
 extension Session {
