@@ -42,5 +42,13 @@ extension String {
 
         return uiImage
     }
+    
+    func slug() -> String {
+        let allowed = CharacterSet(charactersIn: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-")
+        
+        return self.filter { (char) -> Bool in
+            return !char.unicodeScalars.contains(where: { !allowed.contains($0)})
+        }
+    }
 }
 

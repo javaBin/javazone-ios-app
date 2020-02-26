@@ -96,16 +96,18 @@ class PartnerService {
             var newPartners : [Partner] = []
             
             partners.forEach { (remotePartner) in
-                if let url = remotePartner.url {
+                if let url = remotePartner.url, let name = remotePartner.name, let image = remotePartner.image {
                     let partner = Partner(context: context)
                     
                     partner.url = url
-                    partner.name = remotePartner.name
-                    partner.image = remotePartner.image
+                    partner.name = name
+                    partner.image = image
 
                     partner.contacted = contacted.contains(url)
                                         
                     newPartners.append(partner)
+
+                    fetchImage(partner: partner)
                 }
             }
             
@@ -123,5 +125,51 @@ class PartnerService {
             
             onComplete(.OK, "", "")
         }
+    }
+    
+    static func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        
+        return documentsDirectory
+    }
+    
+    static func targetUrl(name: String?) -> URL? {
+        if let slug = name?.slug() {
+            return getDocumentsDirectory().appendingPathComponent(slug).appendingPathExtension("png")
+        }
+        
+        return nil
+    }
+    
+    static func fetchImage(partner: Partner) {
+        if let url = targetUrl(name: partner.name), let imageUrl = partner.wrappedImage {
+            DispatchQueue.global(qos: .background).async {
+                do {
+                    os_log("Fetch image - fetching data for %{public}@", log: .network, type: .debug, imageUrl.absoluteString)
+                    let data = try Data(contentsOf: imageUrl)
+                    
+                    os_log("Fetch image - getting as image", log: .network, type: .debug)
+                    if let image = UIImage(data: data), let pngData = image.pngData() {
+                        os_log("Fetch image - saving data to %{public}@", log: .network, type: .debug, url.absoluteString)
+                        try pngData.write(to: url)
+                    }
+                } catch {
+                    os_log("Could not save image from url %{public}@", log: .network, type: .error, error.localizedDescription, imageUrl.absoluteString)
+                }
+            }
+        }
+    }
+    
+    static func getImageUrl(partner: Partner) -> URL? {
+        if let url = targetUrl(name: partner.name) {
+            if (FileManager.default.fileExists(atPath: url.path)) {
+                os_log("Found cached partner image", type: .debug)
+
+                return url
+            }
+        }
+        
+        return partner.wrappedImage
     }
 }

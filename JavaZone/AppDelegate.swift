@@ -11,6 +11,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Override point for customization after application launch.
         UNUserNotificationCenter.current().delegate = self
         
+        cleanUpOldImages()
+        
         return true
     }
 
@@ -75,5 +77,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         completionHandler([.alert, .badge, .sound])
     }
     
+    // MARK: - TidyUp
+    
+    func cleanUpOldImages() {
+        let earliest = Date().addingTimeInterval(-10 * 24 * 60 * 60)
+
+        DispatchQueue.global(qos: .background).async {
+            guard let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+
+            do {
+                let documents = try FileManager.default.contentsOfDirectory(at: documentsUrl,
+                                                                           includingPropertiesForKeys: nil,
+                                                                           options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
+               
+                for document in documents {
+                    if document.pathExtension == "png" {
+                        let creationDate = try FileManager.default.attributesOfItem(atPath: document.path)[FileAttributeKey.creationDate] as! Date
+
+                        if (creationDate < earliest) {
+                            try FileManager.default.removeItem(at: document)
+                        }
+                    }
+                }
+            } catch {
+                os_log("An error occured cleaning up old image files %{public}@", type: .error, error.localizedDescription)
+            }
+        }
+    }
 }
 

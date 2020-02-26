@@ -35,11 +35,15 @@ struct PartnerImage: View {
 struct PartnerLogoView: View {
     var partner: Partner
     
+    var imageUrl: URL? {
+        return PartnerService.getImageUrl(partner: partner)
+    }
+    
     var body: some View {
         VStack {
             ZStack {
-                if (partner.wrappedImage != nil) {
-                    PartnerImage(imageUrl: partner.wrappedImage!)
+                if (imageUrl != nil) {
+                    PartnerImage(imageUrl: imageUrl!)
                 } else {
                     DefaultPartnerImage(message: "Partner \(partner.wrappedName) has no image")
                 }
