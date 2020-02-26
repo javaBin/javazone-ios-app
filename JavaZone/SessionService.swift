@@ -3,22 +3,10 @@ import Alamofire
 import CoreData
 import os
 
-enum SessionError : Error {
-    case remoteError
-    case parseError
-    case storageError
-}
-
 struct SessionSection : Hashable {
     var startUtc: Date
     var endUtc: Date
     var duration: Int
-}
-
-enum UpdateStatus {
-    case OK
-    case Fail
-    case Fatal
 }
 
 class SessionService {
@@ -28,7 +16,7 @@ class SessionService {
     
     private static func save(context: NSManagedObjectContext) throws {
         if (context.hasChanges) {
-            os_log("Saving changed MOC", log: .coreData, type: .info)
+            os_log("Saving changed MOC - Sessions", log: .coreData, type: .info)
             try context.save()
         }
     }
@@ -97,9 +85,9 @@ class SessionService {
                     
                     NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
                 } catch {
-                    os_log("Could not clear %{public}", log: .coreData, type: .error, error.localizedDescription)
+                    os_log("Could not clear sessions %{public}", log: .coreData, type: .error, error.localizedDescription)
                     
-                    onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to clear data \(error)")
+                    onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to clear session data \(error)")
                     
                     return
                 }
@@ -154,9 +142,9 @@ class SessionService {
                 do {
                     try save(context: context)
                 } catch {
-                    os_log("Could not save %{public}", log: .coreData, type: .error, error.localizedDescription)
+                    os_log("Could not save sessions %{public}", log: .coreData, type: .error, error.localizedDescription)
 
-                    onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to save data \(error)")
+                    onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to save data - sessions \(error)")
 
                     return
                 }

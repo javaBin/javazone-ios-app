@@ -10,4 +10,5 @@ extension OSLog {
     static let scanner = OSLog(subsystem: subsystem, category: "Scanner")
     static let notification = OSLog(subsystem: subsystem, category: "Notifications")
     static let info = OSLog(subsystem: subsystem, category: "Info")
+    static let ui = OSLog(subsystem: subsystem, category: "UI")
 }

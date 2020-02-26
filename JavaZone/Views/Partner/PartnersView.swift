@@ -3,8 +3,8 @@ import SwiftUI
 struct PartnersView: View {
     @State private var selectorIndex = 0
     var body: some View {
-        NavigationView {
             VStack {
+                Text("Partners").font(.headline)
                 Picker("", selection: $selectorIndex) {
                     Text("Your Badge").tag(0)
                     Text("Partners").tag(1)
@@ -22,7 +22,6 @@ struct PartnersView: View {
                 }
 
                 Spacer()
-            }.navigationBarTitle("Partners")
         }
     }
 }

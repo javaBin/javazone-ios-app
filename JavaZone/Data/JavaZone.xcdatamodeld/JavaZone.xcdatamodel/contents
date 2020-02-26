@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Partner" representedClassName=".Partner" syncable="YES">
+        <attribute name="contacted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="Session" representedClassName=".Session" syncable="YES">
         <attribute name="abstract" optional="YES" attributeType="String"/>
         <attribute name="audience" optional="YES" attributeType="String"/>
@@ -26,5 +32,6 @@
     <elements>
         <element name="Session" positionX="-63" positionY="-18" width="128" height="253"/>
         <element name="Speaker" positionX="-54" positionY="-9" width="128" height="118"/>
+        <element name="Partner" positionX="-54" positionY="99" width="128" height="103"/>
     </elements>
 </model>
