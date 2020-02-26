@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Test Partner 1",
+    "url": "https://java.no/1",
+    "logo": "https://www.java.no/img/duke/marius_duke.svg"
+  },
+  {
+    "name": "Test Partner 2",
+    "url": "https://java.no/2",
+    "logo": "https://www.java.no/img/duke/marius_duke.svg"
+  },
+  {
+    "name": "Test Partner 3",
+    "url": "https://java.no/3",
+    "logo": "https://www.java.no/img/duke/marius_duke.svg"
+  },
+  {
+    "name": "Test Partner 4",
+    "url": "https://java.no/4",
+    "logo": "https://www.java.no/img/duke/marius_duke.svg"
+  },
+  {
+    "name": "Test Partner 5",
+    "url": "https://java.no/5",
+    "logo": "https://www.java.no/img/duke/marius_duke.svg"
+  },
+  {
+    "name": "Test Partner 6",
+    "url": "https://java.no/6",
+    "logo": "https://www.java.no/img/duke/marius_duke.svg"
+  },
+  {
+    "name": "Test Partner 7",
+    "url": "https://java.no/7",
+    "logo": "https://www.java.no/img/duke/marius_duke.svg"
+  },
+  {
+    "name": "Test Partner 8",
+    "url": "https://java.no/8",
+    "logo": "https://www.java.no/img/duke/marius_duke.svg"
+  },
+  {
+    "name": "Test Partner 9",
+    "url": "https://java.no/9",
+    "logo": "https://www.java.no/img/duke/marius_duke.svg"
+  },
+  {
+    "name": "Test Partner 10",
+    "url": "https://java.no/10",
+    "logo": "https://www.java.no/img/duke/marius_duke.svg"
+  }
+]
