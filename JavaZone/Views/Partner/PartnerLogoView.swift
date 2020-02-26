@@ -7,7 +7,7 @@ struct DefaultPartnerImage: View {
     var message: String
     
     var body: some View {
-        os_log("Image message %{public}@", log: .ui, type: .info, message)
+        os_log("Image message %{public}@", log: .ui, type: .debug, message)
 
         return Image(systemName: "person.3.fill")
             .resizable()

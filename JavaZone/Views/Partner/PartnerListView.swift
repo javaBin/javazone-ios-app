@@ -23,7 +23,7 @@ struct PartnerListView: View {
     var body: some View {
         VStack {
             Text("Partner List")
-            WaterfallGrid(partners, id: \.self) { partner in
+            WaterfallGrid(partners.shuffled(), id: \.self) { partner in
                 PartnerLogoView(partner: partner)
             }
             .gridStyle(columns: cols, spacing: 10)
