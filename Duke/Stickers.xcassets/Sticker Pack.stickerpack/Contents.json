@@ -1,0 +1,32 @@
+{
+  "stickers" : [
+    {
+      "filename" : "marius_duke@3x.sticker"
+    },
+    {
+      "filename" : "rock_duke@3x.sticker"
+    },
+    {
+      "filename" : "tetris_duke3@3x.sticker"
+    },
+    {
+      "filename" : "tetris_duke4@3x.sticker"
+    },
+    {
+      "filename" : "viking_duke@3x.sticker"
+    },
+    {
+      "filename" : "viking_duke2@3x.sticker"
+    },
+    {
+      "filename" : "JavaZone@3x.sticker"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  },
+  "properties" : {
+    "grid-size" : "regular"
+  }
+}

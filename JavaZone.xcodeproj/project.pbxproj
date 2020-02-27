@@ -44,6 +44,8 @@
 		837E9BC52406612B00B74714 /* RemotePartner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BC42406612B00B74714 /* RemotePartner.swift */; };
 		837E9BC7240662B600B74714 /* ServiceCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BC6240662B600B74714 /* ServiceCommon.swift */; };
 		837E9BC9240666AF00B74714 /* PartnerLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BC8240666AF00B74714 /* PartnerLogoView.swift */; };
+		838048422407BF1600749E82 /* Stickers.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 838048412407BF1600749E82 /* Stickers.xcassets */; };
+		838048462407BF1600749E82 /* JavaZone.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8380483F2407BF1500749E82 /* JavaZone.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8397433923FD23110024E80B /* ExternalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397433823FD23110024E80B /* ExternalLink.swift */; };
 		83B3332123FA8E9400F3FCB4 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332023FA8E9400F3FCB4 /* RatingView.swift */; };
 		83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332223FAF74200F3FCB4 /* SearchView.swift */; };
@@ -62,6 +64,30 @@
 		83E322AE2403F5DC0044094C /* RemoteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E322AD2403F5DC0044094C /* RemoteInfo.swift */; };
 		83E322B02403FC090044094C /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E322AF2403FC090044094C /* Info.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		838048442407BF1600749E82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8350E63823F5222B0085C1F3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8380483E2407BF1500749E82;
+			remoteInfo = Duke;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		838048472407BF1600749E82 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				838048462407BF1600749E82 /* JavaZone.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		831B782023F526BF00A45C70 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
@@ -99,6 +125,9 @@
 		837E9BC42406612B00B74714 /* RemotePartner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePartner.swift; sourceTree = "<group>"; };
 		837E9BC6240662B600B74714 /* ServiceCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCommon.swift; sourceTree = "<group>"; };
 		837E9BC8240666AF00B74714 /* PartnerLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerLogoView.swift; sourceTree = "<group>"; };
+		8380483F2407BF1500749E82 /* JavaZone.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JavaZone.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		838048412407BF1600749E82 /* Stickers.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Stickers.xcassets; sourceTree = "<group>"; };
+		838048432407BF1600749E82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8397433823FD23110024E80B /* ExternalLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLink.swift; sourceTree = "<group>"; };
 		83B3332023FA8E9400F3FCB4 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		83B3332223FAF74200F3FCB4 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -158,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				8350E64223F5222B0085C1F3 /* JavaZone */,
+				838048402407BF1500749E82 /* Duke */,
 				8350E64123F5222B0085C1F3 /* Products */,
 				817585E5854E70183F0A13B3 /* Pods */,
 			);
@@ -167,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				8350E64023F5222B0085C1F3 /* JavaZone.app */,
+				8380483F2407BF1500749E82 /* JavaZone.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -238,6 +269,15 @@
 			path = Info;
 			sourceTree = "<group>";
 		};
+		838048402407BF1500749E82 /* Duke */ = {
+			isa = PBXGroup;
+			children = (
+				838048412407BF1600749E82 /* Stickers.xcassets */,
+				838048432407BF1600749E82 /* Info.plist */,
+			);
+			path = Duke;
+			sourceTree = "<group>";
+		};
 		83B3331F23FA8E7C00F3FCB4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,10 +338,12 @@
 				8350E63C23F5222B0085C1F3 /* Sources */,
 				8350E63D23F5222B0085C1F3 /* Frameworks */,
 				8350E63E23F5222B0085C1F3 /* Resources */,
+				838048472407BF1600749E82 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				838048452407BF1600749E82 /* PBXTargetDependency */,
 			);
 			name = JavaZone;
 			packageProductDependencies = (
@@ -315,6 +357,21 @@
 			productReference = 8350E64023F5222B0085C1F3 /* JavaZone.app */;
 			productType = "com.apple.product-type.application";
 		};
+		8380483E2407BF1500749E82 /* Duke */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8380484A2407BF1600749E82 /* Build configuration list for PBXNativeTarget "Duke" */;
+			buildPhases = (
+				8380483D2407BF1500749E82 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Duke;
+			productName = Duke;
+			productReference = 8380483F2407BF1500749E82 /* JavaZone.appex */;
+			productType = "com.apple.product-type.app-extension.messages-sticker-pack";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -326,6 +383,9 @@
 				ORGANIZATIONNAME = "Chris Searle";
 				TargetAttributes = {
 					8350E63F23F5222B0085C1F3 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					8380483E2407BF1500749E82 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
 				};
@@ -351,6 +411,7 @@
 			projectRoot = "";
 			targets = (
 				8350E63F23F5222B0085C1F3 /* JavaZone */,
+				8380483E2407BF1500749E82 /* Duke */,
 			);
 		};
 /* End PBXProject section */
@@ -363,6 +424,14 @@
 				8350E65323F5222D0085C1F3 /* LaunchScreen.storyboard in Resources */,
 				8350E65023F5222D0085C1F3 /* Preview Assets.xcassets in Resources */,
 				8350E64D23F5222D0085C1F3 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8380483D2407BF1500749E82 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				838048422407BF1600749E82 /* Stickers.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +492,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		838048452407BF1600749E82 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8380483E2407BF1500749E82 /* Duke */;
+			targetProxy = 838048442407BF1600749E82 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8350E65123F5222D0085C1F3 /* LaunchScreen.storyboard */ = {
@@ -602,6 +679,36 @@
 			};
 			name = Release;
 		};
+		838048482407BF1600749E82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X4FF6CYH8M;
+				INFOPLIST_FILE = Duke/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.chrissearle.incogito.JavaZone.Duke;
+				PRODUCT_NAME = JavaZone;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		838048492407BF1600749E82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X4FF6CYH8M;
+				INFOPLIST_FILE = Duke/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.chrissearle.incogito.JavaZone.Duke;
+				PRODUCT_NAME = JavaZone;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -619,6 +726,15 @@
 			buildConfigurations = (
 				8350E65823F5222D0085C1F3 /* Debug */,
 				8350E65923F5222D0085C1F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8380484A2407BF1600749E82 /* Build configuration list for PBXNativeTarget "Duke" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				838048482407BF1600749E82 /* Debug */,
+				838048492407BF1600749E82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
