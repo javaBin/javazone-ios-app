@@ -17,7 +17,13 @@ struct PartnerBadgeView: View {
                 Button("Scan Badge") {
                     self.showingScanSheet = true
                 }.sheet(isPresented: $showingScanSheet) {
-                    ScannerView(data: self.$scannedData)
+                    ScannerView(data: Binding(
+                        get: { self.scannedData },
+                        set: { (newVal) in
+                            self.scannedData = newVal
+                            // Here we can store the user's badge
+                        }
+                    ))
                 }.padding()
             }
             

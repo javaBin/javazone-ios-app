@@ -49,7 +49,13 @@ struct PartnerListView: View {
                 }.onTapGesture {
                     self.showingScanSheet = true
                 }.sheet(isPresented: $showingScanSheet) {
-                    ScannerView(data: self.$scannedData)
+                    ScannerView(data: Binding(
+                        get: { self.scannedData },
+                        set: { (newVal) in
+                            self.scannedData = newVal
+                            // Here we can look and update the matching partner
+                        }
+                    ))
                 }
             }.padding()
 
