@@ -21,14 +21,16 @@ struct PartnerListView: View {
     
     var body: some View {
         VStack {
-            Text("Partner List")
+            Text("Partner List").onTapGesture(count: 3) {
+                self.refreshPartners(force: true)
+            }
             WaterfallGrid(partners.shuffled(), id: \.self) { partner in
                 PartnerLogoView(partner: partner)
             }
             .gridStyle(columns: cols, spacing: 10)
             .padding()
             .onAppear(perform: {
-                self.refreshPartners()
+                self.refreshPartners(force: false)
             })
             .alert(isPresented: $isShowingRefreshAlert) {
                 Alert(title: Text(self.refreshAlertTitle),
@@ -51,8 +53,9 @@ struct PartnerListView: View {
         }
     }
     
-    func refreshPartners() {
-         PartnerService.refresh { (status, message, logMessage) in
+    func refreshPartners(force: Bool) {
+        PartnerService.refresh(force: force) { (status, message, logMessage) in
+            
             // If we fail to fetch but have partners _ this list changes so rarely that we ignore and continue.
             if (status == .Fail && self.partners.count == 0) {
                 self.refreshFatal = false

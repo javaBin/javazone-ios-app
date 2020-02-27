@@ -4,8 +4,6 @@ import CoreData
 import os
 
 class PartnerService {
-    static var lastUpdated = Date(timeIntervalSince1970: 0)
-    
     private static func getContext() -> NSManagedObjectContext {
         return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     }
@@ -14,18 +12,17 @@ class PartnerService {
         if (context.hasChanges) {
             os_log("Saving changed MOC - Partners", log: .coreData, type: .info)
             try context.save()
-            
-            lastUpdated = Date()
         }
     }
     
-    static func refresh(onComplete : @escaping (_ status: UpdateStatus, _ msg: String, _ logMsg: String) -> Void) {
-        if (abs(self.lastUpdated.diffInSeconds(date: Date())) < 60 * 60) {
+    static func refresh(force: Bool, onComplete : @escaping (_ status: UpdateStatus, _ msg: String, _ logMsg: String) -> Void) {
+        let lastUpdated = UserDefaults.standard.object(forKey: "PartnerDate") as? Date ?? Date(timeIntervalSince1970: 0)
+        
+        if (force != true && (abs(lastUpdated.diffInSeconds(date: Date())) < 60 * 60 * 24 * 30)) {
             onComplete(.OK, "", "")
             return
         }
 
-        // TODO - add a "last refresh" check
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
         let request = AF.request("https://www.java.no/javazone-ios-app/partners.json")
@@ -122,6 +119,8 @@ class PartnerService {
 
                 return
             }
+            
+            UserDefaults.standard.set(Date(), forKey: "PartnerDate")
             
             onComplete(.OK, "", "")
         }
