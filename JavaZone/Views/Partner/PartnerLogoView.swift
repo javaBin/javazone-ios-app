@@ -41,24 +41,19 @@ struct PartnerLogoView: View {
     
     var body: some View {
         VStack {
-            ZStack {
-                if (imageUrl != nil) {
-                    PartnerImage(imageUrl: imageUrl!)
-                } else {
-                    DefaultPartnerImage(message: "Partner \(partner.wrappedName) has no image")
-                }
-                if (partner.contacted) {
-                    Image(systemName: "checkmark.square.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 32.0, height: 32.0)
-                        .offset(x: 32, y: 32)
-                        .foregroundColor(Color.yellow)
-                        .shadow(color: Color.gray, radius: 3, x: 5, y: 5)
-                }
+            if (imageUrl != nil) {
+                PartnerImage(imageUrl: imageUrl!)
+                    .grayscale(partner.contacted ? 0 : 0.8)
+                    .opacity(partner.contacted ? 1 : 0.4)
+                    .onTapGesture {
+                        if (self.partner.wrappedSite != nil) {
+                            UIApplication.shared.open(self.partner.wrappedSite!)
+                        }
+                    }
+            } else {
+                DefaultPartnerImage(message: "Partner \(partner.wrappedName) has no image")
             }
             Text(partner.wrappedName).font(.caption)
-            Text(partner.wrappedUrl).font(.caption)
         }
     }
 }

@@ -22,6 +22,14 @@ public class Partner:NSManagedObject {
     public var wrappedUrl : String {
         return self.url ?? ""
     }
+    
+    public var wrappedSite : URL? {
+        if let url = self.url {
+            return URL(string: url)
+        }
+        
+        return nil
+    }
 }
 
 extension Partner {
