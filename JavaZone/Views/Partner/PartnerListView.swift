@@ -11,12 +11,24 @@ struct PartnerListView: View {
     @State private var refreshFatal = false
     @State private var refreshFatalMessage = ""
 
+    private var idiom : UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
+    private var isPortrait : Bool { UIDevice.current.orientation.isPortrait }
+    
+    // TODO - can we get info on screen size here? Calculate out from that?
     var cols : Int {
-        if UIDevice.current.userInterfaceIdiom == .pad {
-           return 6
+        if idiom == .pad {
+            if (isPortrait == true) {
+                return 4
+            } else {
+                return 7
+            }
+        } else {
+            if (isPortrait == true) {
+                return 3
+            } else {
+                return 4
+            }
         }
-        
-        return 3
     }
     
     var body: some View {
