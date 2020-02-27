@@ -3,45 +3,40 @@
 import SwiftUI
 
 struct PartnerBadgeView: View {
-    @State private var scannedData = "Scanned data will go here"
-    @State private var image : Image = Image(systemName: "qrcode")
+    @State private var scannedData = ""
     
     @State private var showingScanSheet = false
 
     var body: some View {
         VStack {
-            Text("Scanned data")
+            Text("Your Badge").font(.largeTitle).padding()
             
-            Text(scannedData)
-                .font(.headline)
+            if (self.scannedData == "") {
+                Text("To take part in the partner game you need to scan your conference badge first.")
 
-            Spacer()
-
-            Button("Scan") {
-                self.showingScanSheet = true
-            }.sheet(isPresented: $showingScanSheet) {
-                ScannerView(data: self.$scannedData)
+                Button("Scan Badge") {
+                    self.showingScanSheet = true
+                }.sheet(isPresented: $showingScanSheet) {
+                    ScannerView(data: self.$scannedData)
+                }.padding()
             }
             
-            Spacer()
+            if (self.scannedData != "") {
+                Text("Your Details").font(.headline).padding()
+                
+                Text("Details of the scanned badge here")
 
-            Text("Test QR Generator")
+                Button("Scan a new badge") {
+                    self.showingScanSheet = true
+                }.sheet(isPresented: $showingScanSheet) {
+                    ScannerView(data: self.$scannedData)
+                }.padding()
+                
+                Text("Scanning a new badge will reset the partner game.")
 
-            Text("QR Code generated from the scanned data text")
-                .font(.headline)
-            
-            image
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 203, height: 203)
-                .background(Color.black)
-            
-            Spacer()
-        }
-        .onAppear {
-            if let qrImage = self.scannedData.generateQRCode() {
-                self.image = Image(uiImage: qrImage)
             }
+
+            Spacer()
         }
     }
 }

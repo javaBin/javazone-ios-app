@@ -10,6 +10,9 @@ struct PartnerListView: View {
     @State private var refreshAlertMessage = ""
     @State private var refreshFatal = false
     @State private var refreshFatalMessage = ""
+    
+    @State private var scannedData = ""
+    @State private var showingScanSheet = false
 
     private var idiom : UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
     private var isPortrait : Bool { UIDevice.current.orientation.isPortrait }
@@ -33,9 +36,23 @@ struct PartnerListView: View {
     
     var body: some View {
         VStack {
-            Text("Partner List").onTapGesture(count: 3) {
-                self.refreshPartners(force: true)
-            }
+            HStack {
+                Text("Partner List").onTapGesture(count: 3) {
+                    self.refreshPartners(force: true)
+                }
+                Spacer()
+                HStack {
+                    Text("Scan")
+                    Image(systemName: "qrcode")
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                }.onTapGesture {
+                    self.showingScanSheet = true
+                }.sheet(isPresented: $showingScanSheet) {
+                    ScannerView(data: self.$scannedData)
+                }
+            }.padding()
+
             WaterfallGrid(partners.shuffled(), id: \.self) { partner in
                 PartnerLogoView(partner: partner)
             }

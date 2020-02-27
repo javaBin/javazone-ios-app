@@ -8,15 +8,27 @@ struct ScannerView: View {
     @Binding var data : String
     
     var body: some View {
-        CodeScannerView(codeTypes: [.qr], simulatedData: "Simulator Data") { result in
-            switch result {
-            case .success(let code):
-                self.data = "\(code)"
-                self.presentation.wrappedValue.dismiss()
-            case .failure(let error):
-                os_log("Failed to scan %{public}@", log: .scanner, error.localizedDescription)
-                self.data = "\(error.localizedDescription)"
-                self.presentation.wrappedValue.dismiss()
+        VStack {
+            HStack {
+                Spacer()
+                Text("Scan").font(.title).padding(.leading, 16.0)
+                Spacer()
+                Image(systemName: "xmark.square")
+                    .resizable()
+                    .frame(width: 32, height: 32)
+                    .onTapGesture {
+                        self.presentation.wrappedValue.dismiss()
+                    }
+            }.padding()
+            CodeScannerView(codeTypes: [.qr], simulatedData: "Simulator Data") { result in
+                switch result {
+                case .success(let code):
+                    self.data = "\(code)"
+                    self.presentation.wrappedValue.dismiss()
+                case .failure(let error):
+                    os_log("Failed to scan %{public}@", log: .scanner, error.localizedDescription)
+                    self.presentation.wrappedValue.dismiss()
+                }
             }
         }
     }
