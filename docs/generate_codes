@@ -12,9 +12,8 @@ for row in $(cat partner-raw.json | jq -cr '.[] | @base64'); do
         echo ${row} | base64 --decode | jq -cr ${1}
     }
     
-    
     F=`echo $(_jq '.name') | sed -e "s/\ //"g | tr '[:upper:]' '[:lower:]'`
-    echo $(_jq) | qrencode -o partners/$F.png -l L
+    echo $(_jq) | jq 'del (.url) | del(.logo)' | qrencode -o partners/$F.png -l L
 done
 
 jq 'del(.[].code)' partner-raw.json > partners.json
