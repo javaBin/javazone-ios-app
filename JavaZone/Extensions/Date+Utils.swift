@@ -44,4 +44,18 @@ extension Date {
 
         return dateComponents.second ?? 0
     }
+    
+    func diffInSeconds(key: String, defaultDate: Date) -> Int {
+        return self.diffInSeconds(date: UserDefaults.standard.object(forKey: key) as? Date ?? defaultDate)
+    }
+    
+    func shouldUpdate(key: String, defaultDate: Date, maxSecs: Int) -> Bool {
+        abs(Date().diffInSeconds(key: key, defaultDate: defaultDate)) > maxSecs
+    }
+    
+    func save(key: String) {
+        UserDefaults.standard.set(self, forKey: key)
+    }
+    
+    
 }

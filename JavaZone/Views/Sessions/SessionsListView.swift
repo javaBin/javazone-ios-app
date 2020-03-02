@@ -72,7 +72,7 @@ struct SessionsListView: View {
             self.isShowing = false
         }
     }
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -99,6 +99,18 @@ struct SessionsListView: View {
                     if (self.sessions.sessions.count == 0 && self.favouritesOnly == false && self.searchText == "") {
                         self.refreshSessions()
                     }
+                    
+                    let now = Date()
+                    
+                    if (now.shouldUpdate(key: "SessionLastDisplayed", defaultDate: Date(timeIntervalSince1970: 0), maxSecs: 60 * 60)) {
+                        for idx in  0..<3 {
+                            if (now.asDate() == self.config.dates[idx]) {
+                                self.selectorIndex = idx
+                            }
+                        }
+                    }
+                    
+                    now.save(key: "SessionLastDisplayed")
                 })
                 .resignKeyboardOnDragGesture()
                 .pullToRefresh(isShowing: $isShowing) {

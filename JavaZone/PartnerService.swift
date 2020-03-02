@@ -16,9 +16,8 @@ class PartnerService {
     }
     
     static func refresh(force: Bool, onComplete : @escaping (_ status: UpdateStatus, _ msg: String, _ logMsg: String) -> Void) {
-        let lastUpdated = UserDefaults.standard.object(forKey: "PartnerDate") as? Date ?? Date(timeIntervalSince1970: 0)
         
-        if (force != true && (abs(lastUpdated.diffInSeconds(date: Date())) < 60 * 60 * 24 * 30)) {
+        if (force != true && !Date().shouldUpdate(key: "PartnerDate", defaultDate: Date(timeIntervalSince1970: 0), maxSecs: 60 * 60 * 24 * 30)) {
             onComplete(.OK, "", "")
             return
         }
@@ -120,7 +119,7 @@ class PartnerService {
                 return
             }
             
-            UserDefaults.standard.set(Date(), forKey: "PartnerDate")
+            Date().save(key: "PartnerDate")
             
             onComplete(.OK, "", "")
         }
