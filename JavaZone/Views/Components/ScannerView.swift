@@ -3,13 +3,13 @@ import CodeScanner
 import os
 
 struct ScannerView: View {
-    let simulatorData = """
+    var simulatorData = """
 BEGIN:VCARD
 VERSION:4.0
-FN;CHARSET=UTF-8:Test 1 First Name Test 1 Last Name
-N;CHARSET=UTF-8:Test 1 Last Name;Test 1 First Name;;;
-TITLE;CHARSET=UTF-8:Test Title 1
-ORG;CHARSET=UTF-8:Test 1 Organization
+FN;CHARSET=UTF-8:Duke JavaZone
+N;CHARSET=UTF-8:JavaZone;Duke;;;
+TITLE;CHARSET=UTF-8:Mascot
+ORG;CHARSET=UTF-8:javaBin
 REV:2020-03-02T13:54:27.821Z
 END:VCARD
 """
