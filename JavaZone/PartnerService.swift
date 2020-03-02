@@ -15,6 +15,27 @@ class PartnerService {
         }
     }
     
+    static func clearContacted() {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        do {
+            let request:NSFetchRequest<Partner> = Partner.fetchRequest() as! NSFetchRequest<Partner>
+
+            request.sortDescriptors = []
+            request.predicate = NSPredicate(format: "contacted == true")
+        
+            let contactedPartners = try context.fetch(request)
+            
+            contactedPartners.forEach { (partner) in
+                partner.contacted = false
+            }
+            
+            try save(context: context)
+        } catch {
+           os_log("Could not get clear contacted partners %{public}@", log: .coreData, type: .error, error.localizedDescription)
+        }
+    }
+    
     static func refresh(force: Bool, onComplete : @escaping (_ status: UpdateStatus, _ msg: String, _ logMsg: String) -> Void) {
         
         if (force != true && !Date().shouldUpdate(key: "PartnerDate", defaultDate: Date(timeIntervalSince1970: 0), maxSecs: 60 * 60 * 24 * 30)) {
@@ -60,7 +81,7 @@ class PartnerService {
                 
                 contactedPartners = try context.fetch(request)
             } catch {
-                os_log("Could not get contacted partners %{public}", log: .coreData, type: .error, error.localizedDescription)
+                os_log("Could not get contacted partners %{public}@", log: .coreData, type: .error, error.localizedDescription)
                 // Go forward - we will lose contacted partners - but may complete
             }
             
@@ -82,7 +103,7 @@ class PartnerService {
                 
                 NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
             } catch {
-                os_log("Could not clear partners %{public}", log: .coreData, type: .error, error.localizedDescription)
+                os_log("Could not clear partners %{public}@", log: .coreData, type: .error, error.localizedDescription)
                 
                 onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to clear partner data \(error)")
                 
@@ -112,7 +133,7 @@ class PartnerService {
             do {
                 try save(context: context)
             } catch {
-                os_log("Could not save partners %{public}", log: .coreData, type: .error, error.localizedDescription)
+                os_log("Could not save partners %{public}@", log: .coreData, type: .error, error.localizedDescription)
 
                 onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to save data - partners \(error)")
 

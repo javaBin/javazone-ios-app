@@ -3,6 +3,17 @@ import CodeScanner
 import os
 
 struct ScannerView: View {
+    let simulatorData = """
+BEGIN:VCARD
+VERSION:4.0
+FN;CHARSET=UTF-8:Test 1 First Name Test 1 Last Name
+N;CHARSET=UTF-8:Test 1 Last Name;Test 1 First Name;;;
+TITLE;CHARSET=UTF-8:Test Title 1
+ORG;CHARSET=UTF-8:Test 1 Organization
+REV:2020-03-02T13:54:27.821Z
+END:VCARD
+"""
+    
     @Environment(\.presentationMode) var presentation
     
     @Binding var data : String
@@ -20,7 +31,7 @@ struct ScannerView: View {
                         self.presentation.wrappedValue.dismiss()
                     }
             }.padding()
-            CodeScannerView(codeTypes: [.qr], simulatedData: "Simulator Data") { result in
+            CodeScannerView(codeTypes: [.qr], simulatedData: simulatorData) { result in
                 switch result {
                 case .success(let code):
                     self.data = "\(code)"
