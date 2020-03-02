@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftUIRefresh
 import CoreData
+import os
 
 struct RelevantSessions {
     var sessions: [Session]
@@ -17,13 +18,14 @@ struct SessionsListView: View {
     
     @State private var selectorIndex = 0
     @State private var searchText = ""
-    @State private var isShowing = false
+    @State private var isShowingPullToRefresh = false
     @State private var isShowingRefreshAlert = false
     @State private var refreshAlertTitle = ""
     @State private var refreshAlertMessage = ""
     @State private var refreshFatal = false
     @State private var refreshFatalMessage = ""
-
+    @State private var autorefreshing = false
+    
     var config : Config {
         Config.sharedConfig
     }
@@ -45,12 +47,12 @@ struct SessionsListView: View {
         }
         
         let grouped = Dictionary(grouping: sessions, by: { $0.wrappedSection })
-                
+        
         let sections = Array(grouped.keys).sorted(by: <)
         
         return RelevantSessions(sessions: sessions, sections: sections, grouped: grouped)
     }
-
+    
     func refreshSessions() {
         SessionService.refresh() { (status, message, logMessage) in
             if (status == .Fail) {
@@ -69,7 +71,10 @@ struct SessionsListView: View {
                 self.isShowingRefreshAlert = true
             }
             
-            self.isShowing = false
+            self.isShowingPullToRefresh = false
+            self.autorefreshing = false
+            
+            UserDefaults.standard.set(Date(), forKey: "SessionLastUpdate")
         }
     }
     
@@ -83,58 +88,90 @@ struct SessionsListView: View {
                 }.pickerStyle(SegmentedPickerStyle()).padding(.horizontal)
                 
                 SearchView(searchText: $searchText)
-
-                List {
-                    ForEach(self.sessions.sections, id: \.self) { section in
-                        Section(header: Text(section)) {
-                            ForEach(self.sessions.grouped[section] ?? [], id: \.self) { session in
-                                NavigationLink(destination: SessionDetailView(session: session)) {
-                                    SessionItemView(session: session)
+                
+                ZStack {
+                    List {
+                        ForEach(self.sessions.sections, id: \.self) { section in
+                            Section(header: Text(section)) {
+                                ForEach(self.sessions.grouped[section] ?? [], id: \.self) { session in
+                                    NavigationLink(destination: SessionDetailView(session: session)) {
+                                        SessionItemView(session: session)
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                .onAppear(perform: {
-                    if (self.sessions.sessions.count == 0 && self.favouritesOnly == false && self.searchText == "") {
+                    .onAppear(perform: appear)
+                    .resignKeyboardOnDragGesture()
+                    .pullToRefresh(isShowing: $isShowingPullToRefresh) {
                         self.refreshSessions()
                     }
-                    
-                    let now = Date()
-                    
-                    if (now.shouldUpdate(key: "SessionLastDisplayed", defaultDate: Date(timeIntervalSince1970: 0), maxSecs: 60 * 60)) {
-                        for idx in  0..<3 {
-                            if (now.asDate() == self.config.dates[idx]) {
-                                self.selectorIndex = idx
-                            }
-                        }
+                    .alert(isPresented: $isShowingRefreshAlert) {
+                        Alert(title: Text(self.refreshAlertTitle),
+                              message: Text(self.refreshAlertMessage),
+                              dismissButton: Alert.Button.default(
+                                Text("OK"), action: {
+                                    if (self.refreshFatal) {
+                                        fatalError(self.refreshFatalMessage)
+                                    }
+                                    
+                                    self.refreshAlertMessage = ""
+                                    self.refreshAlertTitle = ""
+                                    self.refreshFatalMessage = ""
+                                    self.refreshFatal = false
+                              }
+                            )
+                        )
                     }
                     
-                    now.save(key: "SessionLastDisplayed")
-                })
-                .resignKeyboardOnDragGesture()
-                .pullToRefresh(isShowing: $isShowing) {
-                    self.refreshSessions()
-                }
-                .alert(isPresented: $isShowingRefreshAlert) {
-                    Alert(title: Text(self.refreshAlertTitle),
-                          message: Text(self.refreshAlertMessage),
-                          dismissButton: Alert.Button.default(
-                            Text("OK"), action: {
-                                if (self.refreshFatal) {
-                                    fatalError(self.refreshFatalMessage)
-                                }
-                                
-                                self.refreshAlertMessage = ""
-                                self.refreshAlertTitle = ""
-                                self.refreshFatalMessage = ""
-                                self.refreshFatal = false
-                          }
-                        )
-                    )
-                }
-            }.navigationBarTitle(title)
+                    if (autorefreshing) {
+                        SpinnerView()
+                    }
+                }.navigationBarTitle(title)
+            }
         }
+    }
+    
+    func appear() {
+        let now = Date()
+        
+        // We have no sessions in list and we are not filtering
+        let noSessions = self.sessions.sessions.count == 0 && self.favouritesOnly == false && self.searchText == ""
+        
+        os_log("Checking to see if empty %{public}d", log: .ui, type: .debug, noSessions)
+        
+        // It's been at least 30 mins since last update - a 25% chance to update
+        let randomChance = Int.random(in: 0..<4) == 0
+        var autorefresh = randomChance && now.shouldUpdate(key: "SessionLastUpdate", defaultDate: Date(timeIntervalSince1970: 0), maxSecs: 60 * 30)
+        
+        os_log("Checking to see if should auto refresh %{public}d", log: .ui, type: .debug, autorefresh)
+        
+        #if DEBUG
+        autorefresh = Bool.random()
+        
+        os_log("Debug - set auto refresh %{public}d", log: .ui, type: .debug, autorefresh)
+        #endif
+        
+        if (noSessions || autorefresh) {
+            self.autorefreshing = true
+            self.refreshSessions()
+        }
+        
+        
+        if (now.shouldUpdate(key: "SessionLastDisplayed", defaultDate: Date(timeIntervalSince1970: 0), maxSecs: 60 * 60)) {
+            os_log("Should set picker", log: .ui, type: .debug)
+            
+            let nowDate = now.asDate()
+            for idx in  0..<3 {
+                if (nowDate == self.config.dates[idx]) {
+                    os_log("Should set picker - matched %{public}@", log: .ui, type: .debug, nowDate)
+                    
+                    self.selectorIndex = idx
+                }
+            }
+        }
+        
+        now.save(key: "SessionLastDisplayed")
     }
 }
 
@@ -165,7 +202,7 @@ struct SessionListView_Previews: PreviewProvider {
             
             sessions.append(session)
         }
-
+        
         return SessionsListView(favouritesOnly: false, title: "Sessions").environment(\.managedObjectContext, moc)
     }
 }

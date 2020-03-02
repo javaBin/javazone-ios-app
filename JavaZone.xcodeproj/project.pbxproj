@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		83170575240D193500238372 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83170574240D193500238372 /* SpinnerView.swift */; };
 		831B782123F526BF00A45C70 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B782023F526BF00A45C70 /* SessionService.swift */; };
 		831FC33B23FBE2B100BB12A3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 831FC33A23FBE2B100BB12A3 /* Alamofire */; };
 		834FF1B123FFBFA800432129 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 834FF1B023FFBFA800432129 /* CodeScanner */; };
@@ -88,6 +89,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		83170574240D193500238372 /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		831B782023F526BF00A45C70 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		834FF1B223FFC3A600432129 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		834FF1BC23FFCBFE00432129 /* LicenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenceView.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				8397433823FD23110024E80B /* ExternalLink.swift */,
 				834FF1B223FFC3A600432129 /* ScannerView.swift */,
 				834FF1BC23FFCBFE00432129 /* LicenceView.swift */,
+				83170574240D193500238372 /* SpinnerView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83C8D17723F53646008322DA /* RemoteSession.swift in Sources */,
+				83170575240D193500238372 /* SpinnerView.swift in Sources */,
 				83DBDAEA23F741E800767916 /* FavouriteToggleView.swift in Sources */,
 				837E9BB624058D1000B74714 /* FavouriteSessionsView.swift in Sources */,
 				837E9BB024058D1000B74714 /* PartnerRuleView.swift in Sources */,
