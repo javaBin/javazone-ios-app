@@ -33,7 +33,7 @@ struct PartnerImage: View {
 
 
 struct PartnerLogoView: View {
-    var partner: Partner
+    @ObservedObject var partner: Partner
     
     var imageUrl: URL? {
         return PartnerService.getImageUrl(partner: partner)

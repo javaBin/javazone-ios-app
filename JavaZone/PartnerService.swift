@@ -4,6 +4,25 @@ import CoreData
 import os
 
 class PartnerService {
+    struct TestData {
+        static let badge = """
+BEGIN:VCARD
+VERSION:4.0
+FN;CHARSET=UTF-8:Duke JavaZone
+N;CHARSET=UTF-8:JavaZone;Duke;;;
+TITLE;CHARSET=UTF-8:Mascot
+ORG;CHARSET=UTF-8:javaBin
+REV:2020-03-02T13:54:27.821Z
+END:VCARD
+"""
+        static let partner = """
+{
+  "name": "Test Partner 7",
+  "code": ""
+}
+"""
+    }
+    
     private static func getContext() -> NSManagedObjectContext {
         return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     }
@@ -190,5 +209,27 @@ class PartnerService {
         }
         
         return partner.wrappedImage
+    }
+    
+    static func contact(partner: ScannedPartner) {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        do {
+            let request:NSFetchRequest<Partner> = Partner.fetchRequest() as! NSFetchRequest<Partner>
+
+            request.sortDescriptors = []
+            request.predicate = NSPredicate(format: "name == %@", partner.name ?? "")
+        
+            let match = try context.fetch(request)
+            
+            match.forEach { (storedPartner) in
+                // TODO - check code
+                storedPartner.contacted = true
+            }
+            
+            try save(context: context)
+        } catch {
+           os_log("Could not get contact partner %{public}@", log: .coreData, type: .error, error.localizedDescription)
+        }
     }
 }

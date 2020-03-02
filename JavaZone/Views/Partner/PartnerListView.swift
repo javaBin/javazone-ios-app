@@ -36,14 +36,6 @@ struct PartnerListView: View {
         }
     }
     
-    let simulatorData = """
-{
-  "name": "Test Partner 7",
-  "url": "https://java.no/7",
-  "logo": "https://www.java.no/javazone-ios-app/testpartner.png"
-}
-"""
-    
     var body: some View {
         VStack {
             HStack {
@@ -59,7 +51,7 @@ struct PartnerListView: View {
                 }.onTapGesture {
                     self.showingScanSheet = true
                 }.sheet(isPresented: $showingScanSheet) {
-                    ScannerView(simulatorData: self.simulatorData, data: Binding(
+                    ScannerView(simulatorData: PartnerService.TestData.partner, data: Binding(
                         get: { "" },
                         set: { (newVal) in
                             self.partnerScan(value: newVal)
@@ -128,8 +120,19 @@ struct PartnerListView: View {
     func partnerScan(value: String) {
         os_log("Scanned badge", log: .ui, type: .debug)
         
-        // TODO - parse the json
-        
+        if let data = value.data(using: .utf8) {
+            let decoder = JSONDecoder()
+
+            if let partner = try? decoder.decode(ScannedPartner.self, from: data) {
+                os_log("Scanned partner - decode OK", log: .ui, type: .info)
+
+                PartnerService.contact(partner: partner)
+            } else {
+                os_log("Could not decode scanned partner", log: .ui, type: .error)
+            }
+        } else {
+            os_log("Could not get scanned partner", log: .ui, type: .error)
+        }
     }
 }
 

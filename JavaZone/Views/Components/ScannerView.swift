@@ -3,16 +3,7 @@ import CodeScanner
 import os
 
 struct ScannerView: View {
-    var simulatorData = """
-BEGIN:VCARD
-VERSION:4.0
-FN;CHARSET=UTF-8:Duke JavaZone
-N;CHARSET=UTF-8:JavaZone;Duke;;;
-TITLE;CHARSET=UTF-8:Mascot
-ORG;CHARSET=UTF-8:javaBin
-REV:2020-03-02T13:54:27.821Z
-END:VCARD
-"""
+    var simulatorData = "Scanner Data"
     
     @Environment(\.presentationMode) var presentation
     

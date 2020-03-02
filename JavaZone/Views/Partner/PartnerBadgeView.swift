@@ -37,14 +37,8 @@ struct PartnerBadgeView: View {
                         
                         Text("Scan Badge")
                     }
-                }.sheet(isPresented: $showingScanSheet) {
-                    ScannerView(data: Binding(
-                        get: { self.scannedData },
-                        set: { (newVal) in
-                            self.newQrCode(value: newVal)
-                        }
-                    ))
-                }.padding()
+                }
+                .padding()
 
                 Spacer()
             }
@@ -104,6 +98,14 @@ struct PartnerBadgeView: View {
             }
         }
         .padding()
+        .sheet(isPresented: $showingScanSheet) {
+            ScannerView(simulatorData: PartnerService.TestData.badge, data: Binding(
+                get: { self.scannedData },
+                set: { (newVal) in
+                    self.newQrCode(value: newVal)
+                }
+            ))
+        }
         .alert(isPresented: $isShowingAlert) {
             Alert(title: Text(self.alertTitle),
                   message: Text(self.alertMessage),
