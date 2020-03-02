@@ -13,6 +13,12 @@ Current state - see [issues list](https://github.com/javaBin/javazone-ios-app/is
 
 Catalyst support to run on mac was something we wanted to add - but - until the libraries we are using also support it - the functionality would be severely restricted - so for now - we'v had to remove it.
 
+---
+
+## Beta Testing
+
+The current TestFlight signup link is https://testflight.apple.com/join/m56jE09M
+
 --- 
 
 ## Libraries
