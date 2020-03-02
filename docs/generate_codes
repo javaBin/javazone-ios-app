@@ -1,0 +1,20 @@
+#!/bin/bash
+
+mkdir -p badges
+mkdir -p partners
+
+for I in {1..3}; do
+    qrencode -l L -o badges/testbadge$I.png -r test$I.vcard
+done
+
+for row in $(cat partner-raw.json | jq -cr '.[] | @base64'); do
+    _jq() {
+        echo ${row} | base64 --decode | jq -cr ${1}
+    }
+    
+    
+    F=`echo $(_jq '.name') | sed -e "s/\ //"g | tr '[:upper:]' '[:lower:]'`
+    echo $(_jq) | qrencode -o partners/$F.png -l L
+done
+
+jq 'del(.[].code)' partner-raw.json > partners.json
