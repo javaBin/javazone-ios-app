@@ -12,6 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UNUserNotificationCenter.current().delegate = self
         
         cleanUpOldImages()
+        cleanUpOldBadge()
         
         return true
     }
@@ -79,6 +80,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     // MARK: - TidyUp
     
+    func cleanUpOldBadge() {
+        if (Date().shouldUpdate(key: "LastValidBadgeScan", defaultDate: Date(timeIntervalSince1970: 0), maxSecs: 60 * 60 * 24 * 100)) {
+            UserDefaults.standard.removeObject(forKey: "CurrentBadge")
+        }
+    }
+
     func cleanUpOldImages() {
         let earliest = Date().addingTimeInterval(-10 * 24 * 60 * 60)
 

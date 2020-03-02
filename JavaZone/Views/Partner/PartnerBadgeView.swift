@@ -94,10 +94,16 @@ struct PartnerBadgeView: View {
                 
                 Text("Scanning a new badge will reset the partner game.")
                     .font(.body)
+                    .multilineTextAlignment(.center)
 
             }
         }
         .padding()
+        .onAppear {
+            if let badge = UserDefaults.standard.object(forKey: "CurrentBadge") as? String {
+                self.newQrCode(value: badge, loading: true)
+            }
+        }
         .sheet(isPresented: $showingScanSheet) {
             ScannerView(simulatorData: PartnerService.TestData.badge, data: Binding(
                 get: { self.scannedData },
@@ -114,7 +120,7 @@ struct PartnerBadgeView: View {
         }
     }
     
-    func newQrCode(value: String) {
+    func newQrCode(value: String, loading: Bool = false) {
         os_log("Scanned badge", log: .ui, type: .debug)
 
         if let data = value.data(using: .utf8) {
@@ -138,8 +144,13 @@ struct PartnerBadgeView: View {
                     self.company = badge.organizationName != "" ? badge.organizationName : ""
                     
                     self.scannedData = value
+
+                    if (loading == false) {
+                        UserDefaults.standard.set(value, forKey: "CurrentBadge")
+                        Date().save(key: "LastValidBadgeScan")
                     
-                    PartnerService.clearContacted()
+                        PartnerService.clearContacted()
+                    }
                 }
             } catch {
                 os_log("Failed to process badge %{public}@", log: .ui, type: .error, error.localizedDescription)
