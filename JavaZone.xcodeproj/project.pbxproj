@@ -687,6 +687,7 @@
 				DEVELOPMENT_TEAM = X4FF6CYH8M;
 				INFOPLIST_FILE = Duke/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.chrissearle.incogito.JavaZone.Duke;
 				PRODUCT_NAME = JavaZone;
 				SKIP_INSTALL = YES;
@@ -702,6 +703,7 @@
 				DEVELOPMENT_TEAM = X4FF6CYH8M;
 				INFOPLIST_FILE = Duke/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.chrissearle.incogito.JavaZone.Duke;
 				PRODUCT_NAME = JavaZone;
 				SKIP_INSTALL = YES;
