@@ -15,11 +15,6 @@ Install _fastlane_ using
 or alternatively using `brew cask install fastlane`
 
 # Available Actions
-### certificates
-```
-fastlane certificates
-```
-
 ### beta
 ```
 fastlane beta
