@@ -35,16 +35,22 @@ struct PartnerImage: View {
 struct PartnerLogoView: View {
     @ObservedObject var partner: Partner
     
+    var hasBadge : Bool
+    
     var imageUrl: URL? {
         return PartnerService.getImageUrl(partner: partner)
+    }
+    
+    var fadeLogo : Bool {
+        hasBadge == true && !partner.contacted
     }
     
     var body: some View {
         VStack {
             if (imageUrl != nil) {
                 PartnerImage(imageUrl: imageUrl!)
-                    .grayscale(partner.contacted ? 0 : 0.8)
-                    .opacity(partner.contacted ? 1 : 0.4)
+                    .grayscale(fadeLogo ? 0.8 : 0)
+                    .opacity(fadeLogo ? 0.4 : 1)
                     .onTapGesture {
                         if (self.partner.wrappedSite != nil) {
                             UIApplication.shared.open(self.partner.wrappedSite!)
@@ -68,6 +74,6 @@ struct PartnerLogoView_Previews: PreviewProvider {
         partner.url = "https://java.no"
         partner.image = "https://www.java.no/img/duke/marius_duke.svg"
 
-        return PartnerLogoView(partner: partner)
+        return PartnerLogoView(partner: partner, hasBadge: true)
     }
 }

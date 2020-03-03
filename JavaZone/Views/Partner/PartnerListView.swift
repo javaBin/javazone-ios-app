@@ -19,8 +19,12 @@ struct PartnerListView: View {
     private var idiom : UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
     private var isPortrait : Bool { UIDevice.current.orientation.isPortrait }
     
+    private var hasBadge : Bool {
+        (UserDefaults.standard.object(forKey: "CurrentBadge") as? String) != nil
+    }
+    
     // TODO - can we get info on screen size here? Calculate out from that?
-    var cols : Int {
+    private var cols : Int {
         if idiom == .pad {
             if (isPortrait == true) {
                 return 4
@@ -36,32 +40,48 @@ struct PartnerListView: View {
         }
     }
     
+    private var uncontacted : Int {
+        self.partners.filter { (partner) -> Bool in
+            partner.contacted == false
+        }.count
+    }
+    
     var body: some View {
         VStack {
-            HStack {
-                Text("Partner List").onTapGesture(count: 3) {
-                    self.refreshPartners(force: true)
-                }
-                Spacer()
-                HStack {
-                    Text("Scan")
-                    Image(systemName: "qrcode")
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                }.onTapGesture {
-                    self.showingScanSheet = true
-                }.sheet(isPresented: $showingScanSheet) {
-                    ScannerView(simulatorData: PartnerService.TestData.partner, data: Binding(
-                        get: { "" },
-                        set: { (newVal) in
-                            self.partnerScan(value: newVal)
+            if (hasBadge) {
+                if (uncontacted == 0) {
+                    VStack {
+                        Text("Congratulations!").font(.title)
+                        Text("You have collected them all").font(.caption)
+                        Text("Come show us at the javaBin stand to enter the prize draw").font(.caption)
+                    }
+                } else {
+                    HStack {
+                        Text("Partner List").onTapGesture(count: 3) {
+                            self.refreshPartners(force: true)
                         }
-                    ))
+                        Spacer()
+                        HStack {
+                            Text("Scan")
+                            Image(systemName: "qrcode")
+                                .resizable()
+                                .frame(width: 32, height: 32)
+                        }.onTapGesture {
+                            self.showingScanSheet = true
+                        }.sheet(isPresented: $showingScanSheet) {
+                            ScannerView(simulatorData: PartnerService.TestData.partner, data: Binding(
+                                get: { "" },
+                                set: { (newVal) in
+                                    self.partnerScan(value: newVal)
+                                }
+                            ))
+                        }
+                    }.padding()
                 }
-            }.padding()
-
+            }
+            
             WaterfallGrid(partners.shuffled(), id: \.self) { partner in
-                PartnerLogoView(partner: partner)
+                PartnerLogoView(partner: partner, hasBadge: self.hasBadge)
             }
             .gridStyle(columns: cols, spacing: 10)
             .padding()

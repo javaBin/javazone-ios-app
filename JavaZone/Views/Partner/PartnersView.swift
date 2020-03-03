@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PartnersView: View {
     @State private var selectorIndex = 0
+    
     var body: some View {
             VStack {
                 Text("Partners").font(.headline)
@@ -9,7 +10,9 @@ struct PartnersView: View {
                     Text("My Pass").tag(0)
                     Text("Partners").tag(1)
                     Text("Rules").tag(2)
-                }.pickerStyle(SegmentedPickerStyle()).padding(.horizontal)
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding(.horizontal)
 
                 if (selectorIndex == 0) {
                     PartnerBadgeView()
