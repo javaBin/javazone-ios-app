@@ -11,6 +11,9 @@ struct LibrariesAndLicenses: View {
             NavigationLink(destination: LicenceView(title: "CodeScanner", link: URL(string: "https://github.com/twostraws/CodeScanner"), text: LicenceTexts.codescanner)) {
                 Text("CodeScanner")
             }
+            NavigationLink(destination: LicenceView(title: "CryptoSwift", link: URL(string: "https://github.com/krzyzanowskim/CryptoSwift"), text: LicenceTexts.cryptoswift)) {
+                Text("CryptoSwift")
+            }
             NavigationLink(destination: LicenceView(title: "RemoteImage", link: URL(string: "https://github.com/crelies/RemoteImage"), text: LicenceTexts.remoteimage)) {
                 Text("RemoteImage")
             }

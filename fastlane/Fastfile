@@ -1,4 +1,9 @@
+lane :tests do
+    run_tests(scheme: "JavaZone")
+end
+
 lane :beta do
+    tests
     ensure_git_status_clean
     increment_build_number
     commit_version_bump(xcodeproj: "JavaZone.xcodeproj")
@@ -13,6 +18,7 @@ lane :beta do
 end
 
 lane :release do
+    tests
     ensure_git_status_clean
     increment_build_number
     commit_version_bump(xcodeproj: "JavaZone.xcodeproj")
