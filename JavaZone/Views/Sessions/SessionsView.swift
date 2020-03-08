@@ -1,7 +1,9 @@
 import SwiftUI
 
 struct SessionsView: View {
+    @Binding var blockingRefresh : Bool
+    
     var body: some View {
-        SessionsListView(favouritesOnly: false, title: "Sessions")
+        SessionsListView(blockingRefresh: $blockingRefresh, favouritesOnly: false, title: "Sessions")
     }
 }

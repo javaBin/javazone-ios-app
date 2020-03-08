@@ -13,6 +13,8 @@ struct SessionsListView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(fetchRequest: Session.getSessions()) var allSessions: FetchedResults<Session>
     
+    @Binding var blockingRefresh : Bool
+    
     var favouritesOnly: Bool
     var title: String
     
@@ -24,7 +26,6 @@ struct SessionsListView: View {
     @State private var refreshAlertMessage = ""
     @State private var refreshFatal = false
     @State private var refreshFatalMessage = ""
-    @State private var autorefreshing = false
     
     var config : Config {
         Config.sharedConfig
@@ -72,7 +73,7 @@ struct SessionsListView: View {
             }
             
             self.isShowingPullToRefresh = false
-            self.autorefreshing = false
+            self.blockingRefresh = false
             
             UserDefaults.standard.set(Date(), forKey: "SessionLastUpdate")
         }
@@ -89,44 +90,38 @@ struct SessionsListView: View {
                 
                 SearchView(searchText: $searchText)
                 
-                ZStack {
-                    List {
-                        ForEach(self.sessions.sections, id: \.self) { section in
-                            Section(header: Text(section)) {
-                                ForEach(self.sessions.grouped[section] ?? [], id: \.self) { session in
-                                    NavigationLink(destination: SessionDetailView(session: session)) {
-                                        SessionItemView(session: session)
-                                    }
+                List {
+                    ForEach(self.sessions.sections, id: \.self) { section in
+                        Section(header: Text(section)) {
+                            ForEach(self.sessions.grouped[section] ?? [], id: \.self) { session in
+                                NavigationLink(destination: SessionDetailView(session: session)) {
+                                    SessionItemView(session: session)
                                 }
                             }
                         }
                     }
-                    .onAppear(perform: appear)
-                    .resignKeyboardOnDragGesture()
-                    .pullToRefresh(isShowing: $isShowingPullToRefresh) {
-                        self.refreshSessions()
-                    }
-                    .alert(isPresented: $isShowingRefreshAlert) {
-                        Alert(title: Text(self.refreshAlertTitle),
-                              message: Text(self.refreshAlertMessage),
-                              dismissButton: Alert.Button.default(
-                                Text("OK"), action: {
-                                    if (self.refreshFatal) {
-                                        fatalError(self.refreshFatalMessage)
-                                    }
-                                    
-                                    self.refreshAlertMessage = ""
-                                    self.refreshAlertTitle = ""
-                                    self.refreshFatalMessage = ""
-                                    self.refreshFatal = false
-                              }
-                            )
+                }
+                .onAppear(perform: appear)
+                .resignKeyboardOnDragGesture()
+                .pullToRefresh(isShowing: $isShowingPullToRefresh) {
+                    self.refreshSessions()
+                }
+                .alert(isPresented: $isShowingRefreshAlert) {
+                    Alert(title: Text(self.refreshAlertTitle),
+                          message: Text(self.refreshAlertMessage),
+                          dismissButton: Alert.Button.default(
+                            Text("OK"), action: {
+                                if (self.refreshFatal) {
+                                    fatalError(self.refreshFatalMessage)
+                                }
+                                
+                                self.refreshAlertMessage = ""
+                                self.refreshAlertTitle = ""
+                                self.refreshFatalMessage = ""
+                                self.refreshFatal = false
+                          }
                         )
-                    }
-                    
-                    if (autorefreshing) {
-                        SpinnerView()
-                    }
+                    )
                 }.navigationBarTitle(title)
             }
         }
@@ -153,7 +148,7 @@ struct SessionsListView: View {
         #endif
         
         if (noSessions || autorefresh) {
-            self.autorefreshing = true
+            self.blockingRefresh = true
             self.refreshSessions()
         }
         
@@ -203,6 +198,6 @@ struct SessionListView_Previews: PreviewProvider {
             sessions.append(session)
         }
         
-        return SessionsListView(favouritesOnly: false, title: "Sessions").environment(\.managedObjectContext, moc)
+        return SessionsListView(blockingRefresh: .constant(false), favouritesOnly: false, title: "Sessions").environment(\.managedObjectContext, moc)
     }
 }
