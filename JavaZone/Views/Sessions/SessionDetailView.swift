@@ -7,6 +7,8 @@ struct SessionDetailView: View {
     
     @ObservedObject var session: Session
     
+    @State private var showShareSheet = false
+    
     var title: String {
         return "\(session.room ?? "") - \(session.fromTime()) - \(session.toTime())"
     }
@@ -52,8 +54,33 @@ struct SessionDetailView: View {
             }
         }
         .navigationBarTitle(Text(title), displayMode: .inline)
+        .sheet(isPresented: $showShareSheet) {
+            self.buildShareSheet()
+        }
+        .navigationBarItems(trailing: Button(action: {
+                self.showShareSheet = true
+            }) {
+                Image(systemName: "square.and.arrow.up")
+            }
+        )
+    }
+
+    func buildShareSheet() -> some View {
+        var items: [Any] = []
+
+        if (self.session.wrappedTitle != "") {
+            items.append(self.session.wrappedTitle)
+        }
+        
+        if let sessionId = self.session.sessionId {
+            items.append(URL(string: "\(Config.sharedConfig.web)program/\(sessionId)")!)
+        }
+
+        return ShareSheet(activityItems: items)
     }
 }
+
+
 
 struct SessionDetailView_Previews: PreviewProvider {
     static var previews: some View {

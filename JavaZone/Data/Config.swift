@@ -5,15 +5,19 @@ public class Config : Codable {
     public var title:String = defaultTitle
     public var url:String = defaultUrl
     public var dates:[String] = defaultDates
+    public var web:String = defaultWeb
+    public var id:String = defaultId
     
     enum CodingKeys: String, CodingKey {
         case title
         case url
         case dates
+        case web
+        case id
     }
     
     public var description : String {
-        "Title: \(title) URL: \(url) Dates: \(dates)"
+        "Title: \(title) URL: \(url) Dates: \(dates) Web: \(web) ID: \(id)"
     }
     
     static var sharedConfig = getConfig()
@@ -23,6 +27,8 @@ extension Config {
     static let defaultTitle = "JavaZone 2019"
     static let defaultUrl = "https://sleepingpill.javazone.no/public/allSessions/javazone_2019"
     static let defaultDates = ["11.09.2019","12.09.2019","10.09.2019"]
+    static let defaultWeb = "https://2019.javazone.no/"
+    static let defaultId = "ID"
 }
 
 extension Config {

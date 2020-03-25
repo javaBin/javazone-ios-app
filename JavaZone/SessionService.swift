@@ -219,12 +219,16 @@ class SessionService {
             newConfig.title = config.conferenceName ?? Config.defaultTitle
             newConfig.url = config.conferenceUrl ?? Config.defaultUrl
             newConfig.dates = Config.defaultDates
+            newConfig.web = Config.defaultWeb
+            newConfig.id = Config.defaultId
             
             if let confDates = config.conferenceDates, let workDate = config.workshopDate {
                 if (confDates.count == 2) {
                     newConfig.dates = [confDates[0], confDates[1], workDate]
                 }
             }
+            
+            // TODO - get web and ID from config endpoint https://github.com/javaBin/sleepingPillCore/issues/27
             
             os_log("Saving config %{public}@", log: .network, type: .info, newConfig.description)
             

@@ -52,6 +52,7 @@
 		83A827DC2415057B00DC7ADA /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 83A827DB2415057B00DC7ADA /* CryptoSwift */; };
 		83A827DE2415059400DC7ADA /* HashService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A827DD2415059400DC7ADA /* HashService.swift */; };
 		83A827E6241507FB00DC7ADA /* HashServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A827E5241507FB00DC7ADA /* HashServiceTests.swift */; };
+		83AA8DED242B4F21007E3339 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA8DEC242B4F21007E3339 /* ShareSheet.swift */; };
 		83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332223FAF74200F3FCB4 /* SearchView.swift */; };
 		83B3332523FAF8A900F3FCB4 /* Search+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */; };
 		83C8D17723F53646008322DA /* RemoteSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17423F53646008322DA /* RemoteSession.swift */; };
@@ -145,6 +146,7 @@
 		83A827E3241507FB00DC7ADA /* JavaZoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JavaZoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A827E5241507FB00DC7ADA /* HashServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashServiceTests.swift; sourceTree = "<group>"; };
 		83A827E7241507FB00DC7ADA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83AA8DEC242B4F21007E3339 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		83B3332223FAF74200F3FCB4 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search+Keyboard.swift"; sourceTree = "<group>"; };
 		83C8D17423F53646008322DA /* RemoteSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSession.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				834FF1B223FFC3A600432129 /* ScannerView.swift */,
 				834FF1BC23FFCBFE00432129 /* LicenceView.swift */,
 				83170574240D193500238372 /* SpinnerView.swift */,
+				83AA8DEC242B4F21007E3339 /* ShareSheet.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				837E9BB224058D1000B74714 /* SessionsView.swift in Sources */,
 				8350E64423F5222B0085C1F3 /* AppDelegate.swift in Sources */,
 				8350E64B23F5222B0085C1F3 /* ContentView.swift in Sources */,
+				83AA8DED242B4F21007E3339 /* ShareSheet.swift in Sources */,
 				837E9BC9240666AF00B74714 /* PartnerLogoView.swift in Sources */,
 				8397433923FD23110024E80B /* ExternalLink.swift in Sources */,
 				837E9BAF24058D1000B74714 /* PartnerListView.swift in Sources */,
