@@ -11,6 +11,7 @@
 		83170577240D7B8F00238372 /* ScannedPartner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83170576240D7B8F00238372 /* ScannedPartner.swift */; };
 		831B782123F526BF00A45C70 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B782023F526BF00A45C70 /* SessionService.swift */; };
 		831FC33B23FBE2B100BB12A3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 831FC33A23FBE2B100BB12A3 /* Alamofire */; };
+		83304597242C941500FAE5E2 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83304596242C941500FAE5E2 /* ConfigService.swift */; };
 		834FF1B123FFBFA800432129 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 834FF1B023FFBFA800432129 /* CodeScanner */; };
 		834FF1B323FFC3A600432129 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1B223FFC3A600432129 /* ScannerView.swift */; };
 		834FF1BD23FFCBFE00432129 /* LicenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1BC23FFCBFE00432129 /* LicenceView.swift */; };
@@ -104,6 +105,7 @@
 		83170574240D193500238372 /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		83170576240D7B8F00238372 /* ScannedPartner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedPartner.swift; sourceTree = "<group>"; };
 		831B782023F526BF00A45C70 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
+		83304596242C941500FAE5E2 /* ConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigService.swift; sourceTree = "<group>"; };
 		834FF1B223FFC3A600432129 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		834FF1BC23FFCBFE00432129 /* LicenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenceView.swift; sourceTree = "<group>"; };
 		834FF1E424017FEB00432129 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -207,6 +209,19 @@
 			path = Remote;
 			sourceTree = "<group>";
 		};
+		83304598242C94C300FAE5E2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				837E9BC6240662B600B74714 /* ServiceCommon.swift */,
+				831B782023F526BF00A45C70 /* SessionService.swift */,
+				83304596242C941500FAE5E2 /* ConfigService.swift */,
+				837E9BC22406607F00B74714 /* PartnerService.swift */,
+				83E322A92403F5730044094C /* InfoService.swift */,
+				83A827DD2415059400DC7ADA /* HashService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		8350E63723F5222B0085C1F3 = {
 			isa = PBXGroup;
 			children = (
@@ -232,17 +247,13 @@
 			isa = PBXGroup;
 			children = (
 				83DBDAF323F74C3A00767916 /* JavaZone.entitlements */,
-				83DBDAE123F7296A00767916 /* Extensions */,
-				83DBDADA23F6B74C00767916 /* Views */,
 				83C8D17C23F54619008322DA /* Data */,
+				83DBDAE123F7296A00767916 /* Extensions */,
 				831B781F23F5269800A45C70 /* Remote */,
+				83304598242C94C300FAE5E2 /* Services */,
+				83DBDADA23F6B74C00767916 /* Views */,
 				8350E64323F5222B0085C1F3 /* AppDelegate.swift */,
 				8350E64523F5222B0085C1F3 /* SceneDelegate.swift */,
-				837E9BC6240662B600B74714 /* ServiceCommon.swift */,
-				831B782023F526BF00A45C70 /* SessionService.swift */,
-				837E9BC22406607F00B74714 /* PartnerService.swift */,
-				83E322A92403F5730044094C /* InfoService.swift */,
-				83A827DD2415059400DC7ADA /* HashService.swift */,
 				8350E64C23F5222D0085C1F3 /* Assets.xcassets */,
 				8350E65123F5222D0085C1F3 /* LaunchScreen.storyboard */,
 				8350E65423F5222D0085C1F3 /* Info.plist */,
@@ -542,6 +553,7 @@
 				837E9BBA24058D1000B74714 /* InfoItemListView.swift in Sources */,
 				83C8D17B23F5367E008322DA /* RemoteSessionList.swift in Sources */,
 				837E9BC7240662B600B74714 /* ServiceCommon.swift in Sources */,
+				83304597242C941500FAE5E2 /* ConfigService.swift in Sources */,
 				83B3332523FAF8A900F3FCB4 /* Search+Keyboard.swift in Sources */,
 				83E322AE2403F5DC0044094C /* RemoteInfo.swift in Sources */,
 				837E9BB424058D1000B74714 /* SessionsListView.swift in Sources */,
