@@ -96,7 +96,7 @@ struct SessionsListView: View {
                             ForEach(self.sessions.grouped[section] ?? [], id: \.self) { session in
                                 NavigationLink(destination: SessionDetailView(session: session)) {
                                     SessionItemView(session: session)
-                                }.id(session.sessionId != nil ? session.sessionId! : UUID().uuidString)
+                                }.id(session.sessionId ?? UUID().uuidString)
                             }
                         }
                     }
