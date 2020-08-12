@@ -78,7 +78,7 @@ struct SessionsListView: View {
             UserDefaults.standard.set(Date(), forKey: "SessionLastUpdate")
         }
     }
-    
+
     var body: some View {
         NavigationView {
             VStack {
@@ -96,7 +96,7 @@ struct SessionsListView: View {
                             ForEach(self.sessions.grouped[section] ?? [], id: \.self) { session in
                                 NavigationLink(destination: SessionDetailView(session: session)) {
                                     SessionItemView(session: session)
-                                }
+                                }.id(session.sessionId != nil ? session.sessionId! : UUID().uuidString)
                             }
                         }
                     }
