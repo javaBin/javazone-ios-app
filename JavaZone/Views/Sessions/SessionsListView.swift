@@ -124,6 +124,7 @@ struct SessionsListView: View {
                     )
                 }.navigationBarTitle(title)
             }
+            Text("Please choose a session from the list")
         }
     }
     
