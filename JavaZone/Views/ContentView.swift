@@ -45,7 +45,7 @@ struct ContentView: View {
             }
             
             if (blockingRefresh) {
-                SpinnerView()
+                ProgressView("Refreshing sessions")
             }
         }
     }
