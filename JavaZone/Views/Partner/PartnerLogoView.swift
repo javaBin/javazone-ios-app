@@ -31,7 +31,6 @@ struct PartnerImage: View {
     }
 }
 
-
 struct PartnerLogoView: View {
     @ObservedObject var partner: Partner
     
@@ -60,6 +59,8 @@ struct PartnerLogoView: View {
                 DefaultPartnerImage(message: "Partner \(partner.wrappedName) has no image")
             }
         }
+        .background(Color(red: 0.17, green: 0.68, blue: 0.84))
+        .cornerRadius(8)
     }
 }
 
