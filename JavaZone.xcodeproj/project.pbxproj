@@ -189,13 +189,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		817585E5854E70183F0A13B3 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		831B781F23F5269800A45C70 /* Remote */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,7 +222,6 @@
 				838048402407BF1500749E82 /* Duke */,
 				83A827E4241507FB00DC7ADA /* JavaZoneTests */,
 				8350E64123F5222B0085C1F3 /* Products */,
-				817585E5854E70183F0A13B3 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
