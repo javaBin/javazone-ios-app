@@ -30,6 +30,14 @@ class ConfigService {
                 return
             }
             
+            #if DEBUG
+            let newConfig = Config()
+            newConfig.title = Config.defaultTitle
+            newConfig.url = Config.defaultUrl
+            newConfig.dates = Config.defaultDates
+            newConfig.web = Config.defaultWeb
+            newConfig.id = Config.defaultId
+            #else
             let newConfig = Config()
             newConfig.title = config.conferenceName ?? Config.defaultTitle
             newConfig.url = config.conferenceUrl ?? Config.defaultUrl
@@ -42,7 +50,8 @@ class ConfigService {
                     newConfig.dates = [confDates[0], confDates[1], workDate]
                 }
             }
-            
+            #endif
+
             // TODO - get web and ID from config endpoint https://github.com/javaBin/sleepingPillCore/issues/27
             
             os_log("Saving config %{public}@", log: .network, type: .info, newConfig.description)
