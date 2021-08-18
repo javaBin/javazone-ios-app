@@ -1,7 +1,7 @@
 import Foundation
 
-enum UpdateStatus {
-    case OK
-    case Fail
-    case Fatal
+enum UpdateStatus : String {
+    case OK = "OK"
+    case Fail = "Fail"
+    case Fatal = "Fatal"
 }

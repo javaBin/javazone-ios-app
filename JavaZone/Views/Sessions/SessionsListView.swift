@@ -56,6 +56,8 @@ struct SessionsListView: View {
     
     func refreshSessions() {
         SessionService.refresh() { (status, message, logMessage) in
+            os_log("Refresh said: %{public}s, %{public}s, %{public}s", log: .ui, type: .debug, status.rawValue, message, logMessage)
+
             if (status == .Fail) {
                 self.refreshFatal = false
                 self.refreshAlertTitle = "Refresh failed"
