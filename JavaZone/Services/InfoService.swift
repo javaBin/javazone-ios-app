@@ -7,7 +7,9 @@ class InfoService {
     static func refreshConfig(onComplete: @escaping ([RemoteInfo]) -> Void) {
         os_log("Refreshing info", log: .network, type: .info)
 
-        let request = AF.request("https://www.java.no/javazone-ios-app/info.json")
+        let cacheBuster = Date().timeIntervalSince1970
+        
+        let request = AF.request("https://gist.githubusercontent.com/chrissearle/a653c7634427142abadee41e0028a047/raw/info.json?cb=\(cacheBuster)")
                
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
