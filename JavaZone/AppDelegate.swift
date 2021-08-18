@@ -14,6 +14,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         cleanUpOldImages()
         cleanUpOldBadge()
         
+        PartnerService.refresh(force: true) { status, message, logMessage in
+            os_log("Initial partner fetch %{public}@, %{public}@, %{public}@", log: .network, type:.debug, status.rawValue, message, logMessage)
+        }
+        
         return true
     }
 

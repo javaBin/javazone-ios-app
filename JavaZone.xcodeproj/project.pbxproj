@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		83152E8A26CCF37E00DB1693 /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 83152E8926CCF37E00DB1693 /* SwiftUIRefresh */; };
+		83152E8C26CD078B00DB1693 /* partners.json in Resources */ = {isa = PBXBuildFile; fileRef = 83152E8B26CD078B00DB1693 /* partners.json */; };
+		83152E8F26CD126100DB1693 /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 83152E8E26CD126100DB1693 /* SVGKitSwift */; };
 		83170577240D7B8F00238372 /* ScannedPartner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83170576240D7B8F00238372 /* ScannedPartner.swift */; };
 		831B782123F526BF00A45C70 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B782023F526BF00A45C70 /* SessionService.swift */; };
 		831FC33B23FBE2B100BB12A3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 831FC33A23FBE2B100BB12A3 /* Alamofire */; };
@@ -101,6 +103,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		83152E8B26CD078B00DB1693 /* partners.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = partners.json; sourceTree = "<group>"; };
 		83170576240D7B8F00238372 /* ScannedPartner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedPartner.swift; sourceTree = "<group>"; };
 		831B782023F526BF00A45C70 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		83304596242C941500FAE5E2 /* ConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigService.swift; sourceTree = "<group>"; };
@@ -172,6 +175,7 @@
 				834FF1B123FFBFA800432129 /* CodeScanner in Frameworks */,
 				831FC33B23FBE2B100BB12A3 /* Alamofire in Frameworks */,
 				837E9BBF2405BF1000B74714 /* WaterfallGrid in Frameworks */,
+				83152E8F26CD126100DB1693 /* SVGKitSwift in Frameworks */,
 				83DBDAE823F733B800767916 /* RemoteImage in Frameworks */,
 				83A827DC2415057B00DC7ADA /* CryptoSwift in Frameworks */,
 			);
@@ -248,6 +252,7 @@
 				8350E65123F5222D0085C1F3 /* LaunchScreen.storyboard */,
 				8350E65423F5222D0085C1F3 /* Info.plist */,
 				8350E64E23F5222D0085C1F3 /* Preview Content */,
+				83152E8B26CD078B00DB1693 /* partners.json */,
 			);
 			path = JavaZone;
 			sourceTree = "<group>";
@@ -390,6 +395,7 @@
 				837E9BBE2405BF1000B74714 /* WaterfallGrid */,
 				83A827DB2415057B00DC7ADA /* CryptoSwift */,
 				83152E8926CCF37E00DB1693 /* SwiftUIRefresh */,
+				83152E8E26CD126100DB1693 /* SVGKitSwift */,
 			);
 			productName = JavaZone;
 			productReference = 8350E64023F5222B0085C1F3 /* JavaZone.app */;
@@ -466,6 +472,7 @@
 				837E9BBD2405BF1000B74714 /* XCRemoteSwiftPackageReference "WaterfallGrid" */,
 				83A827DA2415057B00DC7ADA /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 				83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
+				83152E8D26CD126100DB1693 /* XCRemoteSwiftPackageReference "SVGKit" */,
 			);
 			productRefGroup = 8350E64123F5222B0085C1F3 /* Products */;
 			projectDirPath = "";
@@ -483,6 +490,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83152E8C26CD078B00DB1693 /* partners.json in Resources */,
 				8350E65323F5222D0085C1F3 /* LaunchScreen.storyboard in Resources */,
 				8350E65023F5222D0085C1F3 /* Preview Assets.xcassets in Resources */,
 				8350E64D23F5222D0085C1F3 /* Assets.xcassets in Resources */,
@@ -887,6 +895,14 @@
 				minimumVersion = 0.0.0;
 			};
 		};
+		83152E8D26CD126100DB1693 /* XCRemoteSwiftPackageReference "SVGKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SVGKit/SVGKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -934,6 +950,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */;
 			productName = SwiftUIRefresh;
+		};
+		83152E8E26CD126100DB1693 /* SVGKitSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83152E8D26CD126100DB1693 /* XCRemoteSwiftPackageReference "SVGKit" */;
+			productName = SVGKitSwift;
 		};
 		831FC33A23FBE2B100BB12A3 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

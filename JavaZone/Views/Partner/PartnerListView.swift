@@ -80,14 +80,16 @@ struct PartnerListView: View {
                 }
             }
             
-            WaterfallGrid(partners.shuffled(), id: \.self) { partner in
-                PartnerLogoView(partner: partner, hasBadge: self.hasBadge)
+            ScrollView {
+                WaterfallGrid(partners.shuffled(), id: \.self) { partner in
+                    PartnerLogoView(partner: partner, hasBadge: self.hasBadge)
+                }
+                .gridStyle(columns: cols, spacing: 10)
+                .padding()
+                .onAppear(perform: {
+                    self.refreshPartners(force: false)
+                })
             }
-            .gridStyle(columns: cols, spacing: 10)
-            .padding()
-            .onAppear(perform: {
-                self.refreshPartners(force: false)
-            })
             .alert(isPresented: $isShowingRefreshAlert) {
                 Alert(title: Text(self.alertTitle),
                       message: Text(self.alertMessage),

@@ -7,7 +7,7 @@ struct RemotePartner: Decodable, Hashable {
 
     enum CodingKeys: String, CodingKey {
         case name
-        case url
-        case image = "logo"
+        case url = "homepageUrl"
+        case image = "logoUrl"
     }
 }

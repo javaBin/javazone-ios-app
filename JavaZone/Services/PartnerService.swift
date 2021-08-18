@@ -1,6 +1,7 @@
 import SwiftUI
 import Alamofire
 import CoreData
+import SVGKit
 import os
 
 class PartnerService {
@@ -63,8 +64,13 @@ END:VCARD
 
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
-        let request = AF.request("https://www.java.no/javazone-ios-app/partners.json")
-        
+        guard let path = Bundle.main.path(forResource: "partners", ofType: "json") else { return }
+
+        let url = URL(fileURLWithPath: path)
+
+//        let request = AF.request("https://www.java.no/javazone-ios-app/partners.json")
+        let request = AF.request(url)
+
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         
@@ -183,13 +189,32 @@ END:VCARD
         if let url = targetUrl(name: partner.name), let imageUrl = partner.wrappedImage {
             DispatchQueue.global(qos: .background).async {
                 do {
-                    os_log("Fetch image - fetching data for %{public}@", log: .network, type: .debug, imageUrl.absoluteString)
-                    let data = try Data(contentsOf: imageUrl)
+                    os_log("Fetch image - getting as image for %{public}@", log: .network, type: .debug, imageUrl.absoluteString)
                     
-                    os_log("Fetch image - getting as image", log: .network, type: .debug)
-                    if let image = UIImage(data: data), let pngData = image.pngData() {
-                        os_log("Fetch image - saving data to %{public}@", log: .network, type: .debug, url.absoluteString)
-                        try pngData.write(to: url)
+                    let ext = imageUrl.pathExtension
+
+                    if (ext == "svg") {
+                        os_log("SVG image - for %{public}@", log: .network, type: .debug, imageUrl.absoluteString)
+
+                        let svgImage = SVGKImage(contentsOf: imageUrl)
+                        
+                        if let image = svgImage?.uiImage {
+                            os_log("Fetch image - saving data to %{public}@", log: .network, type: .debug, url.absoluteString)
+                            if let pngData = image.pngData() {
+                                try pngData.write(to: url)
+                            }
+                        } else {
+                            os_log("Could not get image from SVG - for %{public}@", log: .network, type: .debug, imageUrl.absoluteString)
+                        }
+                    } else {
+                        os_log("Fetch image - fetching data for %{public}@", log: .network, type: .debug, imageUrl.absoluteString)
+
+                        let data = try Data(contentsOf: imageUrl)
+
+                        if let image = UIImage(data: data), let pngData = image.pngData() {
+                            os_log("Fetch image - saving data to %{public}@", log: .network, type: .debug, url.absoluteString)
+                            try pngData.write(to: url)
+                        }
                     }
                 } catch {
                     os_log("Could not save image from url %{public}@", log: .network, type: .error, error.localizedDescription, imageUrl.absoluteString)

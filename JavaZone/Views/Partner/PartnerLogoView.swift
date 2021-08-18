@@ -59,7 +59,6 @@ struct PartnerLogoView: View {
             } else {
                 DefaultPartnerImage(message: "Partner \(partner.wrappedName) has no image")
             }
-            Text(partner.wrappedName).font(.caption)
         }
     }
 }
