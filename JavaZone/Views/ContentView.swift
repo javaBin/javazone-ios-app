@@ -31,17 +31,15 @@ struct ContentView: View {
                         }
                     }
                     .tag(2)
-                #if DEBUG
                 PartnersView()
                     .font(.title)
                     .tabItem {
                         VStack {
-                            Image(systemName: "qrcode")
+                            Image(systemName: "person.3.fill")
                             Text("Partners")
                         }
                     }
                     .tag(3)
-                #endif
             }
             
             if (blockingRefresh) {
