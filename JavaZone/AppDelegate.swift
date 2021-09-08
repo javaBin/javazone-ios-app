@@ -82,6 +82,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         completionHandler([.banner, .badge, .sound])
     }
     
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        let sessionId = response.notification.request.identifier
+        
+        NotificationCenter.default.post(name: NSNotification.Name("DetailView"), object: sessionId)
+        
+        completionHandler()
+    }
+    
     // MARK: - TidyUp
     
     func cleanUpOldBadge() {

@@ -9,11 +9,43 @@ struct RelevantSessions {
     var grouped: [String: [Session]]
 }
 
+struct DayPicker: View {
+    @Binding var selectorIndex : Int
+    
+    var config : Config {
+        Config.sharedConfig
+    }
+    
+    var body: some View {
+        Picker("", selection: $selectorIndex) {
+            Text(config.dates[0]).tag(0)
+            Text(config.dates[1]).tag(1)
+            Text("Workshops").tag(2)
+        }.pickerStyle(SegmentedPickerStyle()).padding(.horizontal)
+    }
+
+}
+
+struct SessionNavLink: View {
+    var session : Session
+
+    var body: some View {
+        NavigationLink(
+            destination: SessionDetailView(session: session),
+            label: {
+                SessionItemView(session: session)
+            }
+        ).id(session.sessionId ?? UUID().uuidString)
+    }
+}
+
 struct SessionsListView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(fetchRequest: Session.getSessions()) var allSessions: FetchedResults<Session>
     
     @Binding var blockingRefresh : Bool
+    
+    let sessionPublisher = NotificationCenter.default.publisher(for: NSNotification.Name("DetailView"))
     
     var favouritesOnly: Bool
     var title: String
@@ -26,6 +58,8 @@ struct SessionsListView: View {
     @State private var refreshAlertMessage = ""
     @State private var refreshFatal = false
     @State private var refreshFatalMessage = ""
+    @State private var sessionIdFromNotification : String?
+    @State private var activateSessionFromNotification = false
     
     var config : Config {
         Config.sharedConfig
@@ -52,6 +86,13 @@ struct SessionsListView: View {
         let sections = Array(grouped.keys).sorted(by: <)
         
         return RelevantSessions(sessions: sessions, sections: sections, grouped: grouped)
+    }
+    
+    var selectedSession : Session? {
+        return self.allSessions
+            .filter { (session) -> Bool in
+                session.sessionId == $sessionIdFromNotification.wrappedValue ?? nil
+            }.first
     }
     
     func refreshSessions() {
@@ -84,11 +125,7 @@ struct SessionsListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Picker("", selection: $selectorIndex) {
-                    Text(config.dates[0]).tag(0)
-                    Text(config.dates[1]).tag(1)
-                    Text("Workshops").tag(2)
-                }.pickerStyle(SegmentedPickerStyle()).padding(.horizontal)
+                DayPicker(selectorIndex: $selectorIndex)
                 
                 SearchView(searchText: $searchText)
                 
@@ -96,9 +133,7 @@ struct SessionsListView: View {
                     ForEach(self.sessions.sections, id: \.self) { section in
                         Section(header: Text(section)) {
                             ForEach(self.sessions.grouped[section] ?? [], id: \.self) { session in
-                                NavigationLink(destination: SessionDetailView(session: session)) {
-                                    SessionItemView(session: session)
-                                }.id(session.sessionId ?? UUID().uuidString)
+                                SessionNavLink(session: session)
                             }
                         }
                     }
@@ -125,8 +160,30 @@ struct SessionsListView: View {
                         )
                     )
                 }.navigationBarTitle(title)
+                
+                if ($sessionIdFromNotification.wrappedValue != nil) {
+                    if let session = selectedSession {
+                        NavigationLink(
+                            destination: SessionDetailView(session: session),
+                            isActive: $activateSessionFromNotification,
+                            label: {
+                                SessionItemView(session: session)
+                            }
+                        )
+                    } else {
+                        EmptyView()
+                    }
+                } else {
+                    EmptyView()
+                }
             }
             Text("Please choose a session from the list")
+        }
+        .onReceive(sessionPublisher) { notification in
+            if let sessionId = notification.object as? String {
+                self.sessionIdFromNotification = sessionId
+                self.activateSessionFromNotification = true
+            }
         }
     }
     
