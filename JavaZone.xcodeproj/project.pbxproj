@@ -56,6 +56,9 @@
 		83AA8DED242B4F21007E3339 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA8DEC242B4F21007E3339 /* ShareSheet.swift */; };
 		83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332223FAF74200F3FCB4 /* SearchView.swift */; };
 		83B3332523FAF8A900F3FCB4 /* Search+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */; };
+		83B361A026E8DF9E00CFB552 /* RefreshAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3619F26E8DF9E00CFB552 /* RefreshAlert.swift */; };
+		83B361A226E8E24600CFB552 /* DayPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B361A126E8E24600CFB552 /* DayPicker.swift */; };
+		83B361A426E8E27900CFB552 /* SessionNavLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B361A326E8E27900CFB552 /* SessionNavLink.swift */; };
 		83C8D17723F53646008322DA /* RemoteSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17423F53646008322DA /* RemoteSession.swift */; };
 		83C8D17923F53646008322DA /* RemoteSpeaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17623F53646008322DA /* RemoteSpeaker.swift */; };
 		83C8D17B23F5367E008322DA /* RemoteSessionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17A23F5367E008322DA /* RemoteSessionList.swift */; };
@@ -150,6 +153,9 @@
 		83AA8DEC242B4F21007E3339 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		83B3332223FAF74200F3FCB4 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search+Keyboard.swift"; sourceTree = "<group>"; };
+		83B3619F26E8DF9E00CFB552 /* RefreshAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshAlert.swift; sourceTree = "<group>"; };
+		83B361A126E8E24600CFB552 /* DayPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPicker.swift; sourceTree = "<group>"; };
+		83B361A326E8E27900CFB552 /* SessionNavLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionNavLink.swift; sourceTree = "<group>"; };
 		83C8D17423F53646008322DA /* RemoteSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSession.swift; sourceTree = "<group>"; };
 		83C8D17623F53646008322DA /* RemoteSpeaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSpeaker.swift; sourceTree = "<group>"; };
 		83C8D17A23F5367E008322DA /* RemoteSessionList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSessionList.swift; sourceTree = "<group>"; };
@@ -283,6 +289,7 @@
 				837E9BA524058D1000B74714 /* SessionItemView.swift */,
 				837E9BA624058D1000B74714 /* FavouriteSessionsView.swift */,
 				837E9BA724058D1000B74714 /* SpeakerItemView.swift */,
+				83B361A326E8E27900CFB552 /* SessionNavLink.swift */,
 			);
 			path = Sessions;
 			sourceTree = "<group>";
@@ -326,6 +333,8 @@
 				834FF1B223FFC3A600432129 /* ScannerView.swift */,
 				834FF1BC23FFCBFE00432129 /* LicenceView.swift */,
 				83AA8DEC242B4F21007E3339 /* ShareSheet.swift */,
+				83B3619F26E8DF9E00CFB552 /* RefreshAlert.swift */,
+				83B361A126E8E24600CFB552 /* DayPicker.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -520,12 +529,15 @@
 				83170577240D7B8F00238372 /* ScannedPartner.swift in Sources */,
 				837E9BB624058D1000B74714 /* FavouriteSessionsView.swift in Sources */,
 				837E9BB024058D1000B74714 /* PartnerRuleView.swift in Sources */,
+				83B361A026E8DF9E00CFB552 /* RefreshAlert.swift in Sources */,
 				8350E64923F5222B0085C1F3 /* JavaZone.xcdatamodeld in Sources */,
 				831B782123F526BF00A45C70 /* SessionService.swift in Sources */,
 				837E9BC52406612B00B74714 /* RemotePartner.swift in Sources */,
 				837E9BB524058D1000B74714 /* SessionItemView.swift in Sources */,
+				83B361A426E8E27900CFB552 /* SessionNavLink.swift in Sources */,
 				83DBDAE323F729A200767916 /* Date+Utils.swift in Sources */,
 				83DF4C5F23FBFF70003FE5F1 /* String+Utils.swift in Sources */,
+				83B361A226E8E24600CFB552 /* DayPicker.swift in Sources */,
 				837E9BC32406607F00B74714 /* PartnerService.swift in Sources */,
 				837E9BAE24058D1000B74714 /* PartnersView.swift in Sources */,
 				837E9BB824058D1000B74714 /* InfoItemView.swift in Sources */,

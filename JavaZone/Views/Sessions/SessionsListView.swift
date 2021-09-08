@@ -9,36 +9,6 @@ struct RelevantSessions {
     var grouped: [String: [Session]]
 }
 
-struct DayPicker: View {
-    @Binding var selectorIndex : Int
-    
-    var config : Config {
-        Config.sharedConfig
-    }
-    
-    var body: some View {
-        Picker("", selection: $selectorIndex) {
-            Text(config.dates[0]).tag(0)
-            Text(config.dates[1]).tag(1)
-            Text("Workshops").tag(2)
-        }.pickerStyle(SegmentedPickerStyle()).padding(.horizontal)
-    }
-
-}
-
-struct SessionNavLink: View {
-    var session : Session
-
-    var body: some View {
-        NavigationLink(
-            destination: SessionDetailView(session: session),
-            label: {
-                SessionItemView(session: session)
-            }
-        ).id(session.sessionId ?? UUID().uuidString)
-    }
-}
-
 struct SessionsListView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(fetchRequest: Session.getSessions()) var allSessions: FetchedResults<Session>
@@ -144,21 +114,12 @@ struct SessionsListView: View {
                     self.refreshSessions()
                 }
                 .alert(isPresented: $isShowingRefreshAlert) {
-                    Alert(title: Text(self.refreshAlertTitle),
-                          message: Text(self.refreshAlertMessage),
-                          dismissButton: Alert.Button.default(
-                            Text("OK"), action: {
-                                if (self.refreshFatal) {
-                                    fatalError(self.refreshFatalMessage)
-                                }
-                                
-                                self.refreshAlertMessage = ""
-                                self.refreshAlertTitle = ""
-                                self.refreshFatalMessage = ""
-                                self.refreshFatal = false
-                          }
-                        )
-                    )
+                    RefreshAlert(
+                        refreshAlertTitle: $refreshAlertTitle,
+                        refreshAlertMessage: $refreshAlertMessage,
+                        refreshFatal: $refreshFatal,
+                        refreshFatalMessage: $refreshFatalMessage
+                    ).alert
                 }.navigationBarTitle(title)
                 
                 if ($sessionIdFromNotification.wrappedValue != nil) {

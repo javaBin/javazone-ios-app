@@ -91,21 +91,12 @@ struct PartnerListView: View {
                 })
             }
             .alert(isPresented: $isShowingRefreshAlert) {
-                Alert(title: Text(self.alertTitle),
-                      message: Text(self.alertMessage),
-                      dismissButton: Alert.Button.default(
-                        Text("OK"), action: {
-                            if (self.refreshFatal) {
-                                fatalError(self.refreshFatalMessage)
-                            }
-                            
-                            self.alertMessage = ""
-                            self.alertTitle = ""
-                            self.refreshFatalMessage = ""
-                            self.refreshFatal = false
-                      }
-                    )
-                )
+                RefreshAlert(
+                    refreshAlertTitle: $alertTitle,
+                    refreshAlertMessage: $alertMessage,
+                    refreshFatal: $refreshFatal,
+                    refreshFatalMessage: $refreshFatalMessage
+                ).alert
             }
             .alert(isPresented: $isShowingAlert) {
                 Alert(title: Text(self.alertTitle),
