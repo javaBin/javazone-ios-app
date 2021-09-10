@@ -16,8 +16,8 @@ class Fastfile: LaneFile {
 		commitVersionBump(xcodeproj: "JavaZone.xcodeproj")
 		addGitTag()
 		pushToGitRemote()
-		getProvisioningProfile(app_identifier: "net.chrissearle.incogito.JavaZone")
-		getProvisioningProfile(app_identifier: "net.chrissearle.incogito.JavaZone.Duke")
+		getProvisioningProfile(appIdentifier: "net.chrissearle.incogito.JavaZone")
+		getProvisioningProfile(appIdentifier: "net.chrissearle.incogito.JavaZone.Duke")
 		buildApp(scheme: "JavaZone")
 		uploadToTestflight()
 	}
