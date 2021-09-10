@@ -25,7 +25,6 @@ platform :ios do
     push_to_git_remote
     get_provisioning_profile(app_identifier: "net.chrissearle.incogito.JavaZone")
     get_provisioning_profile(app_identifier: "net.chrissearle.incogito.JavaZone.Duke")
-    build_app(scheme: "Duke")
     build_app(scheme: "JavaZone")
     upload_to_testflight
     slack(message: "Beta build uploaded")
