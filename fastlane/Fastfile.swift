@@ -20,5 +20,6 @@ class Fastfile: LaneFile {
 		getProvisioningProfile(appIdentifier: "net.chrissearle.incogito.JavaZone.Duke")
 		buildApp(scheme: "JavaZone")
 		uploadToTestflight()
+		slack(message: "Beta build uploaded")
 	}
 }
