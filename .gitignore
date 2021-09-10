@@ -88,5 +88,5 @@ iOSInjectionProject/
 *.certSigningRequest
 *.p12
 *.mobileprovision
-fastlane/.env
+.env
 fastlane/FastlaneRunner
