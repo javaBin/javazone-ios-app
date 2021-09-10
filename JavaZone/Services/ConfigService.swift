@@ -30,7 +30,7 @@ class ConfigService {
                 return
             }
             
-            #if DEBUG
+            #if USE2019
             let newConfig = Config()
             newConfig.title = Config.defaultTitle
             newConfig.url = Config.defaultUrl

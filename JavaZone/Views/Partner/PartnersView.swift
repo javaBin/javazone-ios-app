@@ -6,7 +6,7 @@ struct PartnersView: View {
     var body: some View {
             VStack {
                 Text("Partners").font(.headline)
-                #if DEBUGX
+                #if PARTNERTABS
                 Picker("", selection: $selectorIndex) {
                     Text("My Pass").tag(0)
                     Text("Partners").tag(1)

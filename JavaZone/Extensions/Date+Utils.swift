@@ -3,7 +3,7 @@ import Foundation
 extension Date {
     func forNotification() -> Date? {
         // When debug build - set a notification for 15s in future
-        #if DEBUG
+        #if TESTNOTIFICATIONS
         return Calendar.current.date(byAdding: .second, value: 15, to: Date())
         #else
         return Calendar.current.date(byAdding: .minute, value: -7, to: self)
