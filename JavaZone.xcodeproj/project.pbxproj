@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		83152E8A26CCF37E00DB1693 /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 83152E8926CCF37E00DB1693 /* SwiftUIRefresh */; };
 		83152E8C26CD078B00DB1693 /* partners.json in Resources */ = {isa = PBXBuildFile; fileRef = 83152E8B26CD078B00DB1693 /* partners.json */; };
-		83152E8F26CD126100DB1693 /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 83152E8E26CD126100DB1693 /* SVGKitSwift */; };
 		83170577240D7B8F00238372 /* ScannedPartner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83170576240D7B8F00238372 /* ScannedPartner.swift */; };
 		831B782123F526BF00A45C70 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B782023F526BF00A45C70 /* SessionService.swift */; };
 		831FC33B23FBE2B100BB12A3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 831FC33A23FBE2B100BB12A3 /* Alamofire */; };
@@ -50,6 +49,7 @@
 		838048422407BF1600749E82 /* Stickers.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 838048412407BF1600749E82 /* Stickers.xcassets */; };
 		838048462407BF1600749E82 /* JavaZone.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8380483F2407BF1500749E82 /* JavaZone.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8397433923FD23110024E80B /* ExternalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397433823FD23110024E80B /* ExternalLink.swift */; };
+		83A2275A26EB920A00644367 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = 83A2275926EB920A00644367 /* SVGKit */; };
 		83A827DC2415057B00DC7ADA /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 83A827DB2415057B00DC7ADA /* CryptoSwift */; };
 		83A827DE2415059400DC7ADA /* HashService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A827DD2415059400DC7ADA /* HashService.swift */; };
 		83A827E6241507FB00DC7ADA /* HashServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A827E5241507FB00DC7ADA /* HashServiceTests.swift */; };
@@ -176,10 +176,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				83152E8A26CCF37E00DB1693 /* SwiftUIRefresh in Frameworks */,
+				83A2275A26EB920A00644367 /* SVGKit in Frameworks */,
 				834FF1B123FFBFA800432129 /* CodeScanner in Frameworks */,
 				831FC33B23FBE2B100BB12A3 /* Alamofire in Frameworks */,
 				837E9BBF2405BF1000B74714 /* WaterfallGrid in Frameworks */,
-				83152E8F26CD126100DB1693 /* SVGKitSwift in Frameworks */,
 				83DBDAE823F733B800767916 /* RemoteImage in Frameworks */,
 				83A827DC2415057B00DC7ADA /* CryptoSwift in Frameworks */,
 			);
@@ -401,7 +401,7 @@
 				837E9BBE2405BF1000B74714 /* WaterfallGrid */,
 				83A827DB2415057B00DC7ADA /* CryptoSwift */,
 				83152E8926CCF37E00DB1693 /* SwiftUIRefresh */,
-				83152E8E26CD126100DB1693 /* SVGKitSwift */,
+				83A2275926EB920A00644367 /* SVGKit */,
 			);
 			productName = JavaZone;
 			productReference = 8350E64023F5222B0085C1F3 /* JavaZone.app */;
@@ -478,7 +478,7 @@
 				837E9BBD2405BF1000B74714 /* XCRemoteSwiftPackageReference "WaterfallGrid" */,
 				83A827DA2415057B00DC7ADA /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 				83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
-				83152E8D26CD126100DB1693 /* XCRemoteSwiftPackageReference "SVGKit" */,
+				83A2275826EB920A00644367 /* XCRemoteSwiftPackageReference "SVGKit" */,
 			);
 			productRefGroup = 8350E64123F5222B0085C1F3 /* Products */;
 			projectDirPath = "";
@@ -894,14 +894,6 @@
 				minimumVersion = 0.0.0;
 			};
 		};
-		83152E8D26CD126100DB1693 /* XCRemoteSwiftPackageReference "SVGKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SVGKit/SVGKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
 		831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -924,6 +916,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
+			};
+		};
+		83A2275826EB920A00644367 /* XCRemoteSwiftPackageReference "SVGKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SVGKit/SVGKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
 			};
 		};
 		83A827DA2415057B00DC7ADA /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
@@ -950,11 +950,6 @@
 			package = 83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */;
 			productName = SwiftUIRefresh;
 		};
-		83152E8E26CD126100DB1693 /* SVGKitSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 83152E8D26CD126100DB1693 /* XCRemoteSwiftPackageReference "SVGKit" */;
-			productName = SVGKitSwift;
-		};
 		831FC33A23FBE2B100BB12A3 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */;
@@ -969,6 +964,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 837E9BBD2405BF1000B74714 /* XCRemoteSwiftPackageReference "WaterfallGrid" */;
 			productName = WaterfallGrid;
+		};
+		83A2275926EB920A00644367 /* SVGKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83A2275826EB920A00644367 /* XCRemoteSwiftPackageReference "SVGKit" */;
+			productName = SVGKit;
 		};
 		83A827DB2415057B00DC7ADA /* CryptoSwift */ = {
 			isa = XCSwiftPackageProductDependency;
