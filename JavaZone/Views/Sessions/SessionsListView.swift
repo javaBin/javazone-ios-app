@@ -128,7 +128,7 @@ struct SessionsListView: View {
                             destination: SessionDetailView(session: session),
                             isActive: $activateSessionFromNotification,
                             label: {
-                                SessionItemView(session: session)
+                                EmptyView()
                             }
                         )
                     } else {
