@@ -3,7 +3,7 @@ import SwiftUIRefresh
 import CoreData
 import os
 
-struct RelevantSessions {
+struct RelevantSessions : Equatable {
     var sessions: [Session]
     var sections: [String]
     var grouped: [String: [Session]]
@@ -95,14 +95,11 @@ struct SessionsListView: View {
     var body: some View {
         NavigationView {
             VStack {
+                DayPicker(selectorIndex: $selectorIndex)
+            
+                SearchView(searchText: $searchText)
+                
                 ScrollViewReader { scrollProxy in
-                    DayPicker(selectorIndex: $selectorIndex)
-                        .onChange(of: selectorIndex) { _ in
-                            scrollTo(scroll: scrollProxy)
-                        }
-                
-                    SearchView(searchText: $searchText)
-                
                     List {
                         ForEach(self.sessions.sections, id: \.self) { section in
                             Section(header: Text(section)) {
@@ -112,8 +109,12 @@ struct SessionsListView: View {
                             }
                         }
                     }
+                    .onChange(of: self.sessions, perform: { _ in
+                        scrollTo(scroll: scrollProxy)
+                    })
                     .onAppear() {
-                        self.appear(scroll: scrollProxy)
+                        appear()
+                        scrollTo(scroll: scrollProxy)
                     }
                     .resignKeyboardOnDragGesture()
                     .pullToRefresh(isShowing: $isShowingPullToRefresh) {
@@ -156,14 +157,42 @@ struct SessionsListView: View {
     }
     
     func scrollTo(scroll: ScrollViewProxy) {
-        os_log("Want to scroll to %{public}s", log: .ui, type: .debug, self.sessions.sections.first ?? "None")
-        
-        if let firstSection = self.sessions.sections.first {
-            scroll.scrollTo(firstSection)
+        if (searchText != "") {
+            return
         }
+        
+        var scrollId : String?
+        
+        #if USE2019
+        let scrollToTimestamp = true
+        #else
+        let scrollToTimestamp = config.dates[selectorIndex] == Date().asDate()
+        #endif
+        
+        if (scrollToTimestamp && selectorIndex < 2) {
+            let currentTimestamp = Date().asTime()
+            
+            scrollId = self.sessions.sections.filter { section in
+                let sectionParts = section.components(separatedBy: " - ")
+                
+                // We can use string comparison here since we use 24hr clock
+                return sectionParts[0] <= currentTimestamp && sectionParts[1] > currentTimestamp
+            }.first
+        }
+        
+        if (scrollId == nil) {
+            scrollId = self.sessions.sections.first
+        }
+        
+        os_log("Want to scroll to %{public}s", log: .ui, type: .debug, scrollId ?? "None")
+        
+        if let scrollId = scrollId {
+            scroll.scrollTo(scrollId, anchor: .top)
+        }
+
     }
 
-    func appear(scroll: ScrollViewProxy) {
+    func appear() {
         let now = Date()
         
         // We have no sessions in list and we are not filtering
@@ -203,8 +232,6 @@ struct SessionsListView: View {
         }
         
         now.save(key: "SessionLastDisplayed")
-        
-        scrollTo(scroll: scroll)
     }
 }
 
