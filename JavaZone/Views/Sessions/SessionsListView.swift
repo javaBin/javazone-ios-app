@@ -95,32 +95,39 @@ struct SessionsListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                DayPicker(selectorIndex: $selectorIndex)
+                ScrollViewReader { scrollProxy in
+                    DayPicker(selectorIndex: $selectorIndex)
+                        .onChange(of: selectorIndex) { _ in
+                            scrollTo(scroll: scrollProxy)
+                        }
                 
-                SearchView(searchText: $searchText)
+                    SearchView(searchText: $searchText)
                 
-                List {
-                    ForEach(self.sessions.sections, id: \.self) { section in
-                        Section(header: Text(section)) {
-                            ForEach(self.sessions.grouped[section] ?? [], id: \.self) { session in
-                                SessionNavLink(session: session)
+                    List {
+                        ForEach(self.sessions.sections, id: \.self) { section in
+                            Section(header: Text(section)) {
+                                ForEach(self.sessions.grouped[section] ?? [], id: \.self) { session in
+                                    SessionNavLink(session: session)
+                                }
                             }
                         }
                     }
+                    .onAppear() {
+                        self.appear(scroll: scrollProxy)
+                    }
+                    .resignKeyboardOnDragGesture()
+                    .pullToRefresh(isShowing: $isShowingPullToRefresh) {
+                        self.refreshSessions()
+                    }
+                    .alert(isPresented: $isShowingRefreshAlert) {
+                        RefreshAlert(
+                            refreshAlertTitle: $refreshAlertTitle,
+                            refreshAlertMessage: $refreshAlertMessage,
+                            refreshFatal: $refreshFatal,
+                            refreshFatalMessage: $refreshFatalMessage
+                        ).alert
+                    }.navigationBarTitle(title)
                 }
-                .onAppear(perform: appear)
-                .resignKeyboardOnDragGesture()
-                .pullToRefresh(isShowing: $isShowingPullToRefresh) {
-                    self.refreshSessions()
-                }
-                .alert(isPresented: $isShowingRefreshAlert) {
-                    RefreshAlert(
-                        refreshAlertTitle: $refreshAlertTitle,
-                        refreshAlertMessage: $refreshAlertMessage,
-                        refreshFatal: $refreshFatal,
-                        refreshFatalMessage: $refreshFatalMessage
-                    ).alert
-                }.navigationBarTitle(title)
                 
                 if ($sessionIdFromNotification.wrappedValue != nil) {
                     if let session = selectedSession {
@@ -148,7 +155,15 @@ struct SessionsListView: View {
         }
     }
     
-    func appear() {
+    func scrollTo(scroll: ScrollViewProxy) {
+        os_log("Want to scroll to %{public}s", log: .ui, type: .debug, self.sessions.sections.first ?? "None")
+        
+        if let firstSection = self.sessions.sections.first {
+            scroll.scrollTo(firstSection)
+        }
+    }
+
+    func appear(scroll: ScrollViewProxy) {
         let now = Date()
         
         // We have no sessions in list and we are not filtering
@@ -188,6 +203,8 @@ struct SessionsListView: View {
         }
         
         now.save(key: "SessionLastDisplayed")
+        
+        scrollTo(scroll: scroll)
     }
 }
 
