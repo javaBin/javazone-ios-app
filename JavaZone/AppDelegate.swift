@@ -4,8 +4,7 @@ import os.log
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-
-
+    let logger = Logger(subsystem: Logger.subsystem, category: "AppDelegate")
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -15,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         cleanUpOldBadge()
         
         PartnerService.refresh(force: true) { status, message, logMessage in
-            Logger.network.debug("Initial partner fetch \(status.rawValue), \(message), \(logMessage)")
+            self.logger.debug("Initial partner fetch \(status.rawValue, privacy: .public), \(message, privacy: .public), \(logMessage, privacy: .public)")
         }
         
         return true
@@ -43,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                Logger.coreData.error("Unable to load persistent stores \(error.localizedDescription)")
+                self.logger.error("Unable to load persistent stores \(error.localizedDescription, privacy: .public)")
 
                 // If we have no store - we're unable to do anything useful
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -59,11 +58,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         if context.hasChanges {
             do {
-                Logger.coreData.info("Saving context")
+                logger.info("Saving context")
                 
                 try context.save()
             } catch {
-                Logger.coreData.error("Saving context failed \(error.localizedDescription)")
+                logger.error("Saving context failed \(error.localizedDescription, privacy: .public)")
 
                 let nserror = error as NSError
 
@@ -121,7 +120,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     }
                 }
             } catch {
-                Logger.cache.error("An error occured cleaning up old image files \(error.localizedDescription)")
+                self.logger.error("An error occured cleaning up old image files \(error.localizedDescription, privacy: .public)")
             }
         }
     }

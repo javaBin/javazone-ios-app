@@ -34,6 +34,8 @@ public struct InfoItem : Hashable {
 }
 
 public class Info : ObservableObject {
+    let logger = Logger(subsystem: Logger.subsystem, category: "Info")
+
     static let shared = Info()
     
     @Published public var infoItems:[InfoItem]
@@ -45,13 +47,13 @@ public class Info : ObservableObject {
     }
     
     public func update(force: Bool, callback: (() -> Void)?) {
-        Logger.info.debug("Update called")
+        logger.debug("Update called")
 
         if (force || abs(self.lastUpdated.diffInSeconds(date: Date())) > 5 * 60) {
-            Logger.info.debug("Cache old - update")
+            logger.debug("Cache old - update")
 
             InfoService.refreshConfig { (remoteInfo) in
-                Logger.info.debug("Processing response")
+                self.logger.debug("Processing response")
 
                 var newItems : [InfoItem] = []
                 
@@ -61,11 +63,11 @@ public class Info : ObservableObject {
                 
                 self.infoItems = newItems
                 
-                Logger.info.debug("Saw \(self.infoItems.count) info items")
+                self.logger.debug("Saw \(self.infoItems.count) info items")
                 
                 self.lastUpdated = Date()
                 
-                Logger.info.debug("Setting cache flag to \(self.lastUpdated)")
+                self.logger.debug("Setting cache flag to \(self.lastUpdated, privacy: .public)")
 
                 if let callback = callback {
                     callback()

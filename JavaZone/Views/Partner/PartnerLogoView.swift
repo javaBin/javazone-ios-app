@@ -4,10 +4,12 @@ import RemoteImage
 import os.log
 
 struct DefaultPartnerImage: View {
+    let logger = Logger(subsystem: Logger.subsystem, category: "DefaultPartnerImage")
+
     var message: String
     
     var body: some View {
-        Logger.ui.debug("Image message \(message)")
+        logger.debug("Image message \(message, privacy: .public)")
 
         return Image(systemName: "person.3.fill")
             .resizable()

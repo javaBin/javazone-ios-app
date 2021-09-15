@@ -3,6 +3,8 @@ import UserNotifications
 import os.log
 
 struct FavouriteToggleView: View {
+    let logger = Logger(subsystem: Logger.subsystem, category: "FavouriteToggleView")
+
     @Binding var favourite: Bool
     
     var notificationId : String
@@ -24,7 +26,7 @@ struct FavouriteToggleView: View {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             if success {
                 // We can do notification stuff
-                Logger.notification.info("Notification OK")
+                logger.info("Notification OK")
 
                 
                 if (self.favourite == true) {
@@ -49,7 +51,7 @@ struct FavouriteToggleView: View {
                     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.notificationId])
                 }
             } else if let error = error {
-                Logger.notification.error("Notification auth error \(error.localizedDescription)")
+                logger.error("Notification auth error \(error.localizedDescription, privacy: .public)")
             }
         }
     }

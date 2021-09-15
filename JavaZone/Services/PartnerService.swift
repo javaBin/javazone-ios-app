@@ -5,32 +5,15 @@ import SVGKit
 import os.log
 
 class PartnerService {
-    struct TestData {
-        static let badge = """
-BEGIN:VCARD
-VERSION:4.0
-FN;CHARSET=UTF-8:Duke JavaZone
-N;CHARSET=UTF-8:JavaZone;Duke;;;
-TITLE;CHARSET=UTF-8:Mascot
-ORG;CHARSET=UTF-8:javaBin
-REV:2020-03-02T13:54:27.821Z
-END:VCARD
-"""
-        static let partner = """
-{
-  "name": "Test Partner 7",
-  "code": ""
-}
-"""
-    }
-    
+    static let logger = Logger(subsystem: Logger.subsystem, category: "PartnerService")
+
     private static func getContext() -> NSManagedObjectContext {
         return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     }
     
     private static func save(context: NSManagedObjectContext) throws {
         if (context.hasChanges) {
-            Logger.coreData.info("Saving changed MOC - Partners")
+            logger.info("Saving changed MOC - Partners")
             try context.save()
         }
     }
@@ -52,7 +35,7 @@ END:VCARD
             
             try save(context: context)
         } catch {
-            Logger.coreData.error("Could not get clear contacted partners \(error.localizedDescription)")
+            logger.error("Could not get clear contacted partners \(error.localizedDescription, privacy: .public)")
         }
     }
     
@@ -74,11 +57,11 @@ END:VCARD
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         
-        Logger.network.debug("Fetching partners")
+        logger.debug("Fetching partners")
         
         request.responseDecodable(of: [RemotePartner].self, decoder: decoder) { (response) in
             if let error = response.error {
-                Logger.network.error("Unable to fetch partners \(error.localizedDescription)")
+                logger.error("Unable to fetch partners \(error.localizedDescription, privacy: .public)")
 
                 onComplete(.Fail, "Could not download partners, please try again", "")
                 
@@ -86,7 +69,7 @@ END:VCARD
             }
             
             guard let partners = response.value else {
-                Logger.network.error("Unable to read partners")
+                logger.error("Unable to read partners")
 
                 onComplete(.Fail, "Could not download partners, please try again", "")
                 
@@ -95,7 +78,7 @@ END:VCARD
             
             var contactedPartners: [Partner] = []
             
-            Logger.coreData.debug("Getting contacted partners")
+            logger.debug("Getting contacted partners")
 
             do {
                 let request:NSFetchRequest<Partner> = Partner.fetchRequest() as! NSFetchRequest<Partner>
@@ -105,7 +88,7 @@ END:VCARD
                 
                 contactedPartners = try context.fetch(request)
             } catch {
-                Logger.coreData.error("Could not get contacted partners \(error.localizedDescription)")
+                logger.error("Could not get contacted partners \(error.localizedDescription, privacy: .public)")
             }
             
             let contacted = contactedPartners
@@ -113,10 +96,10 @@ END:VCARD
                     return partner.url
             }
             
-            Logger.coreData.debug("Got \(contacted.count) contaced partners")
+            logger.debug("Got \(contacted.count, privacy: .public) contaced partners")
 
             do {
-                Logger.coreData.debug("Clearing old partners")
+                logger.debug("Clearing old partners")
 
                 let result = try context.execute(Partner.clear()) as! NSBatchDeleteResult
 
@@ -126,7 +109,7 @@ END:VCARD
                 
                 NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
             } catch {
-                Logger.coreData.error("Could not clear partners \(error.localizedDescription)")
+                logger.error("Could not clear partners \(error.localizedDescription, privacy: .public)")
                 
                 onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to clear partner data \(error)")
                 
@@ -151,12 +134,12 @@ END:VCARD
                 }
             }
             
-            Logger.network.debug("Saw \(newPartners.count) new partners")
+            logger.debug("Saw \(newPartners.count, privacy: .public) new partners")
 
             do {
                 try save(context: context)
             } catch {
-                Logger.coreData.error("Could not save partners \(error.localizedDescription)")
+                logger.error("Could not save partners \(error.localizedDescription, privacy: .public)")
 
                 onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to save data - partners \(error)")
 
@@ -188,35 +171,35 @@ END:VCARD
         if let url = targetUrl(name: partner.name), let imageUrl = partner.wrappedImage {
             DispatchQueue.global(qos: .background).async {
                 do {
-                    Logger.network.debug("Fetch image - getting as image for \(imageUrl.absoluteString)")
+                    logger.debug("Fetch image - getting as image for \(imageUrl.absoluteString, privacy: .public)")
                     
                     let ext = imageUrl.pathExtension
 
                     if (ext == "svg") {
-                        Logger.network.debug("SVG image - for \(imageUrl.absoluteString)")
+                        logger.debug("SVG image - for \(imageUrl.absoluteString, privacy: .public)")
 
                         let svgImage = SVGKImage(contentsOf: imageUrl)
                         
                         if let image = svgImage?.uiImage {
-                            Logger.network.debug("Fetch image - saving data to \(url.absoluteString)")
+                            logger.debug("Fetch image - saving data to \(url.absoluteString, privacy: .public)")
                             if let pngData = image.pngData() {
                                 try pngData.write(to: url)
                             }
                         } else {
-                            Logger.network.debug("Could not get image from SVG - for \(imageUrl.absoluteString)")
+                            logger.debug("Could not get image from SVG - for \(imageUrl.absoluteString, privacy: .public)")
                         }
                     } else {
-                        Logger.network.debug("Fetch image - fetching data for \(imageUrl.absoluteString)")
+                        logger.debug("Fetch image - fetching data for \(imageUrl.absoluteString, privacy: .public)")
 
                         let data = try Data(contentsOf: imageUrl)
 
                         if let image = UIImage(data: data), let pngData = image.pngData() {
-                            Logger.network.debug("Fetch image - saving data to \(url.absoluteString)")
+                            logger.debug("Fetch image - saving data to \(url.absoluteString, privacy: .public)")
                             try pngData.write(to: url)
                         }
                     }
                 } catch {
-                    Logger.network.error("Could not save image from url \(error.localizedDescription), \(imageUrl.absoluteString)")
+                    logger.error("Could not save image from url \(error.localizedDescription, privacy: .public), \(imageUrl.absoluteString, privacy: .public)")
                 }
             }
         }
@@ -225,7 +208,7 @@ END:VCARD
     static func getImageUrl(partner: Partner) -> URL? {
         if let url = targetUrl(name: partner.name) {
             if (FileManager.default.fileExists(atPath: url.path)) {
-                Logger.cache.debug("Found cached partner image")
+                logger.debug("Found cached partner image")
 
                 return url
             }
@@ -252,7 +235,7 @@ END:VCARD
             
             try save(context: context)
         } catch {
-            Logger.coreData.error("Could not get contact partner \(error.localizedDescription)")
+            logger.error("Could not get contact partner \(error.localizedDescription, privacy: .public)")
         }
     }
 }

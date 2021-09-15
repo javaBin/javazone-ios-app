@@ -3,9 +3,10 @@ import Alamofire
 import os.log
 
 class InfoService {
+    static let logger = Logger(subsystem: Logger.subsystem, category: "InfoService")
 
     static func refreshConfig(onComplete: @escaping ([RemoteInfo]) -> Void) {
-        Logger.network.info("Refreshing info")
+        logger.info("Refreshing info")
 
         let cacheBuster = Date().timeIntervalSince1970
         
@@ -16,7 +17,7 @@ class InfoService {
                
         request.responseDecodable(of: [RemoteInfo].self, decoder: decoder) { (response) in
             if let error = response.error {
-                Logger.network.error("Unable to refresh info \(error.localizedDescription)")
+                logger.error("Unable to refresh info \(error.localizedDescription, privacy: .public)")
                        
                 onComplete([])
                        
@@ -24,7 +25,7 @@ class InfoService {
            }
 
             guard let info = response.value else {
-                Logger.network.error("Unable to fetch info")
+                logger.error("Unable to fetch info")
 
                 onComplete([])
             
