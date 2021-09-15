@@ -40,46 +40,8 @@ struct PartnerListView: View {
         }
     }
     
-    private var uncontacted : Int {
-        self.partners.filter { (partner) -> Bool in
-            partner.contacted == false
-        }.count
-    }
-    
     var body: some View {
         VStack {
-            if (hasBadge) {
-                if (uncontacted == 0) {
-                    VStack {
-                        Text("Congratulations!").font(.title)
-                        Text("You have collected them all").font(.caption)
-                        Text("Come show us at the javaBin stand to enter the prize draw").font(.caption)
-                    }
-                } else {
-                    HStack {
-                        Text("Partner List").onTapGesture(count: 3) {
-                            self.refreshPartners(force: true)
-                        }
-                        Spacer()
-                        HStack {
-                            Text("Scan")
-                            Image(systemName: "qrcode")
-                                .resizable()
-                                .frame(width: 32, height: 32)
-                        }.onTapGesture {
-                            self.showingScanSheet = true
-                        }.sheet(isPresented: $showingScanSheet) {
-                            ScannerView(simulatorData: PartnerService.TestData.partner, data: Binding(
-                                get: { "" },
-                                set: { (newVal) in
-                                    self.partnerScan(value: newVal)
-                                }
-                            ))
-                        }
-                    }.padding()
-                }
-            }
-            
             ScrollView {
                 WaterfallGrid(partners.shuffled(), id: \.self) { partner in
                     PartnerLogoView(partner: partner, hasBadge: self.hasBadge)
@@ -127,24 +89,6 @@ struct PartnerListView: View {
                 self.refreshFatalMessage = logMessage
                 self.isShowingRefreshAlert = true
             }
-        }
-    }
-    
-    func partnerScan(value: String) {
-        os_log("Scanned badge", log: .ui, type: .debug)
-        
-        if let data = value.data(using: .utf8) {
-            let decoder = JSONDecoder()
-
-            if let partner = try? decoder.decode(ScannedPartner.self, from: data) {
-                os_log("Scanned partner - decode OK", log: .ui, type: .info)
-
-                PartnerService.contact(partner: partner)
-            } else {
-                os_log("Could not decode scanned partner", log: .ui, type: .error)
-            }
-        } else {
-            os_log("Could not get scanned partner", log: .ui, type: .error)
         }
     }
 }

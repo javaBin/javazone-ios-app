@@ -20,24 +20,6 @@
         }
       },
       {
-        "package": "CodeScanner",
-        "repositoryURL": "https://github.com/twostraws/CodeScanner",
-        "state": {
-          "branch": null,
-          "revision": "a2144ddaa7c43a6ee00873edd4cc7815ad97942f",
-          "version": "1.0.7"
-        }
-      },
-      {
-        "package": "CryptoSwift",
-        "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
-        "state": {
-          "branch": null,
-          "revision": "8d4f6384e0a8cc41f2005247241dd553963a492a",
-          "version": "1.4.1"
-        }
-      },
-      {
         "package": "RemoteImage",
         "repositoryURL": "https://github.com/crelies/RemoteImage.git",
         "state": {

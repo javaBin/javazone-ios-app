@@ -31,7 +31,7 @@ struct ContentView: View {
                         }
                     }
                     .tag(2)
-                PartnersView()
+                PartnerListView()
                     .font(.title)
                     .tabItem {
                         VStack {

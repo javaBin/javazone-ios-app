@@ -40,16 +40,10 @@ struct PartnerLogoView: View {
         return PartnerService.getImageUrl(partner: partner)
     }
     
-    var fadeLogo : Bool {
-        hasBadge == true && !partner.contacted
-    }
-    
     var body: some View {
         VStack {
             if (imageUrl != nil) {
                 PartnerImage(imageUrl: imageUrl!)
-                    .grayscale(fadeLogo ? 0.8 : 0)
-                    .opacity(fadeLogo ? 0.4 : 1)
                     .onTapGesture {
                         if (self.partner.wrappedSite != nil) {
                             UIApplication.shared.open(self.partner.wrappedSite!)
