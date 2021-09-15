@@ -5,7 +5,6 @@ public class Partner:NSManagedObject {
     @NSManaged public var name:String?
     @NSManaged public var image:String?
     @NSManaged public var url:String?
-    @NSManaged public var contacted:Bool
 
     public var wrappedName : String {
         return self.name ?? ""

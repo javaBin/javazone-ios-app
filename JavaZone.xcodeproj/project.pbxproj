@@ -156,6 +156,7 @@
 		83E322A92403F5730044094C /* InfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoService.swift; sourceTree = "<group>"; };
 		83E322AD2403F5DC0044094C /* RemoteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteInfo.swift; sourceTree = "<group>"; };
 		83E322AF2403FC090044094C /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
+		83F4791B26F237CD006DA0AC /* JavaZone 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "JavaZone 2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -942,6 +943,7 @@
 		8350E64723F5222B0085C1F3 /* JavaZone.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				83F4791B26F237CD006DA0AC /* JavaZone 2.xcdatamodel */,
 				8350E64823F5222B0085C1F3 /* JavaZone.xcdatamodel */,
 			);
 			currentVersion = 8350E64823F5222B0085C1F3 /* JavaZone.xcdatamodel */;

@@ -18,27 +18,6 @@ class PartnerService {
         }
     }
     
-    static func clearContacted() {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
-        do {
-            let request:NSFetchRequest<Partner> = Partner.fetchRequest() as! NSFetchRequest<Partner>
-
-            request.sortDescriptors = []
-            request.predicate = NSPredicate(format: "contacted == true")
-        
-            let contactedPartners = try context.fetch(request)
-            
-            contactedPartners.forEach { (partner) in
-                partner.contacted = false
-            }
-            
-            try save(context: context)
-        } catch {
-            logger.error("Could not get clear contacted partners \(error.localizedDescription, privacy: .public)")
-        }
-    }
-    
     static func refresh(force: Bool, onComplete : @escaping (_ status: UpdateStatus, _ msg: String, _ logMsg: String) -> Void) {
         if (force != true && !Date().shouldUpdate(key: "PartnerDate", defaultDate: Date(timeIntervalSince1970: 0), maxSecs: 60 * 60 * 24 * 30)) {
             onComplete(.OK, "", "")
@@ -51,7 +30,6 @@ class PartnerService {
 
         let url = URL(fileURLWithPath: path)
 
-//        let request = AF.request("https://www.java.no/javazone-ios-app/partners.json")
         let request = AF.request(url)
 
         let decoder = JSONDecoder()
@@ -76,28 +54,6 @@ class PartnerService {
                 return
             }
             
-            var contactedPartners: [Partner] = []
-            
-            logger.debug("Getting contacted partners")
-
-            do {
-                let request:NSFetchRequest<Partner> = Partner.fetchRequest() as! NSFetchRequest<Partner>
-
-                request.sortDescriptors = []
-                request.predicate = NSPredicate(format: "contacted == true")
-                
-                contactedPartners = try context.fetch(request)
-            } catch {
-                logger.error("Could not get contacted partners \(error.localizedDescription, privacy: .public)")
-            }
-            
-            let contacted = contactedPartners
-                .compactMap { (partner) -> String? in
-                    return partner.url
-            }
-            
-            logger.debug("Got \(contacted.count, privacy: .public) contaced partners")
-
             do {
                 logger.debug("Clearing old partners")
 
@@ -126,8 +82,6 @@ class PartnerService {
                     partner.name = name
                     partner.image = image
 
-                    partner.contacted = contacted.contains(url)
-                                        
                     newPartners.append(partner)
 
                     fetchImage(partner: partner)
@@ -215,27 +169,5 @@ class PartnerService {
         }
         
         return partner.wrappedImage
-    }
-    
-    static func contact(partner: ScannedPartner) {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
-        do {
-            let request:NSFetchRequest<Partner> = Partner.fetchRequest() as! NSFetchRequest<Partner>
-
-            request.sortDescriptors = []
-            request.predicate = NSPredicate(format: "name == %@", partner.name ?? "")
-        
-            let match = try context.fetch(request)
-            
-            match.forEach { (storedPartner) in
-                // TODO - check code
-                storedPartner.contacted = true
-            }
-            
-            try save(context: context)
-        } catch {
-            logger.error("Could not get contact partner \(error.localizedDescription, privacy: .public)")
-        }
     }
 }
