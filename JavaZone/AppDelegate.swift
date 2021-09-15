@@ -1,6 +1,6 @@
 import UIKit
 import CoreData
-import os
+import os.log
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         cleanUpOldBadge()
         
         PartnerService.refresh(force: true) { status, message, logMessage in
-            os_log("Initial partner fetch %{public}@, %{public}@, %{public}@", log: .network, type:.debug, status.rawValue, message, logMessage)
+            Logger.network.debug("Initial partner fetch \(status.rawValue), \(message), \(logMessage)")
         }
         
         return true
@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                os_log("Unable to load persistent stores %{public}@", log: .coreData, type:.error, error.localizedDescription)
+                Logger.coreData.error("Unable to load persistent stores \(error.localizedDescription)")
 
                 // If we have no store - we're unable to do anything useful
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -59,10 +59,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         if context.hasChanges {
             do {
-                os_log("Saving context", log: .coreData, type: .info)
+                Logger.coreData.info("Saving context")
+                
                 try context.save()
             } catch {
-                os_log("Saving context failed %{public}@", log: .coreData, type: .error, error.localizedDescription)
+                Logger.coreData.error("Saving context failed \(error.localizedDescription)")
 
                 let nserror = error as NSError
 
@@ -120,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     }
                 }
             } catch {
-                os_log("An error occured cleaning up old image files %{public}@", type: .error, error.localizedDescription)
+                Logger.cache.error("An error occured cleaning up old image files \(error.localizedDescription)")
             }
         }
     }

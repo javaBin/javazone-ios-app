@@ -1,7 +1,7 @@
 import SwiftUI
 import Alamofire
 import CoreData
-import os
+import os.log
 
 struct SessionSection : Hashable {
     var startUtc: Date
@@ -16,7 +16,7 @@ class SessionService {
     
     private static func save(context: NSManagedObjectContext) throws {
         if (context.hasChanges) {
-            os_log("Saving changed MOC - Sessions", log: .coreData, type: .info)
+            Logger.coreData.info("Saving changed MOC - Sessions")
             try context.save()
         }
     }
@@ -32,11 +32,11 @@ class SessionService {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
             
-            os_log("Fetching sessions", log: .network, type: .debug)
+            Logger.network.debug("Fetching sessions")
             
             request.responseDecodable(of: RemoteSessionList.self, decoder: decoder) { (response) in
                 if let error = response.error {
-                    os_log("Unable to fetch sessions %{public}@", log: .network, type: .error, error.localizedDescription)
+                    Logger.network.error("Unable to fetch sessions \(error.localizedDescription)")
 
                     onComplete(.Fail, "Could not download sessions, please try again", "")
                     
@@ -44,7 +44,7 @@ class SessionService {
                 }
                 
                 guard let sessions = response.value?.sessions else {
-                    os_log("Unable to read sessions", log: .network, type: .error)
+                    Logger.network.error("Unable to read sessions")
 
                     onComplete(.Fail, "Could not download sessions, please try again", "")
                     
@@ -53,7 +53,7 @@ class SessionService {
                 
                 var favouriteSessions: [Session] = []
                 
-                os_log("Getting favourites", log: .coreData, type: .debug)
+                Logger.coreData.debug("Getting favourites")
 
                 do {
                     let request:NSFetchRequest<Session> = Session.fetchRequest() as! NSFetchRequest<Session>
@@ -63,7 +63,7 @@ class SessionService {
                     
                     favouriteSessions = try context.fetch(request)
                 } catch {
-                    os_log("Could not get favourites %{public}", log: .coreData, type: .error, error.localizedDescription)
+                    Logger.coreData.error("Could not get favourites \(error.localizedDescription)")
                     // Go forward - we will lose favourites - but may complete
                 }
                 
@@ -72,10 +72,10 @@ class SessionService {
                         return session.sessionId
                 }
                 
-                os_log("Got %{public}d favourites", log: .coreData, type: .debug, favourites.count)
+                Logger.coreData.debug("Got \(favourites.count) favourites")
 
                 do {
-                    os_log("Clearing old sessions", log: .coreData, type: .debug)
+                    Logger.coreData.debug("Clearing old sessions")
 
                     let result = try context.execute(Session.clear()) as! NSBatchDeleteResult
 
@@ -85,7 +85,7 @@ class SessionService {
                     
                     NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
                 } catch {
-                    os_log("Could not clear sessions %{public}", log: .coreData, type: .error, error.localizedDescription)
+                    Logger.coreData.error("Could not clear sessions \(error.localizedDescription)")
                     
                     onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to clear session data \(error)")
                     
@@ -135,14 +135,14 @@ class SessionService {
                     }
                 }
                 
-                os_log("Saw %{public}d new sessions", log: .network, type: .debug, newSessions.count)
+                Logger.network.debug("Saw \(newSessions.count) new sessions")
 
                 updateSections(newSessions)
                 
                 do {
                     try save(context: context)
                 } catch {
-                    os_log("Could not save sessions %{public}", log: .coreData, type: .error, error.localizedDescription)
+                    Logger.coreData.error("Could not save sessions \(error.localizedDescription)")
 
                     onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to save data - sessions \(error)")
 

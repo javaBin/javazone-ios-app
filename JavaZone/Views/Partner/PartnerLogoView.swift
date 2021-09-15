@@ -1,13 +1,13 @@
 import SwiftUI
 import CoreData
 import RemoteImage
-import os
+import os.log
 
 struct DefaultPartnerImage: View {
     var message: String
     
     var body: some View {
-        os_log("Image message %{public}@", log: .ui, type: .debug, message)
+        Logger.ui.debug("Image message \(message)")
 
         return Image(systemName: "person.3.fill")
             .resizable()

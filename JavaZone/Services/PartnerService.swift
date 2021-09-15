@@ -2,7 +2,7 @@ import SwiftUI
 import Alamofire
 import CoreData
 import SVGKit
-import os
+import os.log
 
 class PartnerService {
     struct TestData {
@@ -30,7 +30,7 @@ END:VCARD
     
     private static func save(context: NSManagedObjectContext) throws {
         if (context.hasChanges) {
-            os_log("Saving changed MOC - Partners", log: .coreData, type: .info)
+            Logger.coreData.info("Saving changed MOC - Partners")
             try context.save()
         }
     }
@@ -52,7 +52,7 @@ END:VCARD
             
             try save(context: context)
         } catch {
-           os_log("Could not get clear contacted partners %{public}@", log: .coreData, type: .error, error.localizedDescription)
+            Logger.coreData.error("Could not get clear contacted partners \(error.localizedDescription)")
         }
     }
     
@@ -74,11 +74,11 @@ END:VCARD
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         
-        os_log("Fetching partners", log: .network, type: .debug)
+        Logger.network.debug("Fetching partners")
         
         request.responseDecodable(of: [RemotePartner].self, decoder: decoder) { (response) in
             if let error = response.error {
-                os_log("Unable to fetch partners %{public}@", log: .network, type: .error, error.localizedDescription)
+                Logger.network.error("Unable to fetch partners \(error.localizedDescription)")
 
                 onComplete(.Fail, "Could not download partners, please try again", "")
                 
@@ -86,7 +86,7 @@ END:VCARD
             }
             
             guard let partners = response.value else {
-                os_log("Unable to read partners", log: .network, type: .error)
+                Logger.network.error("Unable to read partners")
 
                 onComplete(.Fail, "Could not download partners, please try again", "")
                 
@@ -95,7 +95,7 @@ END:VCARD
             
             var contactedPartners: [Partner] = []
             
-            os_log("Getting contacted partners", log: .coreData, type: .debug)
+            Logger.coreData.debug("Getting contacted partners")
 
             do {
                 let request:NSFetchRequest<Partner> = Partner.fetchRequest() as! NSFetchRequest<Partner>
@@ -105,8 +105,7 @@ END:VCARD
                 
                 contactedPartners = try context.fetch(request)
             } catch {
-                os_log("Could not get contacted partners %{public}@", log: .coreData, type: .error, error.localizedDescription)
-                // Go forward - we will lose contacted partners - but may complete
+                Logger.coreData.error("Could not get contacted partners \(error.localizedDescription)")
             }
             
             let contacted = contactedPartners
@@ -114,10 +113,10 @@ END:VCARD
                     return partner.url
             }
             
-            os_log("Got %{public}d contaced partners", log: .coreData, type: .debug, contacted.count)
+            Logger.coreData.debug("Got \(contacted.count) contaced partners")
 
             do {
-                os_log("Clearing old partners", log: .coreData, type: .debug)
+                Logger.coreData.debug("Clearing old partners")
 
                 let result = try context.execute(Partner.clear()) as! NSBatchDeleteResult
 
@@ -127,7 +126,7 @@ END:VCARD
                 
                 NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
             } catch {
-                os_log("Could not clear partners %{public}@", log: .coreData, type: .error, error.localizedDescription)
+                Logger.coreData.error("Could not clear partners \(error.localizedDescription)")
                 
                 onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to clear partner data \(error)")
                 
@@ -152,12 +151,12 @@ END:VCARD
                 }
             }
             
-            os_log("Saw %{public}d new partners", log: .network, type: .debug, newPartners.count)
+            Logger.network.debug("Saw \(newPartners.count) new partners")
 
             do {
                 try save(context: context)
             } catch {
-                os_log("Could not save partners %{public}@", log: .coreData, type: .error, error.localizedDescription)
+                Logger.coreData.error("Could not save partners \(error.localizedDescription)")
 
                 onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to save data - partners \(error)")
 
@@ -189,35 +188,35 @@ END:VCARD
         if let url = targetUrl(name: partner.name), let imageUrl = partner.wrappedImage {
             DispatchQueue.global(qos: .background).async {
                 do {
-                    os_log("Fetch image - getting as image for %{public}@", log: .network, type: .debug, imageUrl.absoluteString)
+                    Logger.network.debug("Fetch image - getting as image for \(imageUrl.absoluteString)")
                     
                     let ext = imageUrl.pathExtension
 
                     if (ext == "svg") {
-                        os_log("SVG image - for %{public}@", log: .network, type: .debug, imageUrl.absoluteString)
+                        Logger.network.debug("SVG image - for \(imageUrl.absoluteString)")
 
                         let svgImage = SVGKImage(contentsOf: imageUrl)
                         
                         if let image = svgImage?.uiImage {
-                            os_log("Fetch image - saving data to %{public}@", log: .network, type: .debug, url.absoluteString)
+                            Logger.network.debug("Fetch image - saving data to \(url.absoluteString)")
                             if let pngData = image.pngData() {
                                 try pngData.write(to: url)
                             }
                         } else {
-                            os_log("Could not get image from SVG - for %{public}@", log: .network, type: .debug, imageUrl.absoluteString)
+                            Logger.network.debug("Could not get image from SVG - for \(imageUrl.absoluteString)")
                         }
                     } else {
-                        os_log("Fetch image - fetching data for %{public}@", log: .network, type: .debug, imageUrl.absoluteString)
+                        Logger.network.debug("Fetch image - fetching data for \(imageUrl.absoluteString)")
 
                         let data = try Data(contentsOf: imageUrl)
 
                         if let image = UIImage(data: data), let pngData = image.pngData() {
-                            os_log("Fetch image - saving data to %{public}@", log: .network, type: .debug, url.absoluteString)
+                            Logger.network.debug("Fetch image - saving data to \(url.absoluteString)")
                             try pngData.write(to: url)
                         }
                     }
                 } catch {
-                    os_log("Could not save image from url %{public}@", log: .network, type: .error, error.localizedDescription, imageUrl.absoluteString)
+                    Logger.network.error("Could not save image from url \(error.localizedDescription), \(imageUrl.absoluteString)")
                 }
             }
         }
@@ -226,7 +225,7 @@ END:VCARD
     static func getImageUrl(partner: Partner) -> URL? {
         if let url = targetUrl(name: partner.name) {
             if (FileManager.default.fileExists(atPath: url.path)) {
-                os_log("Found cached partner image", type: .debug)
+                Logger.cache.debug("Found cached partner image")
 
                 return url
             }
@@ -253,7 +252,7 @@ END:VCARD
             
             try save(context: context)
         } catch {
-           os_log("Could not get contact partner %{public}@", log: .coreData, type: .error, error.localizedDescription)
+            Logger.coreData.error("Could not get contact partner \(error.localizedDescription)")
         }
     }
 }

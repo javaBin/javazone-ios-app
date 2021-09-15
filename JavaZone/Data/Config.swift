@@ -1,5 +1,5 @@
 import Foundation
-import os
+import os.log
 
 public class Config : Codable {
     public var title:String = defaultTitle
@@ -36,24 +36,24 @@ extension Config {
         let defaults = UserDefaults.standard
         
         if let config = defaults.object(forKey: "Config") as? Data {
-            os_log("Fetching config - fetch OK", log: .config, type: .info)
+            Logger.config.info("Fetching config - fetch OK")
 
             let decoder = JSONDecoder()
 
             if let config = try? decoder.decode(Config.self, from: config) {
-                os_log("Fetching config - decode OK", log: .config, type: .info)
+                Logger.config.info("Fetching config - decode OK")
 
                 return config
             }
         }
 
-        os_log("Fetching config - returning default", log: .config, type: .info)
+        Logger.config.info("Fetching config - returning default")
 
         return Config()
     }
     
     func saveConfig() {
-        os_log("Saving config %{public}@", log: .config, type: .info, self.description )
+        Logger.config.info("Saving config \(self.description)")
 
         let encoder = JSONEncoder()
         
@@ -63,7 +63,7 @@ extension Config {
             
             Config.sharedConfig = self
         } else {
-            os_log("Unable to encode config %{public}@", log: .config, type: .error, self.description )
+            Logger.config.error("Unable to encode config \(self.description)")
         }
     }
 }

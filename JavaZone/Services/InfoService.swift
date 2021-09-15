@@ -1,11 +1,11 @@
 import Foundation
 import Alamofire
-import os
+import os.log
 
 class InfoService {
 
     static func refreshConfig(onComplete: @escaping ([RemoteInfo]) -> Void) {
-        os_log("Refreshing info", log: .network, type: .info)
+        Logger.network.info("Refreshing info")
 
         let cacheBuster = Date().timeIntervalSince1970
         
@@ -16,7 +16,7 @@ class InfoService {
                
         request.responseDecodable(of: [RemoteInfo].self, decoder: decoder) { (response) in
             if let error = response.error {
-                os_log("Unable to refresh info %{public}@", log: .network, type: .error, error.localizedDescription)
+                Logger.network.error("Unable to refresh info \(error.localizedDescription)")
                        
                 onComplete([])
                        
@@ -24,7 +24,7 @@ class InfoService {
            }
 
             guard let info = response.value else {
-                os_log("Unable to fetch info", log: .network, type: .error)
+                Logger.network.error("Unable to fetch info")
 
                 onComplete([])
             

@@ -1,5 +1,5 @@
 import Foundation
-import os
+import os.log
 
 public struct InfoItem : Hashable {
     var title: String
@@ -45,13 +45,13 @@ public class Info : ObservableObject {
     }
     
     public func update(force: Bool, callback: (() -> Void)?) {
-        os_log("Update called", log: .info, type: .debug)
+        Logger.info.debug("Update called")
 
         if (force || abs(self.lastUpdated.diffInSeconds(date: Date())) > 5 * 60) {
-            os_log("Cache old - update", log: .info, type: .debug)
+            Logger.info.debug("Cache old - update")
 
             InfoService.refreshConfig { (remoteInfo) in
-                os_log("Processing response", log: .info, type: .debug)
+                Logger.info.debug("Processing response")
 
                 var newItems : [InfoItem] = []
                 
@@ -61,11 +61,11 @@ public class Info : ObservableObject {
                 
                 self.infoItems = newItems
                 
-                os_log("Saw %{public}d info items", log: .info, type: .debug, self.infoItems.count)
+                Logger.info.debug("Saw \(self.infoItems.count) info items")
                 
                 self.lastUpdated = Date()
                 
-                os_log("Setting cache flag to %{public}@", log: .info, type: .debug, self.lastUpdated as NSDate)
+                Logger.info.debug("Setting cache flag to \(self.lastUpdated)")
 
                 if let callback = callback {
                     callback()

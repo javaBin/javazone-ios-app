@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftUIRefresh
 import CoreData
-import os
+import os.log
 
 struct RelevantSessions : Equatable {
     var sessions: [Session]
@@ -67,7 +67,7 @@ struct SessionsListView: View {
     
     func refreshSessions() {
         SessionService.refresh() { (status, message, logMessage) in
-            os_log("Refresh said: %{public}s, %{public}s, %{public}s", log: .ui, type: .debug, status.rawValue, message, logMessage)
+            Logger.ui.debug("Refresh said: \(status.rawValue), \(message), \(logMessage)")
 
             if (status == .Fail) {
                 self.refreshFatal = false
@@ -184,7 +184,7 @@ struct SessionsListView: View {
             scrollId = self.sessions.sections.first
         }
         
-        os_log("Want to scroll to %{public}s", log: .ui, type: .debug, scrollId ?? "None")
+        Logger.ui.debug("Want to scroll to \(scrollId ?? "None")")
         
         if let scrollId = scrollId {
             scroll.scrollTo(scrollId, anchor: .top)
@@ -198,18 +198,18 @@ struct SessionsListView: View {
         // We have no sessions in list and we are not filtering
         let noSessions = self.sessions.sessions.count == 0 && self.favouritesOnly == false && self.searchText == ""
         
-        os_log("Checking to see if empty %{public}d", log: .ui, type: .debug, noSessions)
+        Logger.ui.debug("Checking to see if empty \(noSessions)")
         
         // It's been at least 30 mins since last update - a 25% chance to update
         let randomChance = Int.random(in: 0..<4) == 0
         var autorefresh = randomChance && now.shouldUpdate(key: "SessionLastUpdate", defaultDate: Date(timeIntervalSince1970: 0), maxSecs: 60 * 30)
         
-        os_log("Checking to see if should auto refresh %{public}d", log: .ui, type: .debug, autorefresh)
+        Logger.ui.debug("Checking to see if should auto refresh \(autorefresh)")
         
         #if DEBUG
         autorefresh = Bool.random()
         
-        os_log("Debug - set auto refresh %{public}d", log: .ui, type: .debug, autorefresh)
+        Logger.ui.debug("Debug - set auto refresh \(autorefresh)")
         #endif
         
         if (noSessions || autorefresh) {
@@ -219,12 +219,12 @@ struct SessionsListView: View {
         
         
         if (now.shouldUpdate(key: "SessionLastDisplayed", defaultDate: Date(timeIntervalSince1970: 0), maxSecs: 60 * 60)) {
-            os_log("Should set picker", log: .ui, type: .debug)
+            Logger.ui.debug("Should set picker")
             
             let nowDate = now.asDate()
             for idx in  0..<3 {
                 if (nowDate == self.config.dates[idx]) {
-                    os_log("Should set picker - matched %{public}@", log: .ui, type: .debug, nowDate)
+                    Logger.ui.debug("Should set picker - matched \(nowDate)")
                     
                     self.selectorIndex = idx
                 }
