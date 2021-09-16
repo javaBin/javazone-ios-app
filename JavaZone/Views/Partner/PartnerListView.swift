@@ -6,15 +6,15 @@ struct PartnerListView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(fetchRequest: Partner.getPartners()) var partners: FetchedResults<Partner>
 
-    @State private var isShowingRefreshAlert = false
     @State private var refreshFatal = false
+
+    @State private var isShowingRefreshAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
     @State private var refreshFatalMessage = ""
     
     @State private var showingScanSheet = false
     
-    @State private var isShowingAlert = false
-    @State private var alertTitle = ""
-    @State private var alertMessage = ""
 
     private var idiom : UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
     private var isPortrait : Bool { UIDevice.current.orientation.isPortrait }
@@ -59,12 +59,6 @@ struct PartnerListView: View {
                     refreshFatal: $refreshFatal,
                     refreshFatalMessage: $refreshFatalMessage
                 ).alert
-            }
-            .alert(isPresented: $isShowingAlert) {
-                Alert(title: Text(self.alertTitle),
-                      message: Text(self.alertMessage),
-                      dismissButton: .default(Text("OK"))
-                    )
             }
             Spacer()
         }

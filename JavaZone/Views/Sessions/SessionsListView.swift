@@ -25,11 +25,13 @@ struct SessionsListView: View {
     @State private var selectorIndex = 0
     @State private var searchText = ""
     @State private var isShowingPullToRefresh = false
+
     @State private var isShowingRefreshAlert = false
     @State private var refreshAlertTitle = ""
     @State private var refreshAlertMessage = ""
     @State private var refreshFatal = false
     @State private var refreshFatalMessage = ""
+
     @State private var sessionIdFromNotification : String?
     @State private var activateSessionFromNotification = false
     
