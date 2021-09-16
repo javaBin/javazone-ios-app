@@ -45,7 +45,6 @@
 		838048462407BF1600749E82 /* JavaZone.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8380483F2407BF1500749E82 /* JavaZone.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8397433923FD23110024E80B /* ExternalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397433823FD23110024E80B /* ExternalLink.swift */; };
 		83A2275A26EB920A00644367 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = 83A2275926EB920A00644367 /* SVGKit */; };
-		83A827E6241507FB00DC7ADA /* HashServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A827E5241507FB00DC7ADA /* HashServiceTests.swift */; };
 		83AA8DED242B4F21007E3339 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA8DEC242B4F21007E3339 /* ShareSheet.swift */; };
 		83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332223FAF74200F3FCB4 /* SearchView.swift */; };
 		83B3332523FAF8A900F3FCB4 /* Search+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */; };
@@ -136,7 +135,6 @@
 		838048432407BF1600749E82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8397433823FD23110024E80B /* ExternalLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLink.swift; sourceTree = "<group>"; };
 		83A827E3241507FB00DC7ADA /* JavaZoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JavaZoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		83A827E5241507FB00DC7ADA /* HashServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashServiceTests.swift; sourceTree = "<group>"; };
 		83A827E7241507FB00DC7ADA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83AA8DEC242B4F21007E3339 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		83B3332223FAF74200F3FCB4 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -301,7 +299,6 @@
 		83A827E4241507FB00DC7ADA /* JavaZoneTests */ = {
 			isa = PBXGroup;
 			children = (
-				83A827E5241507FB00DC7ADA /* HashServiceTests.swift */,
 				83A827E7241507FB00DC7ADA /* Info.plist */,
 			);
 			path = JavaZoneTests;
@@ -555,7 +552,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83A827E6241507FB00DC7ADA /* HashServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
