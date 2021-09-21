@@ -10,32 +10,26 @@ extension Date {
         #endif
     }
 
-    func asTime() -> String {
+    private func formatString(_ format: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-
+        dateFormatter.dateFormat = format
         return dateFormatter.string(from: self)
+    }
+
+    func asTime() -> String {
+        return formatString("HH:mm")
     }
     
     func asDate() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        
-        return dateFormatter.string(from: self)
+        return formatString("dd.MM.yyyy")
     }
     
     func asDateTime() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm (dd.MM.yyyy)"
-        
-        return dateFormatter.string(from: self)
+        return formatString("HH:mm (dd.MM.yyyy)")
     }
     
     func asHour() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH"
-        
-        return "\(dateFormatter.string(from: self)):00"
+        return "\(formatString("HH")):00"
     }
     
     func diffInSeconds(date: Date) -> Int {
