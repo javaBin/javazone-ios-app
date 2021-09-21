@@ -80,13 +80,6 @@ public class Session:NSManagedObject {
             return speaker.wrappedName
         }.joined(separator: ", ")
     }
-
-    /*
-    public var feedbackOpen : Bool {
-        // TODO https://github.com/javaBin/javazone-ios-app/issues/8
-        return false
-    }
-    */
 }
 
 extension Session {
