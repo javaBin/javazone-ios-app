@@ -10,7 +10,7 @@ class InfoService {
 
         let cacheBuster = Date().timeIntervalSince1970
         
-        let request = AF.request("https://gist.githubusercontent.com/chrissearle/a653c7634427142abadee41e0028a047/raw/info.json?cb=\(cacheBuster)")
+        let request = AF.request("https://www.java.no/javazone-ios-app/info.json?cb=\(cacheBuster)")
                
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
