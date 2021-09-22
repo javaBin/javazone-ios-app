@@ -18,7 +18,7 @@ default_platform(:ios)
 platform :ios do
   desc "Unit Tests"
   lane :unittest do
-    run_tests(scheme: "JavaZone")
+    run_tests(scheme: "JavaZone", slack_only_on_failure: true)
   end
 
   desc "Git preparation"
