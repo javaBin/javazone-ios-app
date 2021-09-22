@@ -106,68 +106,9 @@ class PartnerService {
         }
     }
     
-    static func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentsDirectory = paths[0]
-        
-        return documentsDirectory
-    }
-    
-    static func targetUrl(name: String?) -> URL? {
-        if let slug = name?.slug() {
-            return getDocumentsDirectory().appendingPathComponent(slug).appendingPathExtension("png")
-        }
-        
-        return nil
-    }
-    
     static func fetchImage(partner: Partner) {
-        if let url = targetUrl(name: partner.name), let imageUrl = partner.wrappedImage {
-            DispatchQueue.global(qos: .background).async {
-                do {
-                    logger.debug("Fetch image - getting as image for \(imageUrl.absoluteString, privacy: .public)")
-                    
-                    let ext = imageUrl.pathExtension
-
-                    if (ext == "svg") {
-                        logger.debug("SVG image - for \(imageUrl.absoluteString, privacy: .public)")
-
-                        let svgImage = SVGKImage(contentsOf: imageUrl)
-                        
-                        if let image = svgImage?.uiImage {
-                            logger.debug("Fetch image - saving data to \(url.absoluteString, privacy: .public)")
-                            if let pngData = image.pngData() {
-                                try pngData.write(to: url)
-                            }
-                        } else {
-                            logger.debug("Could not get image from SVG - for \(imageUrl.absoluteString, privacy: .public)")
-                        }
-                    } else {
-                        logger.debug("Fetch image - fetching data for \(imageUrl.absoluteString, privacy: .public)")
-
-                        let data = try Data(contentsOf: imageUrl)
-
-                        if let image = UIImage(data: data), let pngData = image.pngData() {
-                            logger.debug("Fetch image - saving data to \(url.absoluteString, privacy: .public)")
-                            try pngData.write(to: url)
-                        }
-                    }
-                } catch {
-                    logger.error("Could not save image from url \(error.localizedDescription, privacy: .public), \(imageUrl.absoluteString, privacy: .public)")
-                }
-            }
+        DispatchQueue.global(qos: .background).async {
+            let _ = ImageService.fetchImage(name: partner.wrappedName, imageUrl: partner.wrappedImage?.absoluteString)
         }
-    }
-    
-    static func getImageUrl(partner: Partner) -> URL? {
-        if let url = targetUrl(name: partner.name) {
-            if (FileManager.default.fileExists(atPath: url.path)) {
-                logger.debug("Found cached partner image")
-
-                return url
-            }
-        }
-        
-        return partner.wrappedImage
     }
 }

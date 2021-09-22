@@ -44,7 +44,7 @@ struct PartnerListView: View {
         VStack {
             ScrollView {
                 WaterfallGrid(partners.shuffled(), id: \.self) { partner in
-                    PartnerLogoView(partner: partner, hasBadge: self.hasBadge)
+                    PartnerLogoView(partner: partner)
                 }
                 .gridStyle(columns: cols, spacing: 10)
                 .padding()

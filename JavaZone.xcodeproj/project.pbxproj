@@ -43,6 +43,8 @@
 		8380469126FB0E8100624463 /* InfoLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380469026FB0E8100624463 /* InfoLogView.swift */; };
 		8380469326FB4C3800624463 /* Date+UtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380469226FB4C3800624463 /* Date+UtilsTest.swift */; };
 		8380469526FB4E3900624463 /* String+UtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380469426FB4E3900624463 /* String+UtilsTest.swift */; };
+		8380469726FB6D7000624463 /* DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380469626FB6D7000624463 /* DownloadImage.swift */; };
+		8380469926FB6DF800624463 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380469826FB6DF800624463 /* ImageService.swift */; };
 		838048422407BF1600749E82 /* Stickers.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 838048412407BF1600749E82 /* Stickers.xcassets */; };
 		838048462407BF1600749E82 /* JavaZone.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8380483F2407BF1500749E82 /* JavaZone.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8397433923FD23110024E80B /* ExternalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397433823FD23110024E80B /* ExternalLink.swift */; };
@@ -134,6 +136,8 @@
 		8380469026FB0E8100624463 /* InfoLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLogView.swift; sourceTree = "<group>"; };
 		8380469226FB4C3800624463 /* Date+UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+UtilsTest.swift"; sourceTree = "<group>"; };
 		8380469426FB4E3900624463 /* String+UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UtilsTest.swift"; sourceTree = "<group>"; };
+		8380469626FB6D7000624463 /* DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImage.swift; sourceTree = "<group>"; };
+		8380469826FB6DF800624463 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		8380483F2407BF1500749E82 /* JavaZone.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JavaZone.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		838048412407BF1600749E82 /* Stickers.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Stickers.xcassets; sourceTree = "<group>"; };
 		838048432407BF1600749E82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -205,6 +209,7 @@
 				83304596242C941500FAE5E2 /* ConfigService.swift */,
 				837E9BC22406607F00B74714 /* PartnerService.swift */,
 				83E322A92403F5730044094C /* InfoService.swift */,
+				8380469826FB6DF800624463 /* ImageService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -321,6 +326,7 @@
 				83AA8DEC242B4F21007E3339 /* ShareSheet.swift */,
 				83B3619F26E8DF9E00CFB552 /* RefreshAlert.swift */,
 				83B361A126E8E24600CFB552 /* DayPicker.swift */,
+				8380469626FB6D7000624463 /* DownloadImage.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -523,6 +529,7 @@
 				83C8D17923F53646008322DA /* RemoteSpeaker.swift in Sources */,
 				837E9BB724058D1000B74714 /* SpeakerItemView.swift in Sources */,
 				83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */,
+				8380469926FB6DF800624463 /* ImageService.swift in Sources */,
 				837E9BB224058D1000B74714 /* SessionsView.swift in Sources */,
 				8350E64423F5222B0085C1F3 /* AppDelegate.swift in Sources */,
 				8350E64B23F5222B0085C1F3 /* ContentView.swift in Sources */,
@@ -539,6 +546,7 @@
 				83B3332523FAF8A900F3FCB4 /* Search+Keyboard.swift in Sources */,
 				83E322AE2403F5DC0044094C /* RemoteInfo.swift in Sources */,
 				837E9BB424058D1000B74714 /* SessionsListView.swift in Sources */,
+				8380469726FB6D7000624463 /* DownloadImage.swift in Sources */,
 				83E322B02403FC090044094C /* Info.swift in Sources */,
 				834FF1E92401DC0300432129 /* Log+Utils.swift in Sources */,
 				837E9BBB24058D1000B74714 /* LicenceTexts.swift in Sources */,
