@@ -53,7 +53,8 @@ struct SessionDetailView: View {
                 }.padding()
             }
         }
-        .navigationBarTitle(Text(title), displayMode: .inline)
+        .navigationTitle(Text(title))
+        .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $showShareSheet) {
             self.buildShareSheet()
         }

@@ -13,7 +13,7 @@ struct LicenceView: View {
                     ExternalLink(title: "\(title)'s website", url: link!)
                 }
                 Text(text).padding(.horizontal)
-            }.navigationBarTitle(title)
+            }.navigationTitle(title)
         }
     }
 }

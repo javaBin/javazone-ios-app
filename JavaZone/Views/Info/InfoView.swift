@@ -48,7 +48,7 @@ struct InfoView: View {
                     ExternalLink(title: "Terms and Conditions", url: URL(string: "https://www.java.no/policy.html")!)                    
                 })
             }
-            .navigationBarTitle("Info")
+            .navigationTitle("Info")
             .pullToRefresh(isShowing: $isRefreshing) {
                 Info.shared.update(force: true, callback: self.refreshDone)
             }

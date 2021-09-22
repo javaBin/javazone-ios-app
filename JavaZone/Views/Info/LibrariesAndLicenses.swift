@@ -23,7 +23,7 @@ struct LibrariesAndLicenses: View {
             NavigationLink(destination: LicenceView(title: "WaterfallGrid", link: URL(string: "https://github.com/paololeonardi/WaterfallGrid"), text: LicenceTexts.waterfallgrid)) {
                 Text("WaterfallGrid")
             }
-        }.navigationBarTitle("Libraries used")
+        }.navigationTitle("Libraries used")
     }
 }
 

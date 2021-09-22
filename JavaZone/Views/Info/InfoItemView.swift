@@ -15,7 +15,8 @@ struct InfoItemView: View {
             }
             Text(item.wrappedBody)
                 .padding()      
-                .navigationBarTitle(Text(item.title), displayMode: .inline)
+                .navigationTitle(Text(item.title))
+                .navigationBarTitleDisplayMode(.inline)
             if (item.wrappedLink != nil) {
                 ExternalLink(title: item.wrappedLinkTitle, url: item.wrappedLink!)
             }

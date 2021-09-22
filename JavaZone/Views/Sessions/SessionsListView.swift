@@ -131,7 +131,7 @@ struct SessionsListView: View {
                             refreshFatal: $refreshFatal,
                             refreshFatalMessage: $refreshFatalMessage
                         ).alert
-                    }.navigationBarTitle(title)
+                    }.navigationTitle(title)
                 }
                 
                 if ($sessionIdFromNotification.wrappedValue != nil) {
