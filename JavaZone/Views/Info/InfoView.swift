@@ -38,8 +38,8 @@ struct InfoView: View {
                         Text("Libraries and Licenses")
                     }
                     if #available(iOS 15, *) {
-                        Button("Send Logs (last 24 hrs)") {
-                            sendLogs()
+                        NavigationLink(destination: InfoLogView()) {
+                            Text("App Logs")
                         }
                     }
                 })
@@ -60,27 +60,6 @@ struct InfoView: View {
     
     func refreshDone() {
         self.isRefreshing = false
-    }
-    
-    @available(iOS 15, *)
-    func sendLogs() {
-        /*
-        let logStore = try OSLogStore(scope: .currentProcessIdentifier)
-            
-        // Get all the logs from the last hour.
-        let oneDayAgo = logStore.position(date: Date().addingTimeInterval(-(3600 * 24)))
-        
-        // Fetch log objects.
-        let allEntries = try logStore.getEntries(at: oneDayAgo)
-        
-        // Filter the log to be relevant for our specific subsystem
-        // and remove other elements (signposts, etc).
-        let entries = allEntries
-            .compactMap { $0 as? OSLogEntryLog }
-            .filter { $0.subsystem == Logger.subsystem }
-        
-        // TODO - sharesheet? Send via email? Post to a gist? Something
-        */
     }
 }
 

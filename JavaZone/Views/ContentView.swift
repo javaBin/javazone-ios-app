@@ -41,6 +41,12 @@ struct ContentView: View {
                     }
                     .tag(3)
             }
+            .onAppear {
+                if #available(iOS 15.0, *) {
+                    let appearance = UITabBarAppearance()
+                    UITabBar.appearance().scrollEdgeAppearance = appearance
+                }
+            }
             
             if (blockingRefresh) {
                 ProgressView("Refreshing sessions")
