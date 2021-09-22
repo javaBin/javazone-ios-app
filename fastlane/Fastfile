@@ -16,6 +16,11 @@
 default_platform(:ios)
 
 platform :ios do
+  desc "Unit Tests"
+  lane :unittest do
+    run_tests(scheme: "JavaZone")
+  end
+
   desc "Git preparation"
   lane :gitprep do
     ensure_git_status_clean
@@ -33,6 +38,7 @@ platform :ios do
 
   desc "Push a new beta build to TestFlight"
   lane :beta do
+    unittest
     gitprep
     profileprep
     build_app(scheme: "JavaZone", clean: true)
@@ -42,6 +48,7 @@ platform :ios do
 
   desc "Push a new beta build to AppStore"
   lane :release do
+    unittest
     gitprep
     profileprep
     build_app(scheme: "JavaZone", clean: true)
