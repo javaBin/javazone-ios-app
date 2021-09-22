@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		83152E8A26CCF37E00DB1693 /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 83152E8926CCF37E00DB1693 /* SwiftUIRefresh */; };
 		83152E8C26CD078B00DB1693 /* partners.json in Resources */ = {isa = PBXBuildFile; fileRef = 83152E8B26CD078B00DB1693 /* partners.json */; };
-		83170577240D7B8F00238372 /* ScannedPartner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83170576240D7B8F00238372 /* ScannedPartner.swift */; };
 		831B782123F526BF00A45C70 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B782023F526BF00A45C70 /* SessionService.swift */; };
 		831FC33B23FBE2B100BB12A3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 831FC33A23FBE2B100BB12A3 /* Alamofire */; };
 		83304597242C941500FAE5E2 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83304596242C941500FAE5E2 /* ConfigService.swift */; };
@@ -99,7 +98,6 @@
 
 /* Begin PBXFileReference section */
 		83152E8B26CD078B00DB1693 /* partners.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = partners.json; sourceTree = "<group>"; };
-		83170576240D7B8F00238372 /* ScannedPartner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedPartner.swift; sourceTree = "<group>"; };
 		831B782023F526BF00A45C70 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		83304596242C941500FAE5E2 /* ConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigService.swift; sourceTree = "<group>"; };
 		834FF1BC23FFCBFE00432129 /* LicenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenceView.swift; sourceTree = "<group>"; };
@@ -330,7 +328,6 @@
 				834FF1E424017FEB00432129 /* Config.swift */,
 				83E322AF2403FC090044094C /* Info.swift */,
 				837E9BC024065D3F00B74714 /* Partner.swift */,
-				83170576240D7B8F00238372 /* ScannedPartner.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -504,7 +501,6 @@
 			files = (
 				83C8D17723F53646008322DA /* RemoteSession.swift in Sources */,
 				83DBDAEA23F741E800767916 /* FavouriteToggleView.swift in Sources */,
-				83170577240D7B8F00238372 /* ScannedPartner.swift in Sources */,
 				837E9BB624058D1000B74714 /* FavouriteSessionsView.swift in Sources */,
 				83B361A026E8DF9E00CFB552 /* RefreshAlert.swift in Sources */,
 				8350E64923F5222B0085C1F3 /* JavaZone.xcdatamodeld in Sources */,
