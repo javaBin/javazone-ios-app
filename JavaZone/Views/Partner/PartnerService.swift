@@ -6,17 +6,8 @@ import os.log
 
 class PartnerService {
     static let logger = Logger(subsystem: Logger.subsystem, category: "PartnerService")
-
-    private static func getContext() -> NSManagedObjectContext {
-        return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    }
     
-    private static func save(context: NSManagedObjectContext) throws {
-        if (context.hasChanges) {
-            logger.info("Saving changed MOC - Partners")
-            try context.save()
-        }
-    }
+    static let partnerStorage = PartnerStorage.shared
     
     static func refresh(force: Bool, onComplete : @escaping (_ status: UpdateStatus, _ msg: String, _ logMsg: String) -> Void) {
         if (force != true && !Date().shouldUpdate(key: "PartnerDate", defaultDate: Date(timeIntervalSince1970: 0), maxSecs: 60 * 60 * 24 * 30)) {
@@ -24,8 +15,6 @@ class PartnerService {
             return
         }
 
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
         guard let path = Bundle.main.path(forResource: "partners", ofType: "json") else { return }
 
         let url = URL(fileURLWithPath: path)
@@ -56,14 +45,8 @@ class PartnerService {
             
             do {
                 logger.debug("Clearing old partners")
-
-                let result = try context.execute(Partner.clear()) as! NSBatchDeleteResult
-
-                let changes: [AnyHashable: Any] = [
-                    NSDeletedObjectsKey: result.result as! [NSManagedObjectID]
-                ]
                 
-                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
+                try partnerStorage.clear()
             } catch {
                 logger.error("Could not clear partners \(error.localizedDescription, privacy: .public)")
                 
@@ -76,12 +59,8 @@ class PartnerService {
             
             partners.forEach { (remotePartner) in
                 if let url = remotePartner.url, let name = remotePartner.name, let image = remotePartner.image {
-                    let partner = Partner(context: context)
+                    let partner = partnerStorage.add(name: name, imageUrl: image, partnerUrl: url)
                     
-                    partner.url = url
-                    partner.name = name
-                    partner.image = image
-
                     newPartners.append(partner)
 
                     fetchImage(partner: partner)
@@ -91,7 +70,7 @@ class PartnerService {
             logger.debug("Saw \(newPartners.count, privacy: .public) new partners")
 
             do {
-                try save(context: context)
+                try partnerStorage.save()
             } catch {
                 logger.error("Could not save partners \(error.localizedDescription, privacy: .public)")
 

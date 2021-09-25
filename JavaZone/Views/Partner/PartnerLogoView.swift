@@ -36,8 +36,6 @@ struct PartnerImage: View {
 struct PartnerLogoView: View {
     @ObservedObject var partner: Partner
     
-    var hasBadge : Bool
-    
     var imageUrl: URL? {
         return PartnerService.getImageUrl(partner: partner)
     }
@@ -70,6 +68,6 @@ struct PartnerLogoView_Previews: PreviewProvider {
         partner.url = "https://java.no"
         partner.image = "https://www.java.no/img/duke/marius_duke.svg"
 
-        return PartnerLogoView(partner: partner, hasBadge: true)
+        return PartnerLogoView(partner: partner)
     }
 }

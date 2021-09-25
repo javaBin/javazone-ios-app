@@ -3,8 +3,7 @@ import WaterfallGrid
 import os
 
 struct PartnerListView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(fetchRequest: Partner.getPartners()) var partners: FetchedResults<Partner>
+    @StateObject private var viewModel = PartnerViewModel()
 
     @State private var refreshFatal = false
 
@@ -14,14 +13,9 @@ struct PartnerListView: View {
     @State private var refreshFatalMessage = ""
     
     @State private var showingScanSheet = false
-    
 
     private var idiom : UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
     private var isPortrait : Bool { UIDevice.current.orientation.isPortrait }
-    
-    private var hasBadge : Bool {
-        (UserDefaults.standard.object(forKey: "CurrentBadge") as? String) != nil
-    }
     
     // TODO - can we get info on screen size here? Calculate out from that?
     private var cols : Int {
@@ -43,8 +37,8 @@ struct PartnerListView: View {
     var body: some View {
         VStack {
             ScrollView {
-                WaterfallGrid(partners.shuffled(), id: \.self) { partner in
-                    PartnerLogoView(partner: partner, hasBadge: self.hasBadge)
+                WaterfallGrid(viewModel.displayPartners, id: \.self) { partner in
+                    PartnerLogoView(partner: partner)
                 }
                 .gridStyle(columns: cols, spacing: 10)
                 .padding()
@@ -68,7 +62,7 @@ struct PartnerListView: View {
         PartnerService.refresh(force: force) { (status, message, logMessage) in
             
             // If we fail to fetch but have partners _ this list changes so rarely that we ignore and continue.
-            if (status == .Fail && self.partners.count == 0) {
+            if (status == .Fail && self.viewModel.partners.count == 0) {
                 self.refreshFatal = false
                 self.alertTitle = "Refresh failed"
                 self.alertMessage = message
