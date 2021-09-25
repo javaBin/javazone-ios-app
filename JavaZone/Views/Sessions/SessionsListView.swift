@@ -26,11 +26,7 @@ struct SessionsListView: View {
     @State private var searchText = ""
     @State private var isShowingPullToRefresh = false
 
-    @State private var isShowingRefreshAlert = false
-    @State private var refreshAlertTitle = ""
-    @State private var refreshAlertMessage = ""
-    @State private var refreshFatal = false
-    @State private var refreshFatalMessage = ""
+    @State private var alertItem : AlertItem?
 
     @State private var sessionIdFromNotification : String?
     @State private var activateSessionFromNotification = false
@@ -74,21 +70,13 @@ struct SessionsListView: View {
             logger.debug("Refresh said: \(status.rawValue, privacy: .public), \(message, privacy: .public), \(logMessage, privacy: .public)")
 
             if (status == .Fail) {
-                self.refreshFatal = false
-                self.refreshAlertTitle = "Refresh failed"
-                self.refreshAlertMessage = message
-                self.refreshFatalMessage = ""
-                self.isShowingRefreshAlert = true
+                self.alertItem = AlertContext.build(title: "Refresh failed", message: message, buttonTitle: "OK")
             }
             
             if (status == .Fatal) {
-                self.refreshFatal = true
-                self.refreshAlertTitle = "Refresh failed"
-                self.refreshAlertMessage = message
-                self.refreshFatalMessage = logMessage
-                self.isShowingRefreshAlert = true
+                self.alertItem = AlertContext.buildFatal(title: "Refresh failed", message: message, buttonTitle: "OK", fatalMessage: logMessage)
             }
-            
+
             self.isShowingPullToRefresh = false
             self.blockingRefresh = false
             
@@ -124,14 +112,19 @@ struct SessionsListView: View {
                     .pullToRefresh(isShowing: $isShowingPullToRefresh) {
                         self.refreshSessions()
                     }
-                    .alert(isPresented: $isShowingRefreshAlert) {
-                        RefreshAlert(
-                            refreshAlertTitle: $refreshAlertTitle,
-                            refreshAlertMessage: $refreshAlertMessage,
-                            refreshFatal: $refreshFatal,
-                            refreshFatalMessage: $refreshFatalMessage
-                        ).alert
-                    }.navigationTitle(title)
+                    .alert(item: $alertItem) { alertItem in
+                        Alert(
+                            title: alertItem.title,
+                            message: alertItem.message,
+                            dismissButton: Alert.Button.default(
+                                alertItem.buttonTitle,
+                                action: {
+                                    AlertContext.processAlertItem(alertItem: alertItem)
+                                }
+                            )
+                        )
+                    }
+                    .navigationTitle(title)
                 }
                 
                 if ($sessionIdFromNotification.wrappedValue != nil) {

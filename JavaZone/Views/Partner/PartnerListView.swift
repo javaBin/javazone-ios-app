@@ -1,16 +1,14 @@
 import SwiftUI
 import WaterfallGrid
 import os
+import simd
 
 struct PartnerListView: View {
     @StateObject private var viewModel = PartnerViewModel()
 
     @State private var refreshFatal = false
 
-    @State private var isShowingRefreshAlert = false
-    @State private var alertTitle = ""
-    @State private var alertMessage = ""
-    @State private var refreshFatalMessage = ""
+    @State private var alertItem : AlertItem?
     
     @State private var showingScanSheet = false
 
@@ -46,36 +44,32 @@ struct PartnerListView: View {
                     self.refreshPartners(force: false)
                 })
             }
-            .alert(isPresented: $isShowingRefreshAlert) {
-                RefreshAlert(
-                    refreshAlertTitle: $alertTitle,
-                    refreshAlertMessage: $alertMessage,
-                    refreshFatal: $refreshFatal,
-                    refreshFatalMessage: $refreshFatalMessage
-                ).alert
+            .alert(item: $alertItem) { alertItem in
+                Alert(
+                    title: alertItem.title,
+                    message: alertItem.message,
+                    dismissButton: Alert.Button.default(
+                        alertItem.buttonTitle,
+                        action: {
+                            AlertContext.processAlertItem(alertItem: alertItem)
+                        }
+                    )
+                )
             }
             Spacer()
         }
     }
-    
+
     func refreshPartners(force: Bool) {
         PartnerService.refresh(force: force) { (status, message, logMessage) in
             
             // If we fail to fetch but have partners _ this list changes so rarely that we ignore and continue.
             if (status == .Fail && self.viewModel.partners.count == 0) {
-                self.refreshFatal = false
-                self.alertTitle = "Refresh failed"
-                self.alertMessage = message
-                self.refreshFatalMessage = ""
-                self.isShowingRefreshAlert = true
+                self.alertItem = AlertContext.build(title: "Refresh failed", message: message, buttonTitle: "OK")
             }
             
             if (status == .Fatal) {
-                self.refreshFatal = true
-                self.alertTitle = "Refresh failed"
-                self.alertMessage = message
-                self.refreshFatalMessage = logMessage
-                self.isShowingRefreshAlert = true
+                self.alertItem = AlertContext.buildFatal(title: "Refresh failed", message: message, buttonTitle: "OK", fatalMessage: logMessage)
             }
         }
     }
