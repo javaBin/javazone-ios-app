@@ -17,32 +17,6 @@ class PartnerViewModel : ObservableObject {
     @Published var alertItem : AlertItem?
     @Published var cols : Int = 3
     
-    // TODO - trigger change on orientation change
-    private var isPortrait: Bool = true {
-        willSet {
-            calculateCols()
-        }
-    }
-    
-    // TODO - can we get info on screen size here? Calculate out from that?
-    private func calculateCols() {
-        if idiom == .pad {
-            if (isPortrait == true) {
-                cols = 4
-            } else {
-                cols = 7
-            }
-        } else {
-            if (isPortrait == true) {
-                cols = 3
-            } else {
-                cols = 4
-            }
-        }
-    }
-    
-    
-    
     private var cancellable : AnyCancellable?
     
     init(partnerPublisher: AnyPublisher<[Partner], Never> = PartnerStorage.shared.partners.eraseToAnyPublisher()) {
@@ -50,6 +24,8 @@ class PartnerViewModel : ObservableObject {
             self.logger.info("Updating partners")
             self.partners = partners
         }
+        
+        setOrientation(UIDevice.current.orientation)
     }
     
     func refreshPartners(force: Bool = false) {
@@ -62,6 +38,38 @@ class PartnerViewModel : ObservableObject {
             
             if (status == .Fatal) {
                 self.alertItem = AlertContext.buildFatal(title: "Refresh failed", message: message, buttonTitle: "OK", fatalMessage: logMessage)
+            }
+        }
+    }
+    
+    func setOrientation(_ orientation: UIDeviceOrientation) {
+        var isPortrait: Bool?
+        
+        switch (orientation) {
+        case .portrait, .portraitUpsideDown: isPortrait = true
+        case .landscapeLeft, .landscapeRight: isPortrait = false
+        default:
+            break
+        }
+        
+        if let isPortrait = isPortrait {
+            calculateCols(isPortrait: isPortrait)
+        }
+    }
+        
+    // TODO - can we use screen size here to get values?
+    private func calculateCols(isPortrait: Bool) {
+        if idiom == .pad {
+            if (isPortrait == true) {
+                cols = 4
+            } else {
+                cols = 7
+            }
+        } else {
+            if (isPortrait == true) {
+                cols = 3
+            } else {
+                cols = 4
             }
         }
     }

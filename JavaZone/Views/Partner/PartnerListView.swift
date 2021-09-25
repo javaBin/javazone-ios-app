@@ -1,5 +1,6 @@
 import SwiftUI
 import WaterfallGrid
+import AVFAudio
 
 struct PartnerListView: View {
     @StateObject private var viewModel = PartnerViewModel()
@@ -16,6 +17,9 @@ struct PartnerListView: View {
                     self.viewModel.refreshPartners()
                 })
             }
+            .onRotate(perform: { orientation in
+                viewModel.setOrientation(orientation)
+            })
             .alert(item: $viewModel.alertItem) { alertItem in
                 Alert(
                     title: alertItem.title,
