@@ -1,6 +1,5 @@
 import SwiftUI
 
-
 struct InfoLogView: View {
     @StateObject var viewModel = InfoLogViewModel()
     

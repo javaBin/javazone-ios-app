@@ -1,30 +1,16 @@
 import SwiftUI
-import os.log
 
 struct InfoView: View {
-    @ObservedObject var info = Info.shared
-    @State private var isRefreshing = false
-    
-    var shortItems : [InfoItem] {
-        return info.infoItems.filter { (item) -> Bool in
-            item.isShort
-        }
-    }
-    
-    var longItems : [InfoItem] {
-        return info.infoItems.filter { (item) -> Bool in
-            !item.isShort
-        }
-    }
+    @StateObject var viewModel = InfoViewModel()
     
     var body: some View {
         NavigationView {
             List {
                 Section(header: Text("JavaZone"), content: {
-                    ForEach(shortItems, id: \.self) { infoItem in
+                    ForEach(viewModel.shortItems, id: \.self) { infoItem in
                         InfoItemListView(item: infoItem)
                     }
-                    ForEach(longItems, id: \.self) { infoItem in
+                    ForEach(viewModel.longItems, id: \.self) { infoItem in
                         NavigationLink(destination: InfoItemView(item: infoItem)) {
                             InfoItemListView(item: infoItem)
                         }
@@ -49,17 +35,13 @@ struct InfoView: View {
                 })
             }
             .navigationTitle("Info")
-            .pullToRefresh(isShowing: $isRefreshing) {
-                Info.shared.update(force: true, callback: self.refreshDone)
+            .pullToRefresh(isShowing: $viewModel.fetchingItems) {
+                viewModel.refreshItems(force: true)
             }
             .onAppear {
-                Info.shared.update(force: false, callback: nil)
+                viewModel.refreshItems(force: false)
             }
         }
-    }
-    
-    func refreshDone() {
-        self.isRefreshing = false
     }
 }
 
