@@ -211,7 +211,6 @@
 			isa = PBXGroup;
 			children = (
 				83304596242C941500FAE5E2 /* ConfigService.swift */,
-				83E322A92403F5730044094C /* InfoService.swift */,
 				837E9BC6240662B600B74714 /* ServiceCommon.swift */,
 				831B782023F526BF00A45C70 /* SessionService.swift */,
 			);
@@ -298,6 +297,7 @@
 				837E9BA924058D1000B74714 /* InfoItemView.swift */,
 				8380469026FB0E8100624463 /* InfoLogView.swift */,
 				835BD63626FF304400EA4416 /* InfoLogViewModel.swift */,
+				83E322A92403F5730044094C /* InfoService.swift */,
 				837E9BAA24058D1000B74714 /* InfoView.swift */,
 				835BD63D2703B77A00EA4416 /* InfoViewModel.swift */,
 				837E9BAD24058D1000B74714 /* LibrariesAndLicenses.swift */,
