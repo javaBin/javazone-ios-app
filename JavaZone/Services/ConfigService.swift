@@ -63,4 +63,46 @@ class ConfigService {
             onComplete()
         }
     }
+    
+    static func loadLocalJsonFile<Model: Decodable>(name: String, onComplete : @escaping (_ items: [Model]) -> Void) {
+        logger.debug("Loading json for \(name, privacy: .public)")
+
+        guard let path = Bundle.main.path(forResource: name, ofType: "json") else {
+            logger.error("Did not find json file for \(name, privacy: .public)")
+            return
+        }
+
+        logger.debug("Loading json from \(path, privacy: .public)")
+
+        let url = URL(fileURLWithPath: path)
+
+        let request = AF.request(url)
+
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+    
+        logger.debug("Fetching json for \(name, privacy: .public)")
+    
+        request.responseDecodable(of: [Model].self, decoder: decoder) { (response) in
+            if let error = response.error {
+                logger.error("Unable to fetch \(name, privacy: .public) \(error.localizedDescription, privacy: .public)")
+
+                onComplete([])
+            
+                return
+            }
+        
+            guard let items = response.value else {
+                logger.error("Unable to read \(name, privacy: .public)")
+                
+                onComplete([])
+            
+                return
+            }
+            
+            logger.debug("Loaded \(items.count, privacy: .public) items for \(name, privacy: .public)")
+            
+            onComplete(items)
+        }
+    }
 }

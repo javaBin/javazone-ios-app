@@ -20,8 +20,8 @@ struct InfoView: View {
                 Section(header: Text("JavaZone App"), content: {
                     ExternalLink(title: "GitHub", url: URL(string: "https://github.com/javaBin/javazone-ios-app")!)
                     ExternalLink(title: "Known Issues", url: URL(string: "https://github.com/javaBin/javazone-ios-app/issues")!)
-                    NavigationLink(destination: LibrariesAndLicenses()) {
-                        Text("Libraries and Licenses")
+                    NavigationLink(destination: LicenceListView()) {
+                        Text("Licences")
                     }
                     if #available(iOS 15, *) {
                         NavigationLink(destination: InfoLogView()) {

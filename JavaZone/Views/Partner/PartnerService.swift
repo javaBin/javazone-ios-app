@@ -14,30 +14,12 @@ class PartnerService {
             onComplete(.OK, "", "")
             return
         }
-
-        guard let path = Bundle.main.path(forResource: "partners", ofType: "json") else { return }
-
-        let url = URL(fileURLWithPath: path)
-
-        let request = AF.request(url)
-
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
         
-        logger.debug("Fetching partners")
         
-        request.responseDecodable(of: [RemotePartner].self, decoder: decoder) { (response) in
-            if let error = response.error {
-                logger.error("Unable to fetch partners \(error.localizedDescription, privacy: .public)")
-
-                onComplete(.Fail, "Could not download partners, please try again", "")
+        ConfigService.loadLocalJsonFile(name: "partners") { (partners : [RemotePartner]) in
+            if (partners.count == 0) {
+                logger.error("Unable to fetch partners")
                 
-                return
-            }
-            
-            guard let partners = response.value else {
-                logger.error("Unable to read partners")
-
                 onComplete(.Fail, "Could not download partners, please try again", "")
                 
                 return
