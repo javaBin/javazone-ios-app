@@ -29,6 +29,7 @@ class PartnerViewModel : ObservableObject {
     }
     
     func refreshPartners(force: Bool = false) {
+#if DOWNLOADPARTNERLOGOS
         PartnerService.refresh(force: force) { (status, message, logMessage) in
             
             // If we fail to fetch but have partners _ this list changes so rarely that we ignore and continue.
@@ -40,6 +41,7 @@ class PartnerViewModel : ObservableObject {
                 self.alertItem = AlertContext.buildFatal(title: "Refresh failed", message: message, buttonTitle: "OK", fatalMessage: logMessage)
             }
         }
+#endif
     }
     
     func setOrientation(_ orientation: UIDeviceOrientation) {

@@ -45,7 +45,9 @@ class PartnerService {
                     
                     newPartners.append(partner)
 
+#if DOWNLOADPARTNERLOGOS
                     fetchImage(partner: partner)
+#endif
                 }
             }
             

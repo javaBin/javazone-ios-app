@@ -65,6 +65,7 @@
 		83C8D17B23F5367E008322DA /* RemoteSessionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17A23F5367E008322DA /* RemoteSessionList.swift */; };
 		83C8D17E23F54636008322DA /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17D23F54636008322DA /* Session.swift */; };
 		83C8D18023F5463F008322DA /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17F23F5463F008322DA /* Speaker.swift */; };
+		83CF9E4C27047DB60088B789 /* Partners.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83CF9E4B27047DB60088B789 /* Partners.xcassets */; };
 		83DBDAE323F729A200767916 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAE223F729A200767916 /* Date+Utils.swift */; };
 		83DBDAE823F733B800767916 /* RemoteImage in Frameworks */ = {isa = PBXBuildFile; productRef = 83DBDAE723F733B800767916 /* RemoteImage */; };
 		83DBDAEA23F741E800767916 /* FavouriteToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAE923F741E800767916 /* FavouriteToggleView.swift */; };
@@ -165,6 +166,7 @@
 		83C8D17A23F5367E008322DA /* RemoteSessionList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSessionList.swift; sourceTree = "<group>"; };
 		83C8D17D23F54636008322DA /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		83C8D17F23F5463F008322DA /* Speaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
+		83CF9E4B27047DB60088B789 /* Partners.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Partners.xcassets; sourceTree = "<group>"; };
 		83DBDAE223F729A200767916 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
 		83DBDAE923F741E800767916 /* FavouriteToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteToggleView.swift; sourceTree = "<group>"; };
 		83DBDAF323F74C3A00767916 /* JavaZone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JavaZone.entitlements; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				8350E64323F5222B0085C1F3 /* AppDelegate.swift */,
 				8350E64523F5222B0085C1F3 /* SceneDelegate.swift */,
 				8350E64C23F5222D0085C1F3 /* Assets.xcassets */,
+				83CF9E4B27047DB60088B789 /* Partners.xcassets */,
 				8350E65423F5222D0085C1F3 /* Info.plist */,
 				8350E64E23F5222D0085C1F3 /* Preview Content */,
 				83152E8B26CD078B00DB1693 /* partners.json */,
@@ -509,6 +512,7 @@
 			files = (
 				83152E8C26CD078B00DB1693 /* partners.json in Resources */,
 				8350E65023F5222D0085C1F3 /* Preview Assets.xcassets in Resources */,
+				83CF9E4C27047DB60088B789 /* Partners.xcassets in Resources */,
 				8350E64D23F5222D0085C1F3 /* Assets.xcassets in Resources */,
 				835BD640270434BB00EA4416 /* licences.json in Resources */,
 			);
