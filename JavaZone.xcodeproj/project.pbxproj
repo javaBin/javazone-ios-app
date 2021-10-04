@@ -54,7 +54,6 @@
 		838048422407BF1600749E82 /* Stickers.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 838048412407BF1600749E82 /* Stickers.xcassets */; };
 		838048462407BF1600749E82 /* JavaZone.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8380483F2407BF1500749E82 /* JavaZone.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8397433923FD23110024E80B /* ExternalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397433823FD23110024E80B /* ExternalLink.swift */; };
-		83A2275A26EB920A00644367 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = 83A2275926EB920A00644367 /* SVGKit */; };
 		83AA8DED242B4F21007E3339 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA8DEC242B4F21007E3339 /* ShareSheet.swift */; };
 		83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332223FAF74200F3FCB4 /* SearchView.swift */; };
 		83B3332523FAF8A900F3FCB4 /* Search+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */; };
@@ -107,6 +106,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8310973B270B078C009A375A /* JavaZone 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "JavaZone 3.xcdatamodel"; sourceTree = "<group>"; };
 		83152E8B26CD078B00DB1693 /* partners.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = partners.json; sourceTree = "<group>"; };
 		831B782023F526BF00A45C70 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		83304596242C941500FAE5E2 /* ConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigService.swift; sourceTree = "<group>"; };
@@ -183,7 +183,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				83152E8A26CCF37E00DB1693 /* SwiftUIRefresh in Frameworks */,
-				83A2275A26EB920A00644367 /* SVGKit in Frameworks */,
 				831FC33B23FBE2B100BB12A3 /* Alamofire in Frameworks */,
 				837E9BBF2405BF1000B74714 /* WaterfallGrid in Frameworks */,
 				83DBDAE823F733B800767916 /* RemoteImage in Frameworks */,
@@ -416,7 +415,6 @@
 				831FC33A23FBE2B100BB12A3 /* Alamofire */,
 				837E9BBE2405BF1000B74714 /* WaterfallGrid */,
 				83152E8926CCF37E00DB1693 /* SwiftUIRefresh */,
-				83A2275926EB920A00644367 /* SVGKit */,
 			);
 			productName = JavaZone;
 			productReference = 8350E64023F5222B0085C1F3 /* JavaZone.app */;
@@ -492,7 +490,6 @@
 				831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				837E9BBD2405BF1000B74714 /* XCRemoteSwiftPackageReference "WaterfallGrid" */,
 				83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
-				83A2275826EB920A00644367 /* XCRemoteSwiftPackageReference "SVGKit" */,
 			);
 			productRefGroup = 8350E64123F5222B0085C1F3 /* Products */;
 			projectDirPath = "";
@@ -939,14 +936,6 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		83A2275826EB920A00644367 /* XCRemoteSwiftPackageReference "SVGKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SVGKit/SVGKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
 		83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/crelies/RemoteImage.git";
@@ -973,11 +962,6 @@
 			package = 837E9BBD2405BF1000B74714 /* XCRemoteSwiftPackageReference "WaterfallGrid" */;
 			productName = WaterfallGrid;
 		};
-		83A2275926EB920A00644367 /* SVGKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 83A2275826EB920A00644367 /* XCRemoteSwiftPackageReference "SVGKit" */;
-			productName = SVGKit;
-		};
 		83DBDAE723F733B800767916 /* RemoteImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */;
@@ -989,10 +973,11 @@
 		8350E64723F5222B0085C1F3 /* JavaZone.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				8310973B270B078C009A375A /* JavaZone 3.xcdatamodel */,
 				83F4791B26F237CD006DA0AC /* JavaZone 2.xcdatamodel */,
 				8350E64823F5222B0085C1F3 /* JavaZone.xcdatamodel */,
 			);
-			currentVersion = 83F4791B26F237CD006DA0AC /* JavaZone 2.xcdatamodel */;
+			currentVersion = 8310973B270B078C009A375A /* JavaZone 3.xcdatamodel */;
 			path = JavaZone.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

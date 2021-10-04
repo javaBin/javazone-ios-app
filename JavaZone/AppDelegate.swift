@@ -13,12 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         cleanUpOldImages()
         cleanUpOldBadge()
         
-#if DOWNLOADPARTNERLOGOS
-        PartnerService.refresh(force: true) { status, message, logMessage in
-            self.logger.debug("Initial partner fetch \(status.rawValue, privacy: .public), \(message, privacy: .public), \(logMessage, privacy: .public)")
-        }
-#endif
-        
         return true
     }
 

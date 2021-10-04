@@ -13,8 +13,9 @@ class PartnerViewModel : ObservableObject {
             displayPartners = newValue.shuffled()
         }
     }
-        
+    
     @Published var alertItem : AlertItem?
+
     @Published var cols : Int = 3
     
     private var cancellable : AnyCancellable?
@@ -28,9 +29,8 @@ class PartnerViewModel : ObservableObject {
         setOrientation(UIDevice.current.orientation)
     }
     
-    func refreshPartners(force: Bool = false) {
-#if DOWNLOADPARTNERLOGOS
-        PartnerService.refresh(force: force) { (status, message, logMessage) in
+    func refreshPartners() {
+        PartnerService.refresh() { (status, message, logMessage) in
             
             // If we fail to fetch but have partners _ this list changes so rarely that we ignore and continue.
             if (status == .Fail && self.partners.count == 0) {
@@ -41,7 +41,6 @@ class PartnerViewModel : ObservableObject {
                 self.alertItem = AlertContext.buildFatal(title: "Refresh failed", message: message, buttonTitle: "OK", fatalMessage: logMessage)
             }
         }
-#endif
     }
     
     func setOrientation(_ orientation: UIDeviceOrientation) {

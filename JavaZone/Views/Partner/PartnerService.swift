@@ -1,7 +1,6 @@
 import SwiftUI
 import Alamofire
 import CoreData
-import SVGKit
 import os.log
 
 class PartnerService {
@@ -9,13 +8,7 @@ class PartnerService {
     
     static let partnerStorage = PartnerStorage.shared
     
-    static func refresh(force: Bool, onComplete : @escaping (_ status: UpdateStatus, _ msg: String, _ logMsg: String) -> Void) {
-        if (force != true && !Date().shouldUpdate(key: "PartnerDate", defaultDate: Date(timeIntervalSince1970: 0), maxSecs: 60 * 60 * 24 * 30)) {
-            onComplete(.OK, "", "")
-            return
-        }
-        
-        
+    static func refresh(onComplete : @escaping (_ status: UpdateStatus, _ msg: String, _ logMsg: String) -> Void) {
         ConfigService.loadLocalJsonFile(name: "partners") { (partners : [RemotePartner]) in
             if (partners.count == 0) {
                 logger.error("Unable to fetch partners")
@@ -40,14 +33,10 @@ class PartnerService {
             var newPartners : [Partner] = []
             
             partners.forEach { (remotePartner) in
-                if let url = remotePartner.url, let name = remotePartner.name, let image = remotePartner.image {
-                    let partner = partnerStorage.add(name: name, imageUrl: image, partnerUrl: url)
+                if let url = remotePartner.url, let name = remotePartner.name {
+                    let partner = partnerStorage.add(name: name, partnerUrl: url)
                     
                     newPartners.append(partner)
-
-#if DOWNLOADPARTNERLOGOS
-                    fetchImage(partner: partner)
-#endif
                 }
             }
             
@@ -82,55 +71,5 @@ class PartnerService {
         }
         
         return nil
-    }
-    
-    static func fetchImage(partner: Partner) {
-        if let url = targetUrl(name: partner.name), let imageUrl = partner.wrappedImage {
-            DispatchQueue.global(qos: .background).async {
-                do {
-                    logger.debug("Fetch image - getting as image for \(imageUrl.absoluteString, privacy: .public)")
-                    
-                    let ext = imageUrl.pathExtension
-
-                    if (ext == "svg") {
-                        logger.debug("SVG image - for \(imageUrl.absoluteString, privacy: .public)")
-
-                        let svgImage = SVGKImage(contentsOf: imageUrl)
-                        
-                        if let image = svgImage?.uiImage {
-                            logger.debug("Fetch image - saving data to \(url.absoluteString, privacy: .public)")
-                            if let pngData = image.pngData() {
-                                try pngData.write(to: url)
-                            }
-                        } else {
-                            logger.debug("Could not get image from SVG - for \(imageUrl.absoluteString, privacy: .public)")
-                        }
-                    } else {
-                        logger.debug("Fetch image - fetching data for \(imageUrl.absoluteString, privacy: .public)")
-
-                        let data = try Data(contentsOf: imageUrl)
-
-                        if let image = UIImage(data: data), let pngData = image.pngData() {
-                            logger.debug("Fetch image - saving data to \(url.absoluteString, privacy: .public)")
-                            try pngData.write(to: url)
-                        }
-                    }
-                } catch {
-                    logger.error("Could not save image from url \(error.localizedDescription, privacy: .public), \(imageUrl.absoluteString, privacy: .public)")
-                }
-            }
-        }
-    }
-    
-    static func getImageUrl(partner: Partner) -> URL? {
-        if let url = targetUrl(name: partner.name) {
-            if (FileManager.default.fileExists(atPath: url.path)) {
-                logger.debug("Found cached partner image")
-
-                return url
-            }
-        }
-        
-        return partner.wrappedImage
     }
 }

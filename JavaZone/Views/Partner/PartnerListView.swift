@@ -1,6 +1,5 @@
 import SwiftUI
 import WaterfallGrid
-import AVFAudio
 
 struct PartnerListView: View {
     @StateObject private var viewModel = PartnerViewModel()
@@ -13,10 +12,10 @@ struct PartnerListView: View {
                 }
                 .gridStyle(columns: viewModel.cols, spacing: 10)
                 .padding()
-                .onAppear(perform: {
-                    self.viewModel.refreshPartners()
-                })
             }
+            .onAppear(perform: {
+                self.viewModel.refreshPartners()
+            })
             .onRotate(perform: { orientation in
                 viewModel.setOrientation(orientation)
             })

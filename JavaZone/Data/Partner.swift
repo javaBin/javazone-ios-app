@@ -3,19 +3,10 @@ import CoreData
 
 public class Partner:NSManagedObject {
     @NSManaged public var name:String?
-    @NSManaged public var image:String?
     @NSManaged public var url:String?
 
     public var wrappedName : String {
         return self.name ?? ""
-    }
-
-    public var wrappedImage : URL? {
-        if let image = self.image {
-            return URL(string:image)
-        }
-        
-        return nil
     }
 
     public var wrappedUrl : String {
