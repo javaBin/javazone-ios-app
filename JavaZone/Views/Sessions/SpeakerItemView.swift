@@ -41,14 +41,19 @@ struct SpeakerItemView: View {
                     DefaultSpeakerImage()
                 }
                 VStack(alignment: .leading) {
-                    Text(speaker.wrappedName).font(.headline)
+                    Text(speaker.wrappedName)
+                        .copyable(speaker.wrappedName)
+                        .font(.headline)
                     if (speaker.twitter != nil) {
                         ExternalLink(title: "@\(speaker.wrappedTwitter)", url: URL(string: "https://twitter.com/\(speaker.wrappedTwitter)")!, image: "")
                     }
                 }
             }
             if (speaker.bio != nil) {
-                Text(speaker.wrappedBio).font(.body).padding(.bottom, 15)
+                Text(speaker.wrappedBio)
+                    .font(.body)
+                    .copyable(speaker.wrappedBio)
+                    .padding(.bottom, 15)
             }
         }
     }

@@ -19,7 +19,9 @@ struct SessionDetailView: View {
                 HStack{
                     FavouriteToggleView(favourite: $session.favourite, notificationId: session.sessionId ?? UUID().uuidString, notificationTitle: session.wrappedTitle, notificationLocation: session.wrappedRoom, notificationTrigger: session.startUtc)
                     VStack(alignment: .leading) {
-                        Text(session.wrappedTitle).font(.headline)
+                        Text(session.wrappedTitle)
+                            .copyable(session.wrappedTitle)
+                            .font(.headline)
                         if (session.videoId != nil) {
                             ExternalLink(title: "View session video", url: session.wrappedVideo!, image: "video")
                         }
@@ -40,7 +42,10 @@ struct SessionDetailView: View {
                         }
                     }.padding(.bottom, 15)
                     if (session.abstract != nil) {
-                        Text(session.wrappedAbstract).font(.body).padding(.bottom, 20)
+                        Text(session.wrappedAbstract)
+                            .font(.body)
+                            .copyable(session.wrappedAbstract)
+                            .padding(.bottom, 20)
                     }
                     Text("Intended Audience").font(.title).padding(.bottom, 15)
                     if (session.audience != nil) {

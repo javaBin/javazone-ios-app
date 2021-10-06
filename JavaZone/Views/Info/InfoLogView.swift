@@ -13,11 +13,11 @@ struct InfoLogView: View {
                 if (viewModel.fetchingLogs) {
                     ProgressView("Fetching last 24 hours of logs")
                 } else {
-                    Text("Simply copy/share the following:")
+                    Text("Simply press and hold to copy the following:")
                         .padding(.horizontal).padding(.top, 20)
                     ScrollView(.vertical) {
                         Text("\(viewModel.logs)")
-                            .textSelection(.enabled)
+                            .copyable(viewModel.logs)
                             .padding(.horizontal)
                             .padding(.top, 20)
                     }

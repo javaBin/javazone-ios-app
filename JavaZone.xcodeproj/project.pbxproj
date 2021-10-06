@@ -65,6 +65,7 @@
 		83C8D17E23F54636008322DA /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17D23F54636008322DA /* Session.swift */; };
 		83C8D18023F5463F008322DA /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17F23F5463F008322DA /* Speaker.swift */; };
 		83CF9E4C27047DB60088B789 /* Partners.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83CF9E4B27047DB60088B789 /* Partners.xcassets */; };
+		83D909B0270DEDB800101D1D /* Text+Copyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D909AF270DEDB700101D1D /* Text+Copyable.swift */; };
 		83DBDAE323F729A200767916 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAE223F729A200767916 /* Date+Utils.swift */; };
 		83DBDAE823F733B800767916 /* RemoteImage in Frameworks */ = {isa = PBXBuildFile; productRef = 83DBDAE723F733B800767916 /* RemoteImage */; };
 		83DBDAEA23F741E800767916 /* FavouriteToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAE923F741E800767916 /* FavouriteToggleView.swift */; };
@@ -167,6 +168,7 @@
 		83C8D17D23F54636008322DA /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		83C8D17F23F5463F008322DA /* Speaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
 		83CF9E4B27047DB60088B789 /* Partners.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Partners.xcassets; sourceTree = "<group>"; };
+		83D909AF270DEDB700101D1D /* Text+Copyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Copyable.swift"; sourceTree = "<group>"; };
 		83DBDAE223F729A200767916 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
 		83DBDAE923F741E800767916 /* FavouriteToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteToggleView.swift; sourceTree = "<group>"; };
 		83DBDAF323F74C3A00767916 /* JavaZone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JavaZone.entitlements; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 				83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */,
 				83DF4C5E23FBFF70003FE5F1 /* String+Utils.swift */,
 				835BD63226FF2BC200EA4416 /* View+Rotation.swift */,
+				83D909AF270DEDB700101D1D /* Text+Copyable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -551,6 +554,7 @@
 				835BD62F26FF25EC00EA4416 /* Alerts.swift in Sources */,
 				83B361A226E8E24600CFB552 /* DayPicker.swift in Sources */,
 				837E9BC32406607F00B74714 /* PartnerService.swift in Sources */,
+				83D909B0270DEDB800101D1D /* Text+Copyable.swift in Sources */,
 				837E9BB824058D1000B74714 /* InfoItemView.swift in Sources */,
 				83C8D17923F53646008322DA /* RemoteSpeaker.swift in Sources */,
 				837E9BB724058D1000B74714 /* SpeakerItemView.swift in Sources */,
