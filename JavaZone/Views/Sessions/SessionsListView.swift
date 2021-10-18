@@ -160,11 +160,7 @@ struct SessionsListView: View {
         
         var scrollId : String?
         
-        #if USE2019
-        let scrollToTimestamp = true
-        #else
         let scrollToTimestamp = config.dates[selectorIndex] == Date().asDate()
-        #endif
         
         if (scrollToTimestamp && selectorIndex < 2) {
             let currentTimestamp = Date().asTime()
