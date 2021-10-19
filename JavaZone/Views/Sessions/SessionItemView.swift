@@ -4,13 +4,17 @@ import CoreData
 struct SessionItemView: View {
     @ObservedObject var session: Session
     
+    var pending : Bool
+    
     var body: some View {
         HStack {
-            VStack {
-                Text(session.fromTime()).font(.caption)
-                Text(session.toTime()).font(.caption)
-                if (session.lightningTalk) {
-                    Image(systemName: "bolt")
+            if (!pending) {
+                VStack {
+                    Text(session.fromTime()).font(.caption)
+                    Text(session.toTime()).font(.caption)
+                    if (session.lightningTalk) {
+                        Image(systemName: "bolt")
+                    }
                 }
             }
             VStack(alignment: .leading) {
@@ -57,7 +61,7 @@ struct SessionItemView_Previews: PreviewProvider {
         speaker.session = session
         
         return NavigationView {
-            SessionItemView(session: session)
+            SessionItemView(session: session, pending: false)
         }
     }
 }

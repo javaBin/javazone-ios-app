@@ -7,17 +7,21 @@ struct SessionDetailView: View {
     
     @ObservedObject var session: Session
     
+    var pending: Bool
+    
     @State private var showShareSheet = false
     
     var title: String {
-        return "\(session.room ?? "") - \(session.fromTime()) - \(session.toTime())"
+        return pending ? "Room and Time pending" : "\(session.room ?? "") - \(session.fromTime()) - \(session.toTime())"
     }
     
     var body: some View {
         ScrollView(.vertical) {
             VStack {
                 HStack{
-                    FavouriteToggleView(favourite: $session.favourite, notificationId: session.sessionId ?? UUID().uuidString, notificationTitle: session.wrappedTitle, notificationLocation: session.wrappedRoom, notificationTrigger: session.startUtc)
+                    if (!pending) {
+                        FavouriteToggleView(favourite: $session.favourite, notificationId: session.sessionId ?? UUID().uuidString, notificationTitle: session.wrappedTitle, notificationLocation: session.wrappedRoom, notificationTrigger: session.startUtc)
+                    }
                     VStack(alignment: .leading) {
                         Text(session.wrappedTitle)
                             .copyable(session.wrappedTitle)
@@ -110,7 +114,7 @@ struct SessionDetailView_Previews: PreviewProvider {
         speaker.session = session
         
         return NavigationView {
-            SessionDetailView(session: session)
+            SessionDetailView(session: session, pending: false)
         }
     }
 }

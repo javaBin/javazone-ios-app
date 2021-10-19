@@ -18,15 +18,15 @@ public class Session:NSManagedObject {
     @NSManaged public var speakers:NSSet
     
     public var wrappedTitle : String {
-        return self.title ?? ""
+        return self.title?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
     }
     
     public var wrappedAudience : String {
-        return self.audience ?? ""
+        return self.audience?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
     }
     
     public var wrappedAbstract : String {
-        return self.abstract ?? ""
+        return self.abstract?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
     }
 
     public var wrappedRoom : String {

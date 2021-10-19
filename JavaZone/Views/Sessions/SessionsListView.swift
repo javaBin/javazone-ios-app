@@ -7,6 +7,7 @@ struct RelevantSessions : Equatable {
     var sessions: [Session]
     var sections: [String]
     var grouped: [String: [Session]]
+    var pending: [Session]
 }
 
 struct SessionsListView: View {
@@ -31,31 +32,43 @@ struct SessionsListView: View {
     @State private var sessionIdFromNotification : String?
     @State private var activateSessionFromNotification = false
     
+    private let pendingSelectorValue = 3
+    
     var config : Config {
         Config.sharedConfig
     }
     
     var sessions : RelevantSessions {
-        let sessions = self.allSessions
+        let pending = self.allSessions
             .filter { (session) -> Bool in
-                session.startUtc?.asDate() ?? "" == config.dates[selectorIndex]
-        }
-        .filter { (session) -> Bool in
-            session.favourite == true || self.favouritesOnly == false
-        }
-        .filter { (session) -> Bool in
-            if (self.searchText == "") {
-                return true
+                session.startUtc == nil
             }
+            .sorted(by: { $0.wrappedTitle < $1.wrappedTitle })
+        
+        if (selectorIndex != pendingSelectorValue) {
+            let sessions = self.allSessions
+                .filter { (session) -> Bool in
+                    session.startUtc?.asDate() ?? "" == config.dates[selectorIndex]
+                }
+                .filter { (session) -> Bool in
+                    session.favourite == true || self.favouritesOnly == false
+                }
+                .filter { (session) -> Bool in
+                    if (self.searchText == "") {
+                        return true
+                    }
+                    
+                    return session.wrappedTitle.contains(self.searchText) || session.speakerNames.contains(self.searchText)
+                }
             
-            return session.wrappedTitle.contains(self.searchText) || session.speakerNames.contains(self.searchText)
+            let grouped = Dictionary(grouping: sessions, by: { $0.wrappedSection })
+            
+            let sections = Array(grouped.keys).sorted(by: <)
+            
+            return RelevantSessions(sessions: sessions, sections: sections, grouped: grouped, pending: pending)
         }
         
-        let grouped = Dictionary(grouping: sessions, by: { $0.wrappedSection })
-        
-        let sections = Array(grouped.keys).sorted(by: <)
-        
-        return RelevantSessions(sessions: sessions, sections: sections, grouped: grouped)
+        return RelevantSessions(sessions: [], sections: [], grouped: [:], pending: pending)
     }
     
     var selectedSession : Session? {
@@ -87,7 +100,7 @@ struct SessionsListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                DayPicker(selectorIndex: $selectorIndex)
+                DayPicker(selectorIndex: $selectorIndex, showPending: self.sessions.pending.count > 0)
             
                 SearchView(searchText: $searchText)
                 
@@ -98,6 +111,12 @@ struct SessionsListView: View {
                                 ForEach(self.sessions.grouped[section] ?? [], id: \.self) { session in
                                     SessionNavLink(session: session)
                                 }
+                            }
+                        }
+                        
+                        if (selectorIndex == pendingSelectorValue) {
+                            ForEach(self.sessions.pending, id: \.self) { session in
+                                SessionNavLink(session: session, pending: true)
                             }
                         }
                     }
@@ -130,7 +149,7 @@ struct SessionsListView: View {
                 if ($sessionIdFromNotification.wrappedValue != nil) {
                     if let session = selectedSession {
                         NavigationLink(
-                            destination: SessionDetailView(session: session),
+                            destination: SessionDetailView(session: session, pending: false),
                             isActive: $activateSessionFromNotification,
                             label: {
                                 EmptyView()
@@ -158,6 +177,10 @@ struct SessionsListView: View {
             return
         }
         
+        if (selectorIndex == pendingSelectorValue) {
+            return
+        }
+
         var scrollId : String?
         
         let scrollToTimestamp = config.dates[selectorIndex] == Date().asDate()
