@@ -8,13 +8,16 @@ struct SessionItemView: View {
     
     var body: some View {
         HStack {
-            if (!pending) {
-                VStack {
+            VStack {
+                if (!pending) {
                     Text(session.fromTime()).font(.caption)
                     Text(session.toTime()).font(.caption)
-                    if (session.lightningTalk) {
-                        Image(systemName: "bolt")
-                    }
+                }
+                if (session.lightningTalk) {
+                    Image(systemName: "bolt")
+                }
+                if (session.workshop) {
+                    Image(systemName: "laptopcomputer")
                 }
             }
             VStack(alignment: .leading) {
@@ -22,18 +25,20 @@ struct SessionItemView: View {
                     Text(session.wrappedTitle).font(.body)
                 }
                 HStack {
-                    if (session.room != nil) {
+                    if (!pending && session.room != nil) {
                         Text(session.wrappedRoom).font(.caption)
                     }
                     Text(session.speakerNames).font(.caption)
                 }
             }
             Spacer()
-            if (session.notYetStarted()) {
-                FavouriteToggleView(favourite: $session.favourite, notificationId: session.sessionId ?? UUID().uuidString, notificationTitle: session.wrappedTitle, notificationLocation: session.wrappedRoom, notificationTrigger: session.startUtc)
-            }
-            if (session.videoId != nil) {
-                Image(systemName: "video")
+            if (!pending) {
+                if (session.notYetStarted()) {
+                    FavouriteToggleView(favourite: $session.favourite, notificationId: session.sessionId ?? UUID().uuidString, notificationTitle: session.wrappedTitle, notificationLocation: session.wrappedRoom, notificationTrigger: session.startUtc)
+                }
+                if (session.videoId != nil) {
+                    Image(systemName: "video")
+                }
             }
         }
     }

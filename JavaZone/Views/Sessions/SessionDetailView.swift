@@ -32,7 +32,7 @@ struct SessionDetailView: View {
                     }.padding(.horizontal)
                 }.padding(.top)
                 VStack(alignment: .leading) {
-                    if (session.wrappedFormat == "workshop" && session.wrappedRegisterLoc != nil) {
+                    if (session.workshop && session.wrappedRegisterLoc != nil) {
                         Text("Workshop").font(.title)
                         
                         ExternalLink(title: "Open registration page", url: session.wrappedRegisterLoc!)
@@ -43,6 +43,11 @@ struct SessionDetailView: View {
                         if (session.lightningTalk) {
                             Spacer()
                             Image(systemName: "bolt")
+                        }
+                        
+                        if (session.workshop) {
+                            Spacer()
+                            Image(systemName: "laptopcomputer")
                         }
                     }.padding(.bottom, 15)
                     if (session.abstract != nil) {

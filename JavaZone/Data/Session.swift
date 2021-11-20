@@ -75,6 +75,14 @@ public class Session:NSManagedObject {
         return false
     }
     
+    public var workshop : Bool {
+        if let fmt = self.format {
+            return fmt == "workshop"
+        }
+        
+        return false
+    }
+    
     public var speakerNames : String {
         return self.speakerArray.map { (speaker) -> String in
             return speaker.wrappedName

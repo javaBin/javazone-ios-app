@@ -12,7 +12,7 @@ struct RelevantSessions : Equatable {
 
 struct SessionsListView: View {
     let logger = Logger(subsystem: Logger.subsystem, category: "AppDelegate")
-
+    
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(fetchRequest: Session.getSessions()) var allSessions: FetchedResults<Session>
     
@@ -26,13 +26,11 @@ struct SessionsListView: View {
     @State private var selectorIndex = 0
     @State private var searchText = ""
     @State private var isShowingPullToRefresh = false
-
+    
     @State private var alertItem : AlertItem?
-
+    
     @State private var sessionIdFromNotification : String?
     @State private var activateSessionFromNotification = false
-    
-    private let pendingSelectorValue = 3
     
     var config : Config {
         Config.sharedConfig
@@ -45,7 +43,7 @@ struct SessionsListView: View {
             }
             .sorted(by: { $0.wrappedTitle < $1.wrappedTitle })
         
-        if (selectorIndex != pendingSelectorValue) {
+        if (pending.count == 0) {
             let sessions = self.allSessions
                 .filter { (session) -> Bool in
                     session.startUtc?.asDate() ?? "" == config.dates[selectorIndex]
@@ -66,9 +64,23 @@ struct SessionsListView: View {
             let sections = Array(grouped.keys).sorted(by: <)
             
             return RelevantSessions(sessions: sessions, sections: sections, grouped: grouped, pending: pending)
+        } else {
+            let sessions = self.allSessions
+                .filter { (session) -> Bool in
+                    if (self.searchText == "") {
+                        return true
+                    }
+                    
+                    return session.wrappedTitle.contains(self.searchText) || session.speakerNames.contains(self.searchText)
+                }
+                .sorted(by: { $0.wrappedTitle < $1.wrappedTitle })
+            
+            return RelevantSessions(sessions:sessions, sections: [], grouped: [:], pending: pending)
         }
-        
-        return RelevantSessions(sessions: [], sections: [], grouped: [:], pending: pending)
+    }
+    
+    var isPending : Bool {
+        return !self.sessions.pending.isEmpty
     }
     
     var selectedSession : Session? {
@@ -81,7 +93,7 @@ struct SessionsListView: View {
     func refreshSessions() {
         SessionService.refresh() { (status, message, logMessage) in
             logger.debug("Refresh said: \(status.rawValue, privacy: .public), \(message, privacy: .public), \(logMessage, privacy: .public)")
-
+            
             if (status == .Fail) {
                 self.alertItem = AlertContext.build(title: "Refresh failed", message: message, buttonTitle: "OK")
             }
@@ -89,80 +101,99 @@ struct SessionsListView: View {
             if (status == .Fatal) {
                 self.alertItem = AlertContext.buildFatal(title: "Refresh failed", message: message, buttonTitle: "OK", fatalMessage: logMessage)
             }
-
+            
             self.isShowingPullToRefresh = false
             self.blockingRefresh = false
             
             UserDefaults.standard.set(Date(), forKey: "SessionLastUpdate")
         }
     }
-
+    
     var body: some View {
         NavigationView {
-            VStack {
-                DayPicker(selectorIndex: $selectorIndex, showPending: self.sessions.pending.count > 0)
-            
-                SearchView(searchText: $searchText)
-                
-                ScrollViewReader { scrollProxy in
-                    List {
-                        ForEach(self.sessions.sections, id: \.self) { section in
-                            Section(header: Text(section)) {
-                                ForEach(self.sessions.grouped[section] ?? [], id: \.self) { session in
-                                    SessionNavLink(session: session)
+            if (self.isPending && favouritesOnly) {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("The time/date and room schedule is not yet available.")
+                    Text("You will be able to add sessions to your personal schedule when the time/date and room schedule has been published.")
+                    Spacer()
+                }
+                .padding()
+                .navigationTitle(title)
+            } else {
+                VStack {
+                    if (!self.isPending) {
+                        DayPicker(selectorIndex: $selectorIndex)
+                    }
+                    
+                    SearchView(searchText: $searchText)
+                    
+                    ScrollViewReader { scrollProxy in
+                        List {
+                            ForEach(self.sessions.sections, id: \.self) { section in
+                                Section(header: Text(section)) {
+                                    ForEach(self.sessions.grouped[section] ?? [], id: \.self) { session in
+                                        SessionNavLink(session: session)
+                                    }
+                                }
+                            }
+                            
+                            if (self.isPending) {
+                                if (favouritesOnly) {
+                                    Text("The session program is not yet complete")
+                                    Text("Rooms and times are still pending")
+                                    Text("You will be able to add sessions to your schedule when the programme is finalized.")
+                                    
+                                } else {
+                                    ForEach(self.sessions.sessions, id: \.self) { session in
+                                        SessionNavLink(session: session, pending: true)
+                                    }
                                 }
                             }
                         }
-                        
-                        if (selectorIndex == pendingSelectorValue) {
-                            ForEach(self.sessions.pending, id: \.self) { session in
-                                SessionNavLink(session: session, pending: true)
-                            }
+                        .onChange(of: self.sessions, perform: { _ in
+                            scrollTo(scroll: scrollProxy)
+                        })
+                        .onAppear() {
+                            appear()
+                            scrollTo(scroll: scrollProxy)
                         }
+                        .resignKeyboardOnDragGesture()
+                        .pullToRefresh(isShowing: $isShowingPullToRefresh) {
+                            self.refreshSessions()
+                        }
+                        .alert(item: $alertItem) { alertItem in
+                            Alert(
+                                title: alertItem.title,
+                                message: alertItem.message,
+                                dismissButton: Alert.Button.default(
+                                    alertItem.buttonTitle,
+                                    action: {
+                                        AlertContext.processAlertItem(alertItem: alertItem)
+                                    }
+                                )
+                            )
+                        }
+                        .navigationTitle(title)
                     }
-                    .onChange(of: self.sessions, perform: { _ in
-                        scrollTo(scroll: scrollProxy)
-                    })
-                    .onAppear() {
-                        appear()
-                        scrollTo(scroll: scrollProxy)
-                    }
-                    .resignKeyboardOnDragGesture()
-                    .pullToRefresh(isShowing: $isShowingPullToRefresh) {
-                        self.refreshSessions()
-                    }
-                    .alert(item: $alertItem) { alertItem in
-                        Alert(
-                            title: alertItem.title,
-                            message: alertItem.message,
-                            dismissButton: Alert.Button.default(
-                                alertItem.buttonTitle,
-                                action: {
-                                    AlertContext.processAlertItem(alertItem: alertItem)
+                    
+                    if ($sessionIdFromNotification.wrappedValue != nil) {
+                        if let session = selectedSession {
+                            NavigationLink(
+                                destination: SessionDetailView(session: session, pending: false),
+                                isActive: $activateSessionFromNotification,
+                                label: {
+                                    EmptyView()
                                 }
                             )
-                        )
-                    }
-                    .navigationTitle(title)
-                }
-                
-                if ($sessionIdFromNotification.wrappedValue != nil) {
-                    if let session = selectedSession {
-                        NavigationLink(
-                            destination: SessionDetailView(session: session, pending: false),
-                            isActive: $activateSessionFromNotification,
-                            label: {
-                                EmptyView()
-                            }
-                        )
+                        } else {
+                            EmptyView()
+                        }
                     } else {
                         EmptyView()
                     }
-                } else {
-                    EmptyView()
                 }
+                Text("Please choose a session from the list")
             }
-            Text("Please choose a session from the list")
         }
         .onReceive(sessionPublisher) { notification in
             if let sessionId = notification.object as? String {
@@ -177,10 +208,10 @@ struct SessionsListView: View {
             return
         }
         
-        if (selectorIndex == pendingSelectorValue) {
+        if (self.isPending) {
             return
         }
-
+        
         var scrollId : String?
         
         let scrollToTimestamp = config.dates[selectorIndex] == Date().asDate()
@@ -205,9 +236,9 @@ struct SessionsListView: View {
         if let scrollId = scrollId {
             scroll.scrollTo(scrollId, anchor: .top)
         }
-
+        
     }
-
+    
     func appear() {
         let now = Date()
         
@@ -222,11 +253,11 @@ struct SessionsListView: View {
         
         logger.debug("Checking to see if should auto refresh \(autorefresh, privacy: .public)")
         
-        #if DEBUG
+#if DEBUG
         autorefresh = Bool.random()
         
         logger.debug("Debug - set auto refresh \(autorefresh, privacy: .public)")
-        #endif
+#endif
         
         if (noSessions || autorefresh) {
             self.blockingRefresh = true

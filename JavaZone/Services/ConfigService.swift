@@ -9,7 +9,7 @@ class ConfigService {
         logger.info("Refreshing config")
         
         let request = AF.request("https://sleepingpill.javazone.no/public/config")
-        
+
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         
