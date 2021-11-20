@@ -90,3 +90,4 @@ iOSInjectionProject/
 *.mobileprovision
 .env
 fastlane/FastlaneRunner
+data
