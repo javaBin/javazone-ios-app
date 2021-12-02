@@ -1,23 +1,31 @@
 [
   {
-    "homepageUrl": "https://2park.no/",
-    "name": "2Park Technologes AS"
-  },
-  {
     "homepageUrl": "https://www.accenture.com/no-en",
     "name": "Accenture AS"
   },
   {
-    "homepageUrl": "https://basefarm.no/",
-    "name": "Basefarm AS"
+    "homepageUrl": "https://bekk.no",
+    "name": "Bekk Consulting AS"
   },
   {
     "homepageUrl": "https://bouvet.no/",
     "name": "Bouvet Norge AS"
   },
   {
+    "homepageUrl": "https://cgi.com/",
+    "name": "CGI"
+  },
+  {
     "homepageUrl": "https://www.capgemini.com/no-no/",
     "name": "Capgemini Norge AS"
+  },
+  {
+    "homepageUrl": "https://cloudberries.no",
+    "name": "Cloudberries"
+  },
+  {
+    "homepageUrl": "https://cognite.com",
+    "name": "Cognite"
   },
   {
     "homepageUrl": "https://www.dips.com/no",
@@ -32,12 +40,16 @@
     "name": "Digitaliseringsdirektoratet"
   },
   {
-    "homepageUrl": "https://www.evry.com/no/",
-    "name": "EVRY Norge AS"
-  },
-  {
     "homepageUrl": "https://eika.no/",
     "name": "Eika Gruppen AS"
+  },
+  {
+    "homepageUrl": "https://embriq.no",
+    "name": "EmbriQ"
+  },
+  {
+    "homepageUrl": "https://experis.no",
+    "name": "Experis"
   },
   {
     "homepageUrl": "https://www.finn.no/",
@@ -72,6 +84,10 @@
     "name": "Konsulentselskapet Enso AS"
   },
   {
+    "homepageUrl": "https://mastercard.com",
+    "name": "Mastercard Payment Services Norway AS"
+  },
+  {
     "homepageUrl": "https://microsoft.no/",
     "name": "Microsoft"
   },
@@ -85,7 +101,7 @@
   },
   {
     "homepageUrl": "https://www.oslo.kommune.no/",
-    "name": "Oslo Kommune"
+    "name": "Oslo Origo"
   },
   {
     "homepageUrl": "https://www.politiet.no/en/om/organisasjonen/andre/police-ict-services/",
@@ -96,8 +112,8 @@
     "name": "Redhat"
   },
   {
-    "homepageUrl": "https://rejlers.no/",
-    "name": "Rejlers Embriq AS"
+    "homepageUrl": "https://ruter.no",
+    "name": "Ruter"
   },
   {
     "homepageUrl": "https://www.ssb.no/",
@@ -148,12 +164,16 @@
     "name": "TECHPROS"
   },
   {
-    "homepageUrl": "https://tidal.com/",
-    "name": "TIDAL"
+    "homepageUrl": "https://www.tietoevry.com/no/",
+    "name": "TietoEVRY AS"
   },
   {
-    "homepageUrl": "https://www.twilio.com//",
-    "name": "Twillo"
+    "homepageUrl": "https://www.toll.no/",
+    "name": "Tolletaten"
+  },
+  {
+    "homepageUrl": "https://www.tripletex.no/",
+    "name": "Tripletex"
   },
   {
     "homepageUrl": "https://uptimeconsulting.no/",
