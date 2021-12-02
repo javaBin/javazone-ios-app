@@ -1,174 +1,174 @@
 [
-    {
-        "homepageUrl": "https://www.digdir.no/",
-        "name": "Digitaliseringsdirektoratet"
-    },
-    {
-        "homepageUrl": "https://www.systek.no/",
-        "name": "Systek"
-    },
-    {
-        "homepageUrl": "https://www.twilio.com//",
-        "name": "Twillo"
-    },
-    {
-        "homepageUrl": "https://tidal.com/",
-        "name": "TIDAL"
-    },
-    {
-        "homepageUrl": "https://www.storebrand.no/",
-        "name": "Storebrand"
-    },
-    {
-        "homepageUrl": "https://www.ssb.no/",
-        "name": "SSB"
-    },
-    {
-        "homepageUrl": "https://www.redhat.com/en",
-        "name": "Redhat"
-    },
-    {
-        "homepageUrl": "https://techpros.no/new/",
-        "name": "TECHPROS"
-    },
-    {
-        "homepageUrl": "https://www.knowit.no",
-        "name": "Knowit Objectnet AS"
-    },
-    {
-        "homepageUrl": "https://www.soprasteria.no/om-sopra-steria",
-        "name": "Sopra Steria"
-    },
-    {
-        "homepageUrl": "https://www.accenture.com/no-en",
-        "name": "Accenture AS"
-    },
-    {
-        "homepageUrl": "https://www.nav.no/no/Person",
-        "name": "NAV"
-    },
-    {
-        "homepageUrl": "https://www.miles.no/",
-        "name": "Miles"
-    },
-    {
-        "homepageUrl": "https://www.itera.com/",
-        "name": "Itera"
-    },
-    {
-        "homepageUrl": "https://www.kantega.no/",
-        "name": "Kantega AS"
-    },
-    {
-        "homepageUrl": "https://www.fremtind.no/",
-        "name": "Fremtind Forsikring AS"
-    },
-    {
-        "homepageUrl": "https://www.finn.no/",
-        "name": "FINN.no"
-    },
-    {
-        "homepageUrl": "https://schibsted.com/",
-        "name": "Schibsted"
-    },
-    {
-        "homepageUrl": "https://www.dnb.no/",
-        "name": "DNB"
-    },
-    {
-        "homepageUrl": "https://www.visma.no/",
-        "name": "Visma Consulting"
-    },
-    {
-        "homepageUrl": "https://2park.no/",
-        "name": "2Park Technologes AS"
-    },
-    {
-        "homepageUrl": "https://www.evry.com/no/",
-        "name": "EVRY Norge AS"
-    },
-    {
-        "homepageUrl": "https://www.dips.com/no",
-        "name": "DIPS AS"
-    },
-    {
-        "homepageUrl": "https://www.statnett.no/",
-        "name": "Statnett SF"
-    },
-    {
-        "homepageUrl": "https://www.jpro.no/",
-        "name": "JProfessionals AS"
-    },
-    {
-        "homepageUrl": "https://www.sparebank1.no/",
-        "name": "SpareBank 1 Banksamarbeidet"
-    },
-    {
-        "homepageUrl": "https://basefarm.no/",
-        "name": "Basefarm AS"
-    },
-    {
-        "homepageUrl": "https://www.vipps.no/",
-        "name": "Vipps AS"
-    },
-    {
-        "homepageUrl": "https://scienta.no/",
-        "name": "Scienta"
-    },
-    {
-        "homepageUrl": "https://enso.no/",
-        "name": "Konsulentselskapet Enso AS"
-    },
-    {
-        "homepageUrl": "https://scelto.no/",
-        "name": "Scelto AS"
-    },
-    {
-        "homepageUrl": "https://www.politiet.no/en/om/organisasjonen/andre/police-ict-services/",
-        "name": "Politiets IKT-tjenester"
-    },
-    {
-        "homepageUrl": "https://www.oslo.kommune.no/",
-        "name": "Oslo Kommune"
-    },
-    {
-        "homepageUrl": "https://www.webstep.no/",
-        "name": "Webstep AS"
-    },
-    {
-        "homepageUrl": "https://bouvet.no/",
-        "name": "Bouvet Norge AS"
-    },
-    {
-        "homepageUrl": "https://rejlers.no/",
-        "name": "Rejlers Embriq AS"
-    },
-    {
-        "homepageUrl": "https://www.sonat.no/",
-        "name": "Sonat Consulting Oslo"
-    },
-    {
-        "homepageUrl": "https://www.gjensidige.no/",
-        "name": "Gjensidige Forsikring"
-    },
-    {
-        "homepageUrl": "https://www.skatteetaten.no/person/",
-        "name": "Skatteetaten"
-    },
-    {
-        "homepageUrl": "https://microsoft.no/",
-        "name": "Microsoft"
-    },
-    {
-        "homepageUrl": "https://uptimeconsulting.no/",
-        "name": "Uptime Consulting"
-    },
-    {
-        "homepageUrl": "https://eika.no/",
-        "name": "Eika Gruppen AS"
-    },
-    {
-        "homepageUrl": "https://www.capgemini.com/no-no/",
-        "name": "Capgemini Norge AS"
-    }
+  {
+    "homepageUrl": "https://2park.no/",
+    "name": "2Park Technologes AS"
+  },
+  {
+    "homepageUrl": "https://www.accenture.com/no-en",
+    "name": "Accenture AS"
+  },
+  {
+    "homepageUrl": "https://basefarm.no/",
+    "name": "Basefarm AS"
+  },
+  {
+    "homepageUrl": "https://bouvet.no/",
+    "name": "Bouvet Norge AS"
+  },
+  {
+    "homepageUrl": "https://www.capgemini.com/no-no/",
+    "name": "Capgemini Norge AS"
+  },
+  {
+    "homepageUrl": "https://www.dips.com/no",
+    "name": "DIPS AS"
+  },
+  {
+    "homepageUrl": "https://www.dnb.no/",
+    "name": "DNB"
+  },
+  {
+    "homepageUrl": "https://www.digdir.no/",
+    "name": "Digitaliseringsdirektoratet"
+  },
+  {
+    "homepageUrl": "https://www.evry.com/no/",
+    "name": "EVRY Norge AS"
+  },
+  {
+    "homepageUrl": "https://eika.no/",
+    "name": "Eika Gruppen AS"
+  },
+  {
+    "homepageUrl": "https://www.finn.no/",
+    "name": "FINN.no"
+  },
+  {
+    "homepageUrl": "https://www.fremtind.no/",
+    "name": "Fremtind Forsikring AS"
+  },
+  {
+    "homepageUrl": "https://www.gjensidige.no/",
+    "name": "Gjensidige Forsikring"
+  },
+  {
+    "homepageUrl": "https://www.itera.com/",
+    "name": "Itera"
+  },
+  {
+    "homepageUrl": "https://www.jpro.no/",
+    "name": "JProfessionals AS"
+  },
+  {
+    "homepageUrl": "https://www.kantega.no/",
+    "name": "Kantega AS"
+  },
+  {
+    "homepageUrl": "https://www.knowit.no",
+    "name": "Knowit Objectnet AS"
+  },
+  {
+    "homepageUrl": "https://enso.no/",
+    "name": "Konsulentselskapet Enso AS"
+  },
+  {
+    "homepageUrl": "https://microsoft.no/",
+    "name": "Microsoft"
+  },
+  {
+    "homepageUrl": "https://www.miles.no/",
+    "name": "Miles"
+  },
+  {
+    "homepageUrl": "https://www.nav.no/no/Person",
+    "name": "NAV"
+  },
+  {
+    "homepageUrl": "https://www.oslo.kommune.no/",
+    "name": "Oslo Kommune"
+  },
+  {
+    "homepageUrl": "https://www.politiet.no/en/om/organisasjonen/andre/police-ict-services/",
+    "name": "Politiets IKT-tjenester"
+  },
+  {
+    "homepageUrl": "https://www.redhat.com/en",
+    "name": "Redhat"
+  },
+  {
+    "homepageUrl": "https://rejlers.no/",
+    "name": "Rejlers Embriq AS"
+  },
+  {
+    "homepageUrl": "https://www.ssb.no/",
+    "name": "SSB"
+  },
+  {
+    "homepageUrl": "https://scelto.no/",
+    "name": "Scelto AS"
+  },
+  {
+    "homepageUrl": "https://schibsted.com/",
+    "name": "Schibsted"
+  },
+  {
+    "homepageUrl": "https://scienta.no/",
+    "name": "Scienta"
+  },
+  {
+    "homepageUrl": "https://www.skatteetaten.no/person/",
+    "name": "Skatteetaten"
+  },
+  {
+    "homepageUrl": "https://www.sonat.no/",
+    "name": "Sonat Consulting Oslo"
+  },
+  {
+    "homepageUrl": "https://www.soprasteria.no/om-sopra-steria",
+    "name": "Sopra Steria"
+  },
+  {
+    "homepageUrl": "https://www.sparebank1.no/",
+    "name": "SpareBank 1 Banksamarbeidet"
+  },
+  {
+    "homepageUrl": "https://www.statnett.no/",
+    "name": "Statnett SF"
+  },
+  {
+    "homepageUrl": "https://www.storebrand.no/",
+    "name": "Storebrand"
+  },
+  {
+    "homepageUrl": "https://www.systek.no/",
+    "name": "Systek"
+  },
+  {
+    "homepageUrl": "https://techpros.no/new/",
+    "name": "TECHPROS"
+  },
+  {
+    "homepageUrl": "https://tidal.com/",
+    "name": "TIDAL"
+  },
+  {
+    "homepageUrl": "https://www.twilio.com//",
+    "name": "Twillo"
+  },
+  {
+    "homepageUrl": "https://uptimeconsulting.no/",
+    "name": "Uptime Consulting"
+  },
+  {
+    "homepageUrl": "https://www.vipps.no/",
+    "name": "Vipps AS"
+  },
+  {
+    "homepageUrl": "https://www.visma.no/",
+    "name": "Visma Consulting"
+  },
+  {
+    "homepageUrl": "https://www.webstep.no/",
+    "name": "Webstep AS"
+  }
 ]
