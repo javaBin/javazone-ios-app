@@ -26,10 +26,10 @@ public class Config : Codable {
 }
 
 extension Config {
-    static let defaultTitle = "JavaZone 2021"
-    static let defaultUrl = "https://sleepingpill.javazone.no/public/allSessions/javazone_2021"
-    static let defaultDates = ["08.12.2021","09.12.2021","07.12.2021"]
-    static let defaultWeb = "https://2021.javazone.no/"
+    static let defaultTitle = "JavaZone 2022"
+    static let defaultUrl = "https://sleepingpill.javazone.no/public/allSessions/javazone_2022"
+    static let defaultDates = ["07.09.2022","08.09.2022","06.09.2022"]
+    static let defaultWeb = "https://2022.javazone.no/"
     static let defaultId = "ID"
 }
 
