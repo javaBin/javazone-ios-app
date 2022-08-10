@@ -28,12 +28,20 @@
     "name": "Cognite"
   },
   {
+    "homepageUrl": "https://computas.com/",
+    "name": "Computas"
+  },
+  {
     "homepageUrl": "https://www.dips.com/no",
     "name": "DIPS AS"
   },
   {
     "homepageUrl": "https://www.dnb.no/",
     "name": "DNB"
+  },
+  {
+    "homepageUrl": "https://www.dfindconsulting.no/",
+    "name": "Dfind"
   },
   {
     "homepageUrl": "https://www.digdir.no/",
@@ -80,6 +88,10 @@
     "name": "Knowit Objectnet AS"
   },
   {
+    "homepageUrl": "https://www.kodemaker.no",
+    "name": "Kodemaker"
+  },
+  {
     "homepageUrl": "https://enso.no/",
     "name": "Konsulentselskapet Enso AS"
   },
@@ -106,6 +118,10 @@
   {
     "homepageUrl": "https://www.politiet.no/en/om/organisasjonen/andre/police-ict-services/",
     "name": "Politiets IKT-tjenester"
+  },
+  {
+    "homepageUrl": " https://www.postennorge.no/",
+    "name": "Posten Bring"
   },
   {
     "homepageUrl": "https://www.redhat.com/en",
@@ -136,16 +152,16 @@
     "name": "Skatteetaten"
   },
   {
-    "homepageUrl": "https://www.sonat.no/",
-    "name": "Sonat Consulting Oslo"
-  },
-  {
     "homepageUrl": "https://www.soprasteria.no/om-sopra-steria",
     "name": "Sopra Steria"
   },
   {
     "homepageUrl": "https://www.sparebank1.no/",
     "name": "SpareBank 1 Banksamarbeidet"
+  },
+  {
+    "homepageUrl": "https://www.vegvesen.no/",
+    "name": "Statens vegvesen"
   },
   {
     "homepageUrl": "https://www.statnett.no/",
@@ -160,7 +176,7 @@
     "name": "Systek"
   },
   {
-    "homepageUrl": "https://techpros.no/new/",
+    "homepageUrl": "https://www.techpros.no/",
     "name": "TECHPROS"
   },
   {
@@ -168,7 +184,7 @@
     "name": "TietoEVRY AS"
   },
   {
-    "homepageUrl": "https://www.toll.no/",
+    "homepageUrl": "https://github.com/tolletaten/javazone2022",
     "name": "Tolletaten"
   },
   {
@@ -178,6 +194,10 @@
   {
     "homepageUrl": "https://uptimeconsulting.no/",
     "name": "Uptime Consulting"
+  },
+  {
+    "homepageUrl": "https://www.variant.no",
+    "name": "Variant"
   },
   {
     "homepageUrl": "https://www.vipps.no/",

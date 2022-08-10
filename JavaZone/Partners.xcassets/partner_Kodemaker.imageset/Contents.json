@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "partner_SonatConsultingOslo.png",
+      "filename" : "kodemaker.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "partner_SonatConsultingOslo-1.png",
+      "filename" : "kodemaker@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "partner_SonatConsultingOslo-2.png",
+      "filename" : "kodemaker@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
