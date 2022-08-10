@@ -1,52 +1,50 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Alamofire",
-        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
-        "state": {
-          "branch": null,
-          "revision": "f96b619bcb2383b43d898402283924b80e2c4bae",
-          "version": "5.4.3"
-        }
-      },
-      {
-        "package": "RemoteImage",
-        "repositoryURL": "https://github.com/crelies/RemoteImage.git",
-        "state": {
-          "branch": null,
-          "revision": "7de20453a8b9733eb8e28ae762801c60a5a5f59d",
-          "version": "4.0.0"
-        }
-      },
-      {
-        "package": "Introspect",
-        "repositoryURL": "https://github.com/siteline/SwiftUI-Introspect.git",
-        "state": {
-          "branch": null,
-          "revision": "2e09be8af614401bc9f87d40093ec19ce56ccaf2",
-          "version": "0.1.3"
-        }
-      },
-      {
-        "package": "SwiftUIRefresh",
-        "repositoryURL": "https://github.com/siteline/SwiftUIRefresh.git",
-        "state": {
-          "branch": null,
-          "revision": "fa8fac7b5eb5c729983a8bef65f094b5e0d12014",
-          "version": "0.0.3"
-        }
-      },
-      {
-        "package": "WaterfallGrid",
-        "repositoryURL": "https://github.com/paololeonardi/WaterfallGrid",
-        "state": {
-          "branch": null,
-          "revision": "944aa82832ed5a9eaaf50862cdd53e3c10ab55eb",
-          "version": "1.0.1"
-        }
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "f96b619bcb2383b43d898402283924b80e2c4bae",
+        "version" : "5.4.3"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "remoteimage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/crelies/RemoteImage.git",
+      "state" : {
+        "revision" : "7de20453a8b9733eb8e28ae762801c60a5a5f59d",
+        "version" : "4.0.0"
+      }
+    },
+    {
+      "identity" : "swiftui-introspect",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/siteline/SwiftUI-Introspect.git",
+      "state" : {
+        "revision" : "2e09be8af614401bc9f87d40093ec19ce56ccaf2",
+        "version" : "0.1.3"
+      }
+    },
+    {
+      "identity" : "swiftuirefresh",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/siteline/SwiftUIRefresh.git",
+      "state" : {
+        "revision" : "fa8fac7b5eb5c729983a8bef65f094b5e0d12014",
+        "version" : "0.0.3"
+      }
+    },
+    {
+      "identity" : "waterfallgrid",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/paololeonardi/WaterfallGrid",
+      "state" : {
+        "revision" : "944aa82832ed5a9eaaf50862cdd53e3c10ab55eb",
+        "version" : "1.0.1"
+      }
+    }
+  ],
+  "version" : 2
 }
