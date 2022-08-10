@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "partner_TECHPROS.png",
+      "filename" : "techpros.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "partner_TECHPROS-1.png",
+      "filename" : "techpros@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "partner_TECHPROS-2.png",
+      "filename" : "techpros@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
