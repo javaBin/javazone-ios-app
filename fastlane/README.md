@@ -31,13 +31,13 @@ Unit Tests
 
 Git preparation
 
-### ios profileprep
+### ios codesignprep
 
 ```sh
-[bundle exec] fastlane ios profileprep
+[bundle exec] fastlane ios codesignprep
 ```
 
-Profiles
+Auto code sign
 
 ### ios beta
 

@@ -465,10 +465,10 @@
 			);
 			mainGroup = 8350E63723F5222B0085C1F3;
 			packageReferences = (
-				83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */,
-				831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage.git" */,
+				831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire.git" */,
 				837E9BBD2405BF1000B74714 /* XCRemoteSwiftPackageReference "WaterfallGrid" */,
-				83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
+				83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh.git" */,
 			);
 			productRefGroup = 8350E64123F5222B0085C1F3 /* Products */;
 			projectDirPath = "";
@@ -723,6 +723,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = JavaZone/JavaZone.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"JavaZone/Preview Content\"";
 				DEVELOPMENT_TEAM = X4FF6CYH8M;
@@ -735,6 +736,7 @@
 				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.chrissearle.incogito.JavaZone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -746,6 +748,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = JavaZone/JavaZone.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"JavaZone/Preview Content\"";
 				DEVELOPMENT_TEAM = X4FF6CYH8M;
@@ -758,6 +761,7 @@
 				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.chrissearle.incogito.JavaZone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -881,7 +885,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */ = {
+		83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUIRefresh.git";
 			requirement = {
@@ -889,7 +893,7 @@
 				minimumVersion = 0.0.0;
 			};
 		};
-		831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -905,7 +909,7 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */ = {
+		83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/crelies/RemoteImage.git";
 			requirement = {
@@ -918,12 +922,12 @@
 /* Begin XCSwiftPackageProductDependency section */
 		83152E8926CCF37E00DB1693 /* SwiftUIRefresh */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */;
+			package = 83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh.git" */;
 			productName = SwiftUIRefresh;
 		};
 		831FC33A23FBE2B100BB12A3 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = 831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire.git" */;
 			productName = Alamofire;
 		};
 		837E9BBE2405BF1000B74714 /* WaterfallGrid */ = {
@@ -933,7 +937,7 @@
 		};
 		83DBDAE723F733B800767916 /* RemoteImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */;
+			package = 83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage.git" */;
 			productName = RemoteImage;
 		};
 /* End XCSwiftPackageProductDependency section */

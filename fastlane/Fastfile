@@ -30,17 +30,19 @@ platform :ios do
     push_to_git_remote
   end
 
-  desc "Profiles"
-  lane :profileprep do
-    get_provisioning_profile(app_identifier: "net.chrissearle.incogito.JavaZone")
-    get_provisioning_profile(app_identifier: "net.chrissearle.incogito.JavaZone.Duke")
+  desc "Auto code sign"
+  lane :codesignprep do
+    update_code_signing_settings(
+      use_automatic_signing: true,
+      path: "JavaZone.xcodeproj"
+    )
   end
 
   desc "Push a new beta build to TestFlight"
   lane :beta do
     unittest
     gitprep
-    profileprep
+    codesignprep
     build_app(scheme: "JavaZone", clean: true)
     upload_to_testflight
     slack(message: "Beta build uploaded")
@@ -50,7 +52,7 @@ platform :ios do
   lane :release do
     unittest
     gitprep
-    profileprep
+    codesignprep
     build_app(scheme: "JavaZone", clean: true)
     upload_to_app_store
     slack(message: "Release build uploaded")
