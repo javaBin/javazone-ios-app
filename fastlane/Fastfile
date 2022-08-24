@@ -32,10 +32,8 @@ platform :ios do
 
   desc "Auto code sign"
   lane :codesignprep do
-    update_code_signing_settings(
-      use_automatic_signing: true,
-      path: "JavaZone.xcodeproj"
-    )
+    get_certificates
+    get_provisioning_profile
   end
 
   desc "Push a new beta build to TestFlight"
