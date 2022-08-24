@@ -465,10 +465,10 @@
 			);
 			mainGroup = 8350E63723F5222B0085C1F3;
 			packageReferences = (
-				83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage.git" */,
-				831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire.git" */,
+				83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */,
+				831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				837E9BBD2405BF1000B74714 /* XCRemoteSwiftPackageReference "WaterfallGrid" */,
-				83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh.git" */,
+				83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
 			);
 			productRefGroup = 8350E64123F5222B0085C1F3 /* Products */;
 			projectDirPath = "";
@@ -885,7 +885,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh.git" */ = {
+		83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUIRefresh.git";
 			requirement = {
@@ -893,7 +893,7 @@
 				minimumVersion = 0.0.0;
 			};
 		};
-		831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
+		831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -909,7 +909,7 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage.git" */ = {
+		83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/crelies/RemoteImage.git";
 			requirement = {
@@ -922,12 +922,12 @@
 /* Begin XCSwiftPackageProductDependency section */
 		83152E8926CCF37E00DB1693 /* SwiftUIRefresh */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh.git" */;
+			package = 83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */;
 			productName = SwiftUIRefresh;
 		};
 		831FC33A23FBE2B100BB12A3 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire.git" */;
+			package = 831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
 		837E9BBE2405BF1000B74714 /* WaterfallGrid */ = {
@@ -937,7 +937,7 @@
 		};
 		83DBDAE723F733B800767916 /* RemoteImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage.git" */;
+			package = 83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */;
 			productName = RemoteImage;
 		};
 /* End XCSwiftPackageProductDependency section */
