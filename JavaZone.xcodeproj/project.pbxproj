@@ -52,7 +52,6 @@
 		8380469326FB4C3800624463 /* Date+UtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380469226FB4C3800624463 /* Date+UtilsTest.swift */; };
 		8380469526FB4E3900624463 /* String+UtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380469426FB4E3900624463 /* String+UtilsTest.swift */; };
 		838048422407BF1600749E82 /* Stickers.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 838048412407BF1600749E82 /* Stickers.xcassets */; };
-		838048462407BF1600749E82 /* JavaZone.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8380483F2407BF1500749E82 /* JavaZone.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8397433923FD23110024E80B /* ExternalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397433823FD23110024E80B /* ExternalLink.swift */; };
 		83AA8DED242B4F21007E3339 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA8DEC242B4F21007E3339 /* ShareSheet.swift */; };
 		83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332223FAF74200F3FCB4 /* SearchView.swift */; };
@@ -76,13 +75,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		838048442407BF1600749E82 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8350E63823F5222B0085C1F3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8380483E2407BF1500749E82;
-			remoteInfo = Duke;
-		};
 		83A827E8241507FB00DC7ADA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8350E63823F5222B0085C1F3 /* Project object */;
@@ -91,20 +83,6 @@
 			remoteInfo = JavaZone;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		838048472407BF1600749E82 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				838048462407BF1600749E82 /* JavaZone.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8310973B270B078C009A375A /* JavaZone 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "JavaZone 3.xcdatamodel"; sourceTree = "<group>"; };
@@ -405,12 +383,10 @@
 				8350E63C23F5222B0085C1F3 /* Sources */,
 				8350E63D23F5222B0085C1F3 /* Frameworks */,
 				8350E63E23F5222B0085C1F3 /* Resources */,
-				838048472407BF1600749E82 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				838048452407BF1600749E82 /* PBXTargetDependency */,
 			);
 			name = JavaZone;
 			packageProductDependencies = (
@@ -608,11 +584,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		838048452407BF1600749E82 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8380483E2407BF1500749E82 /* Duke */;
-			targetProxy = 838048442407BF1600749E82 /* PBXContainerItemProxy */;
-		};
 		83A827E9241507FB00DC7ADA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8350E63F23F5222B0085C1F3 /* JavaZone */;
