@@ -1,5 +1,13 @@
 [
   {
     "title": "Wi-Fi - SSID: JavaZone"
+  },
+  {
+    "title": "Slack",
+    "body": "Join us on slack",
+    "url": {
+      "title": "Invitation to JavaZone 2022 Slack",
+      "url": "https://javazone2022.slack.com/join/shared_invite/zt-1fkbybnzk-i84aZCpGnFdYKlx1w4xYsg"
+    }
   }
 ]
