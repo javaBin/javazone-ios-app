@@ -33,9 +33,9 @@ struct SessionDetailView: View {
                 }.padding(.top)
                 VStack(alignment: .leading) {
                     if (session.workshop && session.wrappedRegisterLoc != nil) {
-                        Text("Workshop").font(.title)
+                        Text("Workshop").font(.title).padding(.bottom, 15)
                         
-                        ExternalLink(title: "Open registration page", url: session.wrappedRegisterLoc!)
+                        ExternalLink(title: "Open registration page", url: session.wrappedRegisterLoc!).padding(.bottom, 15)
                     }
                     HStack {
                         Text("Abstract").font(.title)
