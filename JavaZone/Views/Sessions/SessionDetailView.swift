@@ -56,6 +56,13 @@ struct SessionDetailView: View {
                             .copyable(session.wrappedAbstract)
                             .padding(.bottom, 20)
                     }
+                    if (session.workshopPrerequisites != nil) {
+                        Text("Prerequisites").font(.title).padding(.bottom, 15)
+                        Text(session.wrappedWorkshopPrerequisites)
+                            .font(.body)
+                            .copyable(session.wrappedWorkshopPrerequisites)
+                            .padding(.bottom, 20)
+                    }
                     Text("Intended Audience").font(.title).padding(.bottom, 15)
                     if (session.audience != nil) {
                         Text(session.wrappedAudience).font(.body).padding(.bottom, 20)

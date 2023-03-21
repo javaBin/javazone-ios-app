@@ -145,6 +145,7 @@
 		83C8D17A23F5367E008322DA /* RemoteSessionList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSessionList.swift; sourceTree = "<group>"; };
 		83C8D17D23F54636008322DA /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		83C8D17F23F5463F008322DA /* Speaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
+		83CD3DFB29C9947300120ACE /* JavaZone 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "JavaZone 4.xcdatamodel"; sourceTree = "<group>"; };
 		83CF9E4B27047DB60088B789 /* Partners.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Partners.xcassets; sourceTree = "<group>"; };
 		83D909AF270DEDB700101D1D /* Text+Copyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Copyable.swift"; sourceTree = "<group>"; };
 		83DBDAE223F729A200767916 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
@@ -946,11 +947,12 @@
 		8350E64723F5222B0085C1F3 /* JavaZone.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				83CD3DFB29C9947300120ACE /* JavaZone 4.xcdatamodel */,
 				8310973B270B078C009A375A /* JavaZone 3.xcdatamodel */,
 				83F4791B26F237CD006DA0AC /* JavaZone 2.xcdatamodel */,
 				8350E64823F5222B0085C1F3 /* JavaZone.xcdatamodel */,
 			);
-			currentVersion = 8310973B270B078C009A375A /* JavaZone 3.xcdatamodel */;
+			currentVersion = 83CD3DFB29C9947300120ACE /* JavaZone 4.xcdatamodel */;
 			path = JavaZone.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

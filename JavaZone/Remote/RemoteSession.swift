@@ -12,6 +12,7 @@ struct RemoteSession: Decodable {
     let startUtc: Date?
     let endUtc: Date?
     let registerLoc: String?
+    let workshopPrerequisites: String?
     let speakers: [RemoteSpeaker]?
 
     enum CodingKeys: String, CodingKey {
@@ -26,6 +27,7 @@ struct RemoteSession: Decodable {
         case endUtc = "endTimeZulu"
         case speakers
         case registerLoc
+        case workshopPrerequisites
         case videoId = "video"
     }
 }

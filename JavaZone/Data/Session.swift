@@ -16,6 +16,7 @@ public class Session:NSManagedObject {
     @NSManaged public var section:String?
     @NSManaged public var registerLoc:String?
     @NSManaged public var speakers:NSSet
+    @NSManaged public var workshopPrerequisites:String?
     
     public var wrappedTitle : String {
         return self.title?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
@@ -87,6 +88,10 @@ public class Session:NSManagedObject {
         return self.speakerArray.map { (speaker) -> String in
             return speaker.wrappedName
         }.joined(separator: ", ")
+    }
+    
+    public var wrappedWorkshopPrerequisites : String {
+        return self.workshopPrerequisites ?? ""
     }
 }
 
