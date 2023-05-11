@@ -35,7 +35,7 @@ struct InfoView: View {
                 })
             }
             .navigationTitle("Info")
-            .pullToRefresh(isShowing: $viewModel.fetchingItems) {
+            .refreshable {
                 viewModel.refreshItems(force: true)
             }
             .onAppear {

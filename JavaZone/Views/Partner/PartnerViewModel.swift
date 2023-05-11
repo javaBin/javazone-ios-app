@@ -29,17 +29,23 @@ class PartnerViewModel : ObservableObject {
         setOrientation(UIDevice.current.orientation)
     }
     
-    func refreshPartners() {
-        PartnerService.refresh() { (status, message, logMessage) in
+    func refreshPartners() async {
+        do {
+            let status = try await SessionService.refresh()
             
-            // If we fail to fetch but have partners _ this list changes so rarely that we ignore and continue.
-            if (status == .Fail && self.partners.count == 0) {
-                self.alertItem = AlertContext.build(title: "Refresh failed", message: message, buttonTitle: "OK")
+            logger.debug("Refresh said: \(status.rawValue, privacy: .public)")
+        } catch  let error as ServiceError {
+            logger.debug("Refresh said: \(error.status.rawValue, privacy: .public), \(error.message, privacy: .public), \(error.detail ?? "Unknown Error", privacy: .public)")
+            
+            if (error.status == .Fail && self.partners.count == 0) {
+                self.alertItem = AlertContext.build(title: "Refresh failed", message: error.message, buttonTitle: "OK")
             }
             
-            if (status == .Fatal) {
-                self.alertItem = AlertContext.buildFatal(title: "Refresh failed", message: message, buttonTitle: "OK", fatalMessage: logMessage)
+            if (error.status == .Fatal) {
+                self.alertItem = AlertContext.buildFatal(title: "Refresh failed", message: error.message, buttonTitle: "OK", fatalMessage: error.detail ?? "Unknown Error")
             }
+        } catch {
+            logger.debug("Refresh unexpected error: \(error, privacy: .public)")
         }
     }
     

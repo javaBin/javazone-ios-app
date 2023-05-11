@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		83152E8A26CCF37E00DB1693 /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 83152E8926CCF37E00DB1693 /* SwiftUIRefresh */; };
 		831B782123F526BF00A45C70 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B782023F526BF00A45C70 /* SessionService.swift */; };
 		831FC33B23FBE2B100BB12A3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 831FC33A23FBE2B100BB12A3 /* Alamofire */; };
 		83304597242C941500FAE5E2 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83304596242C941500FAE5E2 /* ConfigService.swift */; };
@@ -163,7 +162,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				83AD08E62A0CC2DE00BEAD0D /* SDWebImageSwiftUI in Frameworks */,
-				83152E8A26CCF37E00DB1693 /* SwiftUIRefresh in Frameworks */,
 				831FC33B23FBE2B100BB12A3 /* Alamofire in Frameworks */,
 				83AD08E32A0CC29A00BEAD0D /* SDWebImageSVGCoder in Frameworks */,
 				83DBDAE823F733B800767916 /* RemoteImage in Frameworks */,
@@ -392,7 +390,6 @@
 			packageProductDependencies = (
 				83DBDAE723F733B800767916 /* RemoteImage */,
 				831FC33A23FBE2B100BB12A3 /* Alamofire */,
-				83152E8926CCF37E00DB1693 /* SwiftUIRefresh */,
 				83AD08E22A0CC29A00BEAD0D /* SDWebImageSVGCoder */,
 				83AD08E52A0CC2DE00BEAD0D /* SDWebImageSwiftUI */,
 			);
@@ -469,7 +466,6 @@
 			packageReferences = (
 				83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */,
 				831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
 				83AD08E12A0CC29A00BEAD0D /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				83AD08E42A0CC2DE00BEAD0D /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
@@ -891,14 +887,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/siteline/SwiftUIRefresh.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.0;
-			};
-		};
 		831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -934,11 +922,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		83152E8926CCF37E00DB1693 /* SwiftUIRefresh */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */;
-			productName = SwiftUIRefresh;
-		};
 		831FC33A23FBE2B100BB12A3 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */;

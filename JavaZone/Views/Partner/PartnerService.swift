@@ -8,9 +8,16 @@ class PartnerService {
     
     static let partnerStorage = PartnerStorage.shared
     
-    static func refresh(onComplete : @escaping (_ status: UpdateStatus, _ msg: String, _ logMsg: String) -> Void) {
+    static func refresh() async throws -> UpdateStatus {
+        return try await withCheckedThrowingContinuation { continuation in
+            refresh { result in
+                continuation.resume(with: result)
+            }
+        }
+    }
+    
+    static func refresh(_ onComplete: @escaping (Result<UpdateStatus, Error>) -> Void) {
         ConfigService.refreshConfig() {
-            
             let config = Config.sharedConfig
 
             logger.info("Refreshing partners")
@@ -26,15 +33,15 @@ class PartnerService {
                 if let error = response.error {
                     logger.error("Unable to fetch partners \(error.localizedDescription, privacy: .public)")
                     
-                    onComplete(.Fail, "Could not download partners, please try again", "")
-                    
+                    onComplete(.failure(ServiceError(status: .Fail, message: "Could not download partners, please try again")))
+                   
                     return
                 }
                 
                 guard let partners = response.value else {
                     logger.error("Unable to read partners")
 
-                    onComplete(.Fail, "Could not download partners, please try again", "")
+                    onComplete(.failure(ServiceError(status: .Fail, message: "Could not download partners, please try again")))
                     
                     return
                 }
@@ -46,7 +53,7 @@ class PartnerService {
                 } catch {
                     logger.error("Could not clear partners \(error.localizedDescription, privacy: .public)")
                     
-                    onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to clear partner data \(error)")
+                    onComplete(.failure(ServiceError(status: .Fatal, message: "Issue in the data store - please delete and reinstall", detail: "Unable to clear partner data \(error)")))
                     
                     return
                 }
@@ -71,15 +78,15 @@ class PartnerService {
                     try partnerStorage.save()
                 } catch {
                     logger.error("Could not save partners \(error.localizedDescription, privacy: .public)")
-                    
-                    onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to save data - partners \(error)")
+
+                    onComplete(.failure(ServiceError(status: .Fatal, message: "Issue in the data store - please delete and reinstall", detail: "Unable to save data - partners \(error)")))
                     
                     return
                 }
                 
                 Date().save(key: "PartnerDate")
                 
-                onComplete(.OK, "", "")
+                onComplete(.success(.OK))
             }
         }
     }

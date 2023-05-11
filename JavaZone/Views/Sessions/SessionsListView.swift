@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftUIRefresh
 import CoreData
 import os.log
 
@@ -30,7 +29,6 @@ struct SessionsListView: View {
     
     @State private var selectorIndex = 0
     @State private var searchText = ""
-    @State private var isShowingPullToRefresh = false
     
     @State private var alertItem : AlertItem?
     
@@ -87,23 +85,31 @@ struct SessionsListView: View {
         return !self.sessions.pending.isEmpty
     }
     
-    func refreshSessions() {
-        SessionService.refresh() { (status, message, logMessage) in
-            logger.debug("Refresh said: \(status.rawValue, privacy: .public), \(message, privacy: .public), \(logMessage, privacy: .public)")
+    func refreshSessions() async {
+        do {
+            defer {
+                self.blockingRefresh = false
+                
+                UserDefaults.standard.set(Date(), forKey: "NSessionLastUpdate")
+            }
+
+            let status = try await SessionService.refresh()
             
-            if (status == .Fail) {
-                self.alertItem = AlertContext.build(title: "Refresh failed", message: message, buttonTitle: "OK")
+            logger.debug("Refresh said: \(status.rawValue, privacy: .public)")
+        } catch  let error as ServiceError {
+            logger.debug("Refresh said: \(error.status.rawValue, privacy: .public), \(error.message, privacy: .public), \(error.detail ?? "Unknown Error", privacy: .public)")
+            
+            if (error.status == .Fail) {
+                self.alertItem = AlertContext.build(title: "Refresh failed", message: error.message, buttonTitle: "OK")
             }
             
-            if (status == .Fatal) {
-                self.alertItem = AlertContext.buildFatal(title: "Refresh failed", message: message, buttonTitle: "OK", fatalMessage: logMessage)
+            if (error.status == .Fatal) {
+                self.alertItem = AlertContext.buildFatal(title: "Refresh failed", message: error.message, buttonTitle: "OK", fatalMessage: error.detail ?? "Unknown Error")
             }
-            
-            self.isShowingPullToRefresh = false
-            self.blockingRefresh = false
-            
-            UserDefaults.standard.set(Date(), forKey: "NSessionLastUpdate")
+        } catch {
+            logger.debug("Refresh unexpected error: \(error, privacy: .public)")
         }
+
     }
     
     var body: some View {
@@ -158,9 +164,9 @@ struct SessionsListView: View {
                             scrollTo(scroll: scrollProxy)
                         }
                         .resignKeyboardOnDragGesture()
-                        .pullToRefresh(isShowing: $isShowingPullToRefresh) {
-                            self.refreshSessions()
-                        }
+                        .refreshable(action: {
+                            await self.refreshSessions()
+                        })
                         .alert(item: $alertItem) { alertItem in
                             Alert(
                                 title: alertItem.title,
@@ -246,8 +252,10 @@ struct SessionsListView: View {
 #endif
         
         if (noSessions || autorefresh) {
-            self.blockingRefresh = true
-            self.refreshSessions()
+            Task {
+                self.blockingRefresh = true
+                await self.refreshSessions()
+            }
         }
         
         

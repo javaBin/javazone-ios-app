@@ -23,10 +23,12 @@ class InfoViewModel : ObservableObject {
         if (force || abs(self.lastUpdated.diffInSeconds(date: Date())) > 5 * 60) {
             logger.debug("Cache old - update")
 
-            DispatchQueue.global(qos: .userInitiated).async {
-                InfoService.refreshConfig { (remoteInfo) in
+            Task {
+                do {
+                    let remoteInfo = try await InfoService.refresh()
+                    
                     self.logger.debug("Processing response")
-
+                    
                     var newItems : [InfoItem] = []
                     
                     remoteInfo.forEach { (remoteInfoItem) in
@@ -39,10 +41,14 @@ class InfoViewModel : ObservableObject {
                     
                     self.logger.debug("Setting cache flag to \(self.lastUpdated, privacy: .public)")
                     
-                    DispatchQueue.main.async {
-                        self.items = newItems
+                    let completedItems = newItems
+                    
+                    await MainActor.run {
+                        self.items = completedItems
                         self.fetchingItems = false
                     }
+                } catch {
+                    self.logger.debug("Unable to refresh info \(error, privacy: .public)")
                 }
             }
         }

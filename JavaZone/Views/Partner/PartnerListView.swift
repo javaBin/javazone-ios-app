@@ -18,8 +18,13 @@ struct PartnerListView: View {
                     }
                 }.padding()
             }
+            .refreshable {
+                await self.viewModel.refreshPartners()
+            }
             .onAppear(perform: {
-                self.viewModel.refreshPartners()
+                Task {
+                    await self.viewModel.refreshPartners()
+                }
             })
             .onRotate(perform: { orientation in
                 viewModel.setOrientation(orientation)

@@ -23,7 +23,15 @@ class SessionService {
         }
     }
     
-    static func refresh(onComplete : @escaping (_ status: UpdateStatus, _ msg: String, _ logMsg: String) -> Void) {
+    static func refresh() async throws -> UpdateStatus {
+        return try await withCheckedThrowingContinuation { continuation in
+            refresh { result in
+                continuation.resume(with: result)
+            }
+        }
+    }
+    
+    static func refresh(_ onComplete: @escaping (Result<UpdateStatus, Error>) -> Void) {
         ConfigService.refreshConfig() {
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             
@@ -40,7 +48,7 @@ class SessionService {
                 if let error = response.error {
                     logger.error("Unable to fetch sessions \(error.localizedDescription, privacy: .public)")
 
-                    onComplete(.Fail, "Could not download sessions, please try again", "")
+                    onComplete(.failure(ServiceError(status: .Fail, message: "Could not download sessions, please try again")))
                     
                     return
                 }
@@ -48,7 +56,7 @@ class SessionService {
                 guard let sessions = response.value?.sessions else {
                     logger.error("Unable to read sessions")
 
-                    onComplete(.Fail, "Could not download sessions, please try again", "")
+                    onComplete(.failure(ServiceError(status: .Fail, message: "Could not download sessions, please try again")))
                     
                     return
                 }
@@ -89,7 +97,7 @@ class SessionService {
                 } catch {
                     logger.error("Could not clear sessions \(error.localizedDescription, privacy: .public)")
                     
-                    onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to clear session data \(error)")
+                    onComplete(.failure(ServiceError(status: .Fatal, message: "Issue in the data store - please delete and reinstall", detail: "Unable to clear session data \(error)")))
                     
                     return
                 }
@@ -147,12 +155,12 @@ class SessionService {
                 } catch {
                     logger.error("Could not save sessions \(error.localizedDescription, privacy: .public)")
 
-                    onComplete(.Fatal, "Issue in the data store - please delete and reinstall", "Unable to save data - sessions \(error)")
+                    onComplete(.failure(ServiceError(status: .Fatal, message: "Issue in the data store - please delete and reinstall", detail: "Unable to save data - sessions \(error)")))
 
                     return
                 }
                 
-                onComplete(.OK, "", "")
+                onComplete(.success(.OK))
             }
         }
     }
