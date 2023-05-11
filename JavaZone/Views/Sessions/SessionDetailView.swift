@@ -1,5 +1,4 @@
 import SwiftUI
-import RemoteImage
 import CoreData
 
 struct SessionDetailView: View {

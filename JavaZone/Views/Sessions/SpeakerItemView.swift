@@ -1,6 +1,5 @@
 import SwiftUI
-import RemoteImage
-import CoreData
+ import CoreData
 
 struct DefaultSpeakerImage: View {
     var body: some View {
@@ -15,17 +14,15 @@ struct SpeakerImage: View {
     var avatarUrl : URL
     
     var body: some View {
-        RemoteImage(type: .url(avatarUrl), errorView: { error in
-            DefaultSpeakerImage()
-        }, imageView: { image in
+        AsyncImage(url: avatarUrl) { image in
             image
                 .resizable()
                 .clipShape(Capsule())
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 32.0, height: 32.0)
-        }, loadingView: {
+        } placeholder: {
             DefaultSpeakerImage()
-        })
+        }
     }
 }
 

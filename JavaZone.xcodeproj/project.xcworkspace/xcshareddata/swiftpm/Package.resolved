@@ -10,15 +10,6 @@
       }
     },
     {
-      "identity" : "remoteimage",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/crelies/RemoteImage.git",
-      "state" : {
-        "revision" : "7de20453a8b9733eb8e28ae762801c60a5a5f59d",
-        "version" : "4.0.0"
-      }
-    },
-    {
       "identity" : "sdwebimage",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",

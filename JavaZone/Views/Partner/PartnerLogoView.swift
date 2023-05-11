@@ -1,6 +1,5 @@
 import SwiftUI
 import CoreData
-import RemoteImage
 import os.log
 import SDWebImageSwiftUI
 
