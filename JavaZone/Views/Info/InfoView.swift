@@ -4,7 +4,7 @@ struct InfoView: View {
     @StateObject var viewModel = InfoViewModel()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 Section(header: Text("JavaZone"), content: {
                     ForEach(viewModel.shortItems, id: \.self) { infoItem in

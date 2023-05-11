@@ -54,6 +54,7 @@
 		83AA8DED242B4F21007E3339 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA8DEC242B4F21007E3339 /* ShareSheet.swift */; };
 		83AD08E32A0CC29A00BEAD0D /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 83AD08E22A0CC29A00BEAD0D /* SDWebImageSVGCoder */; };
 		83AD08E62A0CC2DE00BEAD0D /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 83AD08E52A0CC2DE00BEAD0D /* SDWebImageSwiftUI */; };
+		83AD08E82A0CE06300BEAD0D /* View+FirstAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AD08E72A0CE06300BEAD0D /* View+FirstAppear.swift */; };
 		83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332223FAF74200F3FCB4 /* SearchView.swift */; };
 		83B3332523FAF8A900F3FCB4 /* Search+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */; };
 		83B361A226E8E24600CFB552 /* DayPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B361A126E8E24600CFB552 /* DayPicker.swift */; };
@@ -134,6 +135,7 @@
 		83A827E3241507FB00DC7ADA /* JavaZoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JavaZoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A827E7241507FB00DC7ADA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83AA8DEC242B4F21007E3339 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		83AD08E72A0CE06300BEAD0D /* View+FirstAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+FirstAppear.swift"; sourceTree = "<group>"; };
 		83B3332223FAF74200F3FCB4 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search+Keyboard.swift"; sourceTree = "<group>"; };
 		83B361A126E8E24600CFB552 /* DayPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPicker.swift; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 				83DF4C5E23FBFF70003FE5F1 /* String+Utils.swift */,
 				835BD63226FF2BC200EA4416 /* View+Rotation.swift */,
 				83D909AF270DEDB700101D1D /* Text+Copyable.swift */,
+				83AD08E72A0CE06300BEAD0D /* View+FirstAppear.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				83B3332523FAF8A900F3FCB4 /* Search+Keyboard.swift in Sources */,
 				83E322AE2403F5DC0044094C /* RemoteInfo.swift in Sources */,
 				835BD63E2703B77A00EA4416 /* InfoViewModel.swift in Sources */,
+				83AD08E82A0CE06300BEAD0D /* View+FirstAppear.swift in Sources */,
 				837E9BB424058D1000B74714 /* SessionsListView.swift in Sources */,
 				83E322B02403FC090044094C /* Info.swift in Sources */,
 				834FF1E92401DC0300432129 /* Log+Utils.swift in Sources */,
@@ -733,6 +737,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 6.0;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = net.chrissearle.incogito.JavaZone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -759,6 +764,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 6.0;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = net.chrissearle.incogito.JavaZone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

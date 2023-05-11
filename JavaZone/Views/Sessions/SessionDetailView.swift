@@ -125,7 +125,7 @@ struct SessionDetailView_Previews: PreviewProvider {
         speaker.twitter = "@TestTwitter"
         speaker.session = session
         
-        return NavigationView {
+        return NavigationStack {
             SessionDetailView(session: session, pending: false)
         }
     }

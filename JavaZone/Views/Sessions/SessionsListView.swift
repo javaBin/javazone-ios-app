@@ -10,6 +10,11 @@ struct RelevantSessions : Equatable {
     var pending: [Session]
 }
 
+struct SessionWithPending : Hashable {
+    var session: Session
+    var pending: Bool
+}
+
 struct SessionsListView: View {
     let logger = Logger(subsystem: Logger.subsystem, category: "AppDelegate")
     
@@ -29,8 +34,7 @@ struct SessionsListView: View {
     
     @State private var alertItem : AlertItem?
     
-    @State private var sessionIdFromNotification : String?
-    @State private var activateSessionFromNotification = false
+    @State private var path: [SessionWithPending] = []
     
     var config : Config {
         Config.sharedConfig
@@ -83,13 +87,6 @@ struct SessionsListView: View {
         return !self.sessions.pending.isEmpty
     }
     
-    var selectedSession : Session? {
-        return self.allSessions
-            .filter { (session) -> Bool in
-                session.sessionId == $sessionIdFromNotification.wrappedValue ?? nil
-            }.first
-    }
-    
     func refreshSessions() {
         SessionService.refresh() { (status, message, logMessage) in
             logger.debug("Refresh said: \(status.rawValue, privacy: .public), \(message, privacy: .public), \(logMessage, privacy: .public)")
@@ -105,12 +102,12 @@ struct SessionsListView: View {
             self.isShowingPullToRefresh = false
             self.blockingRefresh = false
             
-            UserDefaults.standard.set(Date(), forKey: "SessionLastUpdate")
+            UserDefaults.standard.set(Date(), forKey: "NSessionLastUpdate")
         }
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
             if (self.isPending && favouritesOnly) {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("The time/date and room schedule is not yet available.")
@@ -132,7 +129,7 @@ struct SessionsListView: View {
                             ForEach(self.sessions.sections, id: \.self) { section in
                                 Section(header: Text(section)) {
                                     ForEach(self.sessions.grouped[section] ?? [], id: \.self) { session in
-                                        SessionNavLink(session: session)
+                                        SessionNavLink(sessionWithPending: SessionWithPending(session: session, pending: false))
                                     }
                                 }
                             }
@@ -145,15 +142,18 @@ struct SessionsListView: View {
                                     
                                 } else {
                                     ForEach(self.sessions.sessions, id: \.self) { session in
-                                        SessionNavLink(session: session, pending: true)
+                                        SessionNavLink(sessionWithPending: SessionWithPending(session: session, pending: true))
                                     }
                                 }
                             }
                         }
+                        .navigationDestination(for: SessionWithPending.self, destination: { sessionWithPending in
+                            SessionDetailView(session: sessionWithPending.session, pending: sessionWithPending.pending)
+                        })
                         .onChange(of: self.sessions, perform: { _ in
                             scrollTo(scroll: scrollProxy)
                         })
-                        .onAppear() {
+                        .onFirstAppear() {
                             appear()
                             scrollTo(scroll: scrollProxy)
                         }
@@ -175,30 +175,16 @@ struct SessionsListView: View {
                         }
                         .navigationTitle(title)
                     }
-                    
-                    if ($sessionIdFromNotification.wrappedValue != nil) {
-                        if let session = selectedSession {
-                            NavigationLink(
-                                destination: SessionDetailView(session: session, pending: false),
-                                isActive: $activateSessionFromNotification,
-                                label: {
-                                    EmptyView()
-                                }
-                            )
-                        } else {
-                            EmptyView()
-                        }
-                    } else {
-                        EmptyView()
-                    }
                 }
-                Text("Please choose a session from the list")
             }
         }
         .onReceive(sessionPublisher) { notification in
             if let sessionId = notification.object as? String {
-                self.sessionIdFromNotification = sessionId
-                self.activateSessionFromNotification = true
+                if let session = self.sessions.pending.first(where: { $0.sessionId == sessionId } ) {
+                    self.path = [SessionWithPending(session: session, pending: true)]
+                } else if let session = self.sessions.sessions.first(where: { $0.sessionId == sessionId } ) {
+                    self.path = [SessionWithPending(session: session, pending: false)]
+                }
             }
         }
     }
