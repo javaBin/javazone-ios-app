@@ -29,7 +29,7 @@ struct SearchView: View {
 
             if showCancelButton  {
                 Button("Cancel") {
-                        UIApplication.shared.endEditing(true)
+                        endEditing(true)
                         self.searchText = ""
                 }
                 .foregroundColor(Color(.systemBlue))
