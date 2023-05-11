@@ -4,6 +4,7 @@ import CoreData
 public class Partner:NSManagedObject {
     @NSManaged public var name:String?
     @NSManaged public var url:String?
+    @NSManaged public var logoUrl:String?
 
     public var wrappedName : String {
         return self.name ?? ""
@@ -19,6 +20,22 @@ public class Partner:NSManagedObject {
         }
         
         return nil
+    }
+    
+    public var wrappedLogoUrl : String {
+        return self.logoUrl ?? ""
+    }
+    
+    public var wrappedLogo : URL? {
+        if let url = self.logoUrl {
+            return URL(string: url)
+        }
+        
+        return nil
+    }
+
+    public var isSVG: Bool {
+        return wrappedLogoUrl.count > 4 && wrappedLogoUrl.suffix(3).description.localizedCaseInsensitiveContains("svg")
     }
 }
 

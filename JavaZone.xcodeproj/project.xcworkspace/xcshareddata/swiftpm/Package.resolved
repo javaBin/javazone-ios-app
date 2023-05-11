@@ -19,6 +19,33 @@
       }
     },
     {
+      "identity" : "sdwebimage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImage.git",
+      "state" : {
+        "revision" : "3289629ef6cbf1ad8c3d1dccf0cf09ac97547cd6",
+        "version" : "5.15.7"
+      }
+    },
+    {
+      "identity" : "sdwebimagesvgcoder",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImageSVGCoder.git",
+      "state" : {
+        "revision" : "950167445ab703740569869c8b7510efc9d09a26",
+        "version" : "1.7.0"
+      }
+    },
+    {
+      "identity" : "sdwebimageswiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI",
+      "state" : {
+        "revision" : "e837c37d45449fbd3b4745c10c5b5274e73edead",
+        "version" : "2.2.3"
+      }
+    },
+    {
       "identity" : "swiftui-introspect",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/siteline/SwiftUI-Introspect.git",
@@ -34,15 +61,6 @@
       "state" : {
         "revision" : "fa8fac7b5eb5c729983a8bef65f094b5e0d12014",
         "version" : "0.0.3"
-      }
-    },
-    {
-      "identity" : "waterfallgrid",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/paololeonardi/WaterfallGrid",
-      "state" : {
-        "revision" : "944aa82832ed5a9eaaf50862cdd53e3c10ab55eb",
-        "version" : "1.0.1"
       }
     }
   ],

@@ -1,6 +1,7 @@
 import UIKit
 import CoreData
 import os.log
+import SDWebImageSVGCoder
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -12,6 +13,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         cleanUpOldImages()
         cleanUpOldBadge()
+        
+        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
         
         return true
     }

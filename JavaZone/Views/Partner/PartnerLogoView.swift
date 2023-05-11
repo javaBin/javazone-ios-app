@@ -2,21 +2,47 @@ import SwiftUI
 import CoreData
 import RemoteImage
 import os.log
+import SDWebImageSwiftUI
 
 struct PartnerLogoView: View {
     var partner: Partner
     
     var body: some View {
         VStack {
-            Image("partner_\(partner.wrappedName.slug())")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .onTapGesture {
-                    self.tapped()
+            if (partner.isSVG) {
+                WebImage(url: partner.wrappedLogo, options: [], context: [.imageThumbnailPixelSize : CGSize.zero])
+                    .placeholder {ProgressView()}
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .onTapGesture {
+                        self.tapped()
+                    }
+            } else {
+                AsyncImage(url: partner.wrappedLogo, content: { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                    case .failure:
+                        Color.red
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .onTapGesture {
+                                self.tapped()
+                            }
+                        
+                        
+                    @unknown default:
+                        fatalError()
+                    }
+                    
                 }
+
+                )
+
+            }
         }
-        .background(Color(red: 0.17, green: 0.68, blue: 0.84))
-        .cornerRadius(8)
     }
     
     func tapped() {

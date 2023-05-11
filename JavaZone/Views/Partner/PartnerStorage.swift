@@ -33,11 +33,12 @@ class PartnerStorage : NSObject, ObservableObject {
         }
     }
     
-    func add(name: String, partnerUrl: String) -> Partner {
+    func add(name: String, partnerUrl: String, logoUrl: String) -> Partner {
         let partner = Partner(context: moc)
         
         partner.name = name
         partner.url = partnerUrl
+        partner.logoUrl = logoUrl
         
         return partner
     }

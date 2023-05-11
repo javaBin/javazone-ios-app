@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		83152E8A26CCF37E00DB1693 /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 83152E8926CCF37E00DB1693 /* SwiftUIRefresh */; };
-		83152E8C26CD078B00DB1693 /* partners.json in Resources */ = {isa = PBXBuildFile; fileRef = 83152E8B26CD078B00DB1693 /* partners.json */; };
 		831B782123F526BF00A45C70 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B782023F526BF00A45C70 /* SessionService.swift */; };
 		831FC33B23FBE2B100BB12A3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 831FC33A23FBE2B100BB12A3 /* Alamofire */; };
 		83304597242C941500FAE5E2 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83304596242C941500FAE5E2 /* ConfigService.swift */; };
@@ -42,7 +41,6 @@
 		837E9BB824058D1000B74714 /* InfoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BA924058D1000B74714 /* InfoItemView.swift */; };
 		837E9BB924058D1000B74714 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BAA24058D1000B74714 /* InfoView.swift */; };
 		837E9BBA24058D1000B74714 /* InfoItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BAB24058D1000B74714 /* InfoItemListView.swift */; };
-		837E9BBF2405BF1000B74714 /* WaterfallGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 837E9BBE2405BF1000B74714 /* WaterfallGrid */; };
 		837E9BC124065D3F00B74714 /* Partner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BC024065D3F00B74714 /* Partner.swift */; };
 		837E9BC32406607F00B74714 /* PartnerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BC22406607F00B74714 /* PartnerService.swift */; };
 		837E9BC52406612B00B74714 /* RemotePartner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BC42406612B00B74714 /* RemotePartner.swift */; };
@@ -54,6 +52,8 @@
 		838048422407BF1600749E82 /* Stickers.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 838048412407BF1600749E82 /* Stickers.xcassets */; };
 		8397433923FD23110024E80B /* ExternalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397433823FD23110024E80B /* ExternalLink.swift */; };
 		83AA8DED242B4F21007E3339 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA8DEC242B4F21007E3339 /* ShareSheet.swift */; };
+		83AD08E32A0CC29A00BEAD0D /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 83AD08E22A0CC29A00BEAD0D /* SDWebImageSVGCoder */; };
+		83AD08E62A0CC2DE00BEAD0D /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 83AD08E52A0CC2DE00BEAD0D /* SDWebImageSwiftUI */; };
 		83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332223FAF74200F3FCB4 /* SearchView.swift */; };
 		83B3332523FAF8A900F3FCB4 /* Search+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */; };
 		83B361A226E8E24600CFB552 /* DayPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B361A126E8E24600CFB552 /* DayPicker.swift */; };
@@ -63,7 +63,6 @@
 		83C8D17B23F5367E008322DA /* RemoteSessionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17A23F5367E008322DA /* RemoteSessionList.swift */; };
 		83C8D17E23F54636008322DA /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17D23F54636008322DA /* Session.swift */; };
 		83C8D18023F5463F008322DA /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17F23F5463F008322DA /* Speaker.swift */; };
-		83CF9E4C27047DB60088B789 /* Partners.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83CF9E4B27047DB60088B789 /* Partners.xcassets */; };
 		83D909B0270DEDB800101D1D /* Text+Copyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D909AF270DEDB700101D1D /* Text+Copyable.swift */; };
 		83DBDAE323F729A200767916 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DBDAE223F729A200767916 /* Date+Utils.swift */; };
 		83DBDAE823F733B800767916 /* RemoteImage in Frameworks */ = {isa = PBXBuildFile; productRef = 83DBDAE723F733B800767916 /* RemoteImage */; };
@@ -86,7 +85,6 @@
 
 /* Begin PBXFileReference section */
 		8310973B270B078C009A375A /* JavaZone 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "JavaZone 3.xcdatamodel"; sourceTree = "<group>"; };
-		83152E8B26CD078B00DB1693 /* partners.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = partners.json; sourceTree = "<group>"; };
 		831B782023F526BF00A45C70 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		83304596242C941500FAE5E2 /* ConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigService.swift; sourceTree = "<group>"; };
 		834FF1BC23FFCBFE00432129 /* LicenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenceView.swift; sourceTree = "<group>"; };
@@ -146,7 +144,6 @@
 		83C8D17D23F54636008322DA /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		83C8D17F23F5463F008322DA /* Speaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
 		83CD3DFB29C9947300120ACE /* JavaZone 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "JavaZone 4.xcdatamodel"; sourceTree = "<group>"; };
-		83CF9E4B27047DB60088B789 /* Partners.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Partners.xcassets; sourceTree = "<group>"; };
 		83D909AF270DEDB700101D1D /* Text+Copyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Copyable.swift"; sourceTree = "<group>"; };
 		83DBDAE223F729A200767916 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
 		83DBDAE923F741E800767916 /* FavouriteToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteToggleView.swift; sourceTree = "<group>"; };
@@ -163,9 +160,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83AD08E62A0CC2DE00BEAD0D /* SDWebImageSwiftUI in Frameworks */,
 				83152E8A26CCF37E00DB1693 /* SwiftUIRefresh in Frameworks */,
 				831FC33B23FBE2B100BB12A3 /* Alamofire in Frameworks */,
-				837E9BBF2405BF1000B74714 /* WaterfallGrid in Frameworks */,
+				83AD08E32A0CC29A00BEAD0D /* SDWebImageSVGCoder in Frameworks */,
 				83DBDAE823F733B800767916 /* RemoteImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,10 +233,8 @@
 				8350E64323F5222B0085C1F3 /* AppDelegate.swift */,
 				8350E64523F5222B0085C1F3 /* SceneDelegate.swift */,
 				8350E64C23F5222D0085C1F3 /* Assets.xcassets */,
-				83CF9E4B27047DB60088B789 /* Partners.xcassets */,
 				8350E65423F5222D0085C1F3 /* Info.plist */,
 				8350E64E23F5222D0085C1F3 /* Preview Content */,
-				83152E8B26CD078B00DB1693 /* partners.json */,
 				835BD63F270434BB00EA4416 /* licences.json */,
 			);
 			path = JavaZone;
@@ -393,8 +389,9 @@
 			packageProductDependencies = (
 				83DBDAE723F733B800767916 /* RemoteImage */,
 				831FC33A23FBE2B100BB12A3 /* Alamofire */,
-				837E9BBE2405BF1000B74714 /* WaterfallGrid */,
 				83152E8926CCF37E00DB1693 /* SwiftUIRefresh */,
+				83AD08E22A0CC29A00BEAD0D /* SDWebImageSVGCoder */,
+				83AD08E52A0CC2DE00BEAD0D /* SDWebImageSwiftUI */,
 			);
 			productName = JavaZone;
 			productReference = 8350E64023F5222B0085C1F3 /* JavaZone.app */;
@@ -468,8 +465,9 @@
 			packageReferences = (
 				83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */,
 				831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				837E9BBD2405BF1000B74714 /* XCRemoteSwiftPackageReference "WaterfallGrid" */,
 				83152E8826CCF37E00DB1693 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
+				83AD08E12A0CC29A00BEAD0D /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
+				83AD08E42A0CC2DE00BEAD0D /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 8350E64123F5222B0085C1F3 /* Products */;
 			projectDirPath = "";
@@ -487,9 +485,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83152E8C26CD078B00DB1693 /* partners.json in Resources */,
 				8350E65023F5222D0085C1F3 /* Preview Assets.xcassets in Resources */,
-				83CF9E4C27047DB60088B789 /* Partners.xcassets in Resources */,
 				8350E64D23F5222D0085C1F3 /* Assets.xcassets in Resources */,
 				835BD640270434BB00EA4416 /* licences.json in Resources */,
 			);
@@ -646,7 +642,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -706,7 +702,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -730,6 +726,7 @@
 				DEVELOPMENT_TEAM = X4FF6CYH8M;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = JavaZone/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -755,6 +752,7 @@
 				DEVELOPMENT_TEAM = X4FF6CYH8M;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = JavaZone/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -902,12 +900,20 @@
 				minimumVersion = 5.4.0;
 			};
 		};
-		837E9BBD2405BF1000B74714 /* XCRemoteSwiftPackageReference "WaterfallGrid" */ = {
+		83AD08E12A0CC29A00BEAD0D /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/paololeonardi/WaterfallGrid";
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSVGCoder.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				kind = exactVersion;
+				version = 1.7.0;
+			};
+		};
+		83AD08E42A0CC2DE00BEAD0D /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = exactVersion;
+				version = 2.2.3;
 			};
 		};
 		83DBDAE623F733B800767916 /* XCRemoteSwiftPackageReference "RemoteImage" */ = {
@@ -931,10 +937,15 @@
 			package = 831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
-		837E9BBE2405BF1000B74714 /* WaterfallGrid */ = {
+		83AD08E22A0CC29A00BEAD0D /* SDWebImageSVGCoder */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 837E9BBD2405BF1000B74714 /* XCRemoteSwiftPackageReference "WaterfallGrid" */;
-			productName = WaterfallGrid;
+			package = 83AD08E12A0CC29A00BEAD0D /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
+			productName = SDWebImageSVGCoder;
+		};
+		83AD08E52A0CC2DE00BEAD0D /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83AD08E42A0CC2DE00BEAD0D /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 		83DBDAE723F733B800767916 /* RemoteImage */ = {
 			isa = XCSwiftPackageProductDependency;

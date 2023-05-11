@@ -1,17 +1,22 @@
 import SwiftUI
-import WaterfallGrid
 
 struct PartnerListView: View {
     @StateObject private var viewModel = PartnerViewModel()
     
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
     var body: some View {
         VStack {
             ScrollView {
-                WaterfallGrid(viewModel.displayPartners, id: \.self) { partner in
-                    PartnerLogoView(partner: partner)
-                }
-                .gridStyle(columns: viewModel.cols, spacing: 10)
-                .padding()
+                LazyVGrid(columns: columns, spacing: 10) {
+                    ForEach(viewModel.displayPartners, id: \.self) { partner in
+                        PartnerLogoView(partner: partner)
+                    }
+                }.padding()
             }
             .onAppear(perform: {
                 self.viewModel.refreshPartners()
@@ -33,9 +38,8 @@ struct PartnerListView: View {
             }
             Spacer()
         }
+        .background(Color(red: 0.17, green: 0.68, blue: 0.84))
     }
-
-
 }
 
 struct PartnerListView_Previews: PreviewProvider {
