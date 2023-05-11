@@ -436,8 +436,9 @@
 		8350E63823F5222B0085C1F3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "Chris Searle";
 				TargetAttributes = {
 					8350E63F23F5222B0085C1F3 = {
