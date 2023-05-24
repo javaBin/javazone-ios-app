@@ -31,7 +31,7 @@ class PartnerViewModel : ObservableObject {
     
     func refreshPartners() async {
         do {
-            let status = try await SessionService.refresh()
+            let status = try await PartnerService.refresh()
             
             logger.debug("Refresh said: \(status.rawValue, privacy: .public)")
         } catch  let error as ServiceError {
