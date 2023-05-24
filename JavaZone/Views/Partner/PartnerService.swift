@@ -65,7 +65,7 @@ class PartnerService {
                         let partner = partnerStorage.add(
                             name: name.trimmingCharacters(in: .whitespacesAndNewlines),
                             partnerUrl: url.trimmingCharacters(in: .whitespacesAndNewlines),
-                            logoUrl: logoUrl.trimmingCharacters(in: .whitespacesAndNewlines)
+                            logoUrl: buildLogoUrl(sitePrefix: config.web, logoUrl: logoUrl)
                         )
                         
                         newPartners.append(partner)
@@ -89,6 +89,17 @@ class PartnerService {
                 onComplete(.success(.OK))
             }
         }
+    }
+    
+    static func buildLogoUrl(sitePrefix: String, logoUrl: String) -> String {
+        var logoPath = logoUrl.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if logoPath.hasPrefix("/") {
+            logoPath.removeFirst()
+        }
+        
+        return "\(sitePrefix)\(logoPath)"
+        
     }
     
     static func getDocumentsDirectory() -> URL {
