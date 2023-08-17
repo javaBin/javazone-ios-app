@@ -14,6 +14,31 @@ struct SessionWithPending : Hashable {
     var pending: Bool
 }
 
+struct PendingView: View {
+    var title: String
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("The time/date and room schedule is not yet available.")
+            Text("You will be able to add sessions to your personal schedule when the time/date and room schedule has been published.")
+            Spacer()
+        }
+        .padding()
+        .navigationTitle(title)
+    }
+}
+
+struct SessionListEntries: View {
+    var sessions: [Session]
+    var pending: Bool
+    
+    var body: some View {
+        ForEach(sessions, id: \.self) { session in
+            SessionNavLink(sessionWithPending: SessionWithPending(session: session, pending: pending))
+        }
+    }
+}
+
 struct SessionsListView: View {
     let logger = Logger(subsystem: Logger.subsystem, category: "AppDelegate")
     
@@ -32,7 +57,7 @@ struct SessionsListView: View {
     
     @State private var alertItem : AlertItem?
     
-    @State private var path: [SessionWithPending] = []
+    @State private var selectedSession: SessionWithPending?
     
     var config : Config {
         Config.sharedConfig
@@ -113,83 +138,78 @@ struct SessionsListView: View {
     }
     
     var body: some View {
-        NavigationStack(path: $path) {
-            if (self.isPending && favouritesOnly) {
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("The time/date and room schedule is not yet available.")
-                    Text("You will be able to add sessions to your personal schedule when the time/date and room schedule has been published.")
-                    Spacer()
-                }
-                .padding()
-                .navigationTitle(title)
-            } else {
-                VStack {
-                    if (!self.isPending) {
-                        DayPicker(selectorIndex: $selectorIndex)
-                    }
-                    
-                    SearchView(searchText: $searchText)
-                    
-                    ScrollViewReader { scrollProxy in
-                        List {
-                            ForEach(self.sessions.sections, id: \.self) { section in
-                                Section(header: Text(section)) {
-                                    ForEach(self.sessions.grouped[section] ?? [], id: \.self) { session in
-                                        SessionNavLink(sessionWithPending: SessionWithPending(session: session, pending: false))
+        NavigationSplitView {
+            NavigationStack {
+                if (self.isPending && favouritesOnly) {
+                    PendingView(title: title)
+                } else {
+                    VStack {
+                        if (!self.isPending) {
+                            DayPicker(selectorIndex: $selectorIndex)
+                        }
+                        
+                        SearchView(searchText: $searchText)
+                        
+                        ScrollViewReader { scrollProxy in
+                            List(selection: $selectedSession) {
+                                ForEach(self.sessions.sections, id: \.self) { section in
+                                    Section(header: Text(section)) {
+                                        SessionListEntries(sessions: self.sessions.grouped[section] ?? [], pending: false)
+                                    }
+                                }
+                                
+                                if (self.isPending) {
+                                    if (favouritesOnly) {
+                                        Text("The session program is not yet complete")
+                                        Text("Rooms and times are still pending")
+                                        Text("You will be able to add sessions to your schedule when the programme is finalized.")
+                                        
+                                    } else {
+                                        SessionListEntries(sessions: self.sessions.sessions, pending: true)
                                     }
                                 }
                             }
-                            
-                            if (self.isPending) {
-                                if (favouritesOnly) {
-                                    Text("The session program is not yet complete")
-                                    Text("Rooms and times are still pending")
-                                    Text("You will be able to add sessions to your schedule when the programme is finalized.")
-                                    
-                                } else {
-                                    ForEach(self.sessions.sessions, id: \.self) { session in
-                                        SessionNavLink(sessionWithPending: SessionWithPending(session: session, pending: true))
-                                    }
-                                }
+                            .onChange(of: self.sessions, perform: { _ in
+                                scrollTo(scroll: scrollProxy)
+                            })
+                            .onFirstAppear() {
+                                appear()
+                                scrollTo(scroll: scrollProxy)
                             }
-                        }
-                        .navigationDestination(for: SessionWithPending.self, destination: { sessionWithPending in
-                            SessionDetailView(session: sessionWithPending.session, pending: sessionWithPending.pending)
-                        })
-                        .onChange(of: self.sessions, perform: { _ in
-                            scrollTo(scroll: scrollProxy)
-                        })
-                        .onFirstAppear() {
-                            appear()
-                            scrollTo(scroll: scrollProxy)
-                        }
-                        .resignKeyboardOnDragGesture()
-                        .refreshable(action: {
-                            await self.refreshSessions()
-                        })
-                        .alert(item: $alertItem) { alertItem in
-                            Alert(
-                                title: alertItem.title,
-                                message: alertItem.message,
-                                dismissButton: Alert.Button.default(
-                                    alertItem.buttonTitle,
-                                    action: {
-                                        AlertContext.processAlertItem(alertItem: alertItem)
-                                    }
+                            .resignKeyboardOnDragGesture()
+                            .refreshable(action: {
+                                await self.refreshSessions()
+                            })
+                            .alert(item: $alertItem) { alertItem in
+                                Alert(
+                                    title: alertItem.title,
+                                    message: alertItem.message,
+                                    dismissButton: Alert.Button.default(
+                                        alertItem.buttonTitle,
+                                        action: {
+                                            AlertContext.processAlertItem(alertItem: alertItem)
+                                        }
+                                    )
                                 )
-                            )
+                            }
+                            .navigationTitle(title)
                         }
-                        .navigationTitle(title)
                     }
                 }
+            }
+        } detail: {
+            if let selectedSession = selectedSession {
+                SessionDetailView(session: selectedSession.session, pending: selectedSession.pending)
+            } else {
+                Text("Please choose a session")
             }
         }
         .onReceive(sessionPublisher) { notification in
             if let sessionId = notification.object as? String {
                 if let session = self.sessions.pending.first(where: { $0.sessionId == sessionId } ) {
-                    self.path = [SessionWithPending(session: session, pending: true)]
+                    self.selectedSession = SessionWithPending(session: session, pending: true)
                 } else if let session = self.sessions.sessions.first(where: { $0.sessionId == sessionId } ) {
-                    self.path = [SessionWithPending(session: session, pending: false)]
+                    self.selectedSession = SessionWithPending(session: session, pending: false)
                 }
             }
         }
