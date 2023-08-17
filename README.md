@@ -31,18 +31,3 @@ This application uses SwiftPackageManager for its dependencies.
 ### Fastlane issues
 
 Fastlane screenshot support requires a working UITest - which doesn't seem to work well with SwiftUI just yet. Things like the back button on NavigationView are ignored by the UITest system. So we will not be using fastlane for screenshots until this is better supported.
-
----
-
-## Building etc
-
-### Partner Logos
-
-- Download new/updated SVGs from the javazone site.
-- Open them in illustrator
-- File > Export > Export for screens
-- Formats: 1x, 2x and 3x with Suffixes "", "@2x", "@3x" and Format PNG
-
-Add them to the Partners asset catalog (as Image Sets)
-
-Update the partners.json file from src/pages/Partners/PartnerList.ts in the current javazone web project
