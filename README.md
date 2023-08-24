@@ -38,9 +38,11 @@ Fastlane screenshot support requires a working UITest - which doesn't seem to wo
 
 Set the following environment variables:
 
-APPLE_ID=
-SLACK_URL=
-FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD=
+```
+APPLE_ID=<your apple id>
+SLACK_URL=<URL for webhook to post to app channel on slack>
+FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD=<App specific password for your user (can be generated on appleid.apple.com) - provisioning can use 2FA but upload cannot>
+```
 
 Run `fastlane beta` to submit to app store for testing.
 
