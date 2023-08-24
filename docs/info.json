@@ -1,5 +1,13 @@
 [
   {
     "title": "Wi-Fi - SSID: JavaZone2023"
+  },
+  {
+    "title": "Discord",
+    "body": "Join us on Discord",
+    "url": {
+      "title": "Discord invitation link",
+      "url": "https://discord.gg/Xh5SWEKghr"
+    }
   }
 ]
