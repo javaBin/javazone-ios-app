@@ -31,3 +31,17 @@ This application uses SwiftPackageManager for its dependencies.
 ### Fastlane issues
 
 Fastlane screenshot support requires a working UITest - which doesn't seem to work well with SwiftUI just yet. Things like the back button on NavigationView are ignored by the UITest system. So we will not be using fastlane for screenshots until this is better supported.
+
+---
+
+### Fastlane submission
+
+Set the following environment variables:
+
+APPLE_ID=
+SLACK_URL=
+FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD=
+
+Run `fastlane beta` to submit to app store for testing.
+
+Run `fastlane releae` to submit to app store for publication.
