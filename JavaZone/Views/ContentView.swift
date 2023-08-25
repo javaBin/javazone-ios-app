@@ -31,7 +31,7 @@ struct ContentView: View {
                         }
                     }
                     .tag(2)
-                PartnerListView()
+                PartnerWebView()
                     .font(.title)
                     .tabItem {
                         VStack {
@@ -41,18 +41,6 @@ struct ContentView: View {
                     }
                     .tag(3)
             }
-            .onChange(of: selection, perform: { [selection] newSelection in
-                // Open link for partners and return to whatever was the previous tab
-                if (newSelection == 3) {
-                    self.selection = selection
-
-                    ConfigService.refreshConfig() {
-                        let config = Config.sharedConfig
-                        
-                        UIApplication.shared.open(URL(string:"\(config.web)partners")!)
-                    }
-                }
-            })
             .onAppear {
                 if #available(iOS 15.0, *) {
                     let appearance = UITabBarAppearance()
