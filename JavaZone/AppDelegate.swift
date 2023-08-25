@@ -1,7 +1,6 @@
 import UIKit
 import CoreData
 import os.log
-//import SDWebImageSVGCoder
 import Flurry_iOS_SDK
 
 @UIApplicationMain
@@ -15,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let sb = FlurrySessionBuilder()
                   .build(logLevel: FlurryLogLevel.all)
                   .build(crashReportingEnabled: true)
-                  .build(appVersion: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
+                  .build(appVersion: (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String))
                   .build(iapReportingEnabled: true)
         
         Flurry.startSession(apiKey: EnvConfig.flurryApiKey, sessionBuilder: sb)
@@ -23,8 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         cleanUpOldImages()
         cleanUpOldBadge()
-        
-        //SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
         
         return true
     }

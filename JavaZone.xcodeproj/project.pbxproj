@@ -21,9 +21,9 @@
 		8350E64D23F5222D0085C1F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8350E64C23F5222D0085C1F3 /* Assets.xcassets */; };
 		8350E65023F5222D0085C1F3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8350E64F23F5222D0085C1F3 /* Preview Assets.xcassets */; };
 		835382F32A98E102002142A3 /* PartnerWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835382F22A98E102002142A3 /* PartnerWebView.swift */; };
+		835382F52A98EF92002142A3 /* TrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835382F42A98EF92002142A3 /* TrackingView.swift */; };
 		835BD62F26FF25EC00EA4416 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BD62E26FF25EC00EA4416 /* Alerts.swift */; };
 		835BD63326FF2BC200EA4416 /* View+Rotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BD63226FF2BC200EA4416 /* View+Rotation.swift */; };
-		835BD63726FF304400EA4416 /* InfoLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BD63626FF304400EA4416 /* InfoLogViewModel.swift */; };
 		835BD63E2703B77A00EA4416 /* InfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BD63D2703B77A00EA4416 /* InfoViewModel.swift */; };
 		835BD640270434BB00EA4416 /* licences.json in Resources */ = {isa = PBXBuildFile; fileRef = 835BD63F270434BB00EA4416 /* licences.json */; };
 		835BD642270436CA00EA4416 /* Licence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BD641270436CA00EA4416 /* Licence.swift */; };
@@ -45,14 +45,11 @@
 		837E9BB924058D1000B74714 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BAA24058D1000B74714 /* InfoView.swift */; };
 		837E9BBA24058D1000B74714 /* InfoItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BAB24058D1000B74714 /* InfoItemListView.swift */; };
 		837E9BC7240662B600B74714 /* ServiceCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BC6240662B600B74714 /* ServiceCommon.swift */; };
-		8380469126FB0E8100624463 /* InfoLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380469026FB0E8100624463 /* InfoLogView.swift */; };
 		8380469326FB4C3800624463 /* Date+UtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380469226FB4C3800624463 /* Date+UtilsTest.swift */; };
 		8380469526FB4E3900624463 /* String+UtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380469426FB4E3900624463 /* String+UtilsTest.swift */; };
 		838048422407BF1600749E82 /* Stickers.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 838048412407BF1600749E82 /* Stickers.xcassets */; };
 		8397433923FD23110024E80B /* ExternalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397433823FD23110024E80B /* ExternalLink.swift */; };
 		83AA8DED242B4F21007E3339 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AA8DEC242B4F21007E3339 /* ShareSheet.swift */; };
-		83AD08E32A0CC29A00BEAD0D /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 83AD08E22A0CC29A00BEAD0D /* SDWebImageSVGCoder */; };
-		83AD08E62A0CC2DE00BEAD0D /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 83AD08E52A0CC2DE00BEAD0D /* SDWebImageSwiftUI */; };
 		83AD08E82A0CE06300BEAD0D /* View+FirstAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AD08E72A0CE06300BEAD0D /* View+FirstAppear.swift */; };
 		83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332223FAF74200F3FCB4 /* SearchView.swift */; };
 		83B3332523FAF8A900F3FCB4 /* Search+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */; };
@@ -100,9 +97,9 @@
 		8350E65423F5222D0085C1F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		835382F12A98E09A002142A3 /* JavaZone 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "JavaZone 5.xcdatamodel"; sourceTree = "<group>"; };
 		835382F22A98E102002142A3 /* PartnerWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerWebView.swift; sourceTree = "<group>"; };
+		835382F42A98EF92002142A3 /* TrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingView.swift; sourceTree = "<group>"; };
 		835BD62E26FF25EC00EA4416 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		835BD63226FF2BC200EA4416 /* View+Rotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Rotation.swift"; sourceTree = "<group>"; };
-		835BD63626FF304400EA4416 /* InfoLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLogViewModel.swift; sourceTree = "<group>"; };
 		835BD63D2703B77A00EA4416 /* InfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewModel.swift; sourceTree = "<group>"; };
 		835BD63F270434BB00EA4416 /* licences.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = licences.json; sourceTree = "<group>"; };
 		835BD641270436CA00EA4416 /* Licence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Licence.swift; sourceTree = "<group>"; };
@@ -121,7 +118,6 @@
 		837E9BAA24058D1000B74714 /* InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		837E9BAB24058D1000B74714 /* InfoItemListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoItemListView.swift; sourceTree = "<group>"; };
 		837E9BC6240662B600B74714 /* ServiceCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCommon.swift; sourceTree = "<group>"; };
-		8380469026FB0E8100624463 /* InfoLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLogView.swift; sourceTree = "<group>"; };
 		8380469226FB4C3800624463 /* Date+UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+UtilsTest.swift"; sourceTree = "<group>"; };
 		8380469426FB4E3900624463 /* String+UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UtilsTest.swift"; sourceTree = "<group>"; };
 		8380483F2407BF1500749E82 /* JavaZone.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JavaZone.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,10 +155,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				837BC7102A98A70C00B9FB74 /* SystemConfiguration.framework in Frameworks */,
-				83AD08E62A0CC2DE00BEAD0D /* SDWebImageSwiftUI in Frameworks */,
 				831FC33B23FBE2B100BB12A3 /* Alamofire in Frameworks */,
 				837BC70D2A98A6C100B9FB74 /* Flurry in Frameworks */,
-				83AD08E32A0CC29A00BEAD0D /* SDWebImageSVGCoder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,11 +280,10 @@
 				835BD6492704390D00EA4416 /* Licence */,
 				837E9BAB24058D1000B74714 /* InfoItemListView.swift */,
 				837E9BA924058D1000B74714 /* InfoItemView.swift */,
-				8380469026FB0E8100624463 /* InfoLogView.swift */,
-				835BD63626FF304400EA4416 /* InfoLogViewModel.swift */,
 				83E322A92403F5730044094C /* InfoService.swift */,
 				837E9BAA24058D1000B74714 /* InfoView.swift */,
 				835BD63D2703B77A00EA4416 /* InfoViewModel.swift */,
+				835382F42A98EF92002142A3 /* TrackingView.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -384,8 +377,6 @@
 			name = JavaZone;
 			packageProductDependencies = (
 				831FC33A23FBE2B100BB12A3 /* Alamofire */,
-				83AD08E22A0CC29A00BEAD0D /* SDWebImageSVGCoder */,
-				83AD08E52A0CC2DE00BEAD0D /* SDWebImageSwiftUI */,
 				837BC70C2A98A6C100B9FB74 /* Flurry */,
 			);
 			productName = JavaZone;
@@ -460,8 +451,6 @@
 			mainGroup = 8350E63723F5222B0085C1F3;
 			packageReferences = (
 				831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				83AD08E12A0CC29A00BEAD0D /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
-				83AD08E42A0CC2DE00BEAD0D /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				837BC70B2A98A6C100B9FB74 /* XCRemoteSwiftPackageReference "FlurrySwiftPackage" */,
 			);
 			productRefGroup = 8350E64123F5222B0085C1F3 /* Products */;
@@ -536,7 +525,6 @@
 				837BC7092A98A54F00B9FB74 /* EnvConfig.swift in Sources */,
 				834FF1E7240183E300432129 /* RemoteConfig.swift in Sources */,
 				837E9BBA24058D1000B74714 /* InfoItemListView.swift in Sources */,
-				8380469126FB0E8100624463 /* InfoLogView.swift in Sources */,
 				83C8D17B23F5367E008322DA /* RemoteSessionList.swift in Sources */,
 				837E9BC7240662B600B74714 /* ServiceCommon.swift in Sources */,
 				83304597242C941500FAE5E2 /* ConfigService.swift in Sources */,
@@ -554,7 +542,7 @@
 				83E322AA2403F5730044094C /* InfoService.swift in Sources */,
 				834FF1BD23FFCBFE00432129 /* LicenceView.swift in Sources */,
 				837E9BB924058D1000B74714 /* InfoView.swift in Sources */,
-				835BD63726FF304400EA4416 /* InfoLogViewModel.swift in Sources */,
+				835382F52A98EF92002142A3 /* TrackingView.swift in Sources */,
 				837E9BB324058D1000B74714 /* SessionDetailView.swift in Sources */,
 				835BD646270437D000EA4416 /* LicenceViewModel.swift in Sources */,
 				83C8D17E23F54636008322DA /* Session.swift in Sources */,
@@ -900,22 +888,6 @@
 				minimumVersion = 12.0.0;
 			};
 		};
-		83AD08E12A0CC29A00BEAD0D /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImageSVGCoder.git";
-			requirement = {
-				kind = exactVersion;
-				version = 1.7.0;
-			};
-		};
-		83AD08E42A0CC2DE00BEAD0D /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
-			requirement = {
-				kind = exactVersion;
-				version = 2.2.3;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -928,16 +900,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 837BC70B2A98A6C100B9FB74 /* XCRemoteSwiftPackageReference "FlurrySwiftPackage" */;
 			productName = Flurry;
-		};
-		83AD08E22A0CC29A00BEAD0D /* SDWebImageSVGCoder */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 83AD08E12A0CC29A00BEAD0D /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
-			productName = SDWebImageSVGCoder;
-		};
-		83AD08E52A0CC2DE00BEAD0D /* SDWebImageSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 83AD08E42A0CC2DE00BEAD0D /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
-			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 
