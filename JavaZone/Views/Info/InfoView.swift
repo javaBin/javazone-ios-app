@@ -23,13 +23,9 @@ struct InfoView: View {
                     NavigationLink(destination: LicenceListView()) {
                         Text("Licences")
                     }
-                    /*
-                    if #available(iOS 15, *) {
-                        NavigationLink(destination: InfoLogView()) {
-                            Text("App Logs")
-                        }
+                    NavigationLink(destination: TrackingView()) {
+                        Text("Crash Logging/Analytics")
                     }
-                     */
                 })
                 Section(header: Text("javaBin"), content: {
                     ExternalLink(title: "javaBin", url: URL(string: "https://www.java.no/")!)
