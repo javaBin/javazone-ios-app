@@ -4,18 +4,8 @@ struct CopyableViewModifier: ViewModifier {
     let text: String
     
     func body(content: Content) -> some View {
-        if #available(iOS 15, *) {
-            content
-                .textSelection(.enabled)
-        } else {
-            content
-                .contextMenu(ContextMenu(menuItems: {
-                    Button("Copy", action: {
-                        UIPasteboard.general.string = text
-                    })
-                }))
-            
-        }
+        content
+            .textSelection(.enabled)
     }
 }
 
