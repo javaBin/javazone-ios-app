@@ -36,6 +36,16 @@ extension WebView: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         webView.refreshControl?.endRefreshing()
     }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        
+        if let url = navigationAction.request.url, !url.absoluteString.contains("javazone") {
+            decisionHandler(.cancel)
+            UIApplication.shared.open(url)
+        } else {
+            decisionHandler(.allow)
+        }
+    }
 }
 
 extension WKWebView {
