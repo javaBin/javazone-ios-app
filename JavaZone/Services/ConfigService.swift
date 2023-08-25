@@ -22,7 +22,7 @@ class ConfigService {
             if let error = response.error {
                 logger.error("Unable to refresh config \(error.localizedDescription, privacy: .public)")
                 
-                Flurry.log(errorId: "ConfigRefreshFailed", message: "Unable to refresh config", error: error)
+                Flurry.log(errorId: "RefreshFailed", message: "Unable to refresh config", error: error)
                 Flurry.endTimedEvent(eventName: "RefreshConfig", parameters: nil)
 
                 onComplete()

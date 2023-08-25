@@ -1,4 +1,5 @@
 import SwiftUI
+import Flurry_iOS_SDK
 
 struct InfoItemView: View {
     var item : InfoItem
@@ -20,6 +21,10 @@ struct InfoItemView: View {
             }
             Spacer()
         }
+        .onAppear {
+            Flurry.log(eventName: "ScreenView_InfoItem", parameters: ["Item": item.title])
+        }
+
     }
 }
 

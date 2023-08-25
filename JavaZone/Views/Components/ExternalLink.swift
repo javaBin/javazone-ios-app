@@ -1,4 +1,5 @@
 import SwiftUI
+import Flurry_iOS_SDK
 
 struct ExternalLink: View {
     var title : String
@@ -8,6 +9,8 @@ struct ExternalLink: View {
     
     var body: some View {
         Button(action: {
+            Flurry.log(eventName: "ExternalLinkOpened", parameters: ["Link": self.url.absoluteString])
+            
             UIApplication.shared.open(self.url)
         }) {
             HStack {

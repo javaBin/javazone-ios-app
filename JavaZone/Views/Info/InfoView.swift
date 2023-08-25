@@ -1,4 +1,5 @@
 import SwiftUI
+import Flurry_iOS_SDK
 
 struct InfoView: View {
     @StateObject var viewModel = InfoViewModel()
@@ -37,6 +38,8 @@ struct InfoView: View {
                 viewModel.refreshItems(force: true)
             }
             .onAppear {
+                Flurry.log(eventName: "ScreenView_Info")
+
                 viewModel.refreshItems(force: false)
             }
         }

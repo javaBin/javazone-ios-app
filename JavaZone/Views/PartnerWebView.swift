@@ -1,5 +1,6 @@
 import SwiftUI
 import WebKit
+import Flurry_iOS_SDK
 
 struct PartnerWebViewRepresentable: UIViewRepresentable {
     var webView = WebView()
@@ -41,6 +42,9 @@ extension WebView: WKNavigationDelegate {
         
         if let url = navigationAction.request.url, !url.absoluteString.contains("javazone") {
             decisionHandler(.cancel)
+            
+            Flurry.log(eventName: "ExternalLinkOpened", parameters: ["Partner": url.absoluteString])
+            
             UIApplication.shared.open(url)
         } else {
             decisionHandler(.allow)
@@ -91,7 +95,11 @@ extension UIView {
 
 struct PartnerWebView: View {
     var body: some View {
-        PartnerWebViewRepresentable().background(Color.black)
+        PartnerWebViewRepresentable()
+            .background(Color.black)
+            .onAppear {
+                Flurry.log(eventName: "ScreenView_Partner")
+            }
     }
 }
 

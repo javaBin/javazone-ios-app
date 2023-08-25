@@ -1,12 +1,5 @@
-//
-//  TrackingView.swift
-//  JavaZone
-//
-//  Created by Chris Searle on 25/08/2023.
-//  Copyright © 2023 Chris Searle. All rights reserved.
-//
-
 import SwiftUI
+import Flurry_iOS_SDK
 
 struct TrackingView: View {
     var body: some View {
@@ -38,6 +31,10 @@ struct TrackingView: View {
                 .padding()
             Spacer()
         }
+        .onAppear {
+            Flurry.log(eventName: "ScreenView_Tracking")
+        }
+
 
     }
 }

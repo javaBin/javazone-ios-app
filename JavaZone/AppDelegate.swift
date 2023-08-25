@@ -20,9 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         Flurry.startSession(apiKey: EnvConfig.flurryApiKey, sessionBuilder: sb)
         Flurry.log(eventName: "Started")
         
-        cleanUpOldImages()
-        cleanUpOldBadge()
-        
         return true
     }
 
@@ -50,6 +47,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if let error = error as NSError? {
                 self.logger.error("Unable to load persistent stores \(error.localizedDescription, privacy: .public)")
 
+                Flurry.log(errorId: "PersistentContainerLoadFailed", message: "Unable to load persistent stores", error: error)
+                
                 // If we have no store - we're unable to do anything useful
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
@@ -69,6 +68,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 try context.save()
             } catch {
                 logger.error("Saving context failed \(error.localizedDescription, privacy: .public)")
+
+                Flurry.log(errorId: "ContextSaveFailed", message: "Saving context failed", error: error)
 
                 let nserror = error as NSError
 
@@ -95,40 +96,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         NotificationCenter.default.post(name: NSNotification.Name("DetailView"), object: sessionId)
         
         completionHandler()
-    }
-    
-    // MARK: - TidyUp
-    
-    func cleanUpOldBadge() {
-        if (Date().shouldUpdate(key: "LastValidBadgeScan", defaultDate: Date(timeIntervalSince1970: 0), maxSecs: 60 * 60 * 24 * 100)) {
-            UserDefaults.standard.removeObject(forKey: "CurrentBadge")
-        }
-    }
-
-    func cleanUpOldImages() {
-        let earliest = Date().addingTimeInterval(-10 * 24 * 60 * 60)
-
-        DispatchQueue.global(qos: .background).async {
-            guard let documentsUrl =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-
-            do {
-                let documents = try FileManager.default.contentsOfDirectory(at: documentsUrl,
-                                                                           includingPropertiesForKeys: nil,
-                                                                           options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
-               
-                for document in documents {
-                    if document.pathExtension == "png" {
-                        let creationDate = try FileManager.default.attributesOfItem(atPath: document.path)[FileAttributeKey.creationDate] as! Date
-
-                        if (creationDate < earliest) {
-                            try FileManager.default.removeItem(at: document)
-                        }
-                    }
-                }
-            } catch {
-                self.logger.error("An error occured cleaning up old image files \(error.localizedDescription, privacy: .public)")
-            }
-        }
     }
 }
 

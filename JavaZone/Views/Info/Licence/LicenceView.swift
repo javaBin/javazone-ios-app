@@ -1,4 +1,5 @@
 import SwiftUI
+import Flurry_iOS_SDK
 
 struct LicenceView: View {
     var licence : Licence
@@ -44,7 +45,11 @@ struct LicenceView: View {
                         Spacer()
                     }
                 }
-            }.navigationTitle(licence.name)
+            }
+            .navigationTitle(licence.name)
+            .onAppear {
+                Flurry.log(eventName: "ScreenView_Licence", parameters: ["Licence": licence.name])
+            }
         }
     }
 }
