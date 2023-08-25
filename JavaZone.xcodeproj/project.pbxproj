@@ -33,6 +33,8 @@
 		837BC7072A98A46F00B9FB74 /* EnvConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 837BC7042A98A46F00B9FB74 /* EnvConfig.xcconfig */; };
 		837BC7092A98A54F00B9FB74 /* EnvConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837BC7082A98A54F00B9FB74 /* EnvConfig.swift */; };
 		837BC70A2A98A54F00B9FB74 /* EnvConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837BC7082A98A54F00B9FB74 /* EnvConfig.swift */; };
+		837BC70D2A98A6C100B9FB74 /* Flurry in Frameworks */ = {isa = PBXBuildFile; productRef = 837BC70C2A98A6C100B9FB74 /* Flurry */; };
+		837BC7102A98A70C00B9FB74 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 837BC70F2A98A70C00B9FB74 /* SystemConfiguration.framework */; };
 		837E9BB224058D1000B74714 /* SessionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BA224058D1000B74714 /* SessionsView.swift */; };
 		837E9BB324058D1000B74714 /* SessionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BA324058D1000B74714 /* SessionDetailView.swift */; };
 		837E9BB424058D1000B74714 /* SessionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837E9BA424058D1000B74714 /* SessionsListView.swift */; };
@@ -108,6 +110,7 @@
 		835BD6472704382000EA4416 /* LicenceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenceListView.swift; sourceTree = "<group>"; };
 		837BC7042A98A46F00B9FB74 /* EnvConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = EnvConfig.xcconfig; sourceTree = "<group>"; };
 		837BC7082A98A54F00B9FB74 /* EnvConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvConfig.swift; sourceTree = "<group>"; };
+		837BC70F2A98A70C00B9FB74 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		837E9BA224058D1000B74714 /* SessionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionsView.swift; sourceTree = "<group>"; };
 		837E9BA324058D1000B74714 /* SessionDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDetailView.swift; sourceTree = "<group>"; };
 		837E9BA424058D1000B74714 /* SessionsListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionsListView.swift; sourceTree = "<group>"; };
@@ -155,8 +158,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				837BC7102A98A70C00B9FB74 /* SystemConfiguration.framework in Frameworks */,
 				83AD08E62A0CC2DE00BEAD0D /* SDWebImageSwiftUI in Frameworks */,
 				831FC33B23FBE2B100BB12A3 /* Alamofire in Frameworks */,
+				837BC70D2A98A6C100B9FB74 /* Flurry in Frameworks */,
 				83AD08E32A0CC29A00BEAD0D /* SDWebImageSVGCoder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,6 +205,7 @@
 				838048402407BF1500749E82 /* Duke */,
 				83A827E4241507FB00DC7ADA /* JavaZoneTests */,
 				8350E64123F5222B0085C1F3 /* Products */,
+				837BC70E2A98A70C00B9FB74 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -255,6 +261,7 @@
 		837BC70E2A98A70C00B9FB74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				837BC70F2A98A70C00B9FB74 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -379,6 +386,7 @@
 				831FC33A23FBE2B100BB12A3 /* Alamofire */,
 				83AD08E22A0CC29A00BEAD0D /* SDWebImageSVGCoder */,
 				83AD08E52A0CC2DE00BEAD0D /* SDWebImageSwiftUI */,
+				837BC70C2A98A6C100B9FB74 /* Flurry */,
 			);
 			productName = JavaZone;
 			productReference = 8350E64023F5222B0085C1F3 /* JavaZone.app */;
@@ -454,6 +462,7 @@
 				831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				83AD08E12A0CC29A00BEAD0D /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				83AD08E42A0CC2DE00BEAD0D /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				837BC70B2A98A6C100B9FB74 /* XCRemoteSwiftPackageReference "FlurrySwiftPackage" */,
 			);
 			productRefGroup = 8350E64123F5222B0085C1F3 /* Products */;
 			projectDirPath = "";
@@ -883,6 +892,14 @@
 				minimumVersion = 5.4.0;
 			};
 		};
+		837BC70B2A98A6C100B9FB74 /* XCRemoteSwiftPackageReference "FlurrySwiftPackage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/flurry/FlurrySwiftPackage/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.0.0;
+			};
+		};
 		83AD08E12A0CC29A00BEAD0D /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSVGCoder.git";
@@ -906,6 +923,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 831FC33923FBE2B100BB12A3 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		837BC70C2A98A6C100B9FB74 /* Flurry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 837BC70B2A98A6C100B9FB74 /* XCRemoteSwiftPackageReference "FlurrySwiftPackage" */;
+			productName = Flurry;
 		};
 		83AD08E22A0CC29A00BEAD0D /* SDWebImageSVGCoder */ = {
 			isa = XCSwiftPackageProductDependency;

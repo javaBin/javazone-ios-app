@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "flurryswiftpackage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/flurry/FlurrySwiftPackage/",
+      "state" : {
+        "revision" : "70a9eff3929892a0de7c5480f559637fd7863afe",
+        "version" : "12.4.0"
+      }
+    },
+    {
       "identity" : "sdwebimage",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",

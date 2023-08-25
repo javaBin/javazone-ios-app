@@ -1,7 +1,8 @@
 import UIKit
 import CoreData
 import os.log
-import SDWebImageSVGCoder
+//import SDWebImageSVGCoder
+import Flurry_iOS_SDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -11,10 +12,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Override point for customization after application launch.
         UNUserNotificationCenter.current().delegate = self
         
+        let sb = FlurrySessionBuilder()
+                  .build(logLevel: FlurryLogLevel.all)
+                  .build(crashReportingEnabled: true)
+                  .build(appVersion: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
+                  .build(iapReportingEnabled: true)
+        
+        Flurry.startSession(apiKey: EnvConfig.flurryApiKey, sessionBuilder: sb)
+        Flurry.log(eventName: "Started")
+        
         cleanUpOldImages()
         cleanUpOldBadge()
         
-        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
+        //SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
         
         return true
     }

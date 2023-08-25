@@ -1,6 +1,7 @@
 import Foundation
 import Alamofire
 import os.log
+import Flurry_iOS_SDK
 
 enum InfoError : Error {
     case refresh
@@ -12,8 +13,11 @@ class InfoService {
 
     
     static func refresh() async throws -> [RemoteInfo] {
+        Flurry.log(eventName: "RefreshInfo", timed: true)
+        
         return try await withCheckedThrowingContinuation { continuation in
             refresh { result in
+                Flurry.endTimedEvent(eventName: "RefreshInfo", parameters: nil)
                 continuation.resume(with: result)
             }
         }
@@ -33,6 +37,8 @@ class InfoService {
             if let error = response.error {
                 logger.error("Unable to refresh info \(error.localizedDescription, privacy: .public)")
                 
+                Flurry.log(errorId: "InfoRefreshFailed", message: "Unable to refresh info", error: error)
+                
                 onComplete(.failure(InfoError.refresh))
                        
                 return
@@ -41,6 +47,8 @@ class InfoService {
             guard let info = response.value else {
                 logger.error("Unable to fetch info")
 
+                Flurry.log(errorId: "SessionFetchFailed", message: "Unable to fetch sessions", error: nil)
+                
                 onComplete(.failure(InfoError.parse))
             
                 return
