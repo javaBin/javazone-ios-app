@@ -3,7 +3,14 @@
     "title": "Wi-Fi - SSID: JavaZone2023"
   },
   {
-    "title": "Discord",
+    "title": "JavaZone Website",
+    "url": {
+      "title": "javazone.no",
+      "url": "https://javazone.no"
+    }
+  },
+  {
+    "title": "JavaZone Discord",
     "body": "Join us on Discord",
     "url": {
       "title": "Discord invitation link",
