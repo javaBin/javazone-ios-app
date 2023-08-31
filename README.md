@@ -28,9 +28,11 @@ This application uses SwiftPackageManager for its dependencies.
 
 ---
 
-### Fastlane issues
+### Fastlane snapshots
 
-Fastlane screenshot support requires a working UITest - which doesn't seem to work well with SwiftUI just yet. Things like the back button on NavigationView are ignored by the UITest system. So we will not be using fastlane for screenshots until this is better supported.
+Snapshots are created by `fastlane snapshot`.
+
+Before running this command - run the app in each of the simulators named in [fastlane/Snapfile](fastlane/Snapfile) - and choose some favourites - otherwise the `My Schedule` view will be empty.
 
 ---
 
@@ -44,6 +46,10 @@ SLACK_URL=<URL for webhook to post to app channel on slack>
 FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD=<App specific password for your user (can be generated on appleid.apple.com) - provisioning can use 2FA but upload cannot>
 ```
 
+Update fastlane/metadata files to change links, texts etc.
+
+Run `fastlane snapshot` to generate snapshots
+
 Run `fastlane beta` to submit to app store for testing.
 
-Run `fastlane releae` to submit to app store for publication.
+Run `fastlane release` to submit to app store for publication.
