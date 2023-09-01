@@ -10,11 +10,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         UNUserNotificationCenter.current().delegate = self
+
+        #if DEBUG
+        let reportingVersion = (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String) + "-DEBUG"
+        #else
+        let reportingVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        #endif
+        
+        self.logger.info("Configuring analytics with version \(reportingVersion)")
         
         let sb = FlurrySessionBuilder()
                   .build(logLevel: FlurryLogLevel.all)
                   .build(crashReportingEnabled: true)
-                  .build(appVersion: (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String))
+                  .build(appVersion: reportingVersion)
                   .build(iapReportingEnabled: true)
         
         Flurry.startSession(apiKey: EnvConfig.flurryApiKey, sessionBuilder: sb)
