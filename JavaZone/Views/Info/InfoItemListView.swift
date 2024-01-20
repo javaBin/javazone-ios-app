@@ -1,5 +1,4 @@
 import SwiftUI
-import Flurry_iOS_SDK
 
 struct InfoItemListView: View {
     var item: InfoItem
@@ -10,10 +9,6 @@ struct InfoItemListView: View {
             Text(item.title)
         }
         .foregroundColor(item.isUrgent ? Color.yellow : Color.primary)
-        .onAppear {
-            Flurry.log(eventName: "ScreenView_InfoItemList")
-        }
-
     }
 }
 

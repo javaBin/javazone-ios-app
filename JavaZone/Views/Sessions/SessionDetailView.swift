@@ -1,6 +1,5 @@
 import SwiftUI
 import CoreData
-import Flurry_iOS_SDK
 
 struct SessionDetailView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -26,9 +25,6 @@ struct SessionDetailView: View {
                         Text(session.wrappedTitle)
                             .copyable(session.wrappedTitle)
                             .font(.headline)
-                            .onAppear {
-                                Flurry.log(eventName: "ScreenView_SessionDetail", parameters: ["Session": session.wrappedTitle])
-                            }
                         if (session.videoId != nil) {
                             ExternalLink(title: "View session video", url: session.wrappedVideo!, image: "video")
                         }
@@ -104,8 +100,6 @@ struct SessionDetailView: View {
         return ShareSheet(activityItems: items)
     }
 }
-
-
 
 struct SessionDetailView_Previews: PreviewProvider {
     static var previews: some View {

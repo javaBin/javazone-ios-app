@@ -1,7 +1,6 @@
 import UIKit
 import CoreData
 import os.log
-import Flurry_iOS_SDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -18,15 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         #endif
         
         self.logger.info("Configuring analytics with version \(reportingVersion)")
-        
-        let sb = FlurrySessionBuilder()
-                  .build(logLevel: FlurryLogLevel.all)
-                  .build(crashReportingEnabled: true)
-                  .build(appVersion: reportingVersion)
-                  .build(iapReportingEnabled: true)
-        
-        Flurry.startSession(apiKey: EnvConfig.flurryApiKey, sessionBuilder: sb)
-        Flurry.log(eventName: "Started")
         
         return true
     }
@@ -55,8 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if let error = error as NSError? {
                 self.logger.error("Unable to load persistent stores \(error.localizedDescription, privacy: .public)")
 
-                Flurry.log(errorId: "PersistentContainerLoadFailed", message: "Unable to load persistent stores", error: error)
-                
                 // If we have no store - we're unable to do anything useful
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
@@ -76,8 +64,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 try context.save()
             } catch {
                 logger.error("Saving context failed \(error.localizedDescription, privacy: .public)")
-
-                Flurry.log(errorId: "ContextSaveFailed", message: "Saving context failed", error: error)
 
                 let nserror = error as NSError
 

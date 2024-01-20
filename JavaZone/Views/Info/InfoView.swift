@@ -1,5 +1,4 @@
 import SwiftUI
-import Flurry_iOS_SDK
 
 struct InfoView: View {
     @StateObject var viewModel = InfoViewModel()
@@ -24,9 +23,6 @@ struct InfoView: View {
                     NavigationLink(destination: LicenceListView()) {
                         Text("Licences")
                     }
-                    NavigationLink(destination: TrackingView()) {
-                        Text("Crash Logging/Analytics")
-                    }
                 })
                 Section(header: Text("javaBin"), content: {
                     ExternalLink(title: "javaBin", url: URL(string: "https://www.java.no/")!)
@@ -38,8 +34,6 @@ struct InfoView: View {
                 viewModel.refreshItems(force: true)
             }
             .onAppear {
-                Flurry.log(eventName: "ScreenView_Info")
-
                 viewModel.refreshItems(force: false)
             }
         }

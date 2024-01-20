@@ -1,7 +1,6 @@
 import SwiftUI
 import UserNotifications
 import os.log
-import Flurry_iOS_SDK
 
 struct FavouriteToggleView: View {
     let logger = Logger(subsystem: Logger.subsystem, category: "FavouriteToggleView")
@@ -32,8 +31,6 @@ struct FavouriteToggleView: View {
                 
                 if (self.favourite == true) {
                     if let date = self.notificationTrigger {
-                        Flurry.log(eventName: "AddFavourite", parameters: ["Session": self.notificationTitle])
-
                         let triggerDate = date.forNotification() ?? date
                         
                         let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: triggerDate)
@@ -51,13 +48,9 @@ struct FavouriteToggleView: View {
                         UNUserNotificationCenter.current().add(request)
                     }
                 } else {
-                    Flurry.log(eventName: "RemoveFavourite", parameters: ["Session": self.notificationTitle])
-
                     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.notificationId])
                 }
             } else if let error = error {
-                Flurry.log(errorId: "NotificationAuthFailed", message: "Unable to set notification for favourite", error: error)
-
                 logger.error("Notification auth error \(error.localizedDescription, privacy: .public)")
             }
         }

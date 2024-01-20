@@ -1,14 +1,11 @@
 import SwiftUI
 import Alamofire
 import os.log
-import Flurry_iOS_SDK
 
 class ConfigService {
     static let logger = Logger(subsystem: Logger.subsystem, category: "ConfigService")
 
     static func refreshConfig(onComplete: @escaping () -> Void) {
-        Flurry.log(eventName: "RefreshConfig", timed: true)
-
         logger.info("Refreshing config")
         
         let request = AF.request("https://sleepingpill.javazone.no/public/config")
@@ -22,9 +19,6 @@ class ConfigService {
             if let error = response.error {
                 logger.error("Unable to refresh config \(error.localizedDescription, privacy: .public)")
                 
-                Flurry.log(errorId: "RefreshFailed", message: "Unable to refresh config", error: error)
-                Flurry.endTimedEvent(eventName: "RefreshConfig", parameters: nil)
-
                 onComplete()
                 
                 return
@@ -33,9 +27,6 @@ class ConfigService {
             guard let config = response.value else {
                 logger.error("Unable to fetch config")
                 
-                Flurry.log(errorId: "ConfigRefreshFetchFailed", message: "Unable to fetch config", error: nil)
-                Flurry.endTimedEvent(eventName: "RefreshConfig", parameters: nil)
-
                 onComplete()
                 
                 return
@@ -60,8 +51,6 @@ class ConfigService {
             
             newConfig.saveConfig()
             
-            Flurry.endTimedEvent(eventName: "RefreshConfig", parameters: nil)
-
             onComplete()
         }
     }
