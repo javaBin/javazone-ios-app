@@ -1,5 +1,6 @@
 import SwiftUI
 import WebKit
+import os.log
 
 struct PartnerWebViewRepresentable: UIViewRepresentable {
     var webView = WebView()
@@ -13,6 +14,7 @@ struct PartnerWebViewRepresentable: UIViewRepresentable {
 class WebView: NSObject {
     var webView: WKWebView!
 
+    let logger = Logger(subsystem: Logger.subsystem, category: "PartnerWebView")
     let request = URLRequest(url: EnvConfig.partnerUrl)
     
     override init() {
@@ -26,15 +28,31 @@ class WebView: NSObject {
 
 extension WebView: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        logger.debug("Partners loaded")
+
         webView.refreshControl?.endRefreshing()
     }
 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        logger.warning("Partners failed to load \(error.localizedDescription, privacy: .public)")
+                    
         webView.refreshControl?.endRefreshing()
     }
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        logger.warning("Partners failed to load (provisional) \(error.localizedDescription, privacy: .public)")
+
         webView.refreshControl?.endRefreshing()
+    }
+        
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse) async -> WKNavigationResponsePolicy {
+        if let response = navigationResponse.response as? HTTPURLResponse {
+              if response.statusCode >= 400 {
+                  logger.warning("Fetch partners got HTTP code \(response.statusCode)")
+              }
+        }
+        
+        return .allow
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
