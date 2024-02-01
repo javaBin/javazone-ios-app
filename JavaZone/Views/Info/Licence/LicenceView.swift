@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct LicenceView: View {
-    var licence : Licence
-    
+    var licence: Licence
+
     var body: some View {
         ScrollView {
             VStack {
@@ -16,7 +16,7 @@ struct LicenceView: View {
 
                 HStack {
                     Text("Holder: ")
-                    if (licence.copyright.link != nil) {
+                    if licence.copyright.link != nil {
                         ExternalLink(title: licence.copyright.holder, url: licence.copyright.link!)
                     } else {
                         Text(licence.copyright.holder)
@@ -26,7 +26,7 @@ struct LicenceView: View {
                 .padding(.horizontal)
                 .padding(.bottom, 20)
 
-                if (licence.link != nil) {
+                if licence.link != nil {
                     HStack {
                         Text("Website: ")
                         ExternalLink(title: licence.name, url: licence.link!)
@@ -52,6 +52,11 @@ struct LicenceView: View {
 
 struct LicenceView_Previews: PreviewProvider {
     static var previews: some View {
-        LicenceView(licence: Licence(name: "Test", url: "https://java.no", copyright: Copyright(date: "2000", holder: "javaBin", contact: "https://www.java.no"), licence: []))
+        LicenceView(licence: Licence(name: "Test",
+                                     url: "https://java.no",
+                                     copyright: Copyright(date: "2000",
+                                                          holder: "javaBin",
+                                                          contact: "https://www.java.no"),
+                                     licence: []))
     }
 }

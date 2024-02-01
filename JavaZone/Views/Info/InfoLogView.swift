@@ -2,7 +2,7 @@ import SwiftUI
 
 struct InfoLogView: View {
     @StateObject var viewModel = InfoLogViewModel()
-    
+
     var body: some View {
         VStack {
             if #available(iOS 15, *) {
@@ -10,7 +10,7 @@ struct InfoLogView: View {
                     .padding(.horizontal)
                     .navigationTitle("Logs for the last 24 hrs")
                     .onAppear(perform: viewModel.refreshLogView)
-                if (viewModel.fetchingLogs) {
+                if viewModel.fetchingLogs {
                     ProgressView("Fetching last 24 hours of logs")
                 } else {
                     Text("Simply press and hold to copy the following:")

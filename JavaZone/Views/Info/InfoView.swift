@@ -2,7 +2,7 @@ import SwiftUI
 
 struct InfoView: View {
     @StateObject var viewModel = InfoViewModel()
-    
+
     var body: some View {
         NavigationStack {
             List {
@@ -19,14 +19,15 @@ struct InfoView: View {
                 })
                 Section(header: Text("JavaZone App"), content: {
                     ExternalLink(title: "GitHub", url: URL(string: "https://github.com/javaBin/javazone-ios-app")!)
-                    ExternalLink(title: "Known Issues", url: URL(string: "https://github.com/javaBin/javazone-ios-app/issues")!)
+                    ExternalLink(title: "Known Issues",
+                                 url: URL(string: "https://github.com/javaBin/javazone-ios-app/issues")!)
                     NavigationLink(destination: LicenceListView()) {
                         Text("Licences")
                     }
                 })
                 Section(header: Text("javaBin"), content: {
                     ExternalLink(title: "javaBin", url: URL(string: "https://www.java.no/")!)
-                    ExternalLink(title: "Terms and Conditions", url: URL(string: "https://www.java.no/policy.html")!)                    
+                    ExternalLink(title: "Terms and Conditions", url: URL(string: "https://www.java.no/policy.html")!)
                 })
             }
             .navigationTitle("Info")

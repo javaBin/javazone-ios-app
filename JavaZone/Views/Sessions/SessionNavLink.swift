@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SessionNavLink: View {
-    var sessionWithPending : SessionWithPending
+    var sessionWithPending: SessionWithPending
 
     var body: some View {
         NavigationLink(value: sessionWithPending) {
@@ -9,5 +9,3 @@ struct SessionNavLink: View {
         }.id(sessionWithPending.session.sessionId ?? UUID().uuidString)
     }
 }
-
-

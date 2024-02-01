@@ -395,6 +395,7 @@
 				8350E63C23F5222B0085C1F3 /* Sources */,
 				8350E63D23F5222B0085C1F3 /* Frameworks */,
 				8350E63E23F5222B0085C1F3 /* Resources */,
+				8362165F2B6B9EC7009ABF92 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -545,6 +546,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8362165F2B6B9EC7009ABF92 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8350E63C23F5222B0085C1F3 /* Sources */ = {
@@ -779,6 +801,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"JavaZone/Preview Content\"";
 				DEVELOPMENT_TEAM = X4FF6CYH8M;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = JavaZone/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -806,6 +829,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"JavaZone/Preview Content\"";
 				DEVELOPMENT_TEAM = X4FF6CYH8M;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = JavaZone/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (

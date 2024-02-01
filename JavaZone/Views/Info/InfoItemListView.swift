@@ -2,7 +2,7 @@ import SwiftUI
 
 struct InfoItemListView: View {
     var item: InfoItem
-    
+
     var body: some View {
         HStack {
             Image(systemName: item.isUrgent ? "exclamationmark.octagon.fill" : "info.circle")

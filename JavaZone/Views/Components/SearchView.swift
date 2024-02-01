@@ -3,12 +3,12 @@
 import SwiftUI
 
 struct SearchView: View {
-    @Binding var searchText : String
-    
+    @Binding var searchText: String
+
     private var showCancelButton: Bool {
         searchText != ""
     }
-    
+
     var body: some View {
         HStack {
             HStack {
@@ -27,7 +27,7 @@ struct SearchView: View {
             .background(Color(.secondarySystemBackground))
             .cornerRadius(10.0)
 
-            if showCancelButton  {
+            if showCancelButton {
                 Button("Cancel") {
                         endEditing(true)
                         self.searchText = ""

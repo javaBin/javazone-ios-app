@@ -1,10 +1,10 @@
 import SwiftUI
 import OSLog
 
-class InfoLogViewModel : ObservableObject {
+class InfoLogViewModel: ObservableObject {
     @Published var logs = ""
     @Published var fetchingLogs = true
-    
+
     @available(iOS 15, *)
     func refreshLogView() {
         DispatchQueue.global(qos: .userInitiated).async {
@@ -15,10 +15,10 @@ class InfoLogViewModel : ObservableObject {
                 }
                 return
             }
-                
+
             // Get all the logs from the last 24 hrs.
             let logRange = logStore.position(date: Date().addingTimeInterval(-(3600 * 24)))
-            
+
             // Fetch log objects.
             guard let allEntries = try? logStore.getEntries(at: logRange) else {
                 self.logs = "Unable to get log entries"
@@ -27,13 +27,13 @@ class InfoLogViewModel : ObservableObject {
                 }
                 return
             }
-            
+
             let logList = allEntries
                 .compactMap { $0 as? OSLogEntryLog }
                 .filter { $0.subsystem == Logger.subsystem }
                 .map { "\($0.date) : \($0.category) : \($0.composedMessage)" }
                 .joined(separator: "\n")
-            
+
             DispatchQueue.main.async {
                 self.logs = logList
                 self.fetchingLogs = false

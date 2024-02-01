@@ -5,7 +5,7 @@ struct RemoteSpeaker: Decodable {
     let bio: String?
     let avatar: String?
     let twitter: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case name
         case bio

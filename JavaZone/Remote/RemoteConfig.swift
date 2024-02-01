@@ -5,7 +5,7 @@ struct RemoteConfig: Decodable {
     let conferenceUrl: String?
     let workshopDate: String?
     let conferenceDates: [String]?
-    
+
     enum CodingKeys: String, CodingKey {
         case conferenceName
         case conferenceUrl

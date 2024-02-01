@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LicenceListView: View {
     @StateObject var viewModel = LicenceViewModel()
-    
+
     var body: some View {
         List {
             ForEach(viewModel.licences, id: \.self) { licence in
@@ -17,6 +17,6 @@ struct LicenceListView: View {
 
 struct LicenceListView_Previews: PreviewProvider {
     static var previews: some View {
-        LicenceListView()   
+        LicenceListView()
     }
 }

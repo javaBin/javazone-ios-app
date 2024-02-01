@@ -1,17 +1,17 @@
 import SwiftUI
 
 struct ExternalLink: View {
-    var title : String
-    var url : URL
-    
-    var image : String = "link"
-    
+    var title: String
+    var url: URL
+
+    var image: String = "link"
+
     var body: some View {
         Button(action: {
             UIApplication.shared.open(self.url)
         }) {
             HStack {
-                if (image != "") {
+                if image != "" {
                     Image(systemName: image)
                 }
                 Text(title)

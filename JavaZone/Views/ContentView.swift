@@ -3,10 +3,10 @@ import SwiftUI
 struct ContentView: View {
     @State private var selection = 0
     @State private var blockingRefresh = false
-    
+
     var body: some View {
         ZStack {
-            TabView(selection: $selection){
+            TabView(selection: $selection) {
                 SessionsView(blockingRefresh: $blockingRefresh)
                     .tabItem {
                         VStack {
@@ -47,8 +47,8 @@ struct ContentView: View {
                     UITabBar.appearance().scrollEdgeAppearance = appearance
                 }
             }
-            
-            if (blockingRefresh) {
+
+            if blockingRefresh {
                 ProgressView("Refreshing sessions")
             }
         }

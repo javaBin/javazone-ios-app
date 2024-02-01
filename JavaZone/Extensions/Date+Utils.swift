@@ -19,37 +19,36 @@ extension Date {
     func asTime() -> String {
         return formatString("HH:mm")
     }
-    
+
     func asDate() -> String {
         return formatString("dd.MM.yyyy")
     }
-    
+
     func asDateTime() -> String {
         return formatString("HH:mm (dd.MM.yyyy)")
     }
-    
+
     func asHour() -> String {
         return "\(formatString("HH")):00"
     }
-    
+
     func diffInSeconds(date: Date) -> Int {
         let calendar = Calendar.current
         let dateComponents = calendar.dateComponents([Calendar.Component.second], from: self, to: date)
 
         return dateComponents.second ?? 0
     }
-    
+
     func diffInSeconds(key: String, defaultDate: Date) -> Int {
         return self.diffInSeconds(date: UserDefaults.standard.object(forKey: key) as? Date ?? defaultDate)
     }
-    
+
     func shouldUpdate(key: String, defaultDate: Date, maxSecs: Int) -> Bool {
         abs(Date().diffInSeconds(key: key, defaultDate: defaultDate)) > maxSecs
     }
-    
+
     func save(key: String) {
         UserDefaults.standard.set(self, forKey: key)
     }
-    
-    
+
 }

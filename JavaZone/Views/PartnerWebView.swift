@@ -16,7 +16,7 @@ class WebView: NSObject {
 
     let logger = Logger(subsystem: Logger.subsystem, category: "PartnerWebView")
     let request = URLRequest(url: EnvConfig.partnerUrl)
-    
+
     override init() {
         super.init()
         webView = WKWebView(frame: .zero)
@@ -35,7 +35,7 @@ extension WebView: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         logger.warning("Partners failed to load \(error.localizedDescription, privacy: .public)")
-                    
+
         webView.refreshControl?.endRefreshing()
     }
 
@@ -44,22 +44,25 @@ extension WebView: WKNavigationDelegate {
 
         webView.refreshControl?.endRefreshing()
     }
-        
-    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse) async -> WKNavigationResponsePolicy {
+
+    func webView(_ webView: WKWebView,
+                 decidePolicyFor navigationResponse: WKNavigationResponse) async -> WKNavigationResponsePolicy {
         if let response = navigationResponse.response as? HTTPURLResponse {
               if response.statusCode >= 400 {
                   logger.warning("Fetch partners got HTTP code \(response.statusCode)")
               }
         }
-        
+
         return .allow
     }
-    
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        
+
+    func webView(_ webView: WKWebView,
+                 decidePolicyFor navigationAction: WKNavigationAction,
+                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+
         if let url = navigationAction.request.url, !url.absoluteString.contains("javazone") {
             decisionHandler(.cancel)
-            
+
             UIApplication.shared.open(url)
         } else {
             decisionHandler(.allow)
@@ -106,7 +109,6 @@ extension UIView {
         return UIView.getAllSubviews(from: self) as [T]
     }
 }
-
 
 struct PartnerWebView: View {
     var body: some View {

@@ -10,7 +10,7 @@ func endEditing(_ force: Bool) {
 }
 
 struct ResignKeyboardOnDragGesture: ViewModifier {
-    var gesture = DragGesture().onChanged{_ in
+    var gesture = DragGesture().onChanged {_ in
         endEditing(true)
     }
     func body(content: Content) -> some View {

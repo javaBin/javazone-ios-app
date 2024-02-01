@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct DayPicker: View {
-    @Binding var selectorIndex : Int
-    
-    var config : Config {
+    @Binding var selectorIndex: Int
+
+    var config: Config {
         Config.sharedConfig
     }
-    
+
     var body: some View {
         Picker("", selection: $selectorIndex) {
             Text(config.dates[0]).tag(0)
