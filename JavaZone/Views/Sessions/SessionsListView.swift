@@ -68,7 +68,7 @@ struct SessionsListView: View {
             .filter { (session) -> Bool in
                 session.startUtc == nil
             }
-            .sorted(by: { $0.wrappedTitle < $1.wrappedTitle })
+            .sorted(by: { $0.title.val() < $1.title.val() })
 
         if pending.count == 0 {
             let sessions = self.allSessions
@@ -86,7 +86,7 @@ struct SessionsListView: View {
                     return searchMatch(search: self.searchText, session: session)
                 }
 
-            let grouped = Dictionary(grouping: sessions, by: { $0.wrappedSection })
+            let grouped = Dictionary(grouping: sessions, by: { $0.section.val("??") })
 
             let sections = Array(grouped.keys).sorted(by: <)
 
@@ -100,7 +100,7 @@ struct SessionsListView: View {
 
                     return searchMatch(search: self.searchText, session: session)
                 }
-                .sorted(by: { $0.wrappedTitle < $1.wrappedTitle })
+                .sorted(by: { $0.title.val() < $1.title.val() })
 
             return RelevantSessions(sessions: sessions, sections: [], grouped: [:], pending: pending)
         }
@@ -111,7 +111,7 @@ struct SessionsListView: View {
     }
 
     func searchMatch(search: String, session: Session) -> Bool {
-        return session.wrappedTitle.contains(search) || session.speakerNames.contains(search)
+        return session.title.val().contains(search) || session.speakerNames.contains(search)
     }
 
     func refreshSessions() async {

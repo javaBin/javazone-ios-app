@@ -11,12 +11,12 @@ struct InfoItemView: View {
                     Text("Urgent")
                     }.foregroundColor(Color.yellow).padding()
             }
-            Text(item.wrappedBody)
+            Text(item.body.val())
                 .padding()
                 .navigationTitle(Text(item.title))
                 .navigationBarTitleDisplayMode(.inline)
-            if item.wrappedLink != nil {
-                ExternalLink(title: item.wrappedLinkTitle, url: item.wrappedLink!)
+            if item.url.hasVal() && item.urlTitle.hasVal() {
+                ExternalLink(title: item.urlTitle.val(), url: item.url.link()!)
             }
             Spacer()
         }

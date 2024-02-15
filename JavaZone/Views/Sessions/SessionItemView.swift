@@ -22,11 +22,11 @@ struct SessionItemView: View {
             }
             VStack(alignment: .leading) {
                 if session.title != nil {
-                    Text(session.wrappedTitle).font(.body)
+                    Text(session.title.val()).font(.body)
                 }
                 HStack {
                     if !pending && session.room != nil {
-                        Text(session.wrappedRoom).font(.caption)
+                        Text(session.room.val()).font(.caption)
                     }
                     Text(session.speakerNames).font(.caption)
                 }
@@ -37,8 +37,8 @@ struct SessionItemView: View {
                     FavouriteToggleView(
                         favourite: $session.favourite,
                         notificationId: session.sessionId ?? UUID().uuidString,
-                        notificationTitle: session.wrappedTitle,
-                        notificationLocation: session.wrappedRoom,
+                        notificationTitle: session.title.val(),
+                        notificationLocation: session.room.val(),
                         notificationTrigger: session.startUtc
                     )
                 }

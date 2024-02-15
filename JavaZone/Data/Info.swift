@@ -12,22 +12,6 @@ public struct InfoItem: Hashable {
         return body == nil
     }
 
-    var wrappedBody: String {
-        return body ?? ""
-    }
-
-    var wrappedLinkTitle: String {
-        return urlTitle ?? ""
-    }
-
-    var wrappedLink: URL? {
-        if let url = self.url {
-            return URL(string: url)
-        }
-
-        return nil
-    }
-
     var isUrgent: Bool {
         return (infoType ?? "") == "urgent"
     }

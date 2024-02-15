@@ -22,26 +22,26 @@ struct SessionDetailView: View {
                         FavouriteToggleView(
                             favourite: $session.favourite,
                             notificationId: session.sessionId ?? UUID().uuidString,
-                            notificationTitle: session.wrappedTitle,
-                            notificationLocation: session.wrappedRoom,
+                            notificationTitle: session.title.val(),
+                            notificationLocation: session.room.val(),
                             notificationTrigger: session.startUtc
                         )
                     }
                     VStack(alignment: .leading) {
-                        Text(session.wrappedTitle)
-                            .copyable(session.wrappedTitle)
+                        Text(session.title.val())
+                            .copyable(session.title.val())
                             .font(.headline)
-                        if session.videoId != nil {
-                            ExternalLink(title: "View session video", url: session.wrappedVideo!, image: "video")
+                        if session.videoId.hasVal() {
+                            ExternalLink(title: "View session video", url: session.videoId.videoLink()!, image: "video")
                         }
                     }.padding(.horizontal)
                 }.padding(.top)
                 VStack(alignment: .leading) {
-                    if session.workshop && session.wrappedRegisterLoc != nil {
+                    if session.workshop && session.registerLoc.hasVal() {
                         Text("Workshop").font(.title).padding(.bottom, 15)
 
                         ExternalLink(title: "Open registration page",
-                                     url: session.wrappedRegisterLoc!).padding(.bottom, 15)
+                                     url: session.registerLoc.link()!).padding(.bottom, 15)
                     }
                     HStack {
                         Text("Abstract").font(.title)
@@ -57,21 +57,21 @@ struct SessionDetailView: View {
                         }
                     }.padding(.bottom, 15)
                     if session.abstract != nil {
-                        Text(session.wrappedAbstract)
+                        Text(session.abstract.val())
                             .font(.body)
-                            .copyable(session.wrappedAbstract)
+                            .copyable(session.abstract.val())
                             .padding(.bottom, 20)
                     }
                     if session.workshopPrerequisites != nil {
                         Text("Prerequisites").font(.title).padding(.bottom, 15)
-                        Text(session.wrappedWorkshopPrerequisites)
+                        Text(session.workshopPrerequisites.val())
                             .font(.body)
-                            .copyable(session.wrappedWorkshopPrerequisites)
+                            .copyable(session.workshopPrerequisites.val())
                             .padding(.bottom, 20)
                     }
                     Text("Intended Audience").font(.title).padding(.bottom, 15)
                     if session.audience != nil {
-                        Text(session.wrappedAudience).font(.body).padding(.bottom, 20)
+                        Text(session.audience.val()).font(.body).padding(.bottom, 20)
                     }
                     Text("Speakers").font(.title).padding(.bottom, 15)
                     ForEach(session.speakerArray, id: \.self) { speaker in
@@ -96,8 +96,8 @@ struct SessionDetailView: View {
     func buildShareSheet() -> some View {
         var items: [Any] = []
 
-        if self.session.wrappedTitle != "" {
-            items.append(self.session.wrappedTitle)
+        if self.session.title.hasVal() {
+            items.append(self.session)
         }
 
         if let sessionId = self.session.sessionId {

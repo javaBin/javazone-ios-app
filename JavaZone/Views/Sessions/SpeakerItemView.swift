@@ -32,26 +32,26 @@ struct SpeakerItemView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .center) {
-                if speaker.wrappedAvatar != nil {
-                    SpeakerImage(avatarUrl: speaker.wrappedAvatar!)
+                if speaker.avatar.hasVal() {
+                    SpeakerImage(avatarUrl: speaker.avatar.link()!)
                 } else {
                     DefaultSpeakerImage()
                 }
                 VStack(alignment: .leading) {
-                    Text(speaker.wrappedName)
-                        .copyable(speaker.wrappedName)
+                    Text(speaker.name.val("Unknown"))
+                        .copyable(speaker.name.val("Unknown"))
                         .font(.headline)
-                    if speaker.twitter != nil {
-                        ExternalLink(title: "@\(speaker.wrappedTwitter)",
-                                     url: URL(string: "https://twitter.com/\(speaker.wrappedTwitter)")!,
+                    if speaker.twitter.hasVal() {
+                        ExternalLink(title: "@\(speaker.twitter.val())",
+                                     url: URL(string: "https://twitter.com/\(speaker.twitter.val())")!,
                                      image: "")
                     }
                 }
             }
-            if speaker.bio != nil {
-                Text(speaker.wrappedBio)
+            if speaker.bio.hasVal() {
+                Text(speaker.bio.val())
                     .font(.body)
-                    .copyable(speaker.wrappedBio)
+                    .copyable(speaker.bio.val())
                     .padding(.bottom, 15)
             }
         }

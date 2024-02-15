@@ -19,3 +19,29 @@ extension String {
         }
     }
 }
+
+extension String? {
+    func val(_ defVal: String = "") -> String {
+        self?.trimmingCharacters(in: .whitespacesAndNewlines) ?? defVal
+    }
+
+    func hasVal() -> Bool {
+        self?.trimmingCharacters(in: .whitespacesAndNewlines) != nil
+    }
+
+    func link() -> URL? {
+        if let url = self?.trimmingCharacters(in: .whitespacesAndNewlines) {
+            return URL(string: url)
+        }
+
+        return nil
+    }
+
+    func videoLink() -> URL? {
+        if let videoId = self?.trimmingCharacters(in: .whitespacesAndNewlines) {
+            return URL(string: "https://vimeo.com/\(videoId)")
+        }
+
+        return nil
+    }
+}

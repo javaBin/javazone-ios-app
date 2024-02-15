@@ -18,53 +18,11 @@ public class Session: NSManagedObject {
     @NSManaged public var speakers: NSSet
     @NSManaged public var workshopPrerequisites: String?
 
-    public var wrappedTitle: String {
-        return self.title?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-    }
-
-    public var wrappedAudience: String {
-        return self.audience?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-    }
-
-    public var wrappedAbstract: String {
-        return self.abstract?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-    }
-
-    public var wrappedRoom: String {
-        return self.room ?? ""
-    }
-
-    public var wrappedSection: String {
-        return self.section ?? "??"
-    }
-
-    public var wrappedFormat: String {
-        return self.format ?? ""
-    }
-
-    public var wrappedVideo: URL? {
-        if let video = self.videoId {
-            return URL(string: "https://vimeo.com/\(video)")
-        }
-
-        return nil
-    }
-
-    public var wrappedRegisterLoc: URL? {
-        if let urlString = self.registerLoc {
-            if let url = URL(string: urlString) {
-                return url
-            }
-        }
-
-        return nil
-    }
-
     public var speakerArray: [Speaker] {
         let set = speakers as? Set<Speaker> ?? []
 
         return set.sorted {
-            $0.wrappedName < $1.wrappedName
+            $0.name.val("Unknown") < $1.name.val("Unknown")
         }
     }
 
@@ -86,12 +44,8 @@ public class Session: NSManagedObject {
 
     public var speakerNames: String {
         return self.speakerArray.map { (speaker) -> String in
-            return speaker.wrappedName
+            return speaker.name.val("Unknown")
         }.joined(separator: ", ")
-    }
-
-    public var wrappedWorkshopPrerequisites: String {
-        return self.workshopPrerequisites ?? ""
     }
 }
 
