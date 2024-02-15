@@ -10,6 +10,7 @@
 		831B782123F526BF00A45C70 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B782023F526BF00A45C70 /* SessionService.swift */; };
 		831FC33B23FBE2B100BB12A3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 831FC33A23FBE2B100BB12A3 /* Alamofire */; };
 		83304597242C941500FAE5E2 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83304596242C941500FAE5E2 /* ConfigService.swift */; };
+		833120FD2B7E47AF009F7E7F /* URLSession+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833120FC2B7E47AF009F7E7F /* URLSession+Utils.swift */; };
 		834FF1BD23FFCBFE00432129 /* LicenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1BC23FFCBFE00432129 /* LicenceView.swift */; };
 		834FF1E524017FEB00432129 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1E424017FEB00432129 /* Config.swift */; };
 		834FF1E7240183E300432129 /* RemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1E6240183E300432129 /* RemoteConfig.swift */; };
@@ -89,6 +90,7 @@
 		8310973B270B078C009A375A /* JavaZone 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "JavaZone 3.xcdatamodel"; sourceTree = "<group>"; };
 		831B782023F526BF00A45C70 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		83304596242C941500FAE5E2 /* ConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigService.swift; sourceTree = "<group>"; };
+		833120FC2B7E47AF009F7E7F /* URLSession+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Utils.swift"; sourceTree = "<group>"; };
 		834FF1BC23FFCBFE00432129 /* LicenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenceView.swift; sourceTree = "<group>"; };
 		834FF1E424017FEB00432129 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		834FF1E6240183E300432129 /* RemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfig.swift; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 				835BD63226FF2BC200EA4416 /* View+Rotation.swift */,
 				83D909AF270DEDB700101D1D /* Text+Copyable.swift */,
 				83AD08E72A0CE06300BEAD0D /* View+FirstAppear.swift */,
+				833120FC2B7E47AF009F7E7F /* URLSession+Utils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -593,6 +596,7 @@
 				8350E64423F5222B0085C1F3 /* AppDelegate.swift in Sources */,
 				835BD6482704382000EA4416 /* LicenceListView.swift in Sources */,
 				8350E64B23F5222B0085C1F3 /* ContentView.swift in Sources */,
+				833120FD2B7E47AF009F7E7F /* URLSession+Utils.swift in Sources */,
 				83AA8DED242B4F21007E3339 /* ShareSheet.swift in Sources */,
 				8397433923FD23110024E80B /* ExternalLink.swift in Sources */,
 				835BD63326FF2BC200EA4416 /* View+Rotation.swift in Sources */,
