@@ -26,7 +26,7 @@ struct FavouriteToggleView: View {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             if success {
                 // We can do notification stuff
-                logger.info("Notification OK")
+                logger.info("toggle: Notification OK")
 
                 if self.favourite == true {
                     if let date = self.notificationTrigger {
@@ -52,7 +52,7 @@ struct FavouriteToggleView: View {
                         .removePendingNotificationRequests(withIdentifiers: [self.notificationId])
                 }
             } else if let error = error {
-                logger.error("Notification auth error \(error.localizedDescription, privacy: .public)")
+                logger.error("toggle: Notification auth error \(error.localizedDescription, privacy: .public)")
             }
         }
     }

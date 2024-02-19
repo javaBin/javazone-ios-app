@@ -20,7 +20,11 @@ struct PendingView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("The time/date and room schedule is not yet available.")
-            Text("You will be able to add sessions to your personal schedule when the time/date and room schedule has been published.")
+            Text("""
+You will be able to add sessions to your personal schedule when \
+the time/date and room schedule has been published.
+"""
+            )
             Spacer()
         }
         .padding()
@@ -40,8 +44,6 @@ struct SessionListEntries: View {
 }
 
 struct SessionsListView: View {
-    let logger = Logger(subsystem: Logger.subsystem, category: "AppDelegate")
-
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(fetchRequest: Session.getSessions()) var allSessions: FetchedResults<Session>
 
@@ -124,9 +126,14 @@ struct SessionsListView: View {
 
             let status = try await SessionService.refresh()
 
-            logger.debug("Refresh said: \(status.rawValue, privacy: .public)")
+            Logger.interaction.debug("SessionsListView: refreshSessions: \(status.rawValue, privacy: .public)")
         } catch  let error as ServiceError {
-            logger.debug("Refresh said: \(error.status.rawValue, privacy: .public), \(error.message, privacy: .public), \(error.detail ?? "Unknown Error", privacy: .public)")
+            Logger.interaction.debug("""
+SessionsListView: refreshSessions: \(error.status.rawValue, privacy: .public), \
+\(error.message, privacy: .public), \
+\(error.detail ?? "Unknown Error", privacy: .public)
+"""
+            )
 
             if error.status == .fail {
                 self.alertItem = AlertContext.build(title: "Refresh failed", message: error.message, buttonTitle: "OK")
@@ -139,7 +146,7 @@ struct SessionsListView: View {
                                                          fatalMessage: error.detail ?? "Unknown Error")
             }
         } catch {
-            logger.debug("Refresh unexpected error: \(error, privacy: .public)")
+            Logger.interaction.debug("SessionsListView: refreshSessions: unexpected error: \(error, privacy: .public)")
         }
 
     }
@@ -168,9 +175,9 @@ struct SessionsListView: View {
 
                                 if self.isPending {
                                     if favouritesOnly {
-                                        Text("The session program is not yet complete")
-                                        Text("Rooms and times are still pending")
-                                        Text("You will be able to add sessions to your schedule when the programme is finalized.")
+                                        Text("The session program is not yet complete.")
+                                        Text("Rooms and times are still pending.")
+                                        Text("You will be able to update your schedule when the programme is ready.")
 
                                     } else {
                                         SessionListEntries(sessions: self.sessions.sessions, pending: true)
@@ -251,7 +258,10 @@ struct SessionsListView: View {
             scrollId = self.sessions.sections.first
         }
 
-        logger.debug("Want to scroll to \(scrollId ?? "None", privacy: .public)")
+        Logger.interaction.debug("""
+SessionsListView: scrollTo: Want to scroll to \(scrollId ?? "None", privacy: .public)
+"""
+        )
 
         if let scrollId = scrollId {
             scroll.scrollTo(scrollId, anchor: .top)
@@ -265,7 +275,7 @@ struct SessionsListView: View {
         // We have no sessions in list and we are not filtering
         let noSessions = self.sessions.sessions.count == 0 && self.favouritesOnly == false && self.searchText == ""
 
-        logger.debug("Checking to see if empty \(noSessions, privacy: .public)")
+        Logger.viewCycle.debug("SessionsListView: appear: Checking to see if empty \(noSessions, privacy: .public)")
 
         // It's been at least 30 mins since last update - a 25% chance to update
         let randomChance = Int.random(in: 0..<4) == 0
@@ -273,12 +283,15 @@ struct SessionsListView: View {
                                                            defaultDate: Date(timeIntervalSince1970: 0),
                                                            maxSecs: 60 * 30)
 
-        logger.debug("Checking to see if should auto refresh \(autorefresh, privacy: .public)")
+        Logger.viewCycle.debug("""
+SessionsListView: appear: Checking to see if should auto refresh \(autorefresh, privacy: .public)
+"""
+        )
 
 #if DEBUG
         autorefresh = Bool.random()
 
-        logger.debug("Debug - set auto refresh \(autorefresh, privacy: .public)")
+        Logger.viewCycle.debug("SessionsListView: appear: Debug - set auto refresh \(autorefresh, privacy: .public)")
 #endif
 
         if noSessions || autorefresh {
@@ -291,11 +304,14 @@ struct SessionsListView: View {
         if now.shouldUpdate(key: "SessionLastDisplayed",
                             defaultDate: Date(timeIntervalSince1970: 0),
                             maxSecs: 60 * 60) {
-            logger.debug("Should set picker")
+            Logger.viewCycle.debug("SessionsListViewappear: Should set picker")
 
             let nowDate = now.asDate()
             for idx in  0..<3 where nowDate == self.config.dates[idx] {
-                logger.debug("Should set picker - matched \(nowDate, privacy: .public)")
+                Logger.viewCycle.debug("""
+SessionsListViewappear: Should set picker - matched \(nowDate, privacy: .public)
+"""
+                )
 
                 self.selectorIndex = idx
             }
@@ -315,7 +331,9 @@ struct SessionListView_Previews: PreviewProvider {
             let session = Session(context: moc)
 
             session.title = "Test Title \(number)"
-            session.abstract = "This is a test abstract about the talk. I need a longer string to test the preview better"
+            session.abstract = """
+This is a test abstract about the talk. I need a longer string to test the preview better
+"""
             session.favourite = false
             session.audience = "Test Audience - suitable for nerds"
             session.startUtc = Date()

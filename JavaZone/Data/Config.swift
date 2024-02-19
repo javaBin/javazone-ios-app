@@ -2,8 +2,6 @@ import Foundation
 import os.log
 
 public class Config: Codable {
-    static let logger = Logger(subsystem: Logger.subsystem, category: "Config")
-
     public var title: String = defaultTitle
     public var url: String = defaultUrl
     public var dates: [String] = defaultDates
@@ -39,24 +37,24 @@ extension Config {
         let defaults = UserDefaults.standard
 
         if let config = defaults.object(forKey: "Config") as? Data {
-            logger.info("Fetching config - fetch OK")
+            Logger.preferences.info("Config: getConfig: fetch OK")
 
             let decoder = JSONDecoder()
 
             if let config = try? decoder.decode(Config.self, from: config) {
-                logger.info("Fetching config - decode OK")
+                Logger.preferences.info("Config: getConfig: decode OK")
 
                 return config
             }
         }
 
-        logger.info("Fetching config - returning default")
+        Logger.preferences.info("Config: getConfig: returning default")
 
         return Config()
     }
 
     func saveConfig() {
-        Config.logger.info("Saving config \(self.description, privacy: .public)")
+        Logger.preferences.info("Config: saveConfig: Saving config \(self.description, privacy: .public)")
 
         let encoder = JSONEncoder()
 
@@ -66,7 +64,10 @@ extension Config {
 
             Config.sharedConfig = self
         } else {
-            Config.logger.error("Unable to encode config \(self.description, privacy: .public)")
+            Logger.preferences.error("""
+Config: saveConfig: Unable to encode config \(self.description, privacy: .public)
+"""
+            )
         }
     }
 }

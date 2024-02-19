@@ -170,7 +170,8 @@ open class Snapshot: NSObject {
 
             let screenshot = XCUIScreen.main.screenshot()
             #if os(iOS) && !targetEnvironment(macCatalyst)
-            let image = XCUIDevice.shared.orientation.isLandscape ? fixLandscapeOrientation(image: screenshot.image) : screenshot.image
+            let orientation = XCUIDevice.shared.orientation
+            let image = orientation.isLandscape ? fixLandscapeOrientation(image: screenshot.image) : screenshot.image
             #else
             let image = screenshot.image
             #endif

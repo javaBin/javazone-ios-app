@@ -7,20 +7,18 @@ enum InfoError: Error {
 }
 
 class InfoService {
-    static let logger = Logger(subsystem: Logger.subsystem, category: "InfoService")
-
     static func refresh() async throws -> [RemoteInfo] {
-        logger.info("Info: Refresh")
+        Logger.networking.info("InfoService: refresh: Refresh")
 
         let cacheBuster = Date().timeIntervalSince1970
 
         let url = "https://javabin.github.io/javazone-ios-app/info.json?cb=\(cacheBuster)"
 
-        logger.debug("Info: URL: \(url)")
+        Logger.networking.debug("InfoService: refresh: URL: \(url)")
 
         let info: [RemoteInfo] = try await URLSession.shared.fetchData(for: url)
 
-        logger.debug("Info: \(info)")
+        Logger.networking.debug("InfoService: refresh: \(info)")
 
         return info
     }

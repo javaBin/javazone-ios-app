@@ -87,9 +87,9 @@ struct SessionDetailView: View {
         }
         .navigationBarItems(trailing: Button(action: {
                 self.showShareSheet = true
-            }) {
+        }, label: {
                 Image(systemName: "square.and.arrow.up")
-            }
+            })
         )
     }
 

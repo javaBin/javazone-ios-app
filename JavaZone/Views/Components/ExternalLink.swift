@@ -9,14 +9,14 @@ struct ExternalLink: View {
     var body: some View {
         Button(action: {
             UIApplication.shared.open(self.url)
-        }) {
+        }, label: {
             HStack {
                 if image != "" {
                     Image(systemName: image)
                 }
                 Text(title)
             }
-        }
+        })
     }
 }
 

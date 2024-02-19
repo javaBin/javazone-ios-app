@@ -10,8 +10,6 @@ struct SessionSection: Hashable {
 }
 
 class SessionService {
-    static let logger = Logger(subsystem: Logger.subsystem, category: "SessionService")
-
     // swiftlint:disable force_cast
     private static func getContext() -> NSManagedObjectContext {
         return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -20,7 +18,7 @@ class SessionService {
 
     private static func save(context: NSManagedObjectContext) throws {
         if context.hasChanges {
-            logger.info("Saving changed MOC - Sessions")
+            Logger.datastore.info("SessionService: save: Saving changed MOC - Sessions")
             try context.save()
         }
     }
@@ -39,18 +37,19 @@ class SessionService {
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             // swiftlint:enable force_cast
 
-            let config = Config.sharedConfig
-
-            let request = AF.request(config.url)
+            let request = AF.request(Config.sharedConfig.url)
 
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
 
-            logger.debug("Fetching sessions")
+            Logger.networking.debug("SessionService: refresh: Fetching sessions")
 
             request.responseDecodable(of: RemoteSessionList.self, decoder: decoder) { (response) in
                 if let error = response.error {
-                    logger.error("Unable to fetch sessions \(error.localizedDescription, privacy: .public)")
+                    Logger.networking.error("""
+SessionService: refresh: Unable to fetch sessions \(error.localizedDescription, privacy: .public)
+"""
+                    )
 
                     onComplete(.failure(ServiceError(status: .fail,
                                                      message: "Could not download sessions, please try again")))
@@ -59,7 +58,7 @@ class SessionService {
                 }
 
                 guard let sessions = response.value?.sessions else {
-                    logger.error("Unable to read sessions")
+                    Logger.networking.error("SessionService: refresh: Unable to read sessions")
 
                     onComplete(.failure(ServiceError(status: .fail,
                                                      message: "Could not download sessions, please try again")))
@@ -67,107 +66,32 @@ class SessionService {
                     return
                 }
 
-                var favouriteSessions: [Session] = []
+                let favourites = getFavourites(context: context)
 
-                logger.debug("Getting favourites")
-
-                do {
-                    // swiftlint:disable force_cast
-                    let request: NSFetchRequest<Session> = Session.fetchRequest() as! NSFetchRequest<Session>
-                    // swiftlint:enable force_cast
-
-                    request.sortDescriptors = []
-                    request.predicate = NSPredicate(format: "favourite == true")
-
-                    favouriteSessions = try context.fetch(request)
-                } catch {
-                    logger.error("Could not get favourites \(error.localizedDescription, privacy: .public)")
-                    // Go forward - we will lose favourites - but may complete
-                }
-
-                let favourites = favouriteSessions
-                    .compactMap { (session) -> String? in
-                        return session.sessionId
-                }
-
-                logger.debug("Got \(favourites.count, privacy: .public) favourites")
-
-                do {
-                    logger.debug("Clearing old sessions")
-
-                    // swiftlint:disable force_cast
-                    let result = try context.execute(Session.clear()) as! NSBatchDeleteResult
-                    // swiftlint:enable force_cast
-
-                    let changes: [AnyHashable: Any] = [
-                        // swiftlint:disable force_cast
-                        NSDeletedObjectsKey: result.result as! [NSManagedObjectID]
-                        // swiftlint:enable force_cast
-                    ]
-
-                    NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
-                } catch {
-                    logger.error("Could not clear sessions \(error.localizedDescription, privacy: .public)")
-
-                    onComplete(.failure(ServiceError(status: .fatal,
-                                                     message: "Issue in the data store - please delete and reinstall",
-                                                     detail: "Unable to clear session data \(error)")))
-
-                    return
-                }
+                if !clearOldSessions(context: context, onComplete: onComplete) { return }
 
                 var newSessions: [Session] = []
 
                 sessions.forEach { (remoteSession) in
-                    if let id = remoteSession.sessionId {
-                        let session = Session(context: context)
-
-                        session.sessionId = id
-                        session.abstract = remoteSession.abstract
-                        session.audience = remoteSession.audience
-                        session.format = remoteSession.format
-                        session.title = remoteSession.title
-                        session.length = remoteSession.length
-                        session.room = remoteSession.room
-                        session.startUtc = remoteSession.startUtc
-                        session.endUtc = remoteSession.endUtc
-                        session.section = session.startUtc?.asHour() ?? "00:00"
-                        session.registerLoc = remoteSession.registerLoc
-                        session.workshopPrerequisites = remoteSession.workshopPrerequisites
-                        session.videoId = remoteSession.videoId
-
-                        session.favourite = favourites.contains(id)
-
-                        remoteSession.speakers?.forEach { (remoteSpeaker) in
-                            let speaker = Speaker(context: context)
-
-                            if let name = remoteSpeaker.name {
-                                speaker.name = name
-                                speaker.bio = remoteSpeaker.bio
-                                speaker.avatar = remoteSpeaker.avatar
-
-                                if let twitter = remoteSpeaker.twitter {
-                                    if !twitter.isEmpty {
-                                        speaker.twitter = twitter.deletePrefix("@")
-                                    }
-                                }
-
-                                speaker.session = session
-                            }
-                        }
-
+                    if let session = buildSession(session: remoteSession, favourites: favourites, context: context) {
                         newSessions.append(session)
                     }
                 }
 
-                logger.debug("Saw \(newSessions.count, privacy: .public) new sessions")
+                Logger.networking.debug("""
+SessionService: refresh: Saw \(newSessions.count, privacy: .public) new sessions
+"""
+                )
 
                 updateSections(newSessions)
 
                 do {
                     try save(context: context)
                 } catch {
-                    logger.error("Could not save sessions \(error.localizedDescription, privacy: .public)")
+                    Logger.datastore.error("""
+SessionService: refresh: Could not save sessions \(error.localizedDescription, privacy: .public)
+"""
+                    )
 
                     onComplete(.failure(ServiceError(status: .fatal,
                                                      message: "Issue in the data store - please delete and reinstall",
@@ -179,6 +103,114 @@ class SessionService {
                 onComplete(.success(.success))
             }
         }
+    }
+
+    private static func clearOldSessions(context: NSManagedObjectContext,
+                                         onComplete: @escaping (Result<UpdateStatus, Error>) -> Void) -> Bool {
+        do {
+            Logger.datastore.debug("SessionService: refresh: Clearing old sessions")
+
+            // swiftlint:disable force_cast
+            let result = try context.execute(Session.clear()) as! NSBatchDeleteResult
+            // swiftlint:enable force_cast
+
+            let changes: [AnyHashable: Any] = [
+                // swiftlint:disable force_cast
+                NSDeletedObjectsKey: result.result as! [NSManagedObjectID]
+                // swiftlint:enable force_cast
+            ]
+
+            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
+
+            return true
+        } catch {
+            Logger.datastore.error("""
+SessionService: refresh: Could not clear sessions \(error.localizedDescription, privacy: .public)
+"""
+            )
+
+            onComplete(.failure(ServiceError(status: .fatal,
+                                             message: "Issue in the data store - please delete and reinstall",
+                                             detail: "Unable to clear session data \(error)")))
+
+            return false
+        }
+    }
+
+    private static func getFavourites(context: NSManagedObjectContext) -> [String] {
+        Logger.datastore.debug("SessionService: refresh: Getting favourites")
+
+        do {
+            // swiftlint:disable force_cast
+            let request: NSFetchRequest<Session> = Session.fetchRequest() as! NSFetchRequest<Session>
+            // swiftlint:enable force_cast
+
+            request.sortDescriptors = []
+            request.predicate = NSPredicate(format: "favourite == true")
+
+            let favouriteSessions = try context.fetch(request)
+
+            let favourites = favouriteSessions
+                .compactMap { (session) -> String? in
+                    return session.sessionId
+            }
+
+            Logger.datastore.debug("SessionService: refresh: Got \(favourites.count, privacy: .public) favourites")
+
+            return favourites
+        } catch {
+            Logger.datastore.error("""
+SessionService: refresh: Could not get favourites \(error.localizedDescription, privacy: .public)
+""")
+            // Go forward - we will lose favourites - but may complete
+
+            return []
+        }
+    }
+
+    private static func buildSession(session remoteSession: RemoteSession, favourites: [String],
+                                     context: NSManagedObjectContext) -> Session? {
+        guard let id = remoteSession.sessionId else {
+            return nil
+        }
+
+        let session = Session(context: context)
+
+        session.sessionId = id
+        session.abstract = remoteSession.abstract
+        session.audience = remoteSession.audience
+        session.format = remoteSession.format
+        session.title = remoteSession.title
+        session.length = remoteSession.length
+        session.room = remoteSession.room
+        session.startUtc = remoteSession.startUtc
+        session.endUtc = remoteSession.endUtc
+        session.section = session.startUtc?.asHour() ?? "00:00"
+        session.registerLoc = remoteSession.registerLoc
+        session.workshopPrerequisites = remoteSession.workshopPrerequisites
+        session.videoId = remoteSession.videoId
+
+        session.favourite = favourites.contains(id)
+
+        remoteSession.speakers?.forEach { (remoteSpeaker) in
+            let speaker = Speaker(context: context)
+
+            if let name = remoteSpeaker.name {
+                speaker.name = name
+                speaker.bio = remoteSpeaker.bio
+                speaker.avatar = remoteSpeaker.avatar
+
+                if let twitter = remoteSpeaker.twitter {
+                    if !twitter.isEmpty {
+                        speaker.twitter = twitter.deletePrefix("@")
+                    }
+                }
+
+                speaker.session = session
+            }
+        }
+
+        return session
     }
 
     private static func updateSections(_ sessions: [Session]) {

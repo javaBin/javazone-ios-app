@@ -4,8 +4,6 @@ import os.log
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-    let logger = Logger(subsystem: Logger.subsystem, category: "AppDelegate")
-
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -39,7 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
-                self.logger.error("Unable to load persistent stores \(error.localizedDescription, privacy: .public)")
+                Logger.datastore.error("""
+AppDelegate: persistentContainer: Unable to load persistent stores \(error.localizedDescription, privacy: .public)
+"""
+                )
 
                 // If we have no store - we're unable to do anything useful
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -55,11 +56,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         if context.hasChanges {
             do {
-                logger.info("Saving context")
+                Logger.datastore.info("AppDelegate: saveContext: Saving context")
 
                 try context.save()
             } catch {
-                logger.error("Saving context failed \(error.localizedDescription, privacy: .public)")
+                Logger.datastore.error("""
+AppDelegate: saveContext: Saving context failed \(error.localizedDescription, privacy: .public)
+"""
+                )
 
                 let nserror = error as NSError
 
