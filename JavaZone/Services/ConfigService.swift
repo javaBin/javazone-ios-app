@@ -1,113 +1,83 @@
 import SwiftUI
-import Alamofire
 import os.log
 
 class ConfigService {
-    static func refreshConfig(onComplete: @escaping () -> Void) {
-        Logger.networking.info("ConfigService: refreshConfig: Refreshing config")
-
-        let request = AF.request("https://sleepingpill.javazone.no/public/config")
+    static func fetch(url: URL) async throws -> RemoteConfig? {
+        let (data, _) = try await URLSession.shared.data(from: url)
 
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
 
-        Logger.networking.debug("ConfigService: refreshConfig: Fetching config")
-
-        request.responseDecodable(of: RemoteConfig.self, decoder: decoder) { (response) in
-            if let error = response.error {
-                Logger.networking.error("""
-ConfigService: refreshConfig: Unable to refresh config \(error.localizedDescription, privacy: .public)
-"""
-                )
-
-                onComplete()
-
-                return
-            }
-
-            guard let config = response.value else {
-                Logger.networking.error("ConfigService: refreshConfig: Unable to fetch config")
-
-                onComplete()
-
-                return
-            }
-
-            let newConfig = Config()
-            newConfig.title = config.conferenceName ?? Config.defaultTitle
-            newConfig.url = config.conferenceUrl ?? Config.defaultUrl
-            newConfig.dates = Config.defaultDates
-            newConfig.web = Config.defaultWeb
-            newConfig.id = Config.defaultId
-
-            if let confDates = config.conferenceDates, let workDate = config.workshopDate {
-                if confDates.count == 2 {
-                    newConfig.dates = [confDates[0], confDates[1], workDate]
-                }
-            }
-
-            // TODO - get web and ID from config endpoint https://github.com/javaBin/sleepingPillCore/issues/27
-
-            Logger.networking.info("""
-ConfigService: refreshConfig: Saving config \(newConfig.description, privacy: .public)
-"""
-            )
-
-            newConfig.saveConfig()
-
-            onComplete()
+        if let decodedResponse = try? decoder.decode(RemoteConfig.self, from: data) {
+            return decodedResponse
+        } else {
+            return nil
         }
     }
 
-    static func loadLocalJsonFile<Model: Decodable>(name: String, onComplete: @escaping (_ items: [Model]) -> Void) {
-        Logger.licencing.debug("ConfigService: loadLocalJsonFile: Loading json for \(name, privacy: .public)")
+    static func refreshConfig(onComplete: @escaping () -> Void) {
+        Logger.networking.info("ConfigService: refreshConfig: Refreshing config")
 
-        guard let path = Bundle.main.path(forResource: name, ofType: "json") else {
-            Logger.licencing.error("""
-ConfigService: loadLocalJsonFile: Did not find json file for \(name, privacy: .public)
-"""
-            )
+        guard let url = URL(string: "https://sleepingpill.javazone.no/public/config") else {
+            Logger.networking.warning("Unable to create config URL")
+
+            DispatchQueue.main.async {
+                onComplete()
+            }
+
             return
         }
 
-        Logger.licencing.debug("ConfigService: loadLocalJsonFile: Loading json from \(path, privacy: .public)")
+        Task {
+            Logger.networking.debug("ConfigService: refreshConfig: Fetching config")
 
-        let url = URL(fileURLWithPath: path)
+            do {
+                let remoteConfig = try await fetch(url: url)
 
-        let request = AF.request(url)
+                guard let config = remoteConfig else {
+                    Logger.networking.error("ConfigService: refreshConfig: Unable to fetch config")
 
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+                    DispatchQueue.main.async {
+                        onComplete()
+                    }
 
-        Logger.licencing.debug("ConfigService: loadLocalJsonFile: Fetching json for \(name, privacy: .public)")
+                    return
+                }
 
-        request.responseDecodable(of: [Model].self, decoder: decoder) { (response) in
-            if let error = response.error {
-                Logger.licencing.error("""
-ConfigService: loadLocalJsonFile: Unable to fetch \(name, privacy: .public) \
-\(error.localizedDescription, privacy: .public)
-"""
+                let newConfig = Config()
+                newConfig.title = config.conferenceName ?? Config.defaultTitle
+                newConfig.url = config.conferenceUrl ?? Config.defaultUrl
+                newConfig.dates = Config.defaultDates
+                newConfig.web = Config.defaultWeb
+                newConfig.id = Config.defaultId
+
+                if let confDates = config.conferenceDates, let workDate = config.workshopDate {
+                    if confDates.count == 2 {
+                        newConfig.dates = [confDates[0], confDates[1], workDate]
+                    }
+                }
+
+                // TODO - get web and ID from config endpoint https://github.com/javaBin/sleepingPillCore/issues/27
+
+                Logger.networking.info("""
+    ConfigService: refreshConfig: Saving config \(newConfig.description, privacy: .public)
+    """
                 )
 
-                onComplete([])
+                newConfig.saveConfig()
 
-                return
+                DispatchQueue.main.async {
+                    onComplete()
+                }
+            } catch {
+                Logger.networking.error("""
+ConfigService: refreshConfig: Unable to refresh config \(error.localizedDescription, privacy: .public)
+""")
+
+                DispatchQueue.main.async {
+                    onComplete()
+                }
             }
-
-            guard let items = response.value else {
-                Logger.licencing.error("ConfigService: loadLocalJsonFile: Unable to read \(name, privacy: .public)")
-
-                onComplete([])
-
-                return
-            }
-
-            Logger.licencing.debug("""
-ConfigService: loadLocalJsonFile: Loaded \(items.count, privacy: .public) items for \(name, privacy: .public)
-"""
-            )
-
-            onComplete(items)
         }
     }
 }

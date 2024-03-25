@@ -1,5 +1,4 @@
 import SwiftUI
-import Alamofire
 import CoreData
 import os.log
 
@@ -16,18 +15,24 @@ class SessionService {
     }
     // swiftlint:enable force_cast
 
-    private static func save(context: NSManagedObjectContext) throws {
-        if context.hasChanges {
-            Logger.datastore.info("SessionService: save: Saving changed MOC - Sessions")
-            try context.save()
-        }
-    }
-
     static func refresh() async throws -> UpdateStatus {
         return try await withCheckedThrowingContinuation { continuation in
             refresh { result in
                 continuation.resume(with: result)
             }
+        }
+    }
+
+    static func fetch(url: URL) async throws -> RemoteSessionList? {
+        let (data, _) = try await URLSession.shared.data(from: url)
+
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+
+        if let decodedResponse = try? decoder.decode(RemoteSessionList.self, from: data) {
+            return decodedResponse
+        } else {
+            return nil
         }
     }
 
@@ -37,70 +42,90 @@ class SessionService {
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             // swiftlint:enable force_cast
 
-            let request = AF.request(Config.sharedConfig.url)
+            guard let url = URL(string: Config.sharedConfig.url) else {
+                Logger.networking.warning("Unable to create sessions URL")
 
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
+                DispatchQueue.main.async {
+                    onComplete(.failure(ServiceError(status: .fail,
+                                                     message: "Could not create session URL, please try again")))
+                }
 
-            Logger.networking.debug("SessionService: refresh: Fetching sessions")
+                return
+            }
 
-            request.responseDecodable(of: RemoteSessionList.self, decoder: decoder) { (response) in
-                if let error = response.error {
+            Task {
+                Logger.networking.debug("SessionService: refresh: Fetching sessions")
+
+                do {
+                    let remoteSessions = try await fetch(url: url)
+
+                    guard let sessions = remoteSessions?.sessions else {
+                        Logger.networking.error("SessionService: refresh: Unable to read sessions")
+
+                        DispatchQueue.main.async {
+                            onComplete(.failure(ServiceError(status: .fail,
+                                                             message: "Could not download sessions, please try again")))
+                        }
+
+                        return
+                    }
+
+                    let favourites = getFavourites(context: context)
+
+                    if !clearOldSessions(context: context, onComplete: onComplete) { return }
+
+                    var newSessions: [Session] = []
+
+                    sessions.forEach { (remote) in
+                        if let session = buildSession(session: remote, favourites: favourites, context: context) {
+                            newSessions.append(session)
+                        }
+                    }
+
+                    Logger.networking.debug("""
+    SessionService: refresh: Saw \(newSessions.count, privacy: .public) new sessions
+    """
+                    )
+
+                    updateSections(newSessions)
+
+                    DispatchQueue.main.async {
+                        do {
+                            if context.hasChanges {
+                                Logger.datastore.info("SessionService: save: Saving changed MOC - Sessions")
+                                try context.save()
+                            }
+                        } catch {
+                            Logger.datastore.error("""
+    SessionService: refresh: Could not save sessions \(error.localizedDescription, privacy: .public)
+    """
+                            )
+
+                            onComplete(.failure(
+                                ServiceError(status: .fatal,
+                                             message: "Issue in the data store - please delete and reinstall",
+                                             detail: "Unable to save data - sessions \(error)")))
+
+                            return
+                        }
+                    }
+
+                    DispatchQueue.main.async {
+                        onComplete(.success(.success))
+                    }
+                } catch {
                     Logger.networking.error("""
 SessionService: refresh: Unable to fetch sessions \(error.localizedDescription, privacy: .public)
 """
                     )
 
-                    onComplete(.failure(ServiceError(status: .fail,
-                                                     message: "Could not download sessions, please try again")))
-
-                    return
-                }
-
-                guard let sessions = response.value?.sessions else {
-                    Logger.networking.error("SessionService: refresh: Unable to read sessions")
-
-                    onComplete(.failure(ServiceError(status: .fail,
-                                                     message: "Could not download sessions, please try again")))
-
-                    return
-                }
-
-                let favourites = getFavourites(context: context)
-
-                if !clearOldSessions(context: context, onComplete: onComplete) { return }
-
-                var newSessions: [Session] = []
-
-                sessions.forEach { (remoteSession) in
-                    if let session = buildSession(session: remoteSession, favourites: favourites, context: context) {
-                        newSessions.append(session)
+                    DispatchQueue.main.async {
+                        onComplete(.failure(ServiceError(status: .fail,
+                                                         message: "Could not download sessions, please try again")))
                     }
-                }
-
-                Logger.networking.debug("""
-SessionService: refresh: Saw \(newSessions.count, privacy: .public) new sessions
-"""
-                )
-
-                updateSections(newSessions)
-
-                do {
-                    try save(context: context)
-                } catch {
-                    Logger.datastore.error("""
-SessionService: refresh: Could not save sessions \(error.localizedDescription, privacy: .public)
-"""
-                    )
-
-                    onComplete(.failure(ServiceError(status: .fatal,
-                                                     message: "Issue in the data store - please delete and reinstall",
-                                                     detail: "Unable to save data - sessions \(error)")))
 
                     return
                 }
-
-                onComplete(.success(.success))
             }
         }
     }
@@ -129,9 +154,11 @@ SessionService: refresh: Could not clear sessions \(error.localizedDescription, 
 """
             )
 
-            onComplete(.failure(ServiceError(status: .fatal,
-                                             message: "Issue in the data store - please delete and reinstall",
-                                             detail: "Unable to clear session data \(error)")))
+            DispatchQueue.main.async {
+                onComplete(.failure(ServiceError(status: .fatal,
+                                                 message: "Issue in the data store - please delete and reinstall",
+                                                 detail: "Unable to clear session data \(error)")))
+            }
 
             return false
         }
