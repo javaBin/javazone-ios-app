@@ -184,9 +184,9 @@ SessionsListView: refreshSessions: \(error.status.rawValue, privacy: .public), \
                                     }
                                 }
                             }
-                            .onChange(of: self.sessions, perform: { _ in
+                            .onChange(of: self.sessions) {
                                 scrollTo(scroll: scrollProxy)
-                            })
+                            }
                             .onFirstAppear {
                                 appear()
                                 scrollTo(scroll: scrollProxy)
