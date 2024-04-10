@@ -1,6 +1,6 @@
 [
   {
-    "title": "Wi-Fi - SSID: JavaZone 2023"
+    "title": "Wi-Fi - SSID: JavaZone"
   },
   {
     "title": "JavaZone Website",
@@ -8,6 +8,14 @@
     "url": {
       "title": "javazone.no",
       "url": "https://javazone.no"
+    }
+  },
+  {
+    "title": "JavaZone Kids",
+    "body": "JavaZone Kids - September 2024",
+    "url": {
+      "title": "More Info on the Web",
+      "url": "https://2024.javazone.no/javazoneKids"
     }
   },
   {
