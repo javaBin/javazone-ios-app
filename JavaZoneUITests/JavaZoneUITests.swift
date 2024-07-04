@@ -32,6 +32,7 @@ final class JavaZoneUITests: XCTestCase {
         pause()
     }
 
+    @MainActor
     func testScreenshots() throws {
         let app = XCUIApplication()
         setupSnapshot(app)
