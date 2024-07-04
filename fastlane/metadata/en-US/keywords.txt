@@ -1,1 +1,1 @@
-javazone, javabin
+javazone, javabin, java, kotlin, jvm, conference, Oslo, Norway
