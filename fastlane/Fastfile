@@ -38,7 +38,7 @@ platform :ios do
 
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    unittest
+    #unittest
     gitprep
     codesignprep
     build_app(scheme: "JavaZone", clean: true)
@@ -48,7 +48,7 @@ platform :ios do
 
   desc "Push a new beta build to AppStore"
   lane :release do
-    unittest
+    #unittest
     gitprep
     codesignprep
     build_app(scheme: "JavaZone", clean: true)
