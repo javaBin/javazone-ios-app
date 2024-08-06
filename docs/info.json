@@ -17,13 +17,5 @@
       "title": "More Info on the Web",
       "url": "https://2024.javazone.no/javazoneKids"
     }
-  },
-  {
-    "title": "JavaZone Discord",
-    "body": "Join us on Discord",
-    "url": {
-      "title": "Discord invitation link",
-      "url": "http://discord.javazone.no/"
-    }
   }
 ]
