@@ -60,6 +60,7 @@
 		83E322AA2403F5730044094C /* InfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E322A92403F5730044094C /* InfoService.swift */; };
 		83E322AE2403F5DC0044094C /* RemoteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E322AD2403F5DC0044094C /* RemoteInfo.swift */; };
 		83E322B02403FC090044094C /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E322AF2403FC090044094C /* Info.swift */; };
+		83E9E5A82C66933B0015FB82 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E9E5A72C66933B0015FB82 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +143,7 @@
 		83E322A92403F5730044094C /* InfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoService.swift; sourceTree = "<group>"; };
 		83E322AD2403F5DC0044094C /* RemoteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteInfo.swift; sourceTree = "<group>"; };
 		83E322AF2403FC090044094C /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
+		83E9E5A72C66933B0015FB82 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		83F4791B26F237CD006DA0AC /* JavaZone 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "JavaZone 2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -230,6 +232,7 @@
 				8350E64E23F5222D0085C1F3 /* Preview Content */,
 				837BC7042A98A46F00B9FB74 /* EnvConfig.xcconfig */,
 				837BC7082A98A54F00B9FB74 /* EnvConfig.swift */,
+				83E9E5A72C66933B0015FB82 /* CoreDataManager.swift */,
 			);
 			path = JavaZone;
 			sourceTree = "<group>";
@@ -539,6 +542,7 @@
 				83B3332523FAF8A900F3FCB4 /* Search+Keyboard.swift in Sources */,
 				83E322AE2403F5DC0044094C /* RemoteInfo.swift in Sources */,
 				835BD63E2703B77A00EA4416 /* InfoViewModel.swift in Sources */,
+				83E9E5A82C66933B0015FB82 /* CoreDataManager.swift in Sources */,
 				83AD08E82A0CE06300BEAD0D /* View+FirstAppear.swift in Sources */,
 				837E9BB424058D1000B74714 /* SessionsListView.swift in Sources */,
 				83E322B02403FC090044094C /* Info.swift in Sources */,

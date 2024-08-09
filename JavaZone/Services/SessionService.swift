@@ -9,16 +9,19 @@ struct SessionSection: Hashable {
 }
 
 class SessionService {
-    // swiftlint:disable force_cast
-    private static func getContext() -> NSManagedObjectContext {
-        return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    }
-    // swiftlint:enable force_cast
 
     static func refresh() async throws -> UpdateStatus {
+        Logger.networking.info("SessionService: refresh: Refresh called")
         return try await withCheckedThrowingContinuation { continuation in
+            Logger.networking.info("SessionService: refresh: Continuation called")
+
+            var activeContinuation: CheckedContinuation<UpdateStatus, any Error>? = continuation
+
             refresh { result in
-                continuation.resume(with: result)
+                Logger.networking.info("SessionService: refresh: Resuming with result")
+
+                activeContinuation?.resume(with: result)
+                activeContinuation = nil
             }
         }
     }
@@ -38,10 +41,6 @@ class SessionService {
 
     static func refresh(_ onComplete: @escaping (Result<UpdateStatus, Error>) -> Void) {
         ConfigService.refreshConfig {
-            // swiftlint:disable force_cast
-            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-            // swiftlint:enable force_cast
-
             guard let url = URL(string: Config.sharedConfig.url) else {
                 Logger.networking.warning("Unable to create sessions URL")
 
@@ -54,6 +53,8 @@ class SessionService {
             }
 
             Task {
+                let context = CoreDataManager.shared.persistentContainer.newBackgroundContext()
+
                 Logger.networking.debug("SessionService: refresh: Fetching sessions")
 
                 do {
@@ -89,30 +90,30 @@ class SessionService {
 
                     updateSections(newSessions)
 
-                    DispatchQueue.main.async {
-                        do {
-                            if context.hasChanges {
-                                Logger.datastore.info("SessionService: save: Saving changed MOC - Sessions")
-                                try context.save()
-                            }
-                        } catch {
-                            Logger.datastore.error("""
-    SessionService: refresh: Could not save sessions \(error.localizedDescription, privacy: .public)
-    """
-                            )
-
-                            onComplete(.failure(
-                                ServiceError(status: .fatal,
-                                             message: "Issue in the data store - please delete and reinstall",
-                                             detail: "Unable to save data - sessions \(error)")))
-
-                            return
+                    do {
+                        if context.hasChanges {
+                            Logger.datastore.info("SessionService: save: Saving changed MOC - Sessions")
+                            try context.save()
                         }
+                    } catch {
+                        Logger.datastore.error("""
+SessionService: refresh: Could not save sessions \(error.localizedDescription, privacy: .public)
+"""
+                        )
+
+                        onComplete(.failure(
+                            ServiceError(status: .fatal,
+                                         message: "Issue in the data store - please delete and reinstall",
+                                         detail: "Unable to save data - sessions \(error)")))
+
+                        return
                     }
 
                     DispatchQueue.main.async {
                         onComplete(.success(.success))
                     }
+
+                    return
                 } catch {
                     Logger.networking.error("""
 SessionService: refresh: Unable to fetch sessions \(error.localizedDescription, privacy: .public)
