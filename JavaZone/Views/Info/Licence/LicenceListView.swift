@@ -1,5 +1,4 @@
 import SwiftUI
-import Flurry_iOS_SDK
 
 struct LicenceListView: View {
     @StateObject var viewModel = LicenceViewModel()
@@ -13,9 +12,6 @@ struct LicenceListView: View {
             }
         }
         .navigationTitle("Licences")
-        .onAppear {
-            Flurry.log(eventName: "ScreenView_LicenceList")
-        }
     }
 }
 

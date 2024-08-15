@@ -43,7 +43,6 @@ platform :ios do
     codesignprep
     build_app(scheme: "JavaZone", clean: true)
     upload_to_testflight
-    flurry_upload_dsym
     slack(message: "Beta build uploaded")
   end
 
@@ -54,7 +53,6 @@ platform :ios do
     codesignprep
     build_app(scheme: "JavaZone", clean: true)
     upload_to_app_store
-    flurry_upload_dsym
     slack(message: "Release build uploaded")
   end
 end

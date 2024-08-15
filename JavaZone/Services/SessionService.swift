@@ -2,7 +2,6 @@ import SwiftUI
 import Alamofire
 import CoreData
 import os.log
-import Flurry_iOS_SDK
 
 struct SessionSection : Hashable {
     var startUtc: Date
@@ -25,11 +24,8 @@ class SessionService {
     }
     
     static func refresh() async throws -> UpdateStatus {
-        Flurry.log(eventName: "RefreshSessions", timed: true)
-
         return try await withCheckedThrowingContinuation { continuation in
             refresh { result in
-                Flurry.endTimedEvent(eventName: "RefreshSessions", parameters: nil)
                 continuation.resume(with: result)
             }
         }
@@ -52,8 +48,6 @@ class SessionService {
                 if let error = response.error {
                     logger.error("Unable to fetch sessions \(error.localizedDescription, privacy: .public)")
 
-                    Flurry.log(errorId: "SessionRefreshFailed", message: "Unable to fetch sessions", error: error)
-                    
                     onComplete(.failure(ServiceError(status: .Fail, message: "Could not download sessions, please try again")))
                     
                     return
@@ -62,8 +56,6 @@ class SessionService {
                 guard let sessions = response.value?.sessions else {
                     logger.error("Unable to read sessions")
 
-                    Flurry.log(errorId: "SessionReadFailed", message: "Unable to read sessions", error: nil)
-                    
                     onComplete(.failure(ServiceError(status: .Fail, message: "Could not download sessions, please try again")))
                     
                     return
@@ -105,8 +97,6 @@ class SessionService {
                 } catch {
                     logger.error("Could not clear sessions \(error.localizedDescription, privacy: .public)")
                     
-                    Flurry.log(errorId: "SessionClaerFailed", message: "Unable to clear session data", error: error)
-
                     onComplete(.failure(ServiceError(status: .Fatal, message: "Issue in the data store - please delete and reinstall", detail: "Unable to clear session data \(error)")))
                     
                     return
@@ -164,8 +154,6 @@ class SessionService {
                     try save(context: context)
                 } catch {
                     logger.error("Could not save sessions \(error.localizedDescription, privacy: .public)")
-
-                    Flurry.log(errorId: "SessionSaveFailed", message: "Unable to save sessions", error: error)
 
                     onComplete(.failure(ServiceError(status: .Fatal, message: "Issue in the data store - please delete and reinstall", detail: "Unable to save data - sessions \(error)")))
 

@@ -1,4 +1,5 @@
 {
+  "originHash" : "e8f130fe30ac6cdc940ef06ee1e8535e9f46ffee6aeead1722b9525562f6ce08",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -8,16 +9,7 @@
         "revision" : "f96b619bcb2383b43d898402283924b80e2c4bae",
         "version" : "5.4.3"
       }
-    },
-    {
-      "identity" : "flurryswiftpackage",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/flurry/FlurrySwiftPackage/",
-      "state" : {
-        "revision" : "70a9eff3929892a0de7c5480f559637fd7863afe",
-        "version" : "12.4.0"
-      }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

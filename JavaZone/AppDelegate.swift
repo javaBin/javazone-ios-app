@@ -1,7 +1,6 @@
 import UIKit
 import CoreData
 import os.log
-import Flurry_iOS_SDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -10,15 +9,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         UNUserNotificationCenter.current().delegate = self
-        
-        let sb = FlurrySessionBuilder()
-                  .build(logLevel: FlurryLogLevel.all)
-                  .build(crashReportingEnabled: true)
-                  .build(appVersion: (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String))
-                  .build(iapReportingEnabled: true)
-        
-        Flurry.startSession(apiKey: EnvConfig.flurryApiKey, sessionBuilder: sb)
-        Flurry.log(eventName: "Started")
         
         return true
     }
@@ -47,8 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if let error = error as NSError? {
                 self.logger.error("Unable to load persistent stores \(error.localizedDescription, privacy: .public)")
 
-                Flurry.log(errorId: "PersistentContainerLoadFailed", message: "Unable to load persistent stores", error: error)
-                
                 // If we have no store - we're unable to do anything useful
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
@@ -68,8 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 try context.save()
             } catch {
                 logger.error("Saving context failed \(error.localizedDescription, privacy: .public)")
-
-                Flurry.log(errorId: "ContextSaveFailed", message: "Saving context failed", error: error)
 
                 let nserror = error as NSError
 

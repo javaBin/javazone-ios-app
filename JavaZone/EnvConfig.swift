@@ -23,9 +23,6 @@ enum Configuration {
 }
 
 enum EnvConfig {
-    static var flurryApiKey: String {
-        return try! Configuration.value(for: "FLURRY_API_KEY")
-    }
     static var partnerUrl: URL {        
         return try! URL(string: "https://" + Configuration.value(for: "PARTNER_URL"))!
     }
