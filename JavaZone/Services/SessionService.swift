@@ -8,7 +8,7 @@ struct SessionSection: Hashable {
     var duration: Int
 }
 
-class SessionService {
+class SessionServiceOld {
 
     static func refresh() async throws -> UpdateStatus {
         Logger.networking.info("SessionService: refresh: Refresh called")
@@ -79,6 +79,12 @@ class SessionService {
 
                     sessions.forEach { (remote) in
                         if let session = buildSession(session: remote, favourites: favourites, context: context) {
+                            if let remoteSpeakers = remote.speakers {
+                                remoteSpeakers.forEach { remoteSpeaker in
+                                    buildSpeaker(speaker: remoteSpeaker, session: session, context: context)
+                                }
+                            }
+
                             newSessions.append(session)
                         }
                     }
@@ -110,6 +116,8 @@ SessionService: refresh: Could not save sessions \(error.localizedDescription, p
                     }
 
                     DispatchQueue.main.async {
+                        CoreDataManager.shared.saveContext()
+                        CoreDataManager.shared.persistentContainer.viewContext.refreshAllObjects()
                         onComplete(.success(.success))
                     }
 
@@ -196,11 +204,14 @@ SessionService: refresh: Could not get favourites \(error.localizedDescription, 
         }
     }
 
+    @discardableResult
     private static func buildSession(session remoteSession: RemoteSession, favourites: [String],
                                      context: NSManagedObjectContext) -> Session? {
         guard let id = remoteSession.sessionId else {
             return nil
         }
+
+        Logger.networking.info("SessionService: buildSession: Session \(id)")
 
         let session = Session(context: context)
 
@@ -220,25 +231,33 @@ SessionService: refresh: Could not get favourites \(error.localizedDescription, 
 
         session.favourite = favourites.contains(id)
 
-        remoteSession.speakers?.forEach { (remoteSpeaker) in
-            let speaker = Speaker(context: context)
+        return session
+    }
 
-            if let name = remoteSpeaker.name {
-                speaker.name = name
-                speaker.bio = remoteSpeaker.bio
-                speaker.avatar = remoteSpeaker.avatar
+    @discardableResult
+    private static func buildSpeaker(speaker remoteSpeaker: RemoteSpeaker, session: Session,
+                                     context: NSManagedObjectContext) -> Speaker? {
+        guard let name = remoteSpeaker.name else {
+            return nil
+        }
 
-                if let twitter = remoteSpeaker.twitter {
-                    if !twitter.isEmpty {
-                        speaker.twitter = twitter.deletePrefix("@")
-                    }
-                }
+        Logger.networking.info("SessionService: buildSpeaker: Speaker \(name)")
 
-                speaker.session = session
+        let speaker = Speaker(context: context)
+
+        speaker.name = name
+        speaker.bio = remoteSpeaker.bio
+        speaker.avatar = remoteSpeaker.avatar
+
+        speaker.session = session
+
+        if let twitter = remoteSpeaker.twitter {
+            if !twitter.isEmpty {
+                speaker.twitter = twitter.deletePrefix("@")
             }
         }
 
-        return session
+        return speaker
     }
 
     private static func updateSections(_ sessions: [Session]) {

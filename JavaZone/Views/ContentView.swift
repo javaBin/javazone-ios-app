@@ -2,12 +2,11 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var selection = 0
-    @State private var blockingRefresh = false
 
     var body: some View {
         ZStack {
             TabView(selection: $selection) {
-                SessionsView(blockingRefresh: $blockingRefresh)
+                SessionsView()
                     .tabItem {
                         VStack {
                             Image(systemName: "calendar")
@@ -15,7 +14,7 @@ struct ContentView: View {
                         }
                     }
                     .tag(0)
-                FavouriteSessionsView(blockingRefresh: $blockingRefresh)
+                FavouriteSessionsView()
                     .tabItem {
                         VStack {
                             Image(systemName: "person.crop.circle")
@@ -48,9 +47,11 @@ struct ContentView: View {
                 }
             }
 
+            /*
             if blockingRefresh {
                 ProgressView("Refreshing sessions")
             }
+             */
         }
     }
 }

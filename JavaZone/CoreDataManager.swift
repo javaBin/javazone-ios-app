@@ -18,6 +18,7 @@ AppDelegate: persistentContainer: Unable to load persistent stores \(error.local
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+
         return container
     }()
 

@@ -39,6 +39,7 @@
 		8380469326FB4C3800624463 /* Date+UtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380469226FB4C3800624463 /* Date+UtilsTest.swift */; };
 		8380469526FB4E3900624463 /* String+UtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380469426FB4E3900624463 /* String+UtilsTest.swift */; };
 		8397433923FD23110024E80B /* ExternalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8397433823FD23110024E80B /* ExternalLink.swift */; };
+		83A3C09D2C68EEFC0094CE60 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A3C09C2C68EEFC0094CE60 /* SessionViewModel.swift */; };
 		83A7529E2AA06DB100A82604 /* JavaZoneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A7529D2AA06DB100A82604 /* JavaZoneUITests.swift */; };
 		83A752A02AA06DB100A82604 /* JavaZoneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A7529F2AA06DB100A82604 /* JavaZoneUITestsLaunchTests.swift */; };
 		83A752A72AA06E1A00A82604 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A752A62AA06E1900A82604 /* SnapshotHelper.swift */; };
@@ -48,6 +49,7 @@
 		83B3332523FAF8A900F3FCB4 /* Search+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */; };
 		83B361A226E8E24600CFB552 /* DayPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B361A126E8E24600CFB552 /* DayPicker.swift */; };
 		83B361A426E8E27900CFB552 /* SessionNavLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B361A326E8E27900CFB552 /* SessionNavLink.swift */; };
+		83B445F52C6DD4A70067E1F6 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B445F42C6DD4A70067E1F6 /* SessionService.swift */; };
 		83C8D17723F53646008322DA /* RemoteSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17423F53646008322DA /* RemoteSession.swift */; };
 		83C8D17923F53646008322DA /* RemoteSpeaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17623F53646008322DA /* RemoteSpeaker.swift */; };
 		83C8D17B23F5367E008322DA /* RemoteSessionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C8D17A23F5367E008322DA /* RemoteSessionList.swift */; };
@@ -117,6 +119,7 @@
 		8380469226FB4C3800624463 /* Date+UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+UtilsTest.swift"; sourceTree = "<group>"; };
 		8380469426FB4E3900624463 /* String+UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UtilsTest.swift"; sourceTree = "<group>"; };
 		8397433823FD23110024E80B /* ExternalLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLink.swift; sourceTree = "<group>"; };
+		83A3C09C2C68EEFC0094CE60 /* SessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
 		83A7529B2AA06DB100A82604 /* JavaZoneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JavaZoneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A7529D2AA06DB100A82604 /* JavaZoneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaZoneUITests.swift; sourceTree = "<group>"; };
 		83A7529F2AA06DB100A82604 /* JavaZoneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaZoneUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -129,6 +132,7 @@
 		83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search+Keyboard.swift"; sourceTree = "<group>"; };
 		83B361A126E8E24600CFB552 /* DayPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPicker.swift; sourceTree = "<group>"; };
 		83B361A326E8E27900CFB552 /* SessionNavLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionNavLink.swift; sourceTree = "<group>"; };
+		83B445F42C6DD4A70067E1F6 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		83C8D17423F53646008322DA /* RemoteSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSession.swift; sourceTree = "<group>"; };
 		83C8D17623F53646008322DA /* RemoteSpeaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSpeaker.swift; sourceTree = "<group>"; };
 		83C8D17A23F5367E008322DA /* RemoteSessionList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSessionList.swift; sourceTree = "<group>"; };
@@ -256,13 +260,15 @@
 		837E9BA124058D1000B74714 /* Sessions */ = {
 			isa = PBXGroup;
 			children = (
+				837E9BA524058D1000B74714 /* SessionItemView.swift */,
 				837E9BA624058D1000B74714 /* FavouriteSessionsView.swift */,
 				837E9BA324058D1000B74714 /* SessionDetailView.swift */,
-				837E9BA524058D1000B74714 /* SessionItemView.swift */,
 				83B361A326E8E27900CFB552 /* SessionNavLink.swift */,
 				837E9BA424058D1000B74714 /* SessionsListView.swift */,
 				837E9BA224058D1000B74714 /* SessionsView.swift */,
 				837E9BA724058D1000B74714 /* SpeakerItemView.swift */,
+				83A3C09C2C68EEFC0094CE60 /* SessionViewModel.swift */,
+				83B445F42C6DD4A70067E1F6 /* SessionService.swift */,
 			);
 			path = Sessions;
 			sourceTree = "<group>";
@@ -512,6 +518,7 @@
 				83C8D17723F53646008322DA /* RemoteSession.swift in Sources */,
 				83DBDAEA23F741E800767916 /* FavouriteToggleView.swift in Sources */,
 				837E9BB624058D1000B74714 /* FavouriteSessionsView.swift in Sources */,
+				83A3C09D2C68EEFC0094CE60 /* SessionViewModel.swift in Sources */,
 				8350E64923F5222B0085C1F3 /* JavaZone.xcdatamodeld in Sources */,
 				831B782123F526BF00A45C70 /* SessionService.swift in Sources */,
 				837E9BB524058D1000B74714 /* SessionItemView.swift in Sources */,
@@ -549,6 +556,7 @@
 				834FF1E92401DC0300432129 /* Log+Utils.swift in Sources */,
 				83C8D18023F5463F008322DA /* Speaker.swift in Sources */,
 				8350E64623F5222B0085C1F3 /* SceneDelegate.swift in Sources */,
+				83B445F52C6DD4A70067E1F6 /* SessionService.swift in Sources */,
 				834FF1E524017FEB00432129 /* Config.swift in Sources */,
 				83E322AA2403F5730044094C /* InfoService.swift in Sources */,
 				837E9BB924058D1000B74714 /* InfoView.swift in Sources */,
