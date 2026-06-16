@@ -153,11 +153,10 @@ struct SessionsListView: View {
                             if !isRefreshing { scrollTo() }
                         }
                         .task {
+                            guard !hasAppeared else { return }
+                            hasAppeared = true
                             appear()
-                            if !hasAppeared {
-                                hasAppeared = true
-                                scrollTo()
-                            }
+                            scrollTo()
                         }
                         .scrollContentBackground(.hidden)
                         .resignKeyboardOnDragGesture()
