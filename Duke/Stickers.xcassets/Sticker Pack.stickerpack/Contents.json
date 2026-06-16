@@ -5,5 +5,103 @@
   },
   "properties": {
     "grid-size": "large"
-  }
+  },
+  "stickers": [
+    {
+      "filename": "JavaZone.sticker"
+    },
+    {
+      "filename": "JavaZone2021.sticker"
+    },
+    {
+      "filename": "JavaZone2024.sticker"
+    },
+    {
+      "filename": "bart_duke.sticker"
+    },
+    {
+      "filename": "duke_bergen.sticker"
+    },
+    {
+      "filename": "duke_oslo.sticker"
+    },
+    {
+      "filename": "duke_sogn.sticker"
+    },
+    {
+      "filename": "duke_sorlandet.sticker"
+    },
+    {
+      "filename": "duke_stavanger.sticker"
+    },
+    {
+      "filename": "duke_tromso.sticker"
+    },
+    {
+      "filename": "duke_trondheim.sticker"
+    },
+    {
+      "filename": "duke_umbrella.sticker"
+    },
+    {
+      "filename": "duke_vestfold.sticker"
+    },
+    {
+      "filename": "jz24_disc.sticker"
+    },
+    {
+      "filename": "jz24_mc.sticker"
+    },
+    {
+      "filename": "jz24_sky.sticker"
+    },
+    {
+      "filename": "jz24_usb_duke.sticker"
+    },
+    {
+      "filename": "jz_character_bendy_cropped.sticker"
+    },
+    {
+      "filename": "jz_character_wendy_cropped.sticker"
+    },
+    {
+      "filename": "jz_character_wheely_cropped.sticker"
+    },
+    {
+      "filename": "jz_character_wheely_noitems_cropped.sticker"
+    },
+    {
+      "filename": "jz_hero.sticker"
+    },
+    {
+      "filename": "jz_item_heart.sticker"
+    },
+    {
+      "filename": "marius_duke.sticker"
+    },
+    {
+      "filename": "nisse_duke.sticker"
+    },
+    {
+      "filename": "nisse_duke_uten_flette.sticker"
+    },
+    {
+      "filename": "rock_duke.sticker"
+    },
+    {
+      "filename": "roman.sticker"
+    },
+    {
+      "filename": "tetris_duke3.sticker"
+    },
+    {
+      "filename": "tetris_duke4.sticker"
+    },
+    {
+      "filename": "viking_duke.sticker"
+    },
+    {
+      "filename": "viking_duke2.sticker"
+    }
+  ]
 }
