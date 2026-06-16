@@ -85,6 +85,7 @@ struct SessionDetailView: View {
 }
 
 #Preview {
+    // swiftlint:disable:next force_try
     let container = try! ModelContainer(for: Session.self, Speaker.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
     let session = Session(title: "Test Title", abstract: "Test abstract", room: "Room 1", startUtc: Date(), endUtc: Date(), favourite: false, sessionId: "test-1")
     NavigationStack {

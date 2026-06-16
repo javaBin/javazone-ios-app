@@ -20,9 +20,6 @@ struct InfoView: View {
                 Section(header: Text("JavaZone App")) {
                     ExternalLink(title: "GitHub", url: URL(string: "https://github.com/javaBin/javazone-ios-app")!)
                     ExternalLink(title: "Known Issues", url: URL(string: "https://github.com/javaBin/javazone-ios-app/issues")!)
-                    NavigationLink(destination: LicenceListView()) {
-                        Text("Licences")
-                    }
                     NavigationLink(destination: InfoLogView()) {
                         Text("App Logs")
                     }

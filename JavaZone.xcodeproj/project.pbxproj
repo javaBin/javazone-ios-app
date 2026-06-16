@@ -218,16 +218,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		835BD6492704390D00EA4416 /* Licence */ = {
-			isa = PBXGroup;
-			children = (
-				834FF1BC23FFCBFE00432129 /* LicenceView.swift */,
-				835BD645270437D000EA4416 /* LicenceViewModel.swift */,
-				835BD6472704382000EA4416 /* LicenceListView.swift */,
-			);
-			path = Licence;
-			sourceTree = "<group>";
-		};
 		837E9BA124058D1000B74714 /* Sessions */ = {
 			isa = PBXGroup;
 			children = (
@@ -494,8 +484,7 @@
 				837E9BB724058D1000B74714 /* SpeakerItemView.swift in Sources */,
 				83B3332323FAF74200F3FCB4 /* SearchView.swift in Sources */,
 				837E9BB224058D1000B74714 /* SessionsView.swift in Sources */,
-				835BD6482704382000EA4416 /* LicenceListView.swift in Sources */,
-				8350E64B23F5222B0085C1F3 /* ContentView.swift in Sources */,
+										8350E64B23F5222B0085C1F3 /* ContentView.swift in Sources */,
 				CCAA000200000000CCAA0002 /* JavaZoneApp.swift in Sources */,
 				CCAA000400000000CCAA0004 /* SessionsViewModel.swift in Sources */,
 				CCAA000600000000CCAA0006 /* InfoLogView.swift in Sources */,

@@ -2,12 +2,6 @@ import Foundation
 import SwiftData
 import os.log
 
-struct SessionSection: Hashable {
-    var startUtc: Date
-    var endUtc: Date
-    var duration: Int
-}
-
 enum SessionError: Error {
     case fail(String)
     case fatal(String, String)
@@ -76,7 +70,7 @@ struct SessionService {
                 favourite: favourites.contains(id),
                 sessionId: id,
                 videoId: remoteSession.videoId,
-                section: remoteSession.startUtc?.asHour() ?? "00:00",
+                section: remoteSession.startSlot?.asTime() ?? remoteSession.startUtc?.asTime() ?? "00:00",
                 registerLoc: remoteSession.registerLoc,
                 workshopPrerequisites: remoteSession.workshopPrerequisites
             )
@@ -85,8 +79,8 @@ struct SessionService {
             for remoteSpeaker in remoteSession.speakers ?? [] {
                 guard let name = remoteSpeaker.name else { continue }
                 let twitter: String? = {
-                    guard let t = remoteSpeaker.twitter, !t.isEmpty else { return nil }
-                    return t.deletePrefix("@")
+                    guard let handle = remoteSpeaker.twitter, !handle.isEmpty else { return nil }
+                    return handle.deletePrefix("@")
                 }()
                 let speaker = Speaker(
                     name: name,
@@ -102,35 +96,6 @@ struct SessionService {
         }
 
         logger.debug("Inserted \(newSessions.count, privacy: .public) sessions")
-        updateSections(newSessions)
         try context.save()
-    }
-
-    private static func updateSections(_ sessions: [Session]) {
-        let allowedSections = Set(
-            sessions
-                .filter { $0.format == "presentation" && $0.startUtc != nil && $0.endUtc != nil }
-                .compactMap { s -> SessionSection? in
-                    guard let start = s.startUtc, let end = s.endUtc,
-                          let len = s.length, let dur = Int(len) else { return nil }
-                    return SessionSection(startUtc: start, endUtc: end, duration: dur)
-                }
-        )
-
-        for session in sessions {
-            if session.format == "workshop" {
-                session.section = session.startUtc?.asDateTime() ?? "00:00"
-            } else {
-                let best = allowedSections
-                    .filter { slot in
-                        guard let start = session.startUtc, let end = session.endUtc else { return false }
-                        return start >= slot.startUtc && end <= slot.endUtc
-                    }
-                    .max(by: { $0.duration < $1.duration })
-                if let slot = best {
-                    session.section = "\(slot.startUtc.asTime()) - \(slot.endUtc.asTime())"
-                }
-            }
-        }
     }
 }

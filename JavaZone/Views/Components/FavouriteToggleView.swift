@@ -64,6 +64,7 @@ struct FavouriteToggleView: View {
 }
 
 #Preview {
+    // swiftlint:disable:next force_try
     let container = try! ModelContainer(for: Session.self, Speaker.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
     let session = Session(title: "Test", favourite: false, sessionId: "test-1")
     FavouriteToggleView(session: session)

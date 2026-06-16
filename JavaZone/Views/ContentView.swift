@@ -34,7 +34,6 @@ struct ContentView: View {
             if sessionsViewModel.isRefreshing {
                 ProgressView("Refreshing sessions")
             }
-             */
         }
     }
 }

@@ -11,6 +11,7 @@ struct RemoteSession: Decodable {
     let videoId: String?
     let startUtc: Date?
     let endUtc: Date?
+    let startSlot: Date?
     let registerLoc: String?
     let workshopPrerequisites: String?
     let speakers: [RemoteSpeaker]?
@@ -25,6 +26,7 @@ struct RemoteSession: Decodable {
         case room
         case startUtc = "startTimeZulu"
         case endUtc = "endTimeZulu"
+        case startSlot = "startSlotZulu"
         case speakers
         case registerLoc
         case workshopPrerequisites

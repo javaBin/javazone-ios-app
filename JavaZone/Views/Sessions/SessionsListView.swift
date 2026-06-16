@@ -74,6 +74,8 @@ struct SessionsListView: View {
     @State private var selectorIndex = 0
     @State private var searchText = ""
     @State private var selectedSession: SessionWithPending?
+    @State private var hasAppeared = false
+    @State private var scrolledSection: String?
 
     var sessions: RelevantSessions {
         let pending = allSessions
@@ -118,46 +120,51 @@ struct SessionsListView: View {
                         }
                         SearchView(searchText: $searchText)
 
-                        ScrollViewReader { scrollProxy in
-                            List(selection: $selectedSession) {
-                                ForEach(sessions.sections, id: \.self) { section in
-                                    Section(header: Text(section)) {
-                                        SessionListEntries(sessions: sessions.grouped[section] ?? [], pending: false)
-                                    }
-                                }
-                                if isPending {
-                                    if favouritesOnly {
-                                        Text("The session program is not yet complete")
-                                        Text("Rooms and times are still pending")
-                                        Text("You will be able to add sessions to your schedule when the programme is finalized.")
-                                    } else {
-                                        SessionListEntries(sessions: sessions.sessions, pending: true)
-                                    }
+                        List(selection: $selectedSession) {
+                            ForEach(sessions.sections, id: \.self) { section in
+                                Section(header: Text(section)) {
+                                    SessionListEntries(sessions: sessions.grouped[section] ?? [], pending: false)
                                 }
                             }
-                            .onChange(of: sessions) {
-                                scrollTo(scroll: scrollProxy)
+                            if isPending {
+                                if favouritesOnly {
+                                    Text("The session program is not yet complete")
+                                    Text("Rooms and times are still pending")
+                                    Text("You will be able to add sessions to your schedule when the programme is finalized.")
+                                } else {
+                                    SessionListEntries(sessions: sessions.sessions, pending: true)
+                                }
                             }
-                            .task {
-                                appear()
-                                scrollTo(scroll: scrollProxy)
-                            }
-                            .scrollContentBackground(.hidden)
-                            .resignKeyboardOnDragGesture()
-                            .refreshable {
-                                await sessionsViewModel.refresh(context: modelContext, appConfig: appConfig)
-                            }
-                            .alert(item: alertItemBinding) { alertItem in
-                                Alert(
-                                    title: alertItem.title,
-                                    message: alertItem.message,
-                                    dismissButton: .default(alertItem.buttonTitle) {
-                                        AlertContext.processAlertItem(alertItem: alertItem)
-                                    }
-                                )
-                            }
-                            .navigationTitle(title)
                         }
+                        .scrollPosition(id: $scrolledSection, anchor: .top)
+                        .onChange(of: selectorIndex) {
+                            scrollTo()
+                        }
+                        .onChange(of: sessionsViewModel.isRefreshing) { _, isRefreshing in
+                            if !isRefreshing { scrollTo() }
+                        }
+                        .task {
+                            appear()
+                            if !hasAppeared {
+                                hasAppeared = true
+                                scrollTo()
+                            }
+                        }
+                        .scrollContentBackground(.hidden)
+                        .resignKeyboardOnDragGesture()
+                        .refreshable {
+                            await sessionsViewModel.refresh(context: modelContext, appConfig: appConfig)
+                        }
+                        .alert(item: alertItemBinding) { alertItem in
+                            Alert(
+                                title: alertItem.title,
+                                message: alertItem.message,
+                                dismissButton: .default(alertItem.buttonTitle) {
+                                    AlertContext.processAlertItem(alertItem: alertItem)
+                                }
+                            )
+                        }
+                        .navigationTitle(title)
                     }
                 }
             }
@@ -178,25 +185,21 @@ struct SessionsListView: View {
         }
     }
 
-    private func scrollTo(scroll: ScrollViewProxy) {
+    private func scrollTo() {
         guard searchText.isEmpty, !isPending else { return }
 
-        var scrollId: String?
+        var target: String?
         let scrollToTimestamp = appConfig.dates[selectorIndex] == Date().asDate()
 
         if scrollToTimestamp && selectorIndex < 2 {
             let currentTimestamp = Date().asTime()
-            scrollId = sessions.sections.first { section in
-                let parts = section.components(separatedBy: " - ")
-                guard parts.count == 2 else { return false }
-                return parts[0] <= currentTimestamp && parts[1] > currentTimestamp
-            }
+            target = sessions.sections.last(where: { $0 <= currentTimestamp })
         }
 
-        if scrollId == nil { scrollId = sessions.sections.first }
+        if target == nil { target = sessions.sections.first }
 
-        logger.debug("Want to scroll to \(scrollId ?? "None", privacy: .public)")
-        if let scrollId { scroll.scrollTo(scrollId, anchor: .top) }
+        logger.debug("Want to scroll to \(target ?? "None", privacy: .public)")
+        scrolledSection = target
     }
 
     private func appear() {
@@ -234,8 +237,10 @@ struct SessionsListView: View {
 }
 
 #Preview {
+    // swiftlint:disable:next force_try
+    let container = try! ModelContainer(for: Session.self, Speaker.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
     SessionsListView(favouritesOnly: false, title: "Sessions")
-        .modelContainer(try! ModelContainer(for: Session.self, Speaker.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true)))
+        .modelContainer(container)
         .environment(SessionsViewModel())
         .environment(AppConfig())
         .environment(NotificationRouter())
