@@ -34,6 +34,7 @@ platform :ios do
   lane :codesignprep do
     get_certificates
     get_provisioning_profile
+    get_provisioning_profile(app_identifier: "net.chrissearle.incogito.JavaZone.Duke")
   end
 
   desc "Push a new beta build to TestFlight"

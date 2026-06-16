@@ -56,6 +56,8 @@
 		BB000002CCCCCCCCBB000002 /* SessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000001CCCCCCCCBB000001 /* SessionTests.swift */; };
 		BB000004CCCCCCCCBB000004 /* SpeakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000003CCCCCCCCBB000003 /* SpeakerTests.swift */; };
 		BB000006CCCCCCCCBB000006 /* AppConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000005CCCCCCCCBB000005 /* AppConfigTests.swift */; };
+		DD000002CCCCCCCCDD000002 /* Stickers.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD000001CCCCCCCCDD000001 /* Stickers.xcassets */; };
+		DD000010CCCCCCCCDD000010 /* JavaZone.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DD000009CCCCCCCCDD000009 /* JavaZone.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +74,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8350E63F23F5222B0085C1F3;
 			remoteInfo = JavaZone;
+		};
+		DD000012CCCCCCCCDD000012 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8350E63823F5222B0085C1F3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DD000008CCCCCCCCDD000008;
+			remoteInfo = Duke;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -135,7 +144,24 @@
 		BB000001CCCCCCCCBB000001 /* SessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTests.swift; sourceTree = "<group>"; };
 		BB000003CCCCCCCCBB000003 /* SpeakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerTests.swift; sourceTree = "<group>"; };
 		BB000005CCCCCCCCBB000005 /* AppConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigTests.swift; sourceTree = "<group>"; };
+		DD000001CCCCCCCCDD000001 /* Stickers.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Duke/Stickers.xcassets; sourceTree = SOURCE_ROOT; };
+		838048432407BF1600749E82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Duke/Info.plist; sourceTree = SOURCE_ROOT; };
+		DD000009CCCCCCCCDD000009 /* JavaZone.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JavaZone.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DD000011CCCCCCCCDD000011 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DD000010CCCCCCCCDD000010 /* JavaZone.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		8350E63D23F5222B0085C1F3 /* Frameworks */ = {
@@ -180,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				8350E64223F5222B0085C1F3 /* JavaZone */,
+				DD000003CCCCCCCCDD000003 /* Duke */,
 				83A827E4241507FB00DC7ADA /* JavaZoneTests */,
 				83A7529C2AA06DB100A82604 /* JavaZoneUITests */,
 				8350E64123F5222B0085C1F3 /* Products */,
@@ -192,6 +219,7 @@
 				8350E64023F5222B0085C1F3 /* JavaZone.app */,
 				83A827E3241507FB00DC7ADA /* JavaZoneTests.xctest */,
 				83A7529B2AA06DB100A82604 /* JavaZoneUITests.xctest */,
+				DD000009CCCCCCCCDD000009 /* JavaZone.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -324,6 +352,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		DD000003CCCCCCCCDD000003 /* Duke */ = {
+			isa = PBXGroup;
+			children = (
+				DD000001CCCCCCCCDD000001 /* Stickers.xcassets */,
+				838048432407BF1600749E82 /* Info.plist */,
+			);
+			path = Duke;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -335,10 +372,12 @@
 				8350E63D23F5222B0085C1F3 /* Frameworks */,
 				8350E63E23F5222B0085C1F3 /* Resources */,
 				8362165F2B6B9EC7009ABF92 /* ShellScript */,
+				DD000011CCCCCCCCDD000011 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DD000013CCCCCCCCDD000013 /* PBXTargetDependency */,
 			);
 			name = JavaZone;
 			productName = JavaZone;
@@ -381,6 +420,21 @@
 			productReference = 83A827E3241507FB00DC7ADA /* JavaZoneTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		DD000008CCCCCCCCDD000008 /* Duke */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD000007CCCCCCCCDD000007 /* Build configuration list for PBXNativeTarget "Duke" */;
+			buildPhases = (
+				DD000004CCCCCCCCDD000004 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Duke;
+			productName = JavaZone;
+			productReference = DD000009CCCCCCCCDD000009 /* JavaZone.appex */;
+			productType = "com.apple.product-type.app-extension.messages-sticker-pack";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -420,6 +474,7 @@
 			projectRoot = "";
 			targets = (
 				8350E63F23F5222B0085C1F3 /* JavaZone */,
+				DD000008CCCCCCCCDD000008 /* Duke */,
 				83A827E2241507FB00DC7ADA /* JavaZoneTests */,
 				83A7529A2AA06DB100A82604 /* JavaZoneUITests */,
 			);
@@ -447,6 +502,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD000004CCCCCCCCDD000004 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD000002CCCCCCCCDD000002 /* Stickers.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,6 +619,11 @@
 			target = 8350E63F23F5222B0085C1F3 /* JavaZone */;
 			targetProxy = 83A827E8241507FB00DC7ADA /* PBXContainerItemProxy */;
 		};
+		DD000013CCCCCCCCDD000013 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DD000008CCCCCCCCDD000008 /* Duke */;
+			targetProxy = DD000012CCCCCCCCDD000012 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -596,6 +664,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 103;
+				MARKETING_VERSION = 2024.1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = X4FF6CYH8M;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -664,6 +733,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 103;
+				MARKETING_VERSION = 2024.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = X4FF6CYH8M;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -750,15 +820,12 @@
 		83A752A32AA06DB100A82604 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X4FF6CYH8M;
-				INFOPLIST_FILE = Duke/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 6.0;
-				PRODUCT_BUNDLE_IDENTIFIER = net.chrissearle.incogito.JavaZone.Duke;
-				PRODUCT_NAME = JavaZone;
-				SKIP_INSTALL = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = net.chrissearle.JavaZoneUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = JavaZone;
 			};
@@ -767,15 +834,12 @@
 		83A752A42AA06DB100A82604 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X4FF6CYH8M;
-				INFOPLIST_FILE = Duke/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 6.0;
-				PRODUCT_BUNDLE_IDENTIFIER = net.chrissearle.incogito.JavaZone.Duke;
-				PRODUCT_NAME = JavaZone;
-				SKIP_INSTALL = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = net.chrissearle.JavaZoneUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = JavaZone;
 			};
@@ -826,6 +890,36 @@
 			};
 			name = Release;
 		};
+		DD000005CCCCCCCCDD000005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X4FF6CYH8M;
+				INFOPLIST_FILE = Duke/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.chrissearle.incogito.JavaZone.Duke;
+				PRODUCT_NAME = JavaZone;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DD000006CCCCCCCCDD000006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X4FF6CYH8M;
+				INFOPLIST_FILE = Duke/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.chrissearle.incogito.JavaZone.Duke;
+				PRODUCT_NAME = JavaZone;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -861,6 +955,15 @@
 			buildConfigurations = (
 				83A827EB241507FB00DC7ADA /* Debug */,
 				83A827EC241507FB00DC7ADA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD000007CCCCCCCCDD000007 /* Build configuration list for PBXNativeTarget "Duke" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD000005CCCCCCCCDD000005 /* Debug */,
+				DD000006CCCCCCCCDD000006 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
