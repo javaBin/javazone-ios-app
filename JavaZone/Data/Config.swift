@@ -1,73 +1,63 @@
 import Foundation
 import os.log
 
-public class Config : Codable {
-    static let logger = Logger(subsystem: Logger.subsystem, category: "Config")
+@Observable
+@MainActor
+final class AppConfig {
+    private let logger = Logger(subsystem: Logger.subsystem, category: "AppConfig")
 
-    public var title:String = defaultTitle
-    public var url:String = defaultUrl
-    public var dates:[String] = defaultDates
-    public var web:String = defaultWeb
-    public var id:String = defaultId
-    
-    enum CodingKeys: String, CodingKey {
-        case title
-        case url
-        case dates
-        case web
-        case id
-    }
-    
-    public var description : String {
-        "Title: \(title) URL: \(url) Dates: \(dates) Web: \(web) ID: \(id)"
-    }
-    
-    static var sharedConfig = getConfig()
-}
+    var title: String = AppConfig.defaultTitle
+    var url: String = AppConfig.defaultUrl
+    var dates: [String] = AppConfig.defaultDates
+    var web: String = AppConfig.defaultWeb
+    var id: String = AppConfig.defaultId
+    var partnerUrl: URL = EnvConfig.partnerUrl
 
-extension Config {
     static let defaultTitle = "JavaZone 2024"
     static let defaultUrl = "https://sleepingpill.javazone.no/public/allSessions/javazone_2024"
-    static let defaultDates = ["04.09.2023", "04.09.2023", "03.09.2023"]
+    static let defaultDates = ["04.09.2024", "05.09.2024", "04.09.2024"]
     static let defaultWeb = "https://2024.javazone.no/"
     static let defaultId = "ID"
-}
 
-extension Config {
-
-    static func getConfig() -> Config {
-        let defaults = UserDefaults.standard
-        
-        if let config = defaults.object(forKey: "Config") as? Data {
-            logger.info("Fetching config - fetch OK")
-
-            let decoder = JSONDecoder()
-
-            if let config = try? decoder.decode(Config.self, from: config) {
-                logger.info("Fetching config - decode OK")
-
-                return config
-            }
-        }
-
-        logger.info("Fetching config - returning default")
-
-        return Config()
+    init() {
+        loadFromDefaults()
     }
-    
-    func saveConfig() {
-        Config.logger.info("Saving config \(self.description, privacy: .public)")
 
-        let encoder = JSONEncoder()
-        
-        if let encoded = try? encoder.encode(self) {
-            let defaults = UserDefaults.standard
-            defaults.set(encoded, forKey: "Config")
-            
-            Config.sharedConfig = self
-        } else {
-            Config.logger.error("Unable to encode config \(self.description, privacy: .public)")
+    private func loadFromDefaults() {
+        guard let data = UserDefaults.standard.object(forKey: "Config") as? Data,
+              let stored = try? JSONDecoder().decode(StoredConfig.self, from: data) else {
+            logger.info("No stored config, using defaults")
+            return
+        }
+        title = stored.title
+        url = stored.url
+        dates = stored.dates
+        web = stored.web
+        id = stored.id
+    }
+
+    func apply(remote: RemoteConfig) {
+        title = remote.conferenceName ?? Self.defaultTitle
+        url = remote.conferenceUrl ?? Self.defaultUrl
+        if let confDates = remote.conferenceDates, let workDate = remote.workshopDate, confDates.count == 2 {
+            dates = [confDates[0], confDates[1], workDate]
+        }
+        persist()
+    }
+
+    private func persist() {
+        let stored = StoredConfig(title: title, url: url, dates: dates, web: web, id: id)
+        if let encoded = try? JSONEncoder().encode(stored) {
+            UserDefaults.standard.set(encoded, forKey: "Config")
+            logger.info("Config saved")
         }
     }
-}
 
+    private struct StoredConfig: Codable {
+        var title: String
+        var url: String
+        var dates: [String]
+        var web: String
+        var id: String
+    }
+}

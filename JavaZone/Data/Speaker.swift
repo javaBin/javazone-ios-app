@@ -1,30 +1,33 @@
 import Foundation
-import CoreData
+import SwiftData
 
-public class Speaker:NSManagedObject {
-    @NSManaged public var name:String?
-    @NSManaged public var bio:String?
-    @NSManaged public var avatar:String?
-    @NSManaged public var twitter:String?
-    @NSManaged public var session:Session?
-    
-    public var wrappedName : String {
-        name ?? "Unknown"
+@Model
+final class Speaker {
+    var name: String?
+    var bio: String?
+    var avatar: String?
+    var twitter: String?
+    var session: Session?
+
+    init(
+        name: String? = nil,
+        bio: String? = nil,
+        avatar: String? = nil,
+        twitter: String? = nil,
+        session: Session? = nil
+    ) {
+        self.name = name
+        self.bio = bio
+        self.avatar = avatar
+        self.twitter = twitter
+        self.session = session
     }
-    
-    public var wrappedAvatar: URL? {
-        if let avatar = self.avatar {
-            return URL(string: avatar)
-        }
-        
-        return nil;
-    }
-    
-    public var wrappedBio : String {
-        bio ?? ""
-    }
-    
-    public var wrappedTwitter : String {
-        twitter ?? ""
-    }
+
+    var wrappedName: String { name ?? "Unknown" }
+
+    var wrappedAvatar: URL? { avatar.flatMap { URL(string: $0) } }
+
+    var wrappedBio: String { bio ?? "" }
+
+    var wrappedTwitter: String { twitter ?? "" }
 }

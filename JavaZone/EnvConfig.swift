@@ -6,10 +6,9 @@ enum Configuration {
     }
 
     static func value<T>(for key: String) throws -> T where T: LosslessStringConvertible {
-        guard let object = Bundle.main.object(forInfoDictionaryKey:key) else {
+        guard let object = Bundle.main.object(forInfoDictionaryKey: key) else {
             throw Error.missingKey
         }
-
         switch object {
         case let value as T:
             return value
@@ -23,7 +22,11 @@ enum Configuration {
 }
 
 enum EnvConfig {
-    static var partnerUrl: URL {        
-        return try! URL(string: "https://" + Configuration.value(for: "PARTNER_URL"))!
+    static var partnerUrl: URL {
+        guard let urlString = try? Configuration.value(for: "PARTNER_URL") as String,
+              let url = URL(string: "https://" + urlString) else {
+            return URL(string: "https://javazone.no/partner")!
+        }
+        return url
     }
 }

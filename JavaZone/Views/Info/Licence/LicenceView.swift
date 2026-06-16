@@ -50,8 +50,6 @@ struct LicenceView: View {
     }
 }
 
-struct LicenceView_Previews: PreviewProvider {
-    static var previews: some View {
-        LicenceView(licence: Licence(name: "Test", url: "https://java.no", copyright: Copyright(date: "2000", holder: "javaBin", contact: "https://www.java.no"), licence: []))
-    }
+#Preview {
+    LicenceView(licence: Licence(name: "Test", url: "https://java.no", copyright: Copyright(date: "2000", holder: "javaBin", contact: "https://www.java.no"), licence: []))
 }

@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct LicenceListView: View {
-    @StateObject var viewModel = LicenceViewModel()
-    
+    @State private var viewModel = LicenceViewModel()
+
     var body: some View {
         List {
             ForEach(viewModel.licences, id: \.self) { licence in
@@ -12,11 +12,12 @@ struct LicenceListView: View {
             }
         }
         .navigationTitle("Licences")
+        .task {
+            viewModel.load()
+        }
     }
 }
 
-struct LicenceListView_Previews: PreviewProvider {
-    static var previews: some View {
-        LicenceListView()
-    }
+#Preview {
+    LicenceListView()
 }
