@@ -45,8 +45,16 @@ struct SessionItemView: View {
 
 #Preview {
     // swiftlint:disable:next force_try
-    let container = try! ModelContainer(for: Session.self, Speaker.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
-    let session = Session(title: "Test Title", abstract: "Test abstract", format: "presentation", room: "Room 1", startUtc: Date(), endUtc: Date(), favourite: false, sessionId: "test-1")
+    let container = try! ModelContainer(
+        for: Session.self, Speaker.self,
+        configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+    )
+    let session = Session(
+        title: "Test Title", abstract: "Test abstract",
+        format: "presentation", room: "Room 1",
+        startUtc: Date(), endUtc: Date(),
+        favourite: false, sessionId: "test-1"
+    )
     NavigationStack {
         SessionItemView(session: session, pending: false)
     }

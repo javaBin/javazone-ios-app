@@ -86,14 +86,22 @@ struct SessionsListView: View {
             let filtered = allSessions
                 .filter { $0.startUtc?.asDate() ?? "" == appConfig.dates[selectorIndex] }
                 .filter { $0.favourite || !favouritesOnly }
-                .filter { searchText.isEmpty || $0.wrappedTitle.localizedCaseInsensitiveContains(searchText) || $0.speakerNames.localizedCaseInsensitiveContains(searchText) }
+                .filter {
+                    searchText.isEmpty
+                        || $0.wrappedTitle.localizedCaseInsensitiveContains(searchText)
+                        || $0.speakerNames.localizedCaseInsensitiveContains(searchText)
+                }
 
             let grouped = Dictionary(grouping: filtered, by: \.wrappedSection)
             let sections = grouped.keys.sorted()
             return RelevantSessions(sessions: filtered, sections: sections, grouped: grouped, pending: pending)
         } else {
             let filtered = allSessions
-                .filter { searchText.isEmpty || $0.wrappedTitle.localizedCaseInsensitiveContains(searchText) || $0.speakerNames.localizedCaseInsensitiveContains(searchText) }
+                .filter {
+                    searchText.isEmpty
+                        || $0.wrappedTitle.localizedCaseInsensitiveContains(searchText)
+                        || $0.speakerNames.localizedCaseInsensitiveContains(searchText)
+                }
                 .sorted { $0.wrappedTitle < $1.wrappedTitle }
             return RelevantSessions(sessions: filtered, sections: [], grouped: [:], pending: pending)
         }
@@ -130,6 +138,7 @@ struct SessionsListView: View {
                                 if favouritesOnly {
                                     Text("The session program is not yet complete")
                                     Text("Rooms and times are still pending")
+                                    // swiftlint:disable:next line_length
                                     Text("You will be able to add sessions to your schedule when the programme is finalized.")
                                 } else {
                                     SessionListEntries(sessions: sessions.sessions, pending: true)
@@ -223,22 +232,24 @@ struct SessionsListView: View {
             }
         }
 
-        if now.shouldUpdate(key: "SessionLastDisplayed", defaultDate: Date(timeIntervalSince1970: 0), maxSecs: 60 * 60) {
+        let displayKey = "SessionLastDisplayed"
+        if now.shouldUpdate(key: displayKey, defaultDate: Date(timeIntervalSince1970: 0), maxSecs: 60 * 60) {
             let nowDate = now.asDate()
-            for idx in 0..<min(3, appConfig.dates.count) {
-                if nowDate == appConfig.dates[idx] {
-                    selectorIndex = idx
-                }
+            for idx in 0..<min(3, appConfig.dates.count) where nowDate == appConfig.dates[idx] {
+                selectorIndex = idx
             }
         }
 
-        now.save(key: "SessionLastDisplayed")
+        now.save(key: displayKey)
     }
 }
 
 #Preview {
     // swiftlint:disable:next force_try
-    let container = try! ModelContainer(for: Session.self, Speaker.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+    let container = try! ModelContainer(
+        for: Session.self, Speaker.self,
+        configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+    )
     SessionsListView(favouritesOnly: false, title: "Sessions")
         .modelContainer(container)
         .environment(SessionsViewModel())

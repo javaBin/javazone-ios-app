@@ -62,7 +62,10 @@ struct SpeakerItemView: View {
 
 #Preview {
     // swiftlint:disable:next force_try
-    let container = try! ModelContainer(for: Session.self, Speaker.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+    let container = try! ModelContainer(
+        for: Session.self, Speaker.self,
+        configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+    )
     let speaker = Speaker(name: "Test Speaker", bio: "Test bio", twitter: "@test")
     SpeakerItemView(speaker: speaker)
         .modelContainer(container)

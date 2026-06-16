@@ -8,13 +8,17 @@ struct FavouriteToggleView: View {
     var session: Session
 
     var body: some View {
-        Image(systemName: session.favourite ? "person.crop.circle.fill.badge.checkmark" : "person.crop.circle.badge.plus")
+        Image(systemName: imageName)
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: 30.0, height: 30.0)
-            .onTapGesture {
-                toggle()
-            }
+            .onTapGesture { toggle() }
+    }
+
+    private var imageName: String {
+        session.favourite
+            ? "person.crop.circle.fill.badge.checkmark"
+            : "person.crop.circle.badge.plus"
     }
 
     private func toggle() {
@@ -27,20 +31,24 @@ struct FavouriteToggleView: View {
 
         Task {
             do {
-                let granted = try await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound])
+                let center = UNUserNotificationCenter.current()
+                let granted = try await center.requestAuthorization(options: [.alert, .badge, .sound])
                 guard granted else { return }
                 if isFavourite, let date = notificationTrigger {
                     let triggerDate = date.forNotification() ?? date
-                    let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: triggerDate)
-                    let content = UNMutableNotificationContent()
-                    content.title = notificationTitle
-                    content.subtitle = "Your next session starts in \(notificationLocation) at \(date.asTime())"
-                    content.sound = .default
+                    let calComponents: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second]
+                    let components = Calendar.current.dateComponents(calComponents, from: triggerDate)
+                    let content = buildNotificationContent(
+                        title: notificationTitle,
+                        location: notificationLocation,
+                        date: date
+                    )
                     let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
                     let request = UNNotificationRequest(identifier: notificationId, content: content, trigger: trigger)
-                    try await UNUserNotificationCenter.current().add(request)
+                    try await center.add(request)
                 } else {
-                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationId])
+                    UNUserNotificationCenter.current()
+                        .removePendingNotificationRequests(withIdentifiers: [notificationId])
                 }
             } catch {
                 logger.error("Notification error: \(error.localizedDescription, privacy: .public)")
@@ -48,24 +56,21 @@ struct FavouriteToggleView: View {
         }
     }
 
-    func imageNameForToggle(_ toggle: Bool) -> String {
-        return toggle == true ? "person.crop.circle.fill.badge.checkmark" : "person.crop.circle.badge.plus"
-    }
-
-    func buildNotificationContent(title: String, location: String, date: Date) -> UNNotificationContent {
+    private func buildNotificationContent(title: String, location: String, date: Date) -> UNNotificationContent {
         let content = UNMutableNotificationContent()
-
         content.title = title
         content.subtitle = "Your next session starts in \(location) at \(date.asTime())"
-        content.sound = UNNotificationSound.default
-
+        content.sound = .default
         return content
     }
 }
 
 #Preview {
     // swiftlint:disable:next force_try
-    let container = try! ModelContainer(for: Session.self, Speaker.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+    let container = try! ModelContainer(
+        for: Session.self, Speaker.self,
+        configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+    )
     let session = Session(title: "Test", favourite: false, sessionId: "test-1")
     FavouriteToggleView(session: session)
         .modelContainer(container)

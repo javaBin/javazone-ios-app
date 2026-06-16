@@ -21,7 +21,6 @@ enum Configuration {
     }
 }
 
-// swiftlint:disable force_try
 enum EnvConfig {
     static var partnerUrl: URL {
         guard let urlString = try? Configuration.value(for: "PARTNER_URL") as String,
@@ -31,4 +30,3 @@ enum EnvConfig {
         return url
     }
 }
-// swiftlint:enable force_try

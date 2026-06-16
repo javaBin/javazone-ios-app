@@ -22,7 +22,10 @@ final class SessionsViewModel {
             case .fail(let message):
                 alertItem = AlertContext.build(title: "Refresh failed", message: message, buttonTitle: "OK")
             case .fatal(let message, let detail):
-                alertItem = AlertContext.buildFatal(title: "Refresh failed", message: message, buttonTitle: "OK", fatalMessage: detail)
+                alertItem = AlertContext.buildFatal(
+                    title: "Refresh failed", message: message,
+                    buttonTitle: "OK", fatalMessage: detail
+                )
             }
         } catch {
             logger.debug("Unexpected refresh error: \(error, privacy: .public)")
