@@ -13,10 +13,10 @@ final class AppConfig {
     var id: String = AppConfig.defaultId
     var partnerUrl: URL = EnvConfig.partnerUrl
 
-    static let defaultTitle = "JavaZone 2024"
-    static let defaultUrl = "https://sleepingpill.javazone.no/public/allSessions/javazone_2024"
-    static let defaultDates = ["04.09.2024", "05.09.2024", "04.09.2024"]
-    static let defaultWeb = "https://2024.javazone.no/"
+    static let defaultTitle = "JavaZone"
+    static let defaultUrl = ""
+    static let defaultDates = ["", "", ""]
+    static let defaultWeb = "https://javazone.no/"
     static let defaultId = "ID"
 
     init() {
