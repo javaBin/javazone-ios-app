@@ -107,8 +107,6 @@ struct SessionsListView: View {
         }
     }
 
-    var isPending: Bool { !sessions.pending.isEmpty }
-
     private var alertItemBinding: Binding<AlertItem?> {
         Binding(
             get: { sessionsViewModel.alertItem },
@@ -117,6 +115,8 @@ struct SessionsListView: View {
     }
 
     var body: some View {
+        let relevant = sessions
+        let isPending = !relevant.pending.isEmpty
         NavigationSplitView {
             NavigationStack {
                 if isPending && favouritesOnly {
@@ -129,9 +129,9 @@ struct SessionsListView: View {
                         SearchView(searchText: $searchText)
 
                         List(selection: $selectedSession) {
-                            ForEach(sessions.sections, id: \.self) { section in
+                            ForEach(relevant.sections, id: \.self) { section in
                                 Section(header: Text(section)) {
-                                    SessionListEntries(sessions: sessions.grouped[section] ?? [], pending: false)
+                                    SessionListEntries(sessions: relevant.grouped[section] ?? [], pending: false)
                                 }
                             }
                             if isPending {
@@ -141,7 +141,7 @@ struct SessionsListView: View {
                                     // swiftlint:disable:next line_length
                                     Text("You will be able to add sessions to your schedule when the programme is finalized.")
                                 } else {
-                                    SessionListEntries(sessions: sessions.sessions, pending: true)
+                                    SessionListEntries(sessions: relevant.sessions, pending: true)
                                 }
                             }
                         }
@@ -185,26 +185,28 @@ struct SessionsListView: View {
         }
         .onChange(of: notificationRouter.sessionId) { _, newSessionId in
             guard let sessionId = newSessionId else { return }
-            if let session = sessions.pending.first(where: { $0.sessionId == sessionId }) {
+            let current = sessions
+            if let session = current.pending.first(where: { $0.sessionId == sessionId }) {
                 selectedSession = SessionWithPending(session: session, pending: true)
-            } else if let session = sessions.sessions.first(where: { $0.sessionId == sessionId }) {
+            } else if let session = current.sessions.first(where: { $0.sessionId == sessionId }) {
                 selectedSession = SessionWithPending(session: session, pending: false)
             }
         }
     }
 
     private func scrollTo() {
-        guard searchText.isEmpty, !isPending else { return }
+        let current = sessions
+        guard searchText.isEmpty, current.pending.isEmpty else { return }
 
         var target: String?
         let scrollToTimestamp = appConfig.dates[selectorIndex] == Date().asDate()
 
         if scrollToTimestamp && selectorIndex < 2 {
             let currentTimestamp = Date().asTime()
-            target = sessions.sections.last(where: { $0 <= currentTimestamp })
+            target = current.sections.last(where: { $0 <= currentTimestamp })
         }
 
-        if target == nil { target = sessions.sections.first }
+        if target == nil { target = current.sections.first }
 
         logger.debug("Want to scroll to \(target ?? "None", privacy: .public)")
         scrolledSection = target
@@ -246,7 +248,7 @@ struct SessionsListView: View {
 #Preview {
     // swiftlint:disable:next force_try
     let container = try! ModelContainer(
-        for: Session.self, Speaker.self,
+        for: Session.self, SessionBody.self, Speaker.self,
         configurations: ModelConfiguration(isStoredInMemoryOnly: true)
     )
     SessionsListView(favouritesOnly: false, title: "Sessions")

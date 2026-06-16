@@ -48,6 +48,8 @@
 		83E322AE2403F5DC0044094C /* RemoteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E322AD2403F5DC0044094C /* RemoteInfo.swift */; };
 		83E322B02403FC090044094C /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E322AF2403FC090044094C /* Info.swift */; };
 		BB000002CCCCCCCCBB000002 /* SessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000001CCCCCCCCBB000001 /* SessionTests.swift */; };
+		BB000007CCCCCCCCBB000007 /* SessionBodyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000008CCCCCCCCBB000008 /* SessionBodyTests.swift */; };
+		CCAA001100000000CCAA0011 /* SessionBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA001000000000CCAA0010 /* SessionBody.swift */; };
 		BB000004CCCCCCCCBB000004 /* SpeakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000003CCCCCCCCBB000003 /* SpeakerTests.swift */; };
 		BB000006CCCCCCCCBB000006 /* AppConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000005CCCCCCCCBB000005 /* AppConfigTests.swift */; };
 		CCAA000200000000CCAA0002 /* JavaZoneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA000100000000CCAA0001 /* JavaZoneApp.swift */; };
@@ -150,6 +152,8 @@
 		83E322AD2403F5DC0044094C /* RemoteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteInfo.swift; sourceTree = "<group>"; };
 		83E322AF2403FC090044094C /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		BB000001CCCCCCCCBB000001 /* SessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTests.swift; sourceTree = "<group>"; };
+		BB000008CCCCCCCCBB000008 /* SessionBodyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionBodyTests.swift; sourceTree = "<group>"; };
+		CCAA001000000000CCAA0010 /* SessionBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionBody.swift; sourceTree = "<group>"; };
 		BB000003CCCCCCCCBB000003 /* SpeakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerTests.swift; sourceTree = "<group>"; };
 		BB000005CCCCCCCCBB000005 /* AppConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigTests.swift; sourceTree = "<group>"; };
 		CCAA000100000000CCAA0001 /* JavaZoneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaZoneApp.swift; sourceTree = "<group>"; };
@@ -296,6 +300,7 @@
 				8380469226FB4C3800624463 /* Date+UtilsTest.swift */,
 				8380469426FB4E3900624463 /* String+UtilsTest.swift */,
 				BB000001CCCCCCCCBB000001 /* SessionTests.swift */,
+				BB000008CCCCCCCCBB000008 /* SessionBodyTests.swift */,
 				BB000003CCCCCCCCBB000003 /* SpeakerTests.swift */,
 				BB000005CCCCCCCCBB000005 /* AppConfigTests.swift */,
 			);
@@ -320,6 +325,7 @@
 				834FF1E424017FEB00432129 /* Config.swift */,
 				83E322AF2403FC090044094C /* Info.swift */,
 				83C8D17D23F54636008322DA /* Session.swift */,
+				CCAA001000000000CCAA0010 /* SessionBody.swift */,
 				83C8D17F23F5463F008322DA /* Speaker.swift */,
 			);
 			path = Data;
@@ -570,6 +576,7 @@
 				83E322B02403FC090044094C /* Info.swift in Sources */,
 				834FF1E92401DC0300432129 /* Log+Utils.swift in Sources */,
 				83C8D18023F5463F008322DA /* Speaker.swift in Sources */,
+				CCAA001100000000CCAA0011 /* SessionBody.swift in Sources */,
 				834FF1E524017FEB00432129 /* Config.swift in Sources */,
 				83E322AA2403F5730044094C /* InfoService.swift in Sources */,
 				837E9BB924058D1000B74714 /* InfoView.swift in Sources */,
@@ -591,6 +598,7 @@
 			files = (
 				8380469526FB4E3900624463 /* String+UtilsTest.swift in Sources */,
 				BB000002CCCCCCCCBB000002 /* SessionTests.swift in Sources */,
+				BB000007CCCCCCCCBB000007 /* SessionBodyTests.swift in Sources */,
 				BB000004CCCCCCCCBB000004 /* SpeakerTests.swift in Sources */,
 				BB000006CCCCCCCCBB000006 /* AppConfigTests.swift in Sources */,
 				837BC70A2A98A54F00B9FB74 /* EnvConfig.swift in Sources */,

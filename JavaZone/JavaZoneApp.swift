@@ -38,6 +38,23 @@ struct JavaZoneApp: App {
     @State private var sessionsViewModel = SessionsViewModel()
     private let notificationDelegate = AppNotificationDelegate()
 
+    private static let container: ModelContainer = {
+        let schema = Schema([Session.self, SessionBody.self, Speaker.self])
+        let config = ModelConfiguration(schema: schema)
+        do {
+            return try ModelContainer(for: schema, configurations: config)
+        } catch {
+            // Schema migration failed — wipe the store so a clean start can happen.
+            // All session data is refreshed from the API; only favourites are lost.
+            let url = config.url
+            for suffix in ["", "-wal", "-shm"] {
+                try? FileManager.default.removeItem(at: URL(fileURLWithPath: url.path + suffix))
+            }
+            // swiftlint:disable:next force_try
+            return try! ModelContainer(for: schema, configurations: config)
+        }
+    }()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -48,7 +65,7 @@ struct JavaZoneApp: App {
                     notificationDelegate.router = notificationRouter
                 }
         }
-        .modelContainer(for: [Session.self, Speaker.self])
+        .modelContainer(Self.container)
     }
 
     init() {

@@ -2,47 +2,23 @@ import XCTest
 import SwiftData
 @testable import JavaZone
 
-// Tests for Session computed properties.
-// Tests that require relationship tracking use an in-memory ModelContainer.
 final class SessionTests: XCTestCase {
 
     // MARK: - wrappedTitle
 
     func testWrappedTitleNilReturnsEmpty() {
-        let session = Session()
-        XCTAssertEqual(session.wrappedTitle, "")
+        XCTAssertEqual(Session().wrappedTitle, "")
     }
 
     func testWrappedTitleTrimsWhitespace() {
-        let session = Session(title: "  JavaZone Talk  ")
-        XCTAssertEqual(session.wrappedTitle, "JavaZone Talk")
+        XCTAssertEqual(Session(title: "  JavaZone Talk  ").wrappedTitle, "JavaZone Talk")
     }
 
     func testWrappedTitleReturnsValue() {
-        let session = Session(title: "Lessons from the Columbia Space Shuttle")
-        XCTAssertEqual(session.wrappedTitle, "Lessons from the Columbia Space Shuttle")
-    }
-
-    // MARK: - wrappedAbstract
-
-    func testWrappedAbstractNilReturnsEmpty() {
-        XCTAssertEqual(Session().wrappedAbstract, "")
-    }
-
-    func testWrappedAbstractTrimsNewlines() {
-        let session = Session(abstract: "\n  Abstract body\n")
-        XCTAssertEqual(session.wrappedAbstract, "Abstract body")
-    }
-
-    // MARK: - wrappedAudience
-
-    func testWrappedAudienceNilReturnsEmpty() {
-        XCTAssertEqual(Session().wrappedAudience, "")
-    }
-
-    func testWrappedAudienceTrimsWhitespace() {
-        let session = Session(audience: "  Intermediate  ")
-        XCTAssertEqual(session.wrappedAudience, "Intermediate")
+        XCTAssertEqual(
+            Session(title: "Lessons from the Columbia Space Shuttle").wrappedTitle,
+            "Lessons from the Columbia Space Shuttle"
+        )
     }
 
     // MARK: - wrappedRoom / wrappedSection
@@ -84,9 +60,8 @@ final class SessionTests: XCTestCase {
     }
 
     func testNilFormatIsNeitherFlag() {
-        let session = Session()
-        XCTAssertFalse(session.lightningTalk)
-        XCTAssertFalse(session.workshop)
+        XCTAssertFalse(Session().lightningTalk)
+        XCTAssertFalse(Session().workshop)
     }
 
     // MARK: - wrappedVideo
@@ -96,8 +71,10 @@ final class SessionTests: XCTestCase {
     }
 
     func testWrappedVideoBuildsVimeoURL() {
-        let session = Session(videoId: "987654321")
-        XCTAssertEqual(session.wrappedVideo, URL(string: "https://vimeo.com/987654321"))
+        XCTAssertEqual(
+            Session(videoId: "987654321").wrappedVideo,
+            URL(string: "https://vimeo.com/987654321")
+        )
     }
 
     // MARK: - wrappedRegisterLoc
@@ -107,56 +84,27 @@ final class SessionTests: XCTestCase {
     }
 
     func testWrappedRegisterLocBuildsURL() {
-        let session = Session(registerLoc: "https://example.com/register")
-        XCTAssertEqual(session.wrappedRegisterLoc, URL(string: "https://example.com/register"))
-    }
-
-    // MARK: - wrappedWorkshopPrerequisites
-
-    func testWrappedWorkshopPrerequisitesNilReturnsEmpty() {
-        XCTAssertEqual(Session().wrappedWorkshopPrerequisites, "")
-    }
-
-    func testWrappedWorkshopPrerequisitesReturnsValue() {
-        let session = Session(workshopPrerequisites: "Basic Swift knowledge")
-        XCTAssertEqual(session.wrappedWorkshopPrerequisites, "Basic Swift knowledge")
+        XCTAssertEqual(
+            Session(registerLoc: "https://example.com/register").wrappedRegisterLoc,
+            URL(string: "https://example.com/register")
+        )
     }
 
     // MARK: - notYetStarted
 
     func testNotYetStartedFutureSessionReturnsTrue() {
-        let session = Session(startUtc: Date().addingTimeInterval(3600))
-        XCTAssertTrue(session.notYetStarted())
+        XCTAssertTrue(Session(startUtc: Date().addingTimeInterval(3600)).notYetStarted())
     }
 
     func testNotYetStartedPastSessionReturnsFalse() {
-        let session = Session(startUtc: Date().addingTimeInterval(-3600))
-        XCTAssertFalse(session.notYetStarted())
+        XCTAssertFalse(Session(startUtc: Date().addingTimeInterval(-3600)).notYetStarted())
     }
 
     func testNotYetStartedNilStartDateReturnsFalse() {
         XCTAssertFalse(Session().notYetStarted())
     }
 
-    // MARK: - speakerArray (requires relationship context)
-
-    @MainActor
-    func testSpeakerArraySortedByName() throws {
-        let container = try ModelContainer(
-            for: Session.self, Speaker.self,
-            configurations: ModelConfiguration(isStoredInMemoryOnly: true)
-        )
-        let context = container.mainContext
-
-        let session = Session(title: "Test", sessionId: "s1")
-        context.insert(session)
-        context.insert(Speaker(name: "Charlie", session: session))
-        context.insert(Speaker(name: "Alice", session: session))
-        context.insert(Speaker(name: "Bob", session: session))
-        try context.save()
-
-        XCTAssertEqual(session.speakerArray.map(\.wrappedName), ["Alice", "Bob", "Charlie"])
-    }
+    // MARK: - speakerNames
 
     func testSpeakerNamesDefaultsEmpty() {
         XCTAssertEqual(Session().speakerNames, "")

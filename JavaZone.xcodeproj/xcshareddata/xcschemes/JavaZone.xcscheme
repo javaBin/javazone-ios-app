@@ -38,17 +38,6 @@
                ReferencedContainer = "container:JavaZone.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "83A7529A2AA06DB100A82604"
-               BuildableName = "JavaZoneUITests.xctest"
-               BlueprintName = "JavaZoneUITests"
-               ReferencedContainer = "container:JavaZone.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

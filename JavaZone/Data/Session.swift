@@ -4,8 +4,6 @@ import SwiftData
 @Model
 final class Session {
     var title: String?
-    var abstract: String?
-    var audience: String?
     var format: String?
     var length: String?
     var room: String?
@@ -16,15 +14,10 @@ final class Session {
     var videoId: String?
     var section: String?
     var registerLoc: String?
-    var workshopPrerequisites: String?
-
-    @Relationship(deleteRule: .cascade, inverse: \Speaker.session)
-    var speakers: [Speaker] = []
+    var speakerNames: String = ""
 
     init(
         title: String? = nil,
-        abstract: String? = nil,
-        audience: String? = nil,
         format: String? = nil,
         length: String? = nil,
         room: String? = nil,
@@ -34,12 +27,9 @@ final class Session {
         sessionId: String? = nil,
         videoId: String? = nil,
         section: String? = nil,
-        registerLoc: String? = nil,
-        workshopPrerequisites: String? = nil
+        registerLoc: String? = nil
     ) {
         self.title = title
-        self.abstract = abstract
-        self.audience = audience
         self.format = format
         self.length = length
         self.room = room
@@ -50,19 +40,10 @@ final class Session {
         self.videoId = videoId
         self.section = section
         self.registerLoc = registerLoc
-        self.workshopPrerequisites = workshopPrerequisites
     }
 
     var wrappedTitle: String {
         title?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-    }
-
-    var wrappedAudience: String {
-        audience?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-    }
-
-    var wrappedAbstract: String {
-        abstract?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
     }
 
     var wrappedRoom: String { room ?? "" }
@@ -79,19 +60,9 @@ final class Session {
         registerLoc.flatMap { URL(string: $0) }
     }
 
-    var speakerNames: String = ""
-
-    var speakerArray: [Speaker] {
-        speakers.sorted { $0.wrappedName < $1.wrappedName }
-    }
-
     var lightningTalk: Bool { format == "lightning-talk" }
 
     var workshop: Bool { format == "workshop" }
-
-    var wrappedWorkshopPrerequisites: String {
-        workshopPrerequisites ?? ""
-    }
 
     func fromTime() -> String { startUtc?.asTime() ?? "??" }
 

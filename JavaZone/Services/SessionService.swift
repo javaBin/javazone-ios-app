@@ -23,22 +23,30 @@ struct SessionService {
         let data = try await fetchData(from: sessionUrl)
         let sessionList = try decodeSessionList(from: data)
 
-        // Fetch only favourite sessions — avoids loading all session abstracts into memory.
         let favouriteDescriptor = FetchDescriptor<Session>(predicate: #Predicate { $0.favourite == true })
-        let favouriteSessions = (try? context.fetch(favouriteDescriptor)) ?? []
-        let favourites = Set(favouriteSessions.compactMap(\.sessionId))
+        let favourites = Set(((try? context.fetch(favouriteDescriptor)) ?? []).compactMap(\.sessionId))
         logger.debug("Got \(favourites.count, privacy: .public) favourites")
 
-        // Batch delete speakers first so no Speaker.session inverse references remain,
-        // then sessions. Neither operation loads objects into memory.
+        // Both sides of the SessionBody.speakers relationship are optional ([Speaker]? and
+        // SessionBody?), so context.delete(model:) can nullify the inverse without hitting
+        // a NOT NULL constraint. Delete Speakers first so SessionBody cascade has nothing
+        // left to process.
         try? context.delete(model: Speaker.self)
+        try? context.delete(model: SessionBody.self)
         try? context.delete(model: Session.self)
 
         for remoteSession in sessionList.sessions {
             guard let id = remoteSession.sessionId else { continue }
+            let body = SessionBody(
+                sessionId: id,
+                abstract: remoteSession.abstract,
+                audience: remoteSession.audience,
+                workshopPrerequisites: remoteSession.workshopPrerequisites
+            )
+            context.insert(body)
             let session = buildSession(from: remoteSession, id: id, favourites: favourites)
             context.insert(session)
-            insertSpeakers(from: remoteSession, into: session, context: context)
+            insertSpeakers(from: remoteSession, into: body, settingNamesOn: session, context: context)
         }
 
         logger.debug("Saved \(sessionList.sessions.count, privacy: .public) sessions")
@@ -75,8 +83,6 @@ struct SessionService {
     ) -> Session {
         Session(
             title: remote.title,
-            abstract: remote.abstract,
-            audience: remote.audience,
             format: remote.format,
             length: remote.length,
             room: remote.room,
@@ -86,14 +92,14 @@ struct SessionService {
             sessionId: id,
             videoId: remote.videoId,
             section: remote.startSlot?.asTime() ?? remote.startUtc?.asTime() ?? "00:00",
-            registerLoc: remote.registerLoc,
-            workshopPrerequisites: remote.workshopPrerequisites
+            registerLoc: remote.registerLoc
         )
     }
 
     private static func insertSpeakers(
         from remote: RemoteSession,
-        into session: Session,
+        into body: SessionBody,
+        settingNamesOn session: Session,
         context: ModelContext
     ) {
         var names: [String] = []
@@ -108,7 +114,7 @@ struct SessionService {
                 bio: remoteSpeaker.bio,
                 avatar: remoteSpeaker.avatar,
                 twitter: twitter,
-                session: session
+                body: body
             ))
             names.append(name)
         }
