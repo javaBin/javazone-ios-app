@@ -10,27 +10,23 @@ extension Date {
         #endif
     }
 
-    private func formatString(_ format: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        return dateFormatter.string(from: self)
-    }
+    private static let timeFormatter: DateFormatter = {
+        let fmt = DateFormatter(); fmt.dateFormat = "HH:mm"; return fmt
+    }()
+    private static let dateFormatter: DateFormatter = {
+        let fmt = DateFormatter(); fmt.dateFormat = "dd.MM.yyyy"; return fmt
+    }()
+    private static let dateTimeFormatter: DateFormatter = {
+        let fmt = DateFormatter(); fmt.dateFormat = "HH:mm (dd.MM.yyyy)"; return fmt
+    }()
+    private static let hourFormatter: DateFormatter = {
+        let fmt = DateFormatter(); fmt.dateFormat = "HH"; return fmt
+    }()
 
-    func asTime() -> String {
-        return formatString("HH:mm")
-    }
-
-    func asDate() -> String {
-        return formatString("dd.MM.yyyy")
-    }
-
-    func asDateTime() -> String {
-        return formatString("HH:mm (dd.MM.yyyy)")
-    }
-
-    func asHour() -> String {
-        return "\(formatString("HH")):00"
-    }
+    func asTime() -> String { Date.timeFormatter.string(from: self) }
+    func asDate() -> String { Date.dateFormatter.string(from: self) }
+    func asDateTime() -> String { Date.dateTimeFormatter.string(from: self) }
+    func asHour() -> String { "\(Date.hourFormatter.string(from: self)):00" }
 
     func diffInSeconds(date: Date) -> Int {
         let calendar = Calendar.current

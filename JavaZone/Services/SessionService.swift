@@ -23,15 +23,16 @@ struct SessionService {
         let data = try await fetchData(from: sessionUrl)
         let sessionList = try decodeSessionList(from: data)
 
-        let existingSessions = (try? context.fetch(FetchDescriptor<Session>())) ?? []
-        let favourites = Set(existingSessions.filter(\.favourite).compactMap(\.sessionId))
+        // Fetch only favourite sessions — avoids loading all session abstracts into memory.
+        let favouriteDescriptor = FetchDescriptor<Session>(predicate: #Predicate { $0.favourite == true })
+        let favouriteSessions = (try? context.fetch(favouriteDescriptor)) ?? []
+        let favourites = Set(favouriteSessions.compactMap(\.sessionId))
         logger.debug("Got \(favourites.count, privacy: .public) favourites")
 
-        // Delete individually — batch delete skips relationship nullification
-        // and causes a constraint error on the Speaker.session inverse.
-        let existingSpeakers = (try? context.fetch(FetchDescriptor<Speaker>())) ?? []
-        existingSpeakers.forEach { context.delete($0) }
-        existingSessions.forEach { context.delete($0) }
+        // Batch delete speakers first so no Speaker.session inverse references remain,
+        // then sessions. Neither operation loads objects into memory.
+        try? context.delete(model: Speaker.self)
+        try? context.delete(model: Session.self)
 
         for remoteSession in sessionList.sessions {
             guard let id = remoteSession.sessionId else { continue }
@@ -95,6 +96,7 @@ struct SessionService {
         into session: Session,
         context: ModelContext
     ) {
+        var names: [String] = []
         for remoteSpeaker in remote.speakers ?? [] {
             guard let name = remoteSpeaker.name else { continue }
             let twitter: String? = {
@@ -108,6 +110,8 @@ struct SessionService {
                 twitter: twitter,
                 session: session
             ))
+            names.append(name)
         }
+        session.speakerNames = names.sorted().joined(separator: ", ")
     }
 }

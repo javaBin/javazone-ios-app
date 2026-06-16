@@ -79,6 +79,8 @@ final class Session {
         registerLoc.flatMap { URL(string: $0) }
     }
 
+    var speakerNames: String = ""
+
     var speakerArray: [Speaker] {
         speakers.sorted { $0.wrappedName < $1.wrappedName }
     }
@@ -86,10 +88,6 @@ final class Session {
     var lightningTalk: Bool { format == "lightning-talk" }
 
     var workshop: Bool { format == "workshop" }
-
-    var speakerNames: String {
-        speakerArray.map(\.wrappedName).joined(separator: ", ")
-    }
 
     var wrappedWorkshopPrerequisites: String {
         workshopPrerequisites ?? ""

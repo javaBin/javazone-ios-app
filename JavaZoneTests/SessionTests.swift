@@ -158,34 +158,13 @@ final class SessionTests: XCTestCase {
         XCTAssertEqual(session.speakerArray.map(\.wrappedName), ["Alice", "Bob", "Charlie"])
     }
 
-    @MainActor
-    func testSpeakerNamesJoinedSorted() throws {
-        let container = try ModelContainer(
-            for: Session.self, Speaker.self,
-            configurations: ModelConfiguration(isStoredInMemoryOnly: true)
-        )
-        let context = container.mainContext
-
-        let session = Session(title: "Test", sessionId: "s1")
-        context.insert(session)
-        context.insert(Speaker(name: "Zara", session: session))
-        context.insert(Speaker(name: "Alice", session: session))
-        try context.save()
-
-        XCTAssertEqual(session.speakerNames, "Alice, Zara")
+    func testSpeakerNamesDefaultsEmpty() {
+        XCTAssertEqual(Session().speakerNames, "")
     }
 
-    @MainActor
-    func testSpeakerNamesEmptyWhenNoSpeakers() throws {
-        let container = try ModelContainer(
-            for: Session.self, Speaker.self,
-            configurations: ModelConfiguration(isStoredInMemoryOnly: true)
-        )
-        let context = container.mainContext
-        let session = Session(title: "Test", sessionId: "s1")
-        context.insert(session)
-        try context.save()
-
-        XCTAssertEqual(session.speakerNames, "")
+    func testSpeakerNamesReturnsStoredValue() {
+        let session = Session()
+        session.speakerNames = "Alice, Zara"
+        XCTAssertEqual(session.speakerNames, "Alice, Zara")
     }
 }

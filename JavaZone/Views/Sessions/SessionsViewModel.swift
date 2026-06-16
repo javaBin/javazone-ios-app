@@ -16,7 +16,7 @@ final class SessionsViewModel {
 
         do {
             try await SessionService.refresh(context: context, appConfig: appConfig)
-            UserDefaults.standard.set(Date(), forKey: "NSessionLastUpdate")
+            UserDefaults.standard.set(Date(), forKey: "SessionLastUpdate")
         } catch let error as SessionError {
             switch error {
             case .fail(let message):
