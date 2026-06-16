@@ -26,7 +26,8 @@ extension String? {
     }
 
     func hasVal() -> Bool {
-        self?.trimmingCharacters(in: .whitespacesAndNewlines) != nil
+        guard let trimmed = self?.trimmingCharacters(in: .whitespacesAndNewlines) else { return false }
+        return !trimmed.isEmpty
     }
 
     func link() -> URL? {

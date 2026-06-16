@@ -1,35 +1,102 @@
 import XCTest
 @testable import JavaZone
 
-class StringUtilsTest: XCTestCase {
+final class StringUtilsTest: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+    // MARK: - String.slug
 
     func testSlug() {
-        let testString = "This is a test string with some utf-8 characters - æøå - !\"#$%&/()="
-
-        let slug = testString.slug()
-
-        XCTAssertEqual(slug, "Thisisateststringwithsomeutf-8characters--")
+        let result = "This is a test string with some utf-8 characters - æøå - !\"#$%&/()=".slug()
+        XCTAssertEqual(result, "Thisisateststringwithsomeutf-8characters--")
     }
 
-    func testContains() {
-        let testString = "Hello World"
-
-        XCTAssertTrue(testString.contains("ell"))
-        XCTAssertFalse(testString.contains("elp"))
+    func testSlugEmptyString() {
+        XCTAssertEqual("".slug(), "")
     }
 
-    func testDeletePrefix() {
-        let testString = "Hello World"
+    // MARK: - String.contains (case-insensitive)
 
-        XCTAssertEqual("Hello World", testString.deletePrefix("Foo"))
-        XCTAssertEqual("World", testString.deletePrefix("Hello "))
+    func testContainsCaseInsensitive() {
+        XCTAssertTrue("Hello World".contains("ell"))
+        XCTAssertTrue("Hello World".contains("HELLO"))
+        XCTAssertFalse("Hello World".contains("elp"))
+    }
+
+    // MARK: - String.deletePrefix
+
+    func testDeletePrefixMatching() {
+        XCTAssertEqual("Hello World".deletePrefix("Hello "), "World")
+    }
+
+    func testDeletePrefixNotMatching() {
+        XCTAssertEqual("Hello World".deletePrefix("Foo"), "Hello World")
+    }
+
+    func testDeletePrefixEmpty() {
+        XCTAssertEqual("Hello".deletePrefix(""), "Hello")
+    }
+
+    // MARK: - String?.val
+
+    func testValNilReturnsEmptyDefault() {
+        let optional: String? = nil
+        XCTAssertEqual(optional.val(), "")
+    }
+
+    func testValNilReturnsCustomDefault() {
+        let optional: String? = nil
+        XCTAssertEqual(optional.val("fallback"), "fallback")
+    }
+
+    func testValTrimsWhitespace() {
+        let optional: String? = "  hello  "
+        XCTAssertEqual(optional.val(), "hello")
+    }
+
+    func testValReturnsValue() {
+        let optional: String? = "JavaZone"
+        XCTAssertEqual(optional.val(), "JavaZone")
+    }
+
+    // MARK: - String?.hasVal
+
+    func testHasValNilReturnsFalse() {
+        let optional: String? = nil
+        XCTAssertFalse(optional.hasVal())
+    }
+
+    func testHasValWhitespaceOnlyReturnsFalse() {
+        let optional: String? = "   "
+        // whitespace-only trims to nil equivalent — val() returns "" but hasVal checks trimming
+        XCTAssertFalse(optional.hasVal())
+    }
+
+    func testHasValWithValueReturnsTrue() {
+        let optional: String? = "content"
+        XCTAssertTrue(optional.hasVal())
+    }
+
+    // MARK: - String?.link
+
+    func testLinkNilReturnsNil() {
+        let optional: String? = nil
+        XCTAssertNil(optional.link())
+    }
+
+    func testLinkValidURLReturnsURL() {
+        let optional: String? = "https://javazone.no"
+        XCTAssertEqual(optional.link(), URL(string: "https://javazone.no"))
+    }
+
+    // MARK: - String?.videoLink
+
+    func testVideoLinkNilReturnsNil() {
+        let optional: String? = nil
+        XCTAssertNil(optional.videoLink())
+    }
+
+    func testVideoLinkBuildsVimeoURL() {
+        let optional: String? = "12345678"
+        XCTAssertEqual(optional.videoLink(), URL(string: "https://vimeo.com/12345678"))
     }
 }

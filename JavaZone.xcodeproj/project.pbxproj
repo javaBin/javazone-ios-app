@@ -53,6 +53,9 @@
 		CCAA000400000000CCAA0004 /* SessionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA000300000000CCAA0003 /* SessionsViewModel.swift */; };
 		CCAA000600000000CCAA0006 /* InfoLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA000500000000CCAA0005 /* InfoLogView.swift */; };
 		CCAA000800000000CCAA0008 /* InfoLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA000700000000CCAA0007 /* InfoLogViewModel.swift */; };
+		BB000002CCCCCCCCBB000002 /* SessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000001CCCCCCCCBB000001 /* SessionTests.swift */; };
+		BB000004CCCCCCCCBB000004 /* SpeakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000003CCCCCCCCBB000003 /* SpeakerTests.swift */; };
+		BB000006CCCCCCCCBB000006 /* AppConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000005CCCCCCCCBB000005 /* AppConfigTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +132,9 @@
 		CCAA000300000000CCAA0003 /* SessionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsViewModel.swift; sourceTree = "<group>"; };
 		CCAA000500000000CCAA0005 /* InfoLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLogView.swift; sourceTree = "<group>"; };
 		CCAA000700000000CCAA0007 /* InfoLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLogViewModel.swift; sourceTree = "<group>"; };
+		BB000001CCCCCCCCBB000001 /* SessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTests.swift; sourceTree = "<group>"; };
+		BB000003CCCCCCCCBB000003 /* SpeakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerTests.swift; sourceTree = "<group>"; };
+		BB000005CCCCCCCCBB000005 /* AppConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +271,9 @@
 				83A827E7241507FB00DC7ADA /* Info.plist */,
 				8380469226FB4C3800624463 /* Date+UtilsTest.swift */,
 				8380469426FB4E3900624463 /* String+UtilsTest.swift */,
+				BB000001CCCCCCCCBB000001 /* SessionTests.swift */,
+				BB000003CCCCCCCCBB000003 /* SpeakerTests.swift */,
+				BB000005CCCCCCCCBB000005 /* AppConfigTests.swift */,
 			);
 			path = JavaZoneTests;
 			sourceTree = "<group>";
@@ -526,6 +535,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8380469526FB4E3900624463 /* String+UtilsTest.swift in Sources */,
+				BB000002CCCCCCCCBB000002 /* SessionTests.swift in Sources */,
+				BB000004CCCCCCCCBB000004 /* SpeakerTests.swift in Sources */,
+				BB000006CCCCCCCCBB000006 /* AppConfigTests.swift in Sources */,
 				837BC70A2A98A54F00B9FB74 /* EnvConfig.swift in Sources */,
 				8380469326FB4C3800624463 /* Date+UtilsTest.swift in Sources */,
 			);
