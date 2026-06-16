@@ -1,17 +1,13 @@
 import SwiftUI
-import CoreData
+import SwiftData
 
 struct SessionDetailView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
-
-    @ObservedObject var session: Session
-
+    var session: Session
+    @Environment(AppConfig.self) private var appConfig
     var pending: Bool
 
-    @State private var showShareSheet = false
-
     var title: String {
-        return pending ? "Room and Time pending" : "\(session.room ?? "") - \(session.fromTime()) - \(session.toTime())"
+        pending ? "Room and Time pending" : "\(session.wrappedRoom) - \(session.fromTime()) - \(session.toTime())"
     }
 
     var body: some View {
@@ -19,118 +15,81 @@ struct SessionDetailView: View {
             VStack {
                 HStack {
                     if !pending {
-                        FavouriteToggleView(
-                            favourite: $session.favourite,
-                            notificationId: session.sessionId ?? UUID().uuidString,
-                            notificationTitle: session.title.val(),
-                            notificationLocation: session.room.val(),
-                            notificationTrigger: session.startUtc
-                        )
+                        FavouriteToggleView(session: session)
                     }
                     VStack(alignment: .leading) {
-                        Text(session.title.val())
-                            .copyable(session.title.val())
+                        Text(session.wrappedTitle)
+                            .textSelection(.enabled)
                             .font(.headline)
-                        if session.videoId.hasVal() {
-                            ExternalLink(title: "View session video", url: session.videoId.videoLink()!, image: "video")
+                        if session.videoId != nil, let videoUrl = session.wrappedVideo {
+                            ExternalLink(title: "View session video", url: videoUrl, image: "video")
                         }
-                    }.padding(.horizontal)
-                }.padding(.top)
-                VStack(alignment: .leading) {
-                    if session.workshop && session.registerLoc.hasVal() {
-                        Text("Workshop").font(.title).padding(.bottom, 15)
+                    }
+                    .padding(.horizontal)
+                }
+                .padding(.top)
 
-                        ExternalLink(title: "Open registration page",
-                                     url: session.registerLoc.link()!).padding(.bottom, 15)
+                VStack(alignment: .leading) {
+                    if session.workshop, let registerLoc = session.wrappedRegisterLoc {
+                        Text("Workshop").font(.title).padding(.bottom, 15)
+                        ExternalLink(title: "Open registration page", url: registerLoc).padding(.bottom, 15)
                     }
                     HStack {
                         Text("Abstract").font(.title)
-
                         if session.lightningTalk {
                             Spacer()
                             Image(systemName: "bolt")
                         }
-
                         if session.workshop {
                             Spacer()
                             Image(systemName: "laptopcomputer")
                         }
-                    }.padding(.bottom, 15)
+                    }
+                    .padding(.bottom, 15)
                     if session.abstract != nil {
-                        Text(session.abstract.val())
+                        Text(session.wrappedAbstract)
                             .font(.body)
-                            .copyable(session.abstract.val())
+                            .textSelection(.enabled)
                             .padding(.bottom, 20)
                     }
                     if session.workshopPrerequisites != nil {
                         Text("Prerequisites").font(.title).padding(.bottom, 15)
                         Text(session.workshopPrerequisites.val())
                             .font(.body)
-                            .copyable(session.workshopPrerequisites.val())
+                            .textSelection(.enabled)
                             .padding(.bottom, 20)
                     }
                     Text("Intended Audience").font(.title).padding(.bottom, 15)
                     if session.audience != nil {
-                        Text(session.audience.val()).font(.body).padding(.bottom, 20)
+                        Text(session.wrappedAudience).font(.body).padding(.bottom, 20)
                     }
                     Text("Speakers").font(.title).padding(.bottom, 15)
-                    ForEach(session.speakerArray, id: \.self) { speaker in
+                    ForEach(session.speakerArray, id: \.persistentModelID) { speaker in
                         SpeakerItemView(speaker: speaker)
                     }
-                }.padding()
+                }
+                .padding()
             }
         }
         .navigationTitle(Text(title))
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $showShareSheet) {
-            self.buildShareSheet()
+        .toolbar {
+            if let sessionId = session.sessionId,
+               let url = URL(string: "\(appConfig.web)program/\(sessionId)") {
+                ToolbarItem(placement: .topBarTrailing) {
+                    ShareLink(item: url, subject: Text(session.wrappedTitle))
+                }
+            }
         }
-        .navigationBarItems(trailing: Button(action: {
-                self.showShareSheet = true
-        }, label: {
-                Image(systemName: "square.and.arrow.up")
-            })
-        )
-    }
-
-    func buildShareSheet() -> some View {
-        var items: [Any] = []
-
-        if self.session.title.hasVal() {
-            items.append(self.session)
-        }
-
-        if let sessionId = self.session.sessionId {
-            items.append(URL(string: "\(Config.sharedConfig.web)program/\(sessionId)")!)
-        }
-
-        return ShareSheet(activityItems: items)
     }
 }
 
-struct SessionDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        let moc = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-
-        let session = Session(context: moc)
-
-        session.title = "Test Title"
-        session.abstract = "This is a test abstract about the talk. I need a longer string to test the preview better"
-        session.favourite = false
-        session.audience = "Test Audience - suitable for nerds"
-        session.startUtc = Date()
-        session.endUtc = Date()
-        session.room = "Room 1"
-
-        let speaker = Speaker(context: moc)
-
-        speaker.name = "Test speaker"
-        speaker.bio = "Test Bio - lots of uninteresting factoids"
-        speaker.twitter = "@TestTwitter"
-        speaker.session = session
-
-        return NavigationStack {
-            SessionDetailView(session: session, pending: false)
-        }
+#Preview {
+    let container = try! ModelContainer(for: Session.self, Speaker.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+    let session = Session(title: "Test Title", abstract: "Test abstract", room: "Room 1", startUtc: Date(), endUtc: Date(), favourite: false, sessionId: "test-1")
+    NavigationStack {
+        SessionDetailView(session: session, pending: false)
     }
+    .modelContainer(container)
+    .environment(AppConfig())
 }

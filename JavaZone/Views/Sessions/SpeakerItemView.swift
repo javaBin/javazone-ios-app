@@ -1,5 +1,5 @@
 import SwiftUI
- import CoreData
+import SwiftData
 
 struct DefaultSpeakerImage: View {
     var body: some View {
@@ -32,42 +32,37 @@ struct SpeakerItemView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .center) {
-                if speaker.avatar.hasVal() {
-                    SpeakerImage(avatarUrl: speaker.avatar.link()!)
+                if let avatarUrl = speaker.wrappedAvatar {
+                    SpeakerImage(avatarUrl: avatarUrl)
                 } else {
                     DefaultSpeakerImage()
                 }
                 VStack(alignment: .leading) {
-                    Text(speaker.name.val("Unknown"))
-                        .copyable(speaker.name.val("Unknown"))
+                    Text(speaker.wrappedName)
+                        .textSelection(.enabled)
                         .font(.headline)
-                    if speaker.twitter.hasVal() {
-                        ExternalLink(title: "@\(speaker.twitter.val())",
-                                     url: URL(string: "https://twitter.com/\(speaker.twitter.val())")!,
-                                     image: "")
+                    if speaker.twitter != nil {
+                        ExternalLink(
+                            title: "@\(speaker.wrappedTwitter)",
+                            url: URL(string: "https://twitter.com/\(speaker.wrappedTwitter)")!,
+                            image: ""
+                        )
                     }
                 }
             }
-            if speaker.bio.hasVal() {
-                Text(speaker.bio.val())
+            if speaker.bio != nil {
+                Text(speaker.wrappedBio)
                     .font(.body)
-                    .copyable(speaker.bio.val())
+                    .textSelection(.enabled)
                     .padding(.bottom, 15)
             }
         }
     }
 }
 
-struct SpeakerItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        let moc = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-
-        let speaker = Speaker(context: moc)
-
-        speaker.name = "Test speaker"
-        speaker.bio = "Test Bio - lots of uninteresting factoids"
-        speaker.twitter = "@TestTwitter"
-
-        return SpeakerItemView(speaker: speaker)
-    }
+#Preview {
+    let container = try! ModelContainer(for: Session.self, Speaker.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+    let speaker = Speaker(name: "Test Speaker", bio: "Test bio", twitter: "@test")
+    SpeakerItemView(speaker: speaker)
+        .modelContainer(container)
 }

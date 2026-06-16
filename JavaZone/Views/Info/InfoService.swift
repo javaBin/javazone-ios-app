@@ -1,25 +1,14 @@
 import Foundation
 import os.log
 
-enum InfoError: Error {
-    case refresh
-    case parse
-}
+struct InfoService {
+    static let logger = Logger(subsystem: Logger.subsystem, category: "InfoService")
 
-class InfoService {
     static func refresh() async throws -> [RemoteInfo] {
-        Logger.networking.info("InfoService: refresh: Refresh")
-
+        logger.info("Refreshing info")
         let cacheBuster = Date().timeIntervalSince1970
-
-        let url = "https://javabin.github.io/javazone-ios-app/info.json?cb=\(cacheBuster)"
-
-        Logger.networking.debug("InfoService: refresh: URL: \(url)")
-
-        let info: [RemoteInfo] = try await URLSession.shared.fetchData(for: url)
-
-        Logger.networking.debug("InfoService: refresh: \(info)")
-
-        return info
+        let url = URL(string: "https://javabin.github.io/javazone-ios-app/info.json?cb=\(cacheBuster)")!
+        let (data, _) = try await URLSession.shared.data(from: url)
+        return try JSONDecoder().decode([RemoteInfo].self, from: data)
     }
 }

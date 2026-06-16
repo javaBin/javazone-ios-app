@@ -9,7 +9,6 @@ enum Configuration {
         guard let object = Bundle.main.object(forInfoDictionaryKey: key) else {
             throw Error.missingKey
         }
-
         switch object {
         case let value as T:
             return value
@@ -25,7 +24,11 @@ enum Configuration {
 // swiftlint:disable force_try
 enum EnvConfig {
     static var partnerUrl: URL {
-        return try! URL(string: "https://" + Configuration.value(for: "PARTNER_URL"))!
+        guard let urlString = try? Configuration.value(for: "PARTNER_URL") as String,
+              let url = URL(string: "https://" + urlString) else {
+            return URL(string: "https://javazone.no/partner")!
+        }
+        return url
     }
 }
 // swiftlint:enable force_try
