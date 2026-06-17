@@ -49,10 +49,12 @@ struct SessionDetailView: View {
                         if session.lightningTalk {
                             Spacer()
                             Image(systemName: "bolt")
+                                .accessibilityLabel("Lightning talk")
                         }
                         if session.workshop {
                             Spacer()
                             Image(systemName: "laptopcomputer")
+                                .accessibilityLabel("Workshop")
                         }
                     }
                     .padding(.bottom, 15)

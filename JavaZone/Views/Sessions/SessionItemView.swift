@@ -14,9 +14,11 @@ struct SessionItemView: View {
                 }
                 if session.lightningTalk {
                     Image(systemName: "bolt")
+                        .accessibilityLabel("Lightning talk")
                 }
                 if session.workshop {
                     Image(systemName: "laptopcomputer")
+                        .accessibilityLabel("Workshop")
                 }
             }
             VStack(alignment: .leading) {
@@ -37,6 +39,7 @@ struct SessionItemView: View {
                 }
                 if session.videoId != nil {
                     Image(systemName: "video")
+                        .accessibilityLabel("Video available")
                 }
             }
         }

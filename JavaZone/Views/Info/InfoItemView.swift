@@ -8,6 +8,7 @@ struct InfoItemView: View {
             if item.isUrgent {
                 HStack {
                     Image(systemName: "exclamationmark.octagon.fill")
+                        .accessibilityHidden(true)
                     Text("Urgent")
                     }.foregroundColor(Color.yellow).padding()
             }

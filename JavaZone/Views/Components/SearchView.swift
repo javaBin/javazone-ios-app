@@ -13,14 +13,20 @@ struct SearchView: View {
         HStack {
             HStack {
                 Image(systemName: "magnifyingglass")
+                    .accessibilityHidden(true)
 
-                TextField("Search", text: $searchText).foregroundColor(.primary).autocapitalization(.none)
+                TextField("Search", text: $searchText)
+                    .foregroundColor(.primary)
+                    .autocapitalization(.none)
+                    .accessibilityLabel("Search sessions")
 
                 Button(action: {
                     self.searchText = ""
                 }, label: {
                     Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
                 })
+                .accessibilityLabel("Clear search")
+                .accessibilityHidden(searchText == "")
             }
             .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
             .foregroundColor(.secondary)

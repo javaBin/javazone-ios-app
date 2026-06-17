@@ -15,6 +15,8 @@ struct FavouriteToggleView: View {
                 .frame(width: 30.0, height: 30.0)
         }
         .accessibilityLabel(session.favourite ? "Remove from favourites" : "Add to favourites")
+        .accessibilityHint(session.favourite ? "Removes this session from your schedule" :
+                               "Adds this session to your schedule")
         .accessibilityIdentifier(session.favourite ? "remove-from-favourites" : "add-to-favourites")
     }
 

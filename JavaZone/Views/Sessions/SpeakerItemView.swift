@@ -34,8 +34,10 @@ struct SpeakerItemView: View {
             HStack(alignment: .center) {
                 if let avatarUrl = speaker.wrappedAvatar {
                     SpeakerImage(avatarUrl: avatarUrl)
+                        .accessibilityHidden(true)
                 } else {
                     DefaultSpeakerImage()
+                        .accessibilityHidden(true)
                 }
                 VStack(alignment: .leading) {
                     Text(speaker.wrappedName)

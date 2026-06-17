@@ -13,10 +13,12 @@ struct ExternalLink: View {
             HStack {
                 if image != "" {
                     Image(systemName: image)
+                        .accessibilityHidden(true)
                 }
                 Text(title)
             }
         })
+        .accessibilityHint("Opens in Safari")
     }
 }
 
