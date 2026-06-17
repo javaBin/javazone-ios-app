@@ -8,11 +8,14 @@ struct FavouriteToggleView: View {
     var session: Session
 
     var body: some View {
-        Image(systemName: imageName)
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 30.0, height: 30.0)
-            .onTapGesture { toggle() }
+        Button(action: toggle) {
+            Image(systemName: imageName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 30.0, height: 30.0)
+        }
+        .accessibilityLabel(session.favourite ? "Remove from favourites" : "Add to favourites")
+        .accessibilityIdentifier(session.favourite ? "remove-from-favourites" : "add-to-favourites")
     }
 
     private var imageName: String {
@@ -28,6 +31,8 @@ struct FavouriteToggleView: View {
         let notificationTitle = session.wrappedTitle
         let notificationLocation = session.wrappedRoom
         let notificationTrigger = session.startUtc
+
+        guard !ProcessInfo.processInfo.arguments.contains("--skip-notifications") else { return }
 
         Task {
             do {
