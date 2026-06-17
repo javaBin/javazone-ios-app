@@ -21,6 +21,11 @@ platform :ios do
     run_tests(scheme: "JavaZone", slack_only_on_failure: true)
   end
 
+  desc "Generate screenshots"
+  lane :screenshots do
+    capture_screenshots(scheme: "JavaZoneUITests")
+  end
+
   desc "Git preparation"
   lane :gitprep do
     ensure_git_status_clean

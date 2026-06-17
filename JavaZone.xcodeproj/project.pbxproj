@@ -58,6 +58,9 @@
 		CCAA000800000000CCAA0008 /* InfoLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA000700000000CCAA0007 /* InfoLogViewModel.swift */; };
 		DD000002CCCCCCCCDD000002 /* Duke/Stickers.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD000001CCCCCCCCDD000001 /* Duke/Stickers.xcassets */; };
 		DD000010CCCCCCCCDD000010 /* JavaZone.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DD000009CCCCCCCCDD000009 /* JavaZone.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		AA000001CCCCCCCCAA000001 /* JavaZoneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A7529D2AA06DB100A82604 /* JavaZoneUITests.swift */; };
+		AA000002CCCCCCCCAA000002 /* JavaZoneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A7529F2AA06DB100A82604 /* JavaZoneUITestsLaunchTests.swift */; };
+		AA000003CCCCCCCCAA000003 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A752A62AA06E1900A82604 /* SnapshotHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -589,6 +592,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA000001CCCCCCCCAA000001 /* JavaZoneUITests.swift in Sources */,
+				AA000002CCCCCCCCAA000002 /* JavaZoneUITestsLaunchTests.swift in Sources */,
+				AA000003CCCCCCCCAA000003 /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -824,6 +830,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X4FF6CYH8M;
+				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.chrissearle.JavaZoneUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -838,6 +845,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X4FF6CYH8M;
+				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.chrissearle.JavaZoneUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

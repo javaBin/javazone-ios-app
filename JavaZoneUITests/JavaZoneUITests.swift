@@ -7,6 +7,8 @@ final class JavaZoneUITests: XCTestCase {
 
         if UIDevice.current.userInterfaceIdiom == .pad {
             XCUIDevice.shared.orientation = .landscapeLeft
+        } else {
+            XCUIDevice.shared.orientation = .portrait
         }
     }
 
@@ -40,13 +42,24 @@ final class JavaZoneUITests: XCTestCase {
 
         pause()
 
-        let tabBar = app.tabBars["Tab Bar"]
-
-        tapElement(element: tabBar.buttons["Sessions"])
-
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            tapRow(app: app, idx: 0)
+        // On iPad iOS 26, TabView renders as a _UIFloatingTabBar whose items are
+        // _UIFloatingTabBarItemCell. XCUI subscript notation ("Sessions") matches by
+        // accessibility identifier, but tab items only have a label — not an identifier.
+        // Use a label predicate to find them correctly.
+        func tapTab(_ name: String) {
+            let bar = app.tabBars["Tab Bar"]
+            if bar.exists {
+                tapElement(element: bar.buttons[name])
+            } else {
+                // .cell and .button type queries fail on iOS 26 FloatingTabBar due to
+                // XCUI type-mismatch. Using .any bypasses the type filter entirely.
+                let labelPredicate = NSPredicate(format: "label == %@", name)
+                let el = app.descendants(matching: .any).matching(labelPredicate).firstMatch
+                tapElement(element: el)
+            }
         }
+
+        tapTab("Sessions")
 
         snapshot("1_SessionList")
 
@@ -56,16 +69,12 @@ final class JavaZoneUITests: XCTestCase {
             snapshot("2_Session")
         }
 
-        tapElement(element: tabBar.buttons["My Schedule"])
-
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            tapRow(app: app, idx: 1)
-        }
+        tapTab("My Schedule")
 
         snapshot("3_Favourites")
 
-        tapElement(element: tabBar.buttons["Partners"])
+        tapTab("Info")
 
-        snapshot("4_Partners")
+        snapshot("4_Info")
     }
 }

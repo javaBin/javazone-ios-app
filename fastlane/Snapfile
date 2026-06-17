@@ -2,10 +2,9 @@
 
 # A list of devices you want to take the screenshots from
 devices([
-    "iPhone SE (3rd generation)", # 5.5"
-    "iPhone 15 Plus", # 6.5"
-    "iPhone 15 Pro Max", # 6.7"
-    "iPad Air 11-inch (M2)" # 12.9"
+    "iPhone 17e",          # small
+    "iPhone 17 Pro Max",   # large
+    "iPad Air 13-inch (M4)" # iPad
 ])
 
 # languages([
