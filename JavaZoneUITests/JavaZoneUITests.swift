@@ -61,13 +61,13 @@ final class JavaZoneUITests: XCTestCase {
 
         tapTab("Sessions")
 
-        snapshot("1_SessionList")
-
         if UIDevice.current.userInterfaceIdiom != .pad {
-            tapRow(app: app, idx: 0)
-
-            snapshot("2_Session")
+            snapshot("1_SessionList")
         }
+
+        tapRow(app: app, idx: 0)
+
+        snapshot("2_Session")
 
         tapTab("My Schedule")
 
