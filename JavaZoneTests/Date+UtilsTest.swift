@@ -32,20 +32,6 @@ final class DateUtilsTest: XCTestCase {
         XCTAssertEqual(date.asDate(), "04.09.2024")
     }
 
-    // MARK: - asDateTime
-
-    func testAsDateTime() {
-        let date = localDate(year: 2024, month: 9, day: 4, hour: 10, minute: 20)
-        XCTAssertEqual(date.asDateTime(), "10:20 (04.09.2024)")
-    }
-
-    // MARK: - asHour
-
-    func testAsHourRoundsDown() {
-        let date = localDate(year: 2024, month: 9, day: 4, hour: 9, minute: 45)
-        XCTAssertEqual(date.asHour(), "09:00")
-    }
-
     // MARK: - diffInSeconds
 
     func testDiffInSecondsPositive() {
@@ -63,6 +49,22 @@ final class DateUtilsTest: XCTestCase {
     func testDiffInSecondsSameDate() {
         let date = Date()
         XCTAssertEqual(date.diffInSeconds(date: date), 0)
+    }
+
+    // MARK: - Locale independence
+
+    /// asDate() feeds the day filter in SessionsListView, which compares it against plain
+    /// strings from the remote config. A non-Gregorian device calendar must not change it.
+    func testAsDateUsesGregorianYearAndAsciiDigits() {
+        var components = DateComponents()
+        components.year = 2024; components.month = 9; components.day = 4; components.hour = 10
+        let date = Calendar(identifier: .gregorian).date(from: components)!
+
+        // Gregorian era, not Buddhist (2567) or any other calendar the device may be set to.
+        XCTAssertEqual(date.asDate(), "04.09.2024")
+        // And Latin digits, not the locale's numbering system.
+        XCTAssertTrue(date.asDate().allSatisfy { $0.isASCII })
+        XCTAssertTrue(date.asTime().allSatisfy { $0.isASCII })
     }
 
     // MARK: - forNotification

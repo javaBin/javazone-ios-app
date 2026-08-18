@@ -1,22 +1,15 @@
 import Foundation
-import UIKit
 
 extension String {
-    func contains(_ candidate: String) -> Bool {
+    /// Deliberately not named `contains` — an overload with that signature shadows the
+    /// stdlib method for every String in the module and silently makes it case-insensitive.
+    func containsIgnoringCase(_ candidate: String) -> Bool {
         self.range(of: candidate, options: .caseInsensitive) != nil
     }
 
     func deletePrefix(_ prefix: String) -> String {
         guard self.hasPrefix(prefix) else {return self}
         return String(self.dropFirst(prefix.count))
-    }
-
-    func slug() -> String {
-        let allowed = CharacterSet(charactersIn: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-")
-
-        return self.filter { (char) -> Bool in
-            return !char.unicodeScalars.contains(where: { !allowed.contains($0)})
-        }
     }
 }
 
@@ -33,14 +26,6 @@ extension String? {
     func link() -> URL? {
         if let url = self?.trimmingCharacters(in: .whitespacesAndNewlines) {
             return URL(string: url)
-        }
-
-        return nil
-    }
-
-    func videoLink() -> URL? {
-        if let videoId = self?.trimmingCharacters(in: .whitespacesAndNewlines) {
-            return URL(string: "https://vimeo.com/\(videoId)")
         }
 
         return nil

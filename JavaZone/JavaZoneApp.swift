@@ -33,6 +33,8 @@ private final class AppNotificationDelegate: NSObject, UNUserNotificationCenterD
 
 @main
 struct JavaZoneApp: App {
+    private static let logger = Logger(subsystem: Logger.subsystem, category: "JavaZoneApp")
+
     @State private var notificationRouter = NotificationRouter()
     @State private var appConfig = AppConfig()
     @State private var sessionsViewModel = SessionsViewModel()
@@ -46,12 +48,23 @@ struct JavaZoneApp: App {
         } catch {
             // Schema migration failed — wipe the store so a clean start can happen.
             // All session data is refreshed from the API; only favourites are lost.
+            logger.error("Store unusable, wiping: \(error.localizedDescription, privacy: .public)")
             let url = config.url
             for suffix in ["", "-wal", "-shm"] {
                 try? FileManager.default.removeItem(at: URL(fileURLWithPath: url.path + suffix))
             }
-            // swiftlint:disable:next force_try
-            return try! ModelContainer(for: schema, configurations: config)
+            do {
+                return try ModelContainer(for: schema, configurations: config)
+            } catch {
+                // Last resort: run entirely from memory rather than refusing to launch.
+                // Sessions come from the API anyway; only persistence across launches is lost.
+                logger.error("Falling back to in-memory store: \(error.localizedDescription, privacy: .public)")
+                // swiftlint:disable:next force_try
+                return try! ModelContainer(
+                    for: schema,
+                    configurations: ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+                )
+            }
         }
     }()
 
@@ -61,14 +74,14 @@ struct JavaZoneApp: App {
                 .environment(notificationRouter)
                 .environment(appConfig)
                 .environment(sessionsViewModel)
-                .onAppear {
-                    notificationDelegate.router = notificationRouter
-                }
         }
         .modelContainer(Self.container)
     }
 
     init() {
+        // Wired here rather than in ContentView.onAppear: when the app is cold-launched by a
+        // notification tap, didReceive can fire before any view appears.
+        notificationDelegate.router = notificationRouter
         UNUserNotificationCenter.current().delegate = notificationDelegate
     }
 }

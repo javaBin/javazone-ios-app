@@ -24,7 +24,9 @@ struct SessionDetailView: View {
         ScrollView(.vertical) {
             VStack {
                 HStack {
-                    if !pending {
+                    // Matches SessionItemView: a session that has already started can no
+                    // longer be added to or removed from your schedule.
+                    if !pending && session.notYetStarted() {
                         FavouriteToggleView(session: session)
                     }
                     VStack(alignment: .leading) {

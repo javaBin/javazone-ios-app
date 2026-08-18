@@ -7,6 +7,9 @@ struct InfoView: View {
         NavigationStack {
             List {
                 Section(header: Text("JavaZone")) {
+                    if viewModel.fetchingItems {
+                        ProgressView("Fetching info")
+                    }
                     ForEach(viewModel.shortItems, id: \.self) { item in
                         InfoItemListView(item: item)
                     }

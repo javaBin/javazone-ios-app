@@ -1,10 +1,8 @@
 import SwiftUI
 import SwiftData
 import UserNotifications
-import os.log
 
 struct FavouriteToggleView: View {
-    private let logger = Logger(subsystem: Logger.subsystem, category: "FavouriteToggleView")
     var session: Session
 
     var body: some View {
@@ -28,47 +26,28 @@ struct FavouriteToggleView: View {
 
     private func toggle() {
         session.favourite.toggle()
-        let isFavourite = session.favourite
-        let notificationId = session.sessionId ?? UUID().uuidString
-        let notificationTitle = session.wrappedTitle
-        let notificationLocation = session.wrappedRoom
-        let notificationTrigger = session.startUtc
 
-        guard !ProcessInfo.processInfo.arguments.contains("--skip-notifications") else { return }
+        // Read everything off the model up front — the Task must not touch a SwiftData
+        // object that a refresh could delete underneath it.
+        let isFavourite = session.favourite
+        guard let sessionId = session.sessionId else { return }
+        let reminder = session.startUtc.map {
+            NotificationScheduler.Reminder(
+                sessionId: sessionId,
+                title: session.wrappedTitle,
+                room: session.wrappedRoom,
+                start: $0
+            )
+        }
 
         Task {
-            do {
-                let center = UNUserNotificationCenter.current()
-                let granted = try await center.requestAuthorization(options: [.alert, .badge, .sound])
-                guard granted else { return }
-                if isFavourite, let date = notificationTrigger {
-                    let triggerDate = date.forNotification() ?? date
-                    let calComponents: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second]
-                    let components = Calendar.current.dateComponents(calComponents, from: triggerDate)
-                    let content = buildNotificationContent(
-                        title: notificationTitle,
-                        location: notificationLocation,
-                        date: date
-                    )
-                    let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-                    let request = UNNotificationRequest(identifier: notificationId, content: content, trigger: trigger)
-                    try await center.add(request)
-                } else {
-                    UNUserNotificationCenter.current()
-                        .removePendingNotificationRequests(withIdentifiers: [notificationId])
-                }
-            } catch {
-                logger.error("Notification error: \(error.localizedDescription, privacy: .public)")
+            guard isFavourite, let reminder else {
+                NotificationScheduler.cancel(sessionId: sessionId)
+                return
             }
+            guard await NotificationScheduler.requestAuthorization() else { return }
+            await NotificationScheduler.schedule(reminder)
         }
-    }
-
-    private func buildNotificationContent(title: String, location: String, date: Date) -> UNNotificationContent {
-        let content = UNMutableNotificationContent()
-        content.title = title
-        content.subtitle = "Your next session starts in \(location) at \(date.asTime())"
-        content.sound = .default
-        return content
     }
 }
 

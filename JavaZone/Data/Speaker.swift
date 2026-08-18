@@ -27,4 +27,10 @@ final class Speaker {
     var wrappedAvatar: URL? { avatar.flatMap { URL(string: $0) } }
     var wrappedBio: String { bio ?? "" }
     var wrappedTwitter: String { twitter ?? "" }
+
+    var wrappedTwitterUrl: URL? {
+        let handle = wrappedTwitter.trimmingCharacters(in: .whitespacesAndNewlines).deletePrefix("@")
+        guard !handle.isEmpty else { return nil }
+        return URL(string: "https://twitter.com/\(handle)")
+    }
 }

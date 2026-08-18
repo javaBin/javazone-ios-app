@@ -33,10 +33,11 @@ final class InfoViewModel {
                 items = newItems
                 shortItems = newItems.filter(\.isShort)
                 longItems = newItems.filter { !$0.isShort }
-                fetchingItems = false
             } catch {
-                logger.debug("Unable to refresh info: \(error, privacy: .public)")
+                logger.error("Unable to refresh info: \(error, privacy: .public)")
             }
+            // Cleared either way — a failed fetch must not leave the spinner up forever.
+            fetchingItems = false
         }
     }
 }

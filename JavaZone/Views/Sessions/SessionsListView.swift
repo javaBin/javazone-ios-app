@@ -9,8 +9,11 @@ struct RelevantSessions: Equatable {
     var pending: [Session]
 }
 
+/// Identifies a selected session by its stable `sessionId` rather than by holding the
+/// `Session` model object. A refresh batch-deletes every `Session`, so a retained instance
+/// would be invalidated and trap on the next property read.
 struct SessionWithPending: Hashable {
-    var session: Session
+    var sessionId: String
     var pending: Bool
 }
 
@@ -38,7 +41,7 @@ struct SessionListEntries: View {
 
     var body: some View {
         ForEach(sessions, id: \.persistentModelID) { session in
-            SessionNavLink(sessionWithPending: SessionWithPending(session: session, pending: pending))
+            SessionNavLink(session: session, pending: pending)
         }
     }
 }
@@ -61,14 +64,11 @@ struct SessionsListView: View {
     var favouritesOnly: Bool
     var title: String
 
+    // Explicit: the private @Environment/@State properties would otherwise make the
+    // synthesised memberwise initialiser private.
     init(favouritesOnly: Bool, title: String) {
         self.favouritesOnly = favouritesOnly
         self.title = title
-        self._allSessions = Query(sort: [
-            SortDescriptor(\Session.startUtc),
-            SortDescriptor(\Session.format, order: .reverse),
-            SortDescriptor(\Session.room)
-        ])
     }
 
     @State private var selectorIndex = 0
@@ -84,27 +84,25 @@ struct SessionsListView: View {
 
         if pending.isEmpty {
             let filtered = allSessions
-                .filter { $0.startUtc?.asDate() ?? "" == appConfig.dates[selectorIndex] }
+                .filter { ($0.startUtc?.asDate() ?? "") == appConfig.dates[selectorIndex] }
                 .filter { $0.favourite || !favouritesOnly }
-                .filter {
-                    searchText.isEmpty
-                        || $0.wrappedTitle.localizedCaseInsensitiveContains(searchText)
-                        || $0.speakerNames.localizedCaseInsensitiveContains(searchText)
-                }
+                .filter { matchesSearch($0) }
 
             let grouped = Dictionary(grouping: filtered, by: \.wrappedSection)
             let sections = grouped.keys.sorted()
             return RelevantSessions(sessions: filtered, sections: sections, grouped: grouped, pending: pending)
         } else {
             let filtered = allSessions
-                .filter {
-                    searchText.isEmpty
-                        || $0.wrappedTitle.localizedCaseInsensitiveContains(searchText)
-                        || $0.speakerNames.localizedCaseInsensitiveContains(searchText)
-                }
+                .filter { matchesSearch($0) }
                 .sorted { $0.wrappedTitle < $1.wrappedTitle }
             return RelevantSessions(sessions: filtered, sections: [], grouped: [:], pending: pending)
         }
+    }
+
+    private func matchesSearch(_ session: Session) -> Bool {
+        searchText.isEmpty
+            || session.wrappedTitle.localizedCaseInsensitiveContains(searchText)
+            || session.speakerNames.localizedCaseInsensitiveContains(searchText)
     }
 
     private var alertItemBinding: Binding<AlertItem?> {
@@ -115,6 +113,8 @@ struct SessionsListView: View {
     }
 
     var body: some View {
+        // Computed once per render pass and threaded through to the helpers below —
+        // filtering, sorting and grouping the whole programme is not free.
         let relevant = sessions
         let isPending = !relevant.pending.isEmpty
         NavigationSplitView {
@@ -147,16 +147,16 @@ struct SessionsListView: View {
                         }
                         .scrollPosition(id: $scrolledSection, anchor: .top)
                         .onChange(of: selectorIndex) {
-                            scrollTo()
+                            scrollTo(sessions)
                         }
                         .onChange(of: sessionsViewModel.isRefreshing) { _, isRefreshing in
-                            if !isRefreshing { scrollTo() }
+                            if !isRefreshing { scrollTo(sessions) }
                         }
                         .task {
                             guard !hasAppeared else { return }
                             hasAppeared = true
-                            appear()
-                            scrollTo()
+                            appear(relevant)
+                            scrollTo(sessions)
                         }
                         .scrollContentBackground(.hidden)
                         .resignKeyboardOnDragGesture()
@@ -167,9 +167,7 @@ struct SessionsListView: View {
                             Alert(
                                 title: alertItem.title,
                                 message: alertItem.message,
-                                dismissButton: .default(alertItem.buttonTitle) {
-                                    AlertContext.processAlertItem(alertItem: alertItem)
-                                }
+                                dismissButton: .default(alertItem.buttonTitle)
                             )
                         }
                         .navigationTitle(title)
@@ -177,25 +175,34 @@ struct SessionsListView: View {
                 }
             }
         } detail: {
-            if let selectedSession {
-                SessionDetailView(session: selectedSession.session, pending: selectedSession.pending)
+            if let selectedSession,
+               let session = allSessions.first(where: { $0.sessionId == selectedSession.sessionId }) {
+                SessionDetailView(session: session, pending: selectedSession.pending)
             } else {
                 Text("Please choose a session")
             }
         }
         .onChange(of: notificationRouter.sessionId) { _, newSessionId in
-            guard let sessionId = newSessionId else { return }
-            let current = sessions
-            if let session = current.pending.first(where: { $0.sessionId == sessionId }) {
-                selectedSession = SessionWithPending(session: session, pending: true)
-            } else if let session = current.sessions.first(where: { $0.sessionId == sessionId }) {
-                selectedSession = SessionWithPending(session: session, pending: false)
-            }
+            handleNotificationRoute(newSessionId)
         }
     }
 
-    private func scrollTo() {
+    /// Only the Sessions tab routes notification taps — otherwise both list instances
+    /// would react to the same tap. The router is cleared once consumed so that tapping a
+    /// reminder for the same session twice still navigates.
+    private func handleNotificationRoute(_ newSessionId: String?) {
+        guard !favouritesOnly, let sessionId = newSessionId else { return }
+        defer { notificationRouter.sessionId = nil }
+
         let current = sessions
+        if current.pending.contains(where: { $0.sessionId == sessionId }) {
+            selectedSession = SessionWithPending(sessionId: sessionId, pending: true)
+        } else if current.sessions.contains(where: { $0.sessionId == sessionId }) {
+            selectedSession = SessionWithPending(sessionId: sessionId, pending: false)
+        }
+    }
+
+    private func scrollTo(_ current: RelevantSessions) {
         guard searchText.isEmpty, current.pending.isEmpty else { return }
 
         var target: String?
@@ -212,9 +219,9 @@ struct SessionsListView: View {
         scrolledSection = target
     }
 
-    private func appear() {
+    private func appear(_ current: RelevantSessions) {
         let now = Date()
-        let noSessions = sessions.sessions.isEmpty && !favouritesOnly && searchText.isEmpty
+        let noSessions = current.sessions.isEmpty && !favouritesOnly && searchText.isEmpty
         let randomChance = Int.random(in: 0..<4) == 0
         var autorefresh = randomChance && now.shouldUpdate(
             key: "SessionLastUpdate",

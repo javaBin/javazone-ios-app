@@ -1,12 +1,13 @@
 import SwiftUI
 
 struct SessionNavLink: View {
-    var sessionWithPending: SessionWithPending
+    var session: Session
+    var pending: Bool
 
     var body: some View {
-        NavigationLink(value: sessionWithPending) {
-            SessionItemView(session: sessionWithPending.session, pending: sessionWithPending.pending)
+        NavigationLink(value: SessionWithPending(sessionId: session.sessionId ?? "", pending: pending)) {
+            SessionItemView(session: session, pending: pending)
         }
-        .id(sessionWithPending.session.persistentModelID)
+        .id(session.persistentModelID)
     }
 }

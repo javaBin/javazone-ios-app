@@ -3,23 +3,18 @@ import XCTest
 
 final class StringUtilsTest: XCTestCase {
 
-    // MARK: - String.slug
+    // MARK: - String.containsIgnoringCase
 
-    func testSlug() {
-        let result = "This is a test string with some utf-8 characters - æøå - !\"#$%&/()=".slug()
-        XCTAssertEqual(result, "Thisisateststringwithsomeutf-8characters--")
+    func testContainsIgnoringCase() {
+        XCTAssertTrue("Hello World".containsIgnoringCase("ell"))
+        XCTAssertTrue("Hello World".containsIgnoringCase("HELLO"))
+        XCTAssertFalse("Hello World".containsIgnoringCase("elp"))
     }
 
-    func testSlugEmptyString() {
-        XCTAssertEqual("".slug(), "")
-    }
-
-    // MARK: - String.contains (case-insensitive)
-
-    func testContainsCaseInsensitive() {
-        XCTAssertTrue("Hello World".contains("ell"))
-        XCTAssertTrue("Hello World".contains("HELLO"))
-        XCTAssertFalse("Hello World".contains("elp"))
+    /// The stdlib `contains` must keep its case-sensitive meaning — an overload named
+    /// `contains` would silently change it for every String in the module.
+    func testStdlibContainsStaysCaseSensitive() {
+        XCTAssertFalse("Hello World".contains("HELLO"))
     }
 
     // MARK: - String.deletePrefix
@@ -88,15 +83,23 @@ final class StringUtilsTest: XCTestCase {
         XCTAssertEqual(optional.link(), URL(string: "https://javazone.no"))
     }
 
-    // MARK: - String?.videoLink
+    // MARK: - String?.link — malformed input must not produce a URL
 
-    func testVideoLinkNilReturnsNil() {
-        let optional: String? = nil
-        XCTAssertNil(optional.videoLink())
+    /// A space in the path is percent-encoded, but a malformed host or scheme is rejected.
+    /// InfoItemView must therefore treat link() as genuinely optional — info.json is
+    /// hand-edited, and a typo here used to be force-unwrapped.
+    func testLinkMalformedHostReturnsNil() {
+        let optional: String? = "http://[javazone.no"
+        XCTAssertNil(optional.link())
     }
 
-    func testVideoLinkBuildsVimeoURL() {
-        let optional: String? = "12345678"
-        XCTAssertEqual(optional.videoLink(), URL(string: "https://vimeo.com/12345678"))
+    func testLinkMalformedSchemeReturnsNil() {
+        let optional: String? = "ht tps://javazone.no"
+        XCTAssertNil(optional.link())
+    }
+
+    func testLinkEmptyReturnsNil() {
+        let optional: String? = ""
+        XCTAssertNil(optional.link())
     }
 }

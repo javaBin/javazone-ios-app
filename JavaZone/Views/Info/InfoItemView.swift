@@ -16,8 +16,8 @@ struct InfoItemView: View {
                 .padding()
                 .navigationTitle(Text(item.title))
                 .navigationBarTitleDisplayMode(.inline)
-            if item.url.hasVal() && item.urlTitle.hasVal() {
-                ExternalLink(title: item.urlTitle.val(), url: item.url.link()!)
+            if item.url.hasVal(), item.urlTitle.hasVal(), let url = item.url.link() {
+                ExternalLink(title: item.urlTitle.val(), url: url)
             }
             Spacer()
         }

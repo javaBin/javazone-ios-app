@@ -17,16 +17,9 @@ final class SessionsViewModel {
         do {
             try await SessionService.refresh(context: context, appConfig: appConfig)
             UserDefaults.standard.set(Date(), forKey: "SessionLastUpdate")
-        } catch let error as SessionError {
-            switch error {
-            case .fail(let message):
-                alertItem = AlertContext.build(title: "Refresh failed", message: message, buttonTitle: "OK")
-            case .fatal(let message, let detail):
-                alertItem = AlertContext.buildFatal(
-                    title: "Refresh failed", message: message,
-                    buttonTitle: "OK", fatalMessage: detail
-                )
-            }
+        } catch let SessionError.fail(message) {
+            logger.error("Refresh failed: \(message, privacy: .public)")
+            alertItem = AlertContext.build(title: "Refresh failed", message: message, buttonTitle: "OK")
         } catch {
             logger.debug("Unexpected refresh error: \(error, privacy: .public)")
         }

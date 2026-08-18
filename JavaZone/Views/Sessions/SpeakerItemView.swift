@@ -13,15 +13,22 @@ struct DefaultSpeakerImage: View {
 struct SpeakerImage: View {
     var avatarUrl: URL
 
+    @State private var image: UIImage?
+
     var body: some View {
-        AsyncImage(url: avatarUrl) { image in
-            image
-                .resizable()
-                .clipShape(Capsule())
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 32.0, height: 32.0)
-        } placeholder: {
-            DefaultSpeakerImage()
+        Group {
+            if let image {
+                Image(uiImage: image)
+                    .resizable()
+                    .clipShape(Capsule())
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 32.0, height: 32.0)
+            } else {
+                DefaultSpeakerImage()
+            }
+        }
+        .task(id: avatarUrl) {
+            image = await AvatarCache.shared.image(for: avatarUrl)
         }
     }
 }
@@ -43,10 +50,10 @@ struct SpeakerItemView: View {
                     Text(speaker.wrappedName)
                         .textSelection(.enabled)
                         .font(.headline)
-                    if speaker.twitter != nil {
+                    if let twitterUrl = speaker.wrappedTwitterUrl {
                         ExternalLink(
                             title: "@\(speaker.wrappedTwitter)",
-                            url: URL(string: "https://twitter.com/\(speaker.wrappedTwitter)")!,
+                            url: twitterUrl,
                             image: ""
                         )
                     }

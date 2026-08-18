@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		831B782123F526BF00A45C70 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B782023F526BF00A45C70 /* SessionService.swift */; };
+		AA000010CCCCCCCCAA000010 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000011CCCCCCCCAA000011 /* NotificationScheduler.swift */; };
+		AA000012CCCCCCCCAA000012 /* AvatarCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000013CCCCCCCCAA000013 /* AvatarCache.swift */; };
+		AA000020CCCCCCCCAA000020 /* SessionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000021CCCCCCCCAA000021 /* SessionServiceTests.swift */; };
+		AA000022CCCCCCCCAA000022 /* NotificationSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000023CCCCCCCCAA000023 /* NotificationSchedulerTests.swift */; };
+		AA000024CCCCCCCCAA000024 /* AppConfigPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000025CCCCCCCCAA000025 /* AppConfigPersistenceTests.swift */; };
 		83304597242C941500FAE5E2 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83304596242C941500FAE5E2 /* ConfigService.swift */; };
 		834FF1E524017FEB00432129 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1E424017FEB00432129 /* Config.swift */; };
 		834FF1E7240183E300432129 /* RemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1E6240183E300432129 /* RemoteConfig.swift */; };
@@ -16,7 +21,6 @@
 		8350E64D23F5222D0085C1F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8350E64C23F5222D0085C1F3 /* Assets.xcassets */; };
 		8350E65023F5222D0085C1F3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8350E64F23F5222D0085C1F3 /* Preview Assets.xcassets */; };
 		835BD62F26FF25EC00EA4416 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BD62E26FF25EC00EA4416 /* Alerts.swift */; };
-		835BD63326FF2BC200EA4416 /* View+Rotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BD63226FF2BC200EA4416 /* View+Rotation.swift */; };
 		835BD63E2703B77A00EA4416 /* InfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BD63D2703B77A00EA4416 /* InfoViewModel.swift */; };
 		837BC7092A98A54F00B9FB74 /* EnvConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837BC7082A98A54F00B9FB74 /* EnvConfig.swift */; };
 		837BC70A2A98A54F00B9FB74 /* EnvConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837BC7082A98A54F00B9FB74 /* EnvConfig.swift */; };
@@ -103,6 +107,11 @@
 
 /* Begin PBXFileReference section */
 		831B782023F526BF00A45C70 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
+		AA000011CCCCCCCCAA000011 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
+		AA000013CCCCCCCCAA000013 /* AvatarCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCache.swift; sourceTree = "<group>"; };
+		AA000021CCCCCCCCAA000021 /* SessionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServiceTests.swift; sourceTree = "<group>"; };
+		AA000023CCCCCCCCAA000023 /* NotificationSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSchedulerTests.swift; sourceTree = "<group>"; };
+		AA000025CCCCCCCCAA000025 /* AppConfigPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigPersistenceTests.swift; sourceTree = "<group>"; };
 		83304596242C941500FAE5E2 /* ConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigService.swift; sourceTree = "<group>"; };
 		834FF1E424017FEB00432129 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		834FF1E6240183E300432129 /* RemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfig.swift; sourceTree = "<group>"; };
@@ -113,7 +122,6 @@
 		8350E64F23F5222D0085C1F3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8350E65423F5222D0085C1F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		835BD62E26FF25EC00EA4416 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
-		835BD63226FF2BC200EA4416 /* View+Rotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Rotation.swift"; sourceTree = "<group>"; };
 		835BD63D2703B77A00EA4416 /* InfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewModel.swift; sourceTree = "<group>"; };
 		837BC7042A98A46F00B9FB74 /* EnvConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = EnvConfig.xcconfig; sourceTree = "<group>"; };
 		837BC7082A98A54F00B9FB74 /* EnvConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvConfig.swift; sourceTree = "<group>"; };
@@ -202,6 +210,8 @@
 			children = (
 				83304596242C941500FAE5E2 /* ConfigService.swift */,
 				831B782023F526BF00A45C70 /* SessionService.swift */,
+				AA000011CCCCCCCCAA000011 /* NotificationScheduler.swift */,
+				AA000013CCCCCCCCAA000013 /* AvatarCache.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -306,6 +316,9 @@
 				BB000008CCCCCCCCBB000008 /* SessionBodyTests.swift */,
 				BB000003CCCCCCCCBB000003 /* SpeakerTests.swift */,
 				BB000005CCCCCCCCBB000005 /* AppConfigTests.swift */,
+				AA000021CCCCCCCCAA000021 /* SessionServiceTests.swift */,
+				AA000023CCCCCCCCAA000023 /* NotificationSchedulerTests.swift */,
+				AA000025CCCCCCCCAA000025 /* AppConfigPersistenceTests.swift */,
 			);
 			path = JavaZoneTests;
 			sourceTree = "<group>";
@@ -352,7 +365,6 @@
 				834FF1E82401DC0200432129 /* Log+Utils.swift */,
 				83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */,
 				83DF4C5E23FBFF70003FE5F1 /* String+Utils.swift */,
-				835BD63226FF2BC200EA4416 /* View+Rotation.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -549,6 +561,8 @@
 				83DBDAEA23F741E800767916 /* FavouriteToggleView.swift in Sources */,
 				837E9BB624058D1000B74714 /* FavouriteSessionsView.swift in Sources */,
 				831B782123F526BF00A45C70 /* SessionService.swift in Sources */,
+				AA000010CCCCCCCCAA000010 /* NotificationScheduler.swift in Sources */,
+				AA000012CCCCCCCCAA000012 /* AvatarCache.swift in Sources */,
 				837E9BB524058D1000B74714 /* SessionItemView.swift in Sources */,
 				83B361A426E8E27900CFB552 /* SessionNavLink.swift in Sources */,
 				83DBDAE323F729A200767916 /* Date+Utils.swift in Sources */,
@@ -566,7 +580,6 @@
 				CCAA000600000000CCAA0006 /* InfoLogView.swift in Sources */,
 				CCAA000800000000CCAA0008 /* InfoLogViewModel.swift in Sources */,
 				8397433923FD23110024E80B /* ExternalLink.swift in Sources */,
-				835BD63326FF2BC200EA4416 /* View+Rotation.swift in Sources */,
 				837BC7092A98A54F00B9FB74 /* EnvConfig.swift in Sources */,
 				834FF1E7240183E300432129 /* RemoteConfig.swift in Sources */,
 				837E9BBA24058D1000B74714 /* InfoItemListView.swift in Sources */,
@@ -609,6 +622,9 @@
 				BB000006CCCCCCCCBB000006 /* AppConfigTests.swift in Sources */,
 				837BC70A2A98A54F00B9FB74 /* EnvConfig.swift in Sources */,
 				8380469326FB4C3800624463 /* Date+UtilsTest.swift in Sources */,
+				AA000020CCCCCCCCAA000020 /* SessionServiceTests.swift in Sources */,
+				AA000022CCCCCCCCAA000022 /* NotificationSchedulerTests.swift in Sources */,
+				AA000024CCCCCCCCAA000024 /* AppConfigPersistenceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,23 +10,23 @@ extension Date {
         #endif
     }
 
-    private static let timeFormatter: DateFormatter = {
-        let fmt = DateFormatter(); fmt.dateFormat = "HH:mm"; return fmt
-    }()
-    private static let dateFormatter: DateFormatter = {
-        let fmt = DateFormatter(); fmt.dateFormat = "dd.MM.yyyy"; return fmt
-    }()
-    private static let dateTimeFormatter: DateFormatter = {
-        let fmt = DateFormatter(); fmt.dateFormat = "HH:mm (dd.MM.yyyy)"; return fmt
-    }()
-    private static let hourFormatter: DateFormatter = {
-        let fmt = DateFormatter(); fmt.dateFormat = "HH"; return fmt
-    }()
+    /// Fixed-format formatters must pin locale and calendar. The user's locale otherwise
+    /// supplies the calendar and numbering system, so "dd.MM.yyyy" renders Buddhist-era
+    /// years on a Thai device — which breaks the day filter in SessionsListView, since it
+    /// compares asDate() against plain strings from the remote config.
+    private static func fixedFormatter(_ format: String) -> DateFormatter {
+        let fmt = DateFormatter()
+        fmt.locale = Locale(identifier: "en_US_POSIX")
+        fmt.calendar = Calendar(identifier: .gregorian)
+        fmt.dateFormat = format
+        return fmt
+    }
+
+    private static let timeFormatter = fixedFormatter("HH:mm")
+    private static let dateFormatter = fixedFormatter("dd.MM.yyyy")
 
     func asTime() -> String { Date.timeFormatter.string(from: self) }
     func asDate() -> String { Date.dateFormatter.string(from: self) }
-    func asDateTime() -> String { Date.dateTimeFormatter.string(from: self) }
-    func asHour() -> String { "\(Date.hourFormatter.string(from: self)):00" }
 
     func diffInSeconds(date: Date) -> Int {
         let calendar = Calendar.current
