@@ -15,6 +15,39 @@
 
 default_platform(:ios)
 
+# Versions live in *project-level* build settings, and every target — the app, the Duke
+# sticker pack and the test bundles — inherits them. The Info.plists only reference them
+# with $(CURRENT_PROJECT_VERSION) / $(MARKETING_VERSION).
+#
+# This is why the version bumps below edit the pbxproj directly rather than using agvtool
+# or fastlane-plugin-versioning:
+#   * agvtool (and fastlane's increment_build_number, which wraps it) writes literals into
+#     the Info.plists, undoing that indirection; its new-marketing-version does not touch
+#     MARKETING_VERSION at all.
+#   * fastlane-plugin-versioning only writes *target-level* settings, which would leave
+#     Duke on a different build number than the app — App Store Connect rejects that.
+PROJECT_PATH = File.join(File.dirname(__FILE__), "..", "JavaZone.xcodeproj")
+
+def project_build_setting(key)
+  project = Xcodeproj::Project.open(PROJECT_PATH)
+  values = project.build_configurations.map { |config| config.build_settings[key] }.compact.uniq
+  UI.user_error!("#{key} is not set consistently across configurations: #{values}") if values.size != 1
+  values.first
+end
+
+def set_project_build_setting(key, value)
+  project = Xcodeproj::Project.open(PROJECT_PATH)
+  project.build_configurations.each { |config| config.build_settings[key] = value }
+  project.save
+  UI.success("#{key} is now #{value}")
+end
+
+# Release notes are versioned in git and used twice: as the App Store "What's New"
+# (deliver picks the file up automatically) and as the TestFlight "What to Test".
+def release_notes
+  File.read(File.join(File.dirname(__FILE__), "metadata/en-US/release_notes.txt")).strip
+end
+
 platform :ios do
   desc "Unit Tests"
   lane :unittest do
@@ -26,13 +59,48 @@ platform :ios do
     capture_screenshots(scheme: "JavaZoneUITests")
   end
 
-  desc "Git preparation"
-  lane :gitprep do
-    ensure_git_status_clean
-    increment_build_number(xcodeproj: "JavaZone.xcodeproj")
-    commit_version_bump(xcodeproj: "JavaZone.xcodeproj")
+  # Bumped on every push to TestFlight or the App Store.
+  desc "Bump the build number and commit it"
+  lane :bump do
+    # fastlane regenerates fastlane/README.md whenever a lane runs, so in `beta` the
+    # preceding unittest step can dirty the tree before this guard is reached.
+    ensure_git_status_clean(ignore_files: ["fastlane/README.md"])
+    build = project_build_setting("CURRENT_PROJECT_VERSION").to_i + 1
+    set_project_build_setting("CURRENT_PROJECT_VERSION", build.to_s)
+    git_commit(path: "JavaZone.xcodeproj/project.pbxproj", message: "Version Bump to #{build}")
+  end
+
+  # Marketing version is year.x, where x bumps once per App Store release. The year rolls
+  # over manually each conference (2026.3 -> 2027.1), which is why this is a separate lane
+  # rather than something :release does on its own.
+  desc "Bump the marketing version (year.x -> year.x+1)"
+  lane :bump_marketing do
+    ensure_git_status_clean(ignore_files: ["fastlane/README.md"])
+    year, increment = project_build_setting("MARKETING_VERSION").split(".")
+    UI.user_error!("MARKETING_VERSION must be year.x") if increment.nil?
+    version = "#{year}.#{increment.to_i + 1}"
+    set_project_build_setting("MARKETING_VERSION", version)
+    git_commit(path: "JavaZone.xcodeproj/project.pbxproj", message: "Marketing version #{version}")
+  end
+
+  desc "Roll the marketing version over to a new conference year (e.g. 2027.1)"
+  lane :new_conference_year do |options|
+    year = options[:year] || UI.input("New conference year (e.g. 2027): ")
+    ensure_git_status_clean(ignore_files: ["fastlane/README.md"])
+    set_project_build_setting("MARKETING_VERSION", "#{year}.1")
+    git_commit(path: "JavaZone.xcodeproj/project.pbxproj", message: "Marketing version #{year}.1")
+  end
+
+  desc "Tag the shipped build and push"
+  lane :tag_release do
     add_git_tag
     push_to_git_remote
+  end
+
+  desc "Git preparation (bump, tag and push in one go)"
+  lane :gitprep do
+    bump
+    tag_release
   end
 
   desc "Auto code sign"
@@ -42,23 +110,43 @@ platform :ios do
     get_provisioning_profile(app_identifier: "net.chrissearle.incogito.JavaZone.Duke")
   end
 
+  desc "Push store metadata and screenshots to App Store Connect (no binary)"
+  lane :metadata do
+    upload_to_app_store(
+      skip_binary_upload: true,
+      skip_screenshots: false,
+      overwrite_screenshots: true,
+      precheck_include_in_app_purchases: false,
+      force: true # skip the interactive HTML preview
+    )
+  end
+
+  # The build number is bumped and committed before the build, but the tag is only pushed
+  # once the upload has succeeded — a failed signing or upload should not leave a tag
+  # behind for a build that never shipped.
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    #unittest
-    gitprep
+    unittest
+    bump
     codesignprep
     build_app(scheme: "JavaZone", clean: true)
-    upload_to_testflight
+    upload_to_testflight(changelog: release_notes)
+    tag_release
     slack(message: "Beta build uploaded")
   end
 
-  desc "Push a new beta build to AppStore"
+  desc "Push a new build to the App Store"
   lane :release do
-    #unittest
-    gitprep
+    unittest
+    bump
     codesignprep
     build_app(scheme: "JavaZone", clean: true)
-    upload_to_app_store
+    upload_to_app_store(
+      overwrite_screenshots: true,
+      precheck_include_in_app_purchases: false,
+      force: true
+    )
+    tag_release
     slack(message: "Release build uploaded")
   end
 end

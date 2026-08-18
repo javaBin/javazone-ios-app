@@ -1,6 +1,6 @@
 [
   {
-    "title": "Wi-Fi - SSID: JavaZone2025"
+    "title": "Wi-Fi - SSID: JavaZone"
   },
   {
     "title": "JavaZone Website",
@@ -8,22 +8,6 @@
     "url": {
       "title": "javazone.no",
       "url": "https://javazone.no"
-    }
-  },
-  {
-    "title": "JavaZone Food",
-    "body": "Find out what food is on offer and where to find it",
-    "url": {
-      "title": "JavaZone Food 2025",
-      "url": "https://2025.javazone.no/en/food"
-    }
-  },
-  {
-    "title": "AweZone",
-    "body": "Come and join us for this year's afterparty",
-    "url": {
-      "title": "AweZone 2025",
-      "url": "https://2025.javazone.no/en/awezone"
     }
   }
 ]
