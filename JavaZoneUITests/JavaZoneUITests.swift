@@ -42,6 +42,50 @@ final class JavaZoneUITests: XCTestCase {
         pause()
     }
 
+    // On iPad iOS 26, TabView renders as a _UIFloatingTabBar whose items are
+    // _UIFloatingTabBarItemCell. XCUI subscript notation ("Sessions") matches by
+    // accessibility identifier, but tab items only have a label — not an identifier.
+    // Use a label predicate with .any type to bypass the type mismatch.
+    func tapTab(app: XCUIApplication, name: String) {
+        let bar = app.tabBars["Tab Bar"]
+        if bar.exists {
+            tapElement(element: bar.buttons[name])
+        } else {
+            let labelPredicate = NSPredicate(format: "label == %@", name)
+            let tabEl = app.descendants(matching: .any).matching(labelPredicate).firstMatch
+            tapElement(element: tabEl)
+        }
+    }
+
+    func addFavourite(app: XCUIApplication) {
+        // On iPad, app.buttons only traverses the FloatingTabBar — the detail pane
+        // is a ScrollView (UIScrollView) that must be targeted explicitly.
+        // Check existence first: the button may already be favourited from a prior run.
+        let addButton = app.scrollViews.firstMatch.buttons["add-to-favourites"]
+        guard addButton.exists else { return }
+
+        addButton.tap()
+        pause()
+
+        // On a fresh simulator the first favourite triggers a notification
+        // permission dialog in SpringBoard. Dismiss it if present.
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        if springboard.alerts.firstMatch.exists {
+            let allow = springboard.alerts.buttons["Allow"]
+            if allow.exists { allow.tap() } else { springboard.alerts.buttons.firstMatch.tap() }
+            pause()
+        }
+    }
+
+    func navigateBackIfNeeded(app: XCUIApplication) {
+        // The notification alert dismissal may already pop us to the sessions root.
+        // Only tap back if a back button actually exists in the navigation bar.
+        if app.navigationBars.firstMatch.buttons.element(boundBy: 0).exists {
+            app.navigationBars.firstMatch.buttons.firstMatch.tap()
+        }
+        pause()
+    }
+
     @MainActor
     func testScreenshots() throws {
         let app = XCUIApplication()
@@ -51,54 +95,11 @@ final class JavaZoneUITests: XCTestCase {
 
         pause()
 
-        // On iPad iOS 26, TabView renders as a _UIFloatingTabBar whose items are
-        // _UIFloatingTabBarItemCell. XCUI subscript notation ("Sessions") matches by
-        // accessibility identifier, but tab items only have a label — not an identifier.
-        // Use a label predicate with .any type to bypass the type mismatch.
-        func tapTab(_ name: String) {
-            let bar = app.tabBars["Tab Bar"]
-            if bar.exists {
-                tapElement(element: bar.buttons[name])
-            } else {
-                let labelPredicate = NSPredicate(format: "label == %@", name)
-                let tabEl = app.descendants(matching: .any).matching(labelPredicate).firstMatch
-                tapElement(element: tabEl)
-            }
-        }
+        let isPad = UIDevice.current.userInterfaceIdiom == .pad
 
-        func addFavourite() {
-            // On iPad, app.buttons only traverses the FloatingTabBar — the detail pane
-            // is a ScrollView (UIScrollView) that must be targeted explicitly.
-            // Check existence first: the button may already be favourited from a prior run.
-            let addButton = app.scrollViews.firstMatch.buttons["add-to-favourites"]
-            if addButton.exists {
-                addButton.tap()
-                pause()
-                // On a fresh simulator the first favourite triggers a notification
-                // permission dialog in SpringBoard. Dismiss it if present.
-                let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
-                if springboard.alerts.firstMatch.exists {
-                    let allow = springboard.alerts.buttons["Allow"]
-                    if allow.exists { allow.tap() } else { springboard.alerts.buttons.firstMatch.tap() }
-                    pause()
-                }
-            }
-        }
+        tapTab(app: app, name: "Sessions")
 
-        func navigateBackIfNeeded() {
-            // The notification alert dismissal may already pop us to the sessions root.
-            // Only tap back if a back button actually exists in the navigation bar.
-            if app.navigationBars.firstMatch.buttons.element(boundBy: 0).exists {
-                app.navigationBars.firstMatch.buttons.firstMatch.tap()
-                pause()
-            } else {
-                pause()
-            }
-        }
-
-        tapTab("Sessions")
-
-        if UIDevice.current.userInterfaceIdiom != .pad {
+        if !isPad {
             snapshot("1_SessionList")
         }
 
@@ -109,22 +110,22 @@ final class JavaZoneUITests: XCTestCase {
         for pos in 0..<3 {
             tapRow(app: app, idx: pos * 2)
             if pos == 0 { snapshot("2_Session") }
-            addFavourite()
-            if UIDevice.current.userInterfaceIdiom != .pad {
-                navigateBackIfNeeded()
+            addFavourite(app: app)
+            if !isPad {
+                navigateBackIfNeeded(app: app)
             }
         }
 
-        tapTab("My Schedule")
+        tapTab(app: app, name: "My Schedule")
 
         // On iPad, tap the first favourite to populate the split-view detail pane.
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if isPad {
             tapRow(app: app, idx: 0)
         }
 
         snapshot("3_Favourites")
 
-        tapTab("Info")
+        tapTab(app: app, name: "Info")
 
         snapshot("4_Info")
     }
