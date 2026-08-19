@@ -119,8 +119,6 @@ Deployment is handled by **Fastlane**. Requires a `.env` file (not committed) wi
 APPLE_ID=<your Apple ID>
 FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD=<app-specific password from appleid.apple.com>
 SLACK_URL=<webhook URL for the app Slack channel>
-FLURRY_API_KEY=<flurry>
-FLURRY_AUTH_TOKEN=<flurry>
 ```
 
 | Lane          | Command                                | Description                                       |
