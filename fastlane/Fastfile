@@ -112,9 +112,17 @@ platform :ios do
     git_commit(path: "JavaZone.xcodeproj/project.pbxproj", message: "Marketing version #{year}.1")
   end
 
+  # add_git_tag derives the build number from lane_context[BUILD_NUMBER], which only
+  # increment_build_number sets — and `bump` writes the pbxproj directly instead (see the
+  # comment above it). Read the number back from the project so this works inside `beta` and
+  # `release` *and* on its own.
+  #
+  # LANE_NAME is the lane fastlane was invoked with, not the one running, so a standalone
+  # recovery run would otherwise tag builds/iostag_release/N. Pass `lane:` to name it.
   desc "Tag the shipped build and push"
-  lane :tag_release do
-    add_git_tag
+  lane :tag_release do |options|
+    lane_name = options[:lane] || Actions.lane_context[Actions::SharedValues::LANE_NAME].to_s.delete(' ')
+    add_git_tag(tag: "builds/#{lane_name}/#{project_build_setting('CURRENT_PROJECT_VERSION')}")
     push_to_git_remote
   end
 
