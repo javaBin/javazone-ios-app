@@ -8,11 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		831B782123F526BF00A45C70 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831B782023F526BF00A45C70 /* SessionService.swift */; };
-		AA000010CCCCCCCCAA000010 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000011CCCCCCCCAA000011 /* NotificationScheduler.swift */; };
-		AA000012CCCCCCCCAA000012 /* AvatarCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000013CCCCCCCCAA000013 /* AvatarCache.swift */; };
-		AA000020CCCCCCCCAA000020 /* SessionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000021CCCCCCCCAA000021 /* SessionServiceTests.swift */; };
-		AA000022CCCCCCCCAA000022 /* NotificationSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000023CCCCCCCCAA000023 /* NotificationSchedulerTests.swift */; };
-		AA000024CCCCCCCCAA000024 /* AppConfigPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000025CCCCCCCCAA000025 /* AppConfigPersistenceTests.swift */; };
 		83304597242C941500FAE5E2 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83304596242C941500FAE5E2 /* ConfigService.swift */; };
 		834FF1E524017FEB00432129 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1E424017FEB00432129 /* Config.swift */; };
 		834FF1E7240183E300432129 /* RemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834FF1E6240183E300432129 /* RemoteConfig.swift */; };
@@ -51,20 +46,25 @@
 		83E322AA2403F5730044094C /* InfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E322A92403F5730044094C /* InfoService.swift */; };
 		83E322AE2403F5DC0044094C /* RemoteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E322AD2403F5DC0044094C /* RemoteInfo.swift */; };
 		83E322B02403FC090044094C /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E322AF2403FC090044094C /* Info.swift */; };
+		AA000001CCCCCCCCAA000001 /* JavaZoneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A7529D2AA06DB100A82604 /* JavaZoneUITests.swift */; };
+		AA000002CCCCCCCCAA000002 /* JavaZoneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A7529F2AA06DB100A82604 /* JavaZoneUITestsLaunchTests.swift */; };
+		AA000003CCCCCCCCAA000003 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A752A62AA06E1900A82604 /* SnapshotHelper.swift */; };
+		AA000010CCCCCCCCAA000010 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000011CCCCCCCCAA000011 /* NotificationScheduler.swift */; };
+		AA000012CCCCCCCCAA000012 /* AvatarCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000013CCCCCCCCAA000013 /* AvatarCache.swift */; };
+		AA000020CCCCCCCCAA000020 /* SessionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000021CCCCCCCCAA000021 /* SessionServiceTests.swift */; };
+		AA000022CCCCCCCCAA000022 /* NotificationSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000023CCCCCCCCAA000023 /* NotificationSchedulerTests.swift */; };
+		AA000024CCCCCCCCAA000024 /* AppConfigPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000025CCCCCCCCAA000025 /* AppConfigPersistenceTests.swift */; };
 		BB000002CCCCCCCCBB000002 /* SessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000001CCCCCCCCBB000001 /* SessionTests.swift */; };
-		BB000007CCCCCCCCBB000007 /* SessionBodyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000008CCCCCCCCBB000008 /* SessionBodyTests.swift */; };
-		CCAA001100000000CCAA0011 /* SessionBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA001000000000CCAA0010 /* SessionBody.swift */; };
 		BB000004CCCCCCCCBB000004 /* SpeakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000003CCCCCCCCBB000003 /* SpeakerTests.swift */; };
 		BB000006CCCCCCCCBB000006 /* AppConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000005CCCCCCCCBB000005 /* AppConfigTests.swift */; };
+		BB000007CCCCCCCCBB000007 /* SessionBodyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000008CCCCCCCCBB000008 /* SessionBodyTests.swift */; };
 		CCAA000200000000CCAA0002 /* JavaZoneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA000100000000CCAA0001 /* JavaZoneApp.swift */; };
 		CCAA000400000000CCAA0004 /* SessionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA000300000000CCAA0003 /* SessionsViewModel.swift */; };
 		CCAA000600000000CCAA0006 /* InfoLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA000500000000CCAA0005 /* InfoLogView.swift */; };
 		CCAA000800000000CCAA0008 /* InfoLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA000700000000CCAA0007 /* InfoLogViewModel.swift */; };
-		DD000002CCCCCCCCDD000002 /* Duke/Stickers.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD000001CCCCCCCCDD000001 /* Duke/Stickers.xcassets */; };
+		CCAA001100000000CCAA0011 /* SessionBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA001000000000CCAA0010 /* SessionBody.swift */; };
+		DD000002CCCCCCCCDD000002 /* Stickers.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD000001CCCCCCCCDD000001 /* Stickers.xcassets */; };
 		DD000010CCCCCCCCDD000010 /* JavaZone.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DD000009CCCCCCCCDD000009 /* JavaZone.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		AA000001CCCCCCCCAA000001 /* JavaZoneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A7529D2AA06DB100A82604 /* JavaZoneUITests.swift */; };
-		AA000002CCCCCCCCAA000002 /* JavaZoneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A7529F2AA06DB100A82604 /* JavaZoneUITestsLaunchTests.swift */; };
-		AA000003CCCCCCCCAA000003 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A752A62AA06E1900A82604 /* SnapshotHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,11 +107,6 @@
 
 /* Begin PBXFileReference section */
 		831B782023F526BF00A45C70 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
-		AA000011CCCCCCCCAA000011 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
-		AA000013CCCCCCCCAA000013 /* AvatarCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCache.swift; sourceTree = "<group>"; };
-		AA000021CCCCCCCCAA000021 /* SessionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServiceTests.swift; sourceTree = "<group>"; };
-		AA000023CCCCCCCCAA000023 /* NotificationSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSchedulerTests.swift; sourceTree = "<group>"; };
-		AA000025CCCCCCCCAA000025 /* AppConfigPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigPersistenceTests.swift; sourceTree = "<group>"; };
 		83304596242C941500FAE5E2 /* ConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigService.swift; sourceTree = "<group>"; };
 		834FF1E424017FEB00432129 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		834FF1E6240183E300432129 /* RemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfig.swift; sourceTree = "<group>"; };
@@ -136,7 +131,7 @@
 		837E9BAB24058D1000B74714 /* InfoItemListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoItemListView.swift; sourceTree = "<group>"; };
 		8380469226FB4C3800624463 /* Date+UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+UtilsTest.swift"; sourceTree = "<group>"; };
 		8380469426FB4E3900624463 /* String+UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UtilsTest.swift"; sourceTree = "<group>"; };
-		838048432407BF1600749E82 /* Duke/Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Duke/Info.plist; sourceTree = SOURCE_ROOT; };
+		838048432407BF1600749E82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Duke/Info.plist; sourceTree = SOURCE_ROOT; };
 		8397433823FD23110024E80B /* ExternalLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLink.swift; sourceTree = "<group>"; };
 		83A3C09C2C68EEFC0094CE60 /* SessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
 		83A7529B2AA06DB100A82604 /* JavaZoneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JavaZoneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,16 +157,21 @@
 		83E322A92403F5730044094C /* InfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoService.swift; sourceTree = "<group>"; };
 		83E322AD2403F5DC0044094C /* RemoteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteInfo.swift; sourceTree = "<group>"; };
 		83E322AF2403FC090044094C /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
+		AA000011CCCCCCCCAA000011 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
+		AA000013CCCCCCCCAA000013 /* AvatarCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCache.swift; sourceTree = "<group>"; };
+		AA000021CCCCCCCCAA000021 /* SessionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServiceTests.swift; sourceTree = "<group>"; };
+		AA000023CCCCCCCCAA000023 /* NotificationSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSchedulerTests.swift; sourceTree = "<group>"; };
+		AA000025CCCCCCCCAA000025 /* AppConfigPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigPersistenceTests.swift; sourceTree = "<group>"; };
 		BB000001CCCCCCCCBB000001 /* SessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTests.swift; sourceTree = "<group>"; };
-		BB000008CCCCCCCCBB000008 /* SessionBodyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionBodyTests.swift; sourceTree = "<group>"; };
-		CCAA001000000000CCAA0010 /* SessionBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionBody.swift; sourceTree = "<group>"; };
 		BB000003CCCCCCCCBB000003 /* SpeakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerTests.swift; sourceTree = "<group>"; };
 		BB000005CCCCCCCCBB000005 /* AppConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigTests.swift; sourceTree = "<group>"; };
+		BB000008CCCCCCCCBB000008 /* SessionBodyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionBodyTests.swift; sourceTree = "<group>"; };
 		CCAA000100000000CCAA0001 /* JavaZoneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaZoneApp.swift; sourceTree = "<group>"; };
 		CCAA000300000000CCAA0003 /* SessionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsViewModel.swift; sourceTree = "<group>"; };
 		CCAA000500000000CCAA0005 /* InfoLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLogView.swift; sourceTree = "<group>"; };
 		CCAA000700000000CCAA0007 /* InfoLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLogViewModel.swift; sourceTree = "<group>"; };
-		DD000001CCCCCCCCDD000001 /* Duke/Stickers.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Duke/Stickers.xcassets; sourceTree = SOURCE_ROOT; };
+		CCAA001000000000CCAA0010 /* SessionBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionBody.swift; sourceTree = "<group>"; };
+		DD000001CCCCCCCCDD000001 /* Stickers.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Duke/Stickers.xcassets; sourceTree = SOURCE_ROOT; };
 		DD000009CCCCCCCCDD000009 /* JavaZone.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JavaZone.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -372,8 +372,8 @@
 		DD000003CCCCCCCCDD000003 /* Duke */ = {
 			isa = PBXGroup;
 			children = (
-				DD000001CCCCCCCCDD000001 /* Duke/Stickers.xcassets */,
-				838048432407BF1600749E82 /* Duke/Info.plist */,
+				DD000001CCCCCCCCDD000001 /* Stickers.xcassets */,
+				838048432407BF1600749E82 /* Info.plist */,
 			);
 			path = Duke;
 			sourceTree = "<group>";
@@ -525,7 +525,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD000002CCCCCCCCDD000002 /* Duke/Stickers.xcassets in Resources */,
+				DD000002CCCCCCCCDD000002 /* Stickers.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
