@@ -121,6 +121,17 @@ FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD=<app-specific password from appleid
 SLACK_URL=<webhook URL for the app Slack channel>
 ```
 
+It also expects the `xcbeautify` xcodebuild formatter:
+
+```bash
+brew install xcbeautify
+```
+
+No Fastlane configuration is needed — `gym` and `scan` default to `xcbeautify` whenever it is
+on `PATH`, and fall back to the older `xcpretty` when it is not. The lanes still run without
+it, but xcpretty parses xcodebuild output with regexes written against older Xcode releases
+and can silently drop build errors.
+
 | Lane          | Command                                | Description                                       |
 | ------------- | -------------------------------------- | ------------------------------------------------- |
 | `unittest`    | `bundle exec fastlane ios unittest`    | Run unit tests                                    |
@@ -128,8 +139,8 @@ SLACK_URL=<webhook URL for the app Slack channel>
 | `bump`        | `bundle exec fastlane ios bump`        | Increment the build number and commit it          |
 | `bump_marketing` | `bundle exec fastlane ios bump_marketing` | Marketing version `year.x` -> `year.x+1`  |
 | `new_conference_year` | `bundle exec fastlane ios new_conference_year year:2027` | Roll marketing over to `2027.1` |
-| `tag_release` | `bundle exec fastlane ios tag_release` | Tag the shipped build and push                    |
-| `gitprep`     | `bundle exec fastlane ios gitprep`     | `bump` + `tag_release`                            |
+| `tag_release` | `bundle exec fastlane ios tag_release lane:iosbeta` | Tag the shipped build and push (see below) |
+| `gitprep`     | `bundle exec fastlane ios gitprep lane:iosbeta`     | `bump` + `tag_release`                     |
 | `metadata`    | `bundle exec fastlane ios metadata`    | Push store metadata + screenshots, no binary      |
 | `beta`        | `bundle exec fastlane ios beta`        | Test, bump, sign, build, upload to TestFlight     |
 | `release`     | `bundle exec fastlane ios release`     | Test, bump, sign, build, upload to the App Store  |
@@ -137,6 +148,12 @@ SLACK_URL=<webhook URL for the app Slack channel>
 `beta` and `release` run `unittest`, `bump` and `codesignprep` themselves, and only call
 `tag_release` **after** a successful upload — a failed signing or upload should not leave a
 tag behind for a build that never shipped.
+
+`tag_release` names the tag `builds/<lane>/<build number>` and takes the build number from
+`CURRENT_PROJECT_VERSION`. The lane part comes from `LANE_NAME`, which is the lane fastlane
+was **invoked** with, not the one running — so inside `beta` and `release` it produces
+`builds/iosbeta/N` and `builds/iosrelease/N` with no argument. Run on its own it would
+produce `builds/iostag_release/N`, which is why the standalone commands above pass `lane:`.
 
 ---
 
@@ -226,16 +243,32 @@ Then launch the app in a simulator: the day picker should show the new dates and
 session list should be populated. An empty programme here means the config or the session
 feed is not ready.
 
+A simulator that still holds **last year's** store will often show the old programme rather
+than an empty one. The app only refreshes when its store is empty or on a randomised chance,
+and `conferenceUrl` is re-read from the remote config only as part of a refresh — so stale
+sessions and a stale conference URL go together. Pull to refresh, or erase the simulator,
+before concluding the feed is broken.
+
 ### 4. Regenerate screenshots
 
 ```bash
 bundle exec fastlane ios screenshots
 ```
 
-Takes about 10 minutes across the three simulators in `fastlane/Snapfile`. Produces 11
+Takes about four minutes across the three simulators in `fastlane/Snapfile`. Produces 11
 files in `fastlane/screenshots/en-US/` — the iPad set has 3, not 4, because the UI test
 deliberately skips `1_SessionList` there. The files are gitignored; they are regenerated,
 never committed. Review them before going further.
+
+The UI test launches with `--force-refresh`, a DEBUG-only flag, so the run always fetches the
+live programme instead of whatever the simulators are still holding. Without it a simulator
+carrying last year's data screenshots the wrong year while appearing to succeed. The test
+then waits for the "Refreshing sessions" overlay to clear before touching any row, because a
+refresh batch-deletes every session.
+
+Expect rows 1, 3 and 5 of `1_SessionList` to show as already favourited on any run after the
+first — the UI test favourites those, and favourites now survive between runs. That is
+accepted and ships as-is.
 
 ### 5. Ship to TestFlight
 
@@ -246,6 +279,17 @@ bundle exec fastlane ios beta
 Requires a clean working tree (`bump` starts with `ensure_git_status_clean`).
 `upload_to_testflight` then waits for Apple to finish processing, typically 5–15 minutes —
 it polls, so leave it running. The build goes to internal testers, no Beta App Review.
+
+If the lane fails *after* the upload succeeds — tagging is the last thing it does — do **not**
+re-run `beta`, which would bump and upload a second build. Tag the one that shipped instead:
+
+```bash
+bundle exec fastlane ios tag_release lane:iosbeta
+```
+
+Distributing to **external** testers is a separate, manual step in App Store Connect and does
+require Beta App Review. Start it as early as you can, since it runs in parallel with
+everything else.
 
 ### 6. Push the store listing
 
@@ -261,6 +305,32 @@ reviewed in App Store Connect ahead of the release itself.
 ```bash
 bundle exec fastlane ios release
 ```
+
+---
+
+## Sticker pack icons
+
+The `Duke` sticker pack's icon set — 13 PNGs in
+`Duke/Stickers.xcassets/iMessage App Icon.stickersiconset` — is generated from the app icon,
+`JavaZone/Assets.xcassets/AppIcon.appiconset/ios-marketing.png`. Regenerate it whenever the
+app icon changes; it does not follow automatically.
+
+> Every file in that set must be **fully opaque**. App Store Connect rejects any alpha
+> channel in an iMessage app icon with error 90647, and the rejection arrives at *upload*
+> time — after a successful build, archive and export. This has regressed once already, when
+> a sticker pack was re-added from a commit that predated the original fix.
+
+Verify the **compiled** icons rather than the sources: `actool` extracts them as loose PNGs
+into the appex root, and those are what Apple inspects.
+
+```bash
+sips -g hasAlpha "$(find ~/Library/Developer/Xcode/DerivedData -name 'JavaZone.appex' | head -1)/iMessage App Icon27x20@2x.png"
+# must report: hasAlpha: no
+```
+
+Eight of the thirteen are 4:3 rather than square. Crop the square app icon to each target's
+exact ratio rather than letterboxing it — take the crop off the empty space above the artwork
+first and the remainder off the bottom. Letterboxing leaves Duke too small to read at 54x40.
 
 ---
 
