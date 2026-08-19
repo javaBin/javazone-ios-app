@@ -13,6 +13,9 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
+require "fileutils"
+require "tmpdir"
+
 default_platform(:ios)
 
 # Versions live in *project-level* build settings, and every target — the app, the Duke
@@ -40,6 +43,24 @@ def set_project_build_setting(key, value)
   project.build_configurations.each { |config| config.build_settings[key] = value }
   project.save
   UI.success("#{key} is now #{value}")
+end
+
+# Xcode's exportArchive IPA step shells out to /usr/bin/rsync (Apple's openrsync), but the
+# copy's *server* side is whatever `rsync` resolves to on PATH. Homebrew's rsync 3.5 does
+# not accept openrsync's `--extended-attributes` (it spells that `--xattrs`), so the step
+# fails with a bare "Copy failed" and exportArchive gives no further detail.
+#
+# Shadow just `rsync` with the system one for the duration of the build. Prepending
+# /usr/bin wholesale would also shadow mise's ruby with /usr/bin/ruby.
+def with_system_rsync
+  original = ENV["PATH"]
+  dir = File.join(Dir.tmpdir, "fastlane-system-rsync")
+  FileUtils.mkdir_p(dir)
+  FileUtils.ln_sf("/usr/bin/rsync", File.join(dir, "rsync"))
+  ENV["PATH"] = "#{dir}:#{original}"
+  yield
+ensure
+  ENV["PATH"] = original
 end
 
 # Release notes are versioned in git and used twice: as the App Store "What's New"
@@ -129,7 +150,7 @@ platform :ios do
     unittest
     bump
     codesignprep
-    build_app(scheme: "JavaZone", clean: true)
+    with_system_rsync { build_app(scheme: "JavaZone", clean: true) }
     upload_to_testflight(changelog: release_notes)
     tag_release
     slack(message: "Beta build uploaded")
@@ -140,7 +161,7 @@ platform :ios do
     unittest
     bump
     codesignprep
-    build_app(scheme: "JavaZone", clean: true)
+    with_system_rsync { build_app(scheme: "JavaZone", clean: true) }
     upload_to_app_store(
       overwrite_screenshots: true,
       precheck_include_in_app_purchases: false,
