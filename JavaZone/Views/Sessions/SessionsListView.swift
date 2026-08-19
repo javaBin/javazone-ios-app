@@ -219,6 +219,13 @@ struct SessionsListView: View {
         scrolledSection = target
     }
 
+#if DEBUG
+    /// One forced refresh per process. `appear()` also fires on tab switches and on the
+    /// favourites instance of this view, and a second refresh mid-run would batch-delete
+    /// the sessions the UI test is currently navigating.
+    @MainActor private static var hasForcedRefresh = false
+#endif
+
     private func appear(_ current: RelevantSessions) {
         let now = Date()
         let noSessions = current.sessions.isEmpty && !favouritesOnly && searchText.isEmpty
@@ -231,6 +238,15 @@ struct SessionsListView: View {
 
 #if DEBUG
         autorefresh = Bool.random()
+
+        // Screenshot runs must not ride on the coin flip above: a simulator carrying last
+        // year's store has sessions, so `noSessions` is false, and a tails flip leaves both
+        // the list and `conferenceUrl` on stale data.
+        if ProcessInfo.processInfo.arguments.contains("--force-refresh"), !Self.hasForcedRefresh {
+            Self.hasForcedRefresh = true
+            autorefresh = true
+        }
+
         logger.debug("Debug — set auto refresh \(autorefresh, privacy: .public)")
 #endif
 

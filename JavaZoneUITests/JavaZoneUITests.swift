@@ -89,11 +89,18 @@ final class JavaZoneUITests: XCTestCase {
     @MainActor
     func testScreenshots() throws {
         let app = XCUIApplication()
-        app.launchArguments += ["--skip-notifications"]
+        app.launchArguments += ["--skip-notifications", "--force-refresh"]
         setupSnapshot(app)
         app.launch()
 
         pause()
+
+        // The forced refresh batch-deletes every Session. Tapping a row mid-refresh would
+        // navigate to a model instance that is about to be invalidated.
+        let refreshing = app.staticTexts["Refreshing sessions"]
+        if refreshing.waitForExistence(timeout: 5) {
+            XCTAssertTrue(refreshing.waitForNonExistence(timeout: 60))
+        }
 
         let isPad = UIDevice.current.userInterfaceIdiom == .pad
 
