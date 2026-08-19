@@ -72,7 +72,7 @@ end
 platform :ios do
   desc "Unit Tests"
   lane :unittest do
-    run_tests(scheme: "JavaZone", slack_only_on_failure: true)
+    run_tests(scheme: "JavaZone", slack_only_on_failure: true, output_types: "junit")
   end
 
   desc "Generate screenshots"
