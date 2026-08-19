@@ -31,13 +31,45 @@ Unit Tests
 
 Generate screenshots
 
+### ios bump
+
+```sh
+[bundle exec] fastlane ios bump
+```
+
+Bump the build number and commit it
+
+### ios bump_marketing
+
+```sh
+[bundle exec] fastlane ios bump_marketing
+```
+
+Bump the marketing version (year.x -> year.x+1)
+
+### ios new_conference_year
+
+```sh
+[bundle exec] fastlane ios new_conference_year
+```
+
+Roll the marketing version over to a new conference year (e.g. 2027.1)
+
+### ios tag_release
+
+```sh
+[bundle exec] fastlane ios tag_release
+```
+
+Tag the shipped build and push
+
 ### ios gitprep
 
 ```sh
 [bundle exec] fastlane ios gitprep
 ```
 
-Git preparation
+Git preparation (bump, tag and push in one go)
 
 ### ios codesignprep
 
@@ -46,6 +78,14 @@ Git preparation
 ```
 
 Auto code sign
+
+### ios metadata
+
+```sh
+[bundle exec] fastlane ios metadata
+```
+
+Push store metadata and screenshots to App Store Connect (no binary)
 
 ### ios beta
 
@@ -61,7 +101,7 @@ Push a new beta build to TestFlight
 [bundle exec] fastlane ios release
 ```
 
-Push a new beta build to AppStore
+Push a new build to the App Store
 
 ----
 

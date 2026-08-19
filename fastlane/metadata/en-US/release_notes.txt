@@ -1,5 +1,5 @@
 Updated for JavaZone 2026.
 
-- Rebuilt on the latest iOS foundations for a faster, smoother programme
+- Rebuilt on the latest iOS foundations
 - Session reminders now follow the programme: if a talk moves, your reminder moves with it
 - Fixes for the day filter, session sharing and speaker links
