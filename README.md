@@ -308,13 +308,32 @@ from the project rather than from `deliver`'s own default, which globs `*.ipa` i
 directory: a stale `JavaZone.ipa` left behind by an earlier `build_app` would otherwise decide
 the version, and an editable version under a different number gets *renamed* to match.
 
+**Check the screenshot counts in App Store Connect afterwards — 4 / 4 / 3 for 6.9", 6.1" and
+13".** `deliver` uploads screenshots without waiting for each one to process, then re-fetches
+the version and matches local files against Apple's `sourceFileChecksum`. Assets Apple has not
+finished registering come back as *"X is missing on App Store Connect"*, and the retry then
+deletes only the entries that are **not** complete before uploading everything again — so the
+ones that had finished survive and end up stored twice. It is a race, and it is normal for it
+to hit some of the sets.
+
+Do **not** fix this by re-running the lane. `overwrite_screenshots` deletes every screenshot at
+the start of a run, so a re-run discards the good sets too and re-enters the same race; in
+practice that has made it worse rather than better. `DELIVER_NUMBER_OF_THREADS` does not fix it
+either — a lower value serialises the uploads, which concentrates the whole failure in the last
+set queued instead of scattering it.
+
+Delete the duplicates in App Store Connect by hand instead. They are byte-identical and the
+listing is sorted by filename, so the pairs sit next to each other. Then leave the listing
+alone: the next run of this lane will delete and re-upload everything again.
+
 ### 7. Release when the TestFlight build looks good
 
 ```bash
 bundle exec fastlane ios release
 ```
 
-This submits for review as well as uploading — `deliver` waits for the build to finish
+It does **not** touch screenshots — step 6 owns those, and re-uploading them here would undo
+any duplicate cleanup done there. This submits for review as well as uploading — `deliver` waits for the build to finish
 processing, attaches it to the version and creates the review submission, so there is no
 "pick the build and press Submit" step in App Store Connect. Export compliance is answered
 ahead of time by `ITSAppUsesNonExemptEncryption` in `JavaZone/Info.plist`; remove that key and

@@ -177,7 +177,11 @@ platform :ios do
     codesignprep
     with_system_rsync { build_app(scheme: "JavaZone", clean: true) }
     upload_to_app_store(
-      overwrite_screenshots: true,
+      # Screenshots are pushed by the `metadata` lane, one runbook step earlier. Re-uploading
+      # them here would delete the whole set and upload it again, re-running deliver's
+      # upload/verify race and re-creating the duplicates that step had to be cleaned up by
+      # hand. A version created without them inherits the previous version's screenshots.
+      skip_screenshots: true,
       # deliver waits for the build to finish processing, attaches it to the version and
       # creates the review submission, so no step of the submission is left to the ASC web UI.
       # Export compliance is answered by ITSAppUsesNonExemptEncryption in Info.plist, which is
