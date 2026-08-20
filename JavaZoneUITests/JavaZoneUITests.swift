@@ -136,4 +136,45 @@ final class JavaZoneUITests: XCTestCase {
 
         snapshot("4_Info")
     }
+
+    // Regression test: the favourite toggle lives inside the NavigationLink's label in
+    // a List row. Without .buttonStyle(.borderless) on it the link swallows the tap and
+    // the app pushes the detail view instead of favouriting the session.
+    @MainActor
+    func testListFavouriteToggleDoesNotNavigate() throws {
+        // iPad uses a NavigationSplitView, so the list stays on screen either way and
+        // the "did we navigate" assertion below cannot distinguish the two outcomes.
+        try XCTSkipIf(UIDevice.current.userInterfaceIdiom == .pad, "iPhone-only assertion")
+
+        let app = XCUIApplication()
+        app.launchArguments += ["--skip-notifications", "--force-refresh"]
+        app.launch()
+
+        let refreshing = app.staticTexts["Refreshing sessions"]
+        if refreshing.waitForExistence(timeout: 5) {
+            XCTAssertTrue(refreshing.waitForNonExistence(timeout: 60))
+        }
+
+        tapTab(app: app, name: "Sessions")
+
+        let list = app.collectionViews.firstMatch
+        XCTAssertTrue(list.waitForExistence(timeout: 10), "session list never appeared")
+
+        let addButton = list.buttons["add-to-favourites"].firstMatch
+        XCTAssertTrue(addButton.waitForExistence(timeout: 10), "no unfavourited session in the list")
+
+        addButton.tap()
+        pause()
+
+        // The search field is part of the list screen only — if we navigated to the
+        // detail view it is gone.
+        XCTAssertTrue(
+            app.textFields["Search sessions"].exists,
+            "tapping the favourite toggle navigated away from the list"
+        )
+        XCTAssertTrue(
+            list.buttons["remove-from-favourites"].firstMatch.waitForExistence(timeout: 5),
+            "session was not added to favourites"
+        )
+    }
 }
