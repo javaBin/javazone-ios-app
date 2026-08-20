@@ -133,7 +133,6 @@
 		8380469426FB4E3900624463 /* String+UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UtilsTest.swift"; sourceTree = "<group>"; };
 		838048432407BF1600749E82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Duke/Info.plist; sourceTree = SOURCE_ROOT; };
 		8397433823FD23110024E80B /* ExternalLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLink.swift; sourceTree = "<group>"; };
-		83A3C09C2C68EEFC0094CE60 /* SessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
 		83A7529B2AA06DB100A82604 /* JavaZoneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JavaZoneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A7529D2AA06DB100A82604 /* JavaZoneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaZoneUITests.swift; sourceTree = "<group>"; };
 		83A7529F2AA06DB100A82604 /* JavaZoneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaZoneUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -144,7 +143,6 @@
 		83B3332423FAF8A900F3FCB4 /* Search+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search+Keyboard.swift"; sourceTree = "<group>"; };
 		83B361A126E8E24600CFB552 /* DayPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPicker.swift; sourceTree = "<group>"; };
 		83B361A326E8E27900CFB552 /* SessionNavLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionNavLink.swift; sourceTree = "<group>"; };
-		83B445F42C6DD4A70067E1F6 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		83C8D17423F53646008322DA /* RemoteSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSession.swift; sourceTree = "<group>"; };
 		83C8D17623F53646008322DA /* RemoteSpeaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSpeaker.swift; sourceTree = "<group>"; };
 		83C8D17A23F5367E008322DA /* RemoteSessionList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteSessionList.swift; sourceTree = "<group>"; };
@@ -276,8 +274,6 @@
 				837E9BA424058D1000B74714 /* SessionsListView.swift */,
 				837E9BA224058D1000B74714 /* SessionsView.swift */,
 				837E9BA724058D1000B74714 /* SpeakerItemView.swift */,
-				83A3C09C2C68EEFC0094CE60 /* SessionViewModel.swift */,
-				83B445F42C6DD4A70067E1F6 /* SessionService.swift */,
 			);
 			path = Sessions;
 			sourceTree = "<group>";
