@@ -142,6 +142,12 @@ platform :ios do
   desc "Push store metadata and screenshots to App Store Connect (no binary)"
   lane :metadata do
     upload_to_app_store(
+      # deliver only *creates* the editable App Store version when it knows which version to
+      # create - runner.rb gates that on :app_version. It normally infers that from the ipa it
+      # is uploading, and there is none here. Left unset it would fall back to deliver's ipa
+      # default, which globs *.ipa in the working directory: a stale build_app artefact would
+      # then pick the version, and ensure_version! *renames* an editable version to match it.
+      app_version: project_build_setting("MARKETING_VERSION"),
       skip_binary_upload: true,
       skip_screenshots: false,
       overwrite_screenshots: true,
@@ -172,6 +178,15 @@ platform :ios do
     with_system_rsync { build_app(scheme: "JavaZone", clean: true) }
     upload_to_app_store(
       overwrite_screenshots: true,
+      # deliver waits for the build to finish processing, attaches it to the version and
+      # creates the review submission, so no step of the submission is left to the ASC web UI.
+      # Export compliance is answered by ITSAppUsesNonExemptEncryption in Info.plist, which is
+      # what stops this asking for :submission_information.
+      submit_for_review: true,
+      # Approval does not publish. The new version goes live when Release is pressed in App
+      # Store Connect, so the App Store update can be timed against the conference rather than
+      # against Apple's review queue.
+      automatic_release: false,
       precheck_include_in_app_purchases: false,
       force: true
     )

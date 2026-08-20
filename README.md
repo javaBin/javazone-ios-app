@@ -143,7 +143,7 @@ and can silently drop build errors.
 | `gitprep`     | `bundle exec fastlane ios gitprep lane:iosbeta`     | `bump` + `tag_release`                     |
 | `metadata`    | `bundle exec fastlane ios metadata`    | Push store metadata + screenshots, no binary      |
 | `beta`        | `bundle exec fastlane ios beta`        | Test, bump, sign, build, upload to TestFlight     |
-| `release`     | `bundle exec fastlane ios release`     | Test, bump, sign, build, upload to the App Store  |
+| `release`     | `bundle exec fastlane ios release`     | Test, bump, sign, build, upload **and submit for review** |
 
 `beta` and `release` run `unittest`, `bump` and `codesignprep` themselves, and only call
 `tag_release` **after** a successful upload — a failed signing or upload should not leave a
@@ -300,11 +300,34 @@ bundle exec fastlane ios metadata
 Uploads metadata and the new screenshots without a binary, so the App Store listing can be
 reviewed in App Store Connect ahead of the release itself.
 
+Nothing needs creating by hand in App Store Connect first. The lane passes
+`app_version: MARKETING_VERSION`, which is what makes `deliver` create the editable version
+if there isn't one — it only does that when it is told which version to create, and with no
+binary to upload it has nothing to infer that from. It is also the reason the number comes
+from the project rather than from `deliver`'s own default, which globs `*.ipa` in the working
+directory: a stale `JavaZone.ipa` left behind by an earlier `build_app` would otherwise decide
+the version, and an editable version under a different number gets *renamed* to match.
+
 ### 7. Release when the TestFlight build looks good
 
 ```bash
 bundle exec fastlane ios release
 ```
+
+This submits for review as well as uploading — `deliver` waits for the build to finish
+processing, attaches it to the version and creates the review submission, so there is no
+"pick the build and press Submit" step in App Store Connect. Export compliance is answered
+ahead of time by `ITSAppUsesNonExemptEncryption` in `JavaZone/Info.plist`; remove that key and
+the lane will stop and ask for `submission_information` instead.
+
+Approval does **not** publish. `automatic_release: false` leaves the version Pending Developer
+Release, so the App Store update is timed by pressing Release in App Store Connect rather than
+by Apple's review queue.
+
+Re-running `release` after a failure part-way through fails with *"A review submission is
+already in progress"* if the submission was created before the failure. Cancel the submission
+in App Store Connect first, or — if the upload itself succeeded — just tag the shipped build
+(`bundle exec fastlane ios tag_release lane:iosrelease`) and submit from the web UI.
 
 ---
 
