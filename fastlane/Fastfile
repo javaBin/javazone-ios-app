@@ -69,6 +69,48 @@ def release_notes
   File.read(File.join(File.dirname(__FILE__), "metadata/en-US/release_notes.txt")).strip
 end
 
+# The Duke sticker pack has its own App Store page, and App Store Connect will not review a
+# version that contains an iMessage app without screenshots for it. That check happens at
+# *submission*, several minutes into `release` and after the binary has already uploaded —
+# so assert it here instead, before any of that work is done.
+#
+# deliver derives the display type from the pixel dimensions alone (app_screenshot.rb:228),
+# so only these sizes count. Note the two hazards this guards against:
+#
+#   * There is no way to generate these from the screenshot UI test — the sticker browser
+#     lives in Apple's Messages app. They are composed by
+#     fastlane/scripts/make_imessage_screenshots.swift and committed.
+#   * `overwrite_screenshots` makes deliver delete *every* screenshot set on the
+#     localization (upload_screenshots.rb:83 filters by locale only, not display type), so
+#     an iMessage set added by hand in the ASC web UI is destroyed by the next run of this
+#     lane. The files have to be on disk here.
+IMESSAGE_SCREENSHOT_SIZES = {
+  "IMESSAGE_APP_IPHONE_65" => [[1242, 2688], [1284, 2778]],
+  "IMESSAGE_APP_IPAD_PRO_3GEN_129" => [[2048, 2732], [2064, 2752]]
+}.freeze
+
+# Width and height out of a PNG's IHDR chunk, which is always the first one: 8 bytes of
+# signature, 8 of chunk header, then two big-endian uint32s. Avoids a gem for two numbers.
+def png_dimensions(path)
+  File.binread(path, 24)[16, 8].unpack("N2")
+end
+
+def verify_imessage_screenshots!
+  dir = File.join(File.dirname(__FILE__), "screenshots/iMessage/en-US")
+  sizes = Dir.glob(File.join(dir, "*.png")).map { |path| png_dimensions(path) }
+
+  IMESSAGE_SCREENSHOT_SIZES.each do |display_type, accepted|
+    next if sizes.any? { |size| accepted.include?(size) }
+
+    UI.user_error!(
+      "No iMessage screenshot for #{display_type} in fastlane/screenshots/iMessage/en-US " \
+      "(need one of #{accepted.map { |w, h| "#{w}x#{h}" }.join(' or ')}, found " \
+      "#{sizes.empty? ? 'none' : sizes.map { |w, h| "#{w}x#{h}" }.join(', ')}). " \
+      "Run: swift fastlane/scripts/make_imessage_screenshots.swift"
+    )
+  end
+end
+
 platform :ios do
   desc "Unit Tests"
   lane :unittest do
@@ -141,6 +183,7 @@ platform :ios do
 
   desc "Push store metadata and screenshots to App Store Connect (no binary)"
   lane :metadata do
+    verify_imessage_screenshots!
     upload_to_app_store(
       # deliver only *creates* the editable App Store version when it knows which version to
       # create - runner.rb gates that on :app_version. It normally infers that from the ipa it

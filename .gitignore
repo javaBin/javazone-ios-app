@@ -76,6 +76,12 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/screenshots/*.html
+
+# The Duke sticker pack's iMessage screenshots are the exception to the rule above. They are
+# composed by fastlane/scripts/make_imessage_screenshots.swift rather than captured from a
+# simulator, and deliver deletes any screenshot set that is not on disk at upload time, so
+# they have to be versioned.
+!fastlane/screenshots/iMessage/en-US/*.png
 fastlane/test_output
 
 # Code Injection

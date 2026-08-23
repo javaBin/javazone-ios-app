@@ -270,6 +270,40 @@ Expect rows 1, 3 and 5 of `1_SessionList` to show as already favourited on any r
 first — the UI test favourites those, and favourites now survive between runs. That is
 accepted and ships as-is.
 
+#### The Duke sticker pack's screenshots
+
+The `Duke` sticker pack has its own App Store page, and App Store Connect refuses to review a
+version containing an iMessage app unless that page has screenshots. It asks for exactly two
+display types, `IMESSAGE_APP_IPHONE_65` and `IMESSAGE_APP_IPAD_PRO_3GEN_129`.
+
+They are **not** produced by the lane above and are **not** gitignored:
+
+```bash
+swift fastlane/scripts/make_imessage_screenshots.swift
+```
+
+`capture_screenshots` drives the app through XCUITest, and the sticker browser lives inside
+Apple's Messages app, which the test bundle cannot automate — so there is nothing to capture.
+The script composes both images from the pack's own `@3x` assets and writes them to
+`fastlane/screenshots/iMessage/en-US/`. Re-run it after adding or removing a sticker; the
+grid it fills comes from the `featured` list at the top of the script, so a sticker that is
+not listed there never appears.
+
+The `iMessage/` folder name is load-bearing: `deliver` decides a screenshot belongs to the
+iMessage page purely from that path component (`app_screenshot.rb:232`), then picks the
+display type from the pixel dimensions. A file in the wrong folder uploads silently as a
+*regular* iPhone screenshot.
+
+> This first bit in 2026.1. Builds 102 and 103 shipped with the pack removed (it came back in
+> `ae132f3`), so no earlier version had ever been asked for these — there was nothing to
+> inherit and nothing in the repo, and `release` failed at `submit_for_review` after the
+> binary had already uploaded. The `metadata` lane now asserts both sizes up front.
+
+Do not add these by hand in App Store Connect. Step 6 passes `overwrite_screenshots`, and
+`deliver` deletes **every** screenshot set on the localization at the start of a run —
+filtering by locale only, not by display type — so anything not on disk here is destroyed on
+the next push.
+
 ### 5. Ship to TestFlight
 
 ```bash
@@ -309,7 +343,7 @@ directory: a stale `JavaZone.ipa` left behind by an earlier `build_app` would ot
 the version, and an editable version under a different number gets *renamed* to match.
 
 **Check the screenshot counts in App Store Connect afterwards — 4 / 4 / 3 for 6.9", 6.1" and
-13".** `deliver` uploads screenshots without waiting for each one to process, then re-fetches
+13", plus 1 / 1 on the iMessage page's 6.5" and 12.9".** `deliver` uploads screenshots without waiting for each one to process, then re-fetches
 the version and matches local files against Apple's `sourceFileChecksum`. Assets Apple has not
 finished registering come back as *"X is missing on App Store Connect"*, and the retry then
 deletes only the entries that are **not** complete before uploading everything again — so the
