@@ -1,9 +1,6 @@
 import UIKit
 import os.log
 
-/// Speaker avatars are small, repeat across sessions, and are fetched over conference wifi.
-/// AsyncImage refetches and re-decodes on every appearance, so decoded images are held in
-/// memory and the bytes are backed by a dedicated on-disk URLCache.
 @MainActor
 final class AvatarCache {
     static let shared = AvatarCache()

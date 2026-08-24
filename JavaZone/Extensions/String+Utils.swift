@@ -1,8 +1,6 @@
 import Foundation
 
 extension String {
-    /// Deliberately not named `contains` — an overload with that signature shadows the
-    /// stdlib method for every String in the module and silently makes it case-insensitive.
     func containsIgnoringCase(_ candidate: String) -> Bool {
         self.range(of: candidate, options: .caseInsensitive) != nil
     }

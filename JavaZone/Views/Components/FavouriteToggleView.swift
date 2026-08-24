@@ -12,10 +12,6 @@ struct FavouriteToggleView: View {
                 .scaledToFit()
                 .frame(width: 30.0, height: 30.0)
         }
-        // In a List row this Button is nested inside the NavigationLink's label. With the
-        // default button style the whole row is one hit target and the link swallows the
-        // tap, so favouriting from the list navigated to the detail view instead.
-        // .borderless scopes the hit area to the button itself.
         .buttonStyle(.borderless)
         .accessibilityLabel(session.favourite ? "Remove from favourites" : "Add to favourites")
         .accessibilityHint(session.favourite ? "Removes this session from your schedule" :

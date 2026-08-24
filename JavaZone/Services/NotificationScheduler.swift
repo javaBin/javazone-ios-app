@@ -2,13 +2,9 @@ import Foundation
 import UserNotifications
 import os.log
 
-/// Owns every pending session reminder. Requests are keyed by `sessionId`, so a favourite
-/// can be scheduled or cancelled individually, and the whole set can be rebuilt after a
-/// refresh — session times move, and sessions get dropped from the programme.
 struct NotificationScheduler {
     static let logger = Logger(subsystem: Logger.subsystem, category: "NotificationScheduler")
 
-    /// A session that has a reminder scheduled for it.
     struct Reminder {
         let sessionId: String
         let title: String
@@ -16,7 +12,7 @@ struct NotificationScheduler {
         let start: Date
     }
 
-    /// Skipped in UI test runs so the permission dialog never interrupts screenshots.
+    /// Skipped in UI test runs
     static var isDisabled: Bool {
         ProcessInfo.processInfo.arguments.contains("--skip-notifications")
     }
@@ -47,8 +43,6 @@ struct NotificationScheduler {
             .removePendingNotificationRequests(withIdentifiers: [sessionId])
     }
 
-    /// Rebuilds the full set of pending reminders from the current favourites. Called after
-    /// a refresh, where every Session row has been replaced and start times may have moved.
     static func reconcile(favourites: [Reminder]) async {
         guard !isDisabled else { return }
         let center = UNUserNotificationCenter.current()

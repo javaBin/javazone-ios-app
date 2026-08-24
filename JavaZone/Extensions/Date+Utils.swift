@@ -10,10 +10,6 @@ extension Date {
         #endif
     }
 
-    /// Fixed-format formatters must pin locale and calendar. The user's locale otherwise
-    /// supplies the calendar and numbering system, so "dd.MM.yyyy" renders Buddhist-era
-    /// years on a Thai device — which breaks the day filter in SessionsListView, since it
-    /// compares asDate() against plain strings from the remote config.
     private static func fixedFormatter(_ format: String) -> DateFormatter {
         let fmt = DateFormatter()
         fmt.locale = Locale(identifier: "en_US_POSIX")

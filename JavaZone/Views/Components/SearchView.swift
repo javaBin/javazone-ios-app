@@ -1,5 +1,3 @@
-// Search code based on https://stackoverflow.com/a/58473985/896214
-
 import SwiftUI
 
 struct SearchView: View {

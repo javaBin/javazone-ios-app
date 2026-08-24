@@ -6,7 +6,6 @@ import os.log
 final class AppConfig {
     private let logger = Logger(subsystem: Logger.subsystem, category: "AppConfig")
 
-    /// Injectable so tests don't mutate the test host's real defaults.
     @ObservationIgnored private let defaults: UserDefaults
 
     var title: String = AppConfig.defaultTitle
@@ -42,15 +41,6 @@ final class AppConfig {
         web = stored.web
     }
 
-    /// Applies a remote config, or rejects it whole.
-    ///
-    /// Sleeping Pill generates this payload, so every field is expected to be present — a
-    /// partial one means a corrupt download, not a partially-published conference. Applying
-    /// it field by field would persist a half-config over known-good values, and the worst
-    /// case there is silent: `conferenceUrl` falling back to "" leaves nowhere to fetch
-    /// sessions from, and the empty string is then saved for the next launch.
-    ///
-    /// - Returns: `true` when the config was applied and persisted.
     @discardableResult
     func apply(remote: RemoteConfig) -> Bool {
         guard let conferenceName = remote.conferenceName,
@@ -68,7 +58,6 @@ final class AppConfig {
         return true
     }
 
-    /// Always exactly `dayCount` entries — `dates` is subscripted by the DayPicker index.
     private static func normalized(_ dates: [String]) -> [String] {
         guard dates.count != dayCount else { return dates }
         var result = Array(dates.prefix(dayCount))

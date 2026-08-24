@@ -67,7 +67,6 @@ struct SessionService {
         await NotificationScheduler.reconcile(favourites: reminders(in: context))
     }
 
-    /// Reminders for every favourite currently in the store.
     @MainActor
     private static func reminders(in context: ModelContext) -> [NotificationScheduler.Reminder] {
         let descriptor = FetchDescriptor<Session>(predicate: #Predicate { $0.favourite == true })
@@ -94,8 +93,6 @@ struct SessionService {
         }
     }
 
-    /// Detached so the whole programme is not decoded on the main thread — refresh() is
-    /// @MainActor because it writes to the main ModelContext.
     private static func decodeSessionList(from data: Data) async throws -> RemoteSessionList {
         do {
             return try await Task.detached(priority: .userInitiated) {
