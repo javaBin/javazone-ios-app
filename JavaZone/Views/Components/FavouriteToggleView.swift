@@ -9,7 +9,7 @@ struct FavouriteToggleView: View {
         Button(action: toggle) {
             Image(systemName: imageName)
                 .resizable()
-                .aspectRatio(contentMode: .fit)
+                .scaledToFit()
                 .frame(width: 30.0, height: 30.0)
         }
         // In a List row this Button is nested inside the NavigationLink's label. With the

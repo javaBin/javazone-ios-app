@@ -67,7 +67,7 @@ let featured = [
     "duke_vestfold",
     "duke_sorlandet",
     "jz24_usb_duke",
-    "bart_duke",
+    "bart_duke"
 ]
 
 struct Layout {
@@ -80,7 +80,7 @@ struct Layout {
 
 let layouts = [
     Layout(name: "1_Stickers-iphone65", width: 1242, height: 2688, columns: 3, rows: 4),
-    Layout(name: "1_Stickers-ipad13", width: 2048, height: 2732, columns: 5, rows: 4),
+    Layout(name: "1_Stickers-ipad13", width: 2048, height: 2732, columns: 5, rows: 4)
 ]
 
 // JZ26 branding: coral on white.
@@ -133,30 +133,6 @@ func aspectFit(size: CGSize, in bounds: CGRect) -> CGRect {
     )
 }
 
-func drawCentredText(
-    _ text: String,
-    in context: CGContext,
-    fontSize: CGFloat,
-    color: CGColor,
-    centreX: CGFloat,
-    baselineY: CGFloat
-) {
-    let font = CTFontCreateWithName("Helvetica-Bold" as CFString, fontSize, nil)
-    // Foundation alone has no .font / .foregroundColor attribute keys — those are AppKit's.
-    // Spell them with CoreText's own key names so this stays a dependency-free script.
-    let attributed = NSAttributedString(
-        string: text,
-        attributes: [
-            NSAttributedString.Key(kCTFontAttributeName as String): font,
-            NSAttributedString.Key(kCTForegroundColorAttributeName as String): color,
-        ]
-    )
-    let line = CTLineCreateWithAttributedString(attributed)
-    let bounds = CTLineGetBoundsWithOptions(line, .useOpticalBounds)
-    context.textPosition = CGPoint(x: centreX - bounds.width / 2, y: baselineY)
-    CTLineDraw(line, context)
-}
-
 func write(_ image: CGImage, to url: URL) {
     guard let destination = CGImageDestinationCreateWithURL(
         url as CFURL, UTType.png.identifier as CFString, 1, nil
@@ -171,99 +147,143 @@ func write(_ image: CGImage, to url: URL) {
 
 // MARK: - Rendering
 
-func render(_ layout: Layout, logo: CGImage, stickers: [CGImage]) -> CGImage {
-    guard let context = CGContext(
-        data: nil,
-        width: layout.width,
-        height: layout.height,
-        bitsPerComponent: 8,
-        bytesPerRow: 0,
-        space: CGColorSpace(name: CGColorSpace.sRGB)!,
-        // noneSkipLast drops the alpha channel from the written PNG. App Store
-        // screenshots with an alpha channel are rejected at upload — the same trap the
-        // sticker pack's app icon hit with error 90647 (see README).
-        bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue
-    ) else {
-        fail("could not create a \(layout.width)x\(layout.height) bitmap context")
+/// One screenshot in progress: the bitmap context plus the metrics every element on the
+/// page positions itself against, so the drawing steps do not each have to be handed the
+/// same handful of numbers.
+///
+/// CoreGraphics is bottom-left origin. Each `draw*` method lays its element out from the
+/// top and returns the y it bottomed out at, so `render` reads as a downward flow.
+struct Page {
+    let layout: Layout
+    let context: CGContext
+
+    var width: CGFloat { CGFloat(layout.width) }
+    var height: CGFloat { CGFloat(layout.height) }
+    var margin: CGFloat { width * 0.07 }
+    var captionFontSize: CGFloat { width * 0.042 }
+
+    init(_ layout: Layout) {
+        guard let context = CGContext(
+            data: nil,
+            width: layout.width,
+            height: layout.height,
+            bitsPerComponent: 8,
+            bytesPerRow: 0,
+            space: CGColorSpace(name: CGColorSpace.sRGB)!,
+            // noneSkipLast drops the alpha channel from the written PNG. App Store
+            // screenshots with an alpha channel are rejected at upload — the same trap the
+            // sticker pack's app icon hit with error 90647 (see README).
+            bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue
+        ) else {
+            fail("could not create a \(layout.width)x\(layout.height) bitmap context")
+        }
+        self.layout = layout
+        self.context = context
     }
 
-    let width = CGFloat(layout.width)
-    let height = CGFloat(layout.height)
-    let margin = width * 0.07
+    /// App Store screenshots are rejected with an alpha channel, so paint the ground
+    /// opaque rather than relying on the context's cleared state.
+    func fillBackground() {
+        context.setFillColor(paper)
+        context.fill(CGRect(x: 0, y: 0, width: width, height: height))
+    }
 
-    // App Store screenshots are rejected with an alpha channel, so paint the ground
-    // opaque rather than relying on the context's cleared state.
-    context.setFillColor(paper)
-    context.fill(CGRect(x: 0, y: 0, width: width, height: height))
-
-    // CoreGraphics is bottom-left origin; everything below is laid out from the top by
-    // subtracting from `height`.
-
-    // Logo, top-aligned.
-    let logoBox = CGRect(
-        x: margin,
-        y: height - margin - height * 0.10,
-        width: width - margin * 2,
-        height: height * 0.10
-    )
-    context.draw(logo, in: aspectFit(
-        size: CGSize(width: logo.width, height: logo.height), in: logoBox
-    ))
-
-    // Caption under the logo.
-    let captionSize = width * 0.042
-    let captionBaseline = logoBox.minY - captionSize * 1.6
-    drawCentredText(
-        caption,
-        in: context,
-        fontSize: captionSize,
-        color: ink,
-        centreX: width / 2,
-        baselineY: captionBaseline
-    )
-
-    // Coral rule between the caption and the grid.
-    let ruleY = captionBaseline - captionSize * 0.9
-    context.setFillColor(coral)
-    context.fill(CGRect(
-        x: width / 2 - width * 0.08,
-        y: ruleY,
-        width: width * 0.16,
-        height: max(3, width * 0.005)
-    ))
-
-    // Sticker grid, filling what is left below the rule.
-    let gridTop = ruleY - margin
-    let gridBottom = margin
-    let gridHeight = gridTop - gridBottom
-    let gridWidth = width - margin * 2
-    let cellWidth = gridWidth / CGFloat(layout.columns)
-    let cellHeight = gridHeight / CGFloat(layout.rows)
-    let padding = min(cellWidth, cellHeight) * 0.10
-    let corner = min(cellWidth, cellHeight) * 0.14
-
-    for (index, sticker) in stickers.prefix(layout.columns * layout.rows).enumerated() {
-        let column = index % layout.columns
-        let row = index / layout.columns
-        let cell = CGRect(
-            x: margin + CGFloat(column) * cellWidth,
-            y: gridTop - CGFloat(row + 1) * cellHeight,
-            width: cellWidth,
-            height: cellHeight
-        ).insetBy(dx: padding, dy: padding)
-
-        context.setFillColor(tile)
-        context.addPath(CGPath(roundedRect: cell, cornerWidth: corner, cornerHeight: corner, transform: nil))
-        context.fillPath()
-
-        let inner = cell.insetBy(dx: cell.width * 0.10, dy: cell.height * 0.10)
-        context.draw(sticker, in: aspectFit(
-            size: CGSize(width: sticker.width, height: sticker.height), in: inner
+    /// Draws the logo top-aligned. Returns the y of its bottom edge.
+    func drawLogo(_ logo: CGImage) -> CGFloat {
+        let box = CGRect(
+            x: margin,
+            y: height - margin - height * 0.10,
+            width: width - margin * 2,
+            height: height * 0.10
+        )
+        context.draw(logo, in: aspectFit(
+            size: CGSize(width: logo.width, height: logo.height), in: box
         ))
+        return box.minY
     }
 
-    guard let image = context.makeImage() else { fail("could not snapshot the context") }
-    return image
+    /// Draws the caption under `edge`. Returns its baseline.
+    func drawCaption(_ text: String, below edge: CGFloat) -> CGFloat {
+        let baseline = edge - captionFontSize * 1.6
+        drawCentredText(text, fontSize: captionFontSize, color: ink, baselineY: baseline)
+        return baseline
+    }
+
+    /// Draws the coral rule separating the caption from the grid. Returns its y.
+    func drawRule(below baseline: CGFloat) -> CGFloat {
+        let ruleY = baseline - captionFontSize * 0.9
+        context.setFillColor(coral)
+        context.fill(CGRect(
+            x: width / 2 - width * 0.08,
+            y: ruleY,
+            width: width * 0.16,
+            height: max(3, width * 0.005)
+        ))
+        return ruleY
+    }
+
+    /// Fills what is left between `top` and the bottom margin with the sticker grid.
+    func drawGrid(_ stickers: [CGImage], top: CGFloat) {
+        let cellWidth = (width - margin * 2) / CGFloat(layout.columns)
+        let cellHeight = (top - margin) / CGFloat(layout.rows)
+        let padding = min(cellWidth, cellHeight) * 0.10
+        let corner = min(cellWidth, cellHeight) * 0.14
+
+        for (index, sticker) in stickers.prefix(layout.columns * layout.rows).enumerated() {
+            let cell = CGRect(
+                x: margin + CGFloat(index % layout.columns) * cellWidth,
+                y: top - CGFloat(index / layout.columns + 1) * cellHeight,
+                width: cellWidth,
+                height: cellHeight
+            ).insetBy(dx: padding, dy: padding)
+
+            context.setFillColor(tile)
+            context.addPath(CGPath(roundedRect: cell, cornerWidth: corner, cornerHeight: corner, transform: nil))
+            context.fillPath()
+
+            let inner = cell.insetBy(dx: cell.width * 0.10, dy: cell.height * 0.10)
+            context.draw(sticker, in: aspectFit(
+                size: CGSize(width: sticker.width, height: sticker.height), in: inner
+            ))
+        }
+    }
+
+    func snapshot() -> CGImage {
+        guard let image = context.makeImage() else { fail("could not snapshot the context") }
+        return image
+    }
+
+    private func drawCentredText(
+        _ text: String,
+        fontSize: CGFloat,
+        color: CGColor,
+        baselineY: CGFloat
+    ) {
+        let font = CTFontCreateWithName("Helvetica-Bold" as CFString, fontSize, nil)
+        // Foundation alone has no .font / .foregroundColor attribute keys — those are AppKit's.
+        // Spell them with CoreText's own key names so this stays a dependency-free script.
+        let attributed = NSAttributedString(
+            string: text,
+            attributes: [
+                NSAttributedString.Key(kCTFontAttributeName as String): font,
+                NSAttributedString.Key(kCTForegroundColorAttributeName as String): color
+            ]
+        )
+        let line = CTLineCreateWithAttributedString(attributed)
+        let bounds = CTLineGetBoundsWithOptions(line, .useOpticalBounds)
+        context.textPosition = CGPoint(x: width / 2 - bounds.width / 2, y: baselineY)
+        CTLineDraw(line, context)
+    }
+}
+
+func render(_ layout: Layout, logo: CGImage, stickers: [CGImage]) -> CGImage {
+    let page = Page(layout)
+    page.fillBackground()
+    let logoBottom = page.drawLogo(logo)
+    let captionBaseline = page.drawCaption(caption, below: logoBottom)
+    let ruleY = page.drawRule(below: captionBaseline)
+    page.drawGrid(stickers, top: ruleY - page.margin)
+    return page.snapshot()
 }
 
 // MARK: - Main

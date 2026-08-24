@@ -5,7 +5,7 @@ struct DefaultSpeakerImage: View {
     var body: some View {
         Image(systemName: "person")
             .resizable()
-            .aspectRatio(contentMode: .fit)
+            .scaledToFit()
             .frame(width: 32.0, height: 32.0)
     }
 }
@@ -21,7 +21,7 @@ struct SpeakerImage: View {
                 Image(uiImage: image)
                     .resizable()
                     .clipShape(Capsule())
-                    .aspectRatio(contentMode: .fit)
+                    .scaledToFit()
                     .frame(width: 32.0, height: 32.0)
             } else {
                 DefaultSpeakerImage()
