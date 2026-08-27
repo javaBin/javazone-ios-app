@@ -9,5 +9,21 @@
       "title": "javazone.no",
       "url": "https://javazone.no"
     }
+  },
+  {
+    "title": "JavaZone Menu",
+    "body": "Food at JavaZone",
+    "url": {
+      "title": "JavaZone Food Menu",
+      "url": "https://2026.javazone.no/food/"
+    }
+  },
+  {
+    "title": "AweZone",
+    "body": "When the talks are done for the day, JavaZone is far from over. It's time to swap code for music, grab your conference friends, and join us for an evening of live performances, activities, and proper JavaZone party energy.",
+    "url": {
+      "title": "AweZone Party",
+      "url": "https://2026.javazone.no/awezone"
+    }
   }
 ]
