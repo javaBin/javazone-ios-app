@@ -3,6 +3,14 @@
     "title": "Wi-Fi - SSID: JavaZone 2026"
   },
   {
+    "title": "Venue Map",
+    "body": "Find your way around the venue - rooms, stands and the expo floor.",
+    "url": {
+      "title": "Open venue map",
+      "url": "https://javabin.github.io/javazone-ios-app/venue_map_2026.png"
+    }
+  },
+  {
     "title": "JavaZone Website",
     "body": "Visit us on the web",
     "url": {
@@ -24,6 +32,22 @@
     "url": {
       "title": "AweZone Party",
       "url": "https://2026.javazone.no/awezone"
+    }
+  },
+  {
+    "title": "JavaZone on X",
+    "body": "Follow us for news and updates",
+    "url": {
+      "title": "@javazone",
+      "url": "https://x.com/javazone"
+    }
+  },
+  {
+    "title": "JavaZone on Bluesky",
+    "body": "Follow us for news and updates",
+    "url": {
+      "title": "@javazone.bsky.social",
+      "url": "https://bsky.app/profile/javazone.bsky.social"
     }
   }
 ]
